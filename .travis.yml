@@ -5,4 +5,7 @@ dotnet: 2.1.101
 script:
  - cd src
  - dotnet build
+ - cd Pipedrive.net.Tests
  - dotnet test
+ - cd ..
+ - cd Pipedrive.net.Tests.Integration
