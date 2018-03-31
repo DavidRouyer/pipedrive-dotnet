@@ -1,5 +1,6 @@
 language: csharp
 mono: none
+dist: trusty
 dotnet: 2.1.101
 script:
  - cd src
