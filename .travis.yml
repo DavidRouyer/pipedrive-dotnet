@@ -4,3 +4,4 @@ dotnet: 2.0.6
 script:
  - cd src
  - dotnet build
+ - dotnet test
