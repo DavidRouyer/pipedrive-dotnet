@@ -9,3 +9,4 @@ script:
  - dotnet test
  - cd ..
  - cd Pipedrive.net.Tests.Integration
+ - dotnet test
