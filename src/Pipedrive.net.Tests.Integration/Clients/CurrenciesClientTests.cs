@@ -12,7 +12,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
             var currencies = await pipedrive.Currency.GetAll();
             Assert.Equal(178, currencies.Count);
+            Assert.True(currencies[0].ActiveFlag);
             Assert.False(currencies[0].IsCustomFlag);
+            Assert.True(currencies[1].ActiveFlag);
             Assert.False(currencies[1].IsCustomFlag);
         }
 

@@ -35,6 +35,7 @@ namespace Pipedrive
             var apiConnection = new ApiConnection(connection);
             Currency = new CurrenciesClient(apiConnection);
             ActivityField = new ActivityFieldsClient(apiConnection);
+            ActivityType = new ActivityTypesClient(apiConnection);
         }
 
         /// <summary>
@@ -87,6 +88,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/ActivityFields
         /// </remarks>
         public IActivityFieldsClient ActivityField { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's Activity Type API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/ActivityTypes
+        /// </remarks>
+        public IActivityTypesClient ActivityType { get; private set; }
 
         static Uri FixUpBaseUri(Uri uri)
         {
