@@ -26,8 +26,10 @@ namespace Pipedrive.Tests.Clients
 
                 await client.GetAll();
 
-                connection.Received()
-                    .GetAll<ActivityType>(Arg.Is<Uri>(u => u.ToString() == "activityTypes"));
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<ActivityType>(Arg.Is<Uri>(u => u.ToString() == "activityTypes"));
+                });
             }
         }
     }

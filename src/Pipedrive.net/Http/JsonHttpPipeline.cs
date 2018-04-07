@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Pipedrive.Helpers;
 using System;
-using System.Collections;
 using System.IO;
 using System.Net.Http;
 

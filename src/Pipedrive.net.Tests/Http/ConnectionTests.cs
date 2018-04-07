@@ -330,7 +330,7 @@ namespace Pipedrive.Tests.Http
                     req.BaseAddress == _exampleUri &&
                     (string)req.Body == expectedBody &&
                     req.Method == HttpMethod.Put &&
-                    req.ContentType == "application/x-www-form-urlencoded" &&
+                    req.ContentType == "application/json" &&
                     req.Endpoint == new Uri($"endpoint?api_token={exampleToken}", UriKind.Relative)), Args.CancellationToken);
             }
 
@@ -379,7 +379,7 @@ namespace Pipedrive.Tests.Http
 
                 httpClient.Received(1).Send(Arg.Is<IRequest>(req =>
                     req.BaseAddress == _exampleUri &&
-                    req.ContentType == "application/x-www-form-urlencoded" &&
+                    req.ContentType == "application/json" &&
                     (string)req.Body == data &&
                     req.Method == HttpMethod.Post &&
                     req.Endpoint == new Uri($"endpoint?api_token={exampleToken}", UriKind.Relative)), Args.CancellationToken);
@@ -432,7 +432,7 @@ namespace Pipedrive.Tests.Http
 
                 httpClient.Received().Send(Arg.Is<IRequest>(req =>
                     req.Headers["Accept"] == "application/json" &&
-                    req.ContentType == "application/x-www-form-urlencoded"), Args.CancellationToken);
+                    req.ContentType == "application/json"), Args.CancellationToken);
             }
         }
 

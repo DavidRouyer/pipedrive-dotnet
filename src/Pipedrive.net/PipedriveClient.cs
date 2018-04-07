@@ -33,9 +33,10 @@ namespace Pipedrive
 
             Connection = connection;
             var apiConnection = new ApiConnection(connection);
-            Currency = new CurrenciesClient(apiConnection);
+            Activity = new ActivitiesClient(apiConnection);
             ActivityField = new ActivityFieldsClient(apiConnection);
             ActivityType = new ActivityTypesClient(apiConnection);
+            Currency = new CurrenciesClient(apiConnection);
         }
 
         /// <summary>
@@ -74,12 +75,12 @@ namespace Pipedrive
         public IConnection Connection { get; private set; }
 
         /// <summary>
-        /// Access Pipedrive's Currency API.
+        /// Access Pipedrive's Activity API.
         /// </summary>
         /// <remarks>
-        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Currencies
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Activities
         /// </remarks>
-        public ICurrenciesClient Currency { get; private set; }
+        public IActivitiesClient Activity { get; private set; }
 
         /// <summary>
         /// Access Pipedrive's Activity Field API.
@@ -96,6 +97,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/ActivityTypes
         /// </remarks>
         public IActivityTypesClient ActivityType { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's Currency API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Currencies
+        /// </remarks>
+        public ICurrenciesClient Currency { get; private set; }
 
         static Uri FixUpBaseUri(Uri uri)
         {

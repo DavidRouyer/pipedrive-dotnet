@@ -27,8 +27,10 @@ namespace Pipedrive.Tests.Clients
 
                 await client.GetAll();
 
-                connection.Received()
-                    .GetAll<Currency>(Arg.Is<Uri>(u => u.ToString() == "currencies"));
+                Received.InOrder(async() =>
+                {
+                    await connection.GetAll<Currency>(Arg.Is<Uri>(u => u.ToString() == "currencies"));
+                });
             }
 
             [Fact]
@@ -39,11 +41,14 @@ namespace Pipedrive.Tests.Clients
 
                 await client.GetAll("fake");
 
-                connection.Received()
-                    .GetAll<Currency>(
-                        Arg.Is<Uri>(u => u.ToString() == "currencies"),
-                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
-                            && d["term"] == "fake"));
+                Received.InOrder(async () =>
+                {
+                    await connection
+                        .GetAll<Currency>(
+                            Arg.Is<Uri>(u => u.ToString() == "currencies"),
+                            Arg.Is<Dictionary<string, string>>(d => d.Count == 1
+                                && d["term"] == "fake"));
+                });
             }
         }
     }

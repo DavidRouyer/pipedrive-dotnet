@@ -230,7 +230,7 @@ namespace Pipedrive
             {
                 request.Body = body;
                 // Default Content Type per: http://developer.github.com/v3/
-                request.ContentType = contentType ?? "application/x-www-form-urlencoded";
+                request.ContentType = contentType ?? "application/json";
             }
 
             return Run<T>(request, cancellationToken);

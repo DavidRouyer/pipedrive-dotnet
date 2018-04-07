@@ -8,10 +8,12 @@ namespace Pipedrive
 
         IConnection Connection { get; }
 
-        ICurrenciesClient Currency { get; }
+        IActivitiesClient Activity { get; }
 
         IActivityFieldsClient ActivityField { get; }
 
         IActivityTypesClient ActivityType { get; }
+
+        ICurrenciesClient Currency { get; }
     }
 }
