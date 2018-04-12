@@ -31,5 +31,22 @@ namespace Pipedrive
 
         [JsonProperty("update_time")]
         public DateTime? UpdateTime { get; set; }
+
+        public ActivityTypeUpdate ToUpdate()
+        {
+            ActivityTypeIcon iconKey = ActivityTypeIcon.Addressbook;
+            if (!Enum.TryParse(IconKey, out iconKey))
+            {
+                throw new Exception($"Icon key '{IconKey}' does not exist in ActivityTypeIcon");
+            }
+
+            return new ActivityTypeUpdate
+            {
+                Name = Name,
+                IconKey = iconKey,
+                Color = Color,
+                OrderNr = OrderNr
+            };
+        }
     }
 }

@@ -405,7 +405,7 @@ namespace Pipedrive
                 throw exceptionFunc(response);
             }
 
-            if ((int)response.StatusCode >= 400)
+            if ((int)response.StatusCode >= 400 && (int)response.StatusCode != 410) // Pipedrive uses 410 (Gone) for successful delete
             {
                 throw new ApiException(response);
             }

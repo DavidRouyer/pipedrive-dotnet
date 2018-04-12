@@ -11,5 +11,11 @@ namespace Pipedrive
     public interface IActivityTypesClient
     {
         Task<IReadOnlyList<ActivityType>> GetAll();
+
+        Task<ActivityType> Create(NewActivityType data);
+
+        Task<ActivityType> Edit(int id, ActivityTypeUpdate data);
+
+        Task Delete(int id);
     }
 }

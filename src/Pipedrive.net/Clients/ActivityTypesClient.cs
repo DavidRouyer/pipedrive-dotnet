@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Pipedrive.Helpers;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Pipedrive
@@ -21,6 +22,25 @@ namespace Pipedrive
         public Task<IReadOnlyList<ActivityType>> GetAll()
         {
             return ApiConnection.GetAll<ActivityType>(ApiUrls.ActivityTypes());
+        }
+
+        public Task<ActivityType> Create(NewActivityType data)
+        {
+            Ensure.ArgumentNotNull(data, nameof(data));
+
+            return ApiConnection.Post<ActivityType>(ApiUrls.ActivityTypes(), data);
+        }
+
+        public Task<ActivityType> Edit(int id, ActivityTypeUpdate data)
+        {
+            Ensure.ArgumentNotNull(data, nameof(data));
+
+            return ApiConnection.Put<ActivityType>(ApiUrls.ActivityType(id), data);
+        }
+
+        public Task Delete(int id)
+        {
+            return ApiConnection.Delete(ApiUrls.ActivityType(id));
         }
     }
 }

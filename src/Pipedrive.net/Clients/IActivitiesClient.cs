@@ -18,7 +18,7 @@ namespace Pipedrive
 
         Task<Activity> Get(int id);
 
-        Task<Activity> Create(NewActivity activity);
+        Task<Activity> Create(NewActivity data);
 
         Task<Activity> Edit(int id, ActivityUpdate data);
 

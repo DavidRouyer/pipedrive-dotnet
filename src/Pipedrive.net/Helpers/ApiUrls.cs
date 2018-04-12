@@ -55,6 +55,17 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for the specified activity type.
+        /// </summary>
+        /// <param name="id">The id of the activity type</param>
+        public static Uri ActivityType(int id)
+        {
+            Ensure.ArgumentNotNull(id, nameof(id));
+
+            return new Uri($"activityTypes/{id}", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all of the currencies in response to a GET request.
         /// </summary>
         /// <returns></returns>
