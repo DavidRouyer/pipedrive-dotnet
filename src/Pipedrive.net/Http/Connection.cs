@@ -394,7 +394,10 @@ namespace Pipedrive
                 { HttpStatusCode.Unauthorized, GetExceptionForUnauthorized },
                 { HttpStatusCode.Forbidden, GetExceptionForForbidden },
                 { HttpStatusCode.NotFound, response => new NotFoundException(response) },
-                { (HttpStatusCode)422, response => new ApiValidationException(response) }
+                { (HttpStatusCode)422, response => new ApiValidationException(response) },
+                { (HttpStatusCode)429, response => new TooManyRequestsException(response) },
+                { HttpStatusCode.InternalServerError, response => new InternalServerErrorException(response) },
+                { HttpStatusCode.NotImplemented, response => new NotImplementedException(response) }
             };
 
         static void HandleErrors(IResponse response)
