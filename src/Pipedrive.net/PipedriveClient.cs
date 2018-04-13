@@ -37,6 +37,7 @@ namespace Pipedrive
             ActivityField = new ActivityFieldsClient(apiConnection);
             ActivityType = new ActivityTypesClient(apiConnection);
             Currency = new CurrenciesClient(apiConnection);
+            DealField = new DealFieldsClient(apiConnection);
         }
 
         /// <summary>
@@ -105,6 +106,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Currencies
         /// </remarks>
         public ICurrenciesClient Currency { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's Deal Field API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/DealFields
+        /// </remarks>
+        public IDealFieldsClient DealField { get; private set; }
 
         static Uri FixUpBaseUri(Uri uri)
         {

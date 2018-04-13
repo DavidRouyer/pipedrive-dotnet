@@ -16,7 +16,7 @@ namespace Pipedrive
         public string KeyString { get; set; }
 
         [JsonProperty("icon_key")]
-        public string IconKey { get; set; }
+        public ActivityTypeIcon IconKey { get; set; }
 
         [JsonProperty("active_flag")]
         public bool ActiveFlag { get; set; }
@@ -34,16 +34,10 @@ namespace Pipedrive
 
         public ActivityTypeUpdate ToUpdate()
         {
-            ActivityTypeIcon iconKey = ActivityTypeIcon.Addressbook;
-            if (!Enum.TryParse(IconKey, out iconKey))
-            {
-                throw new Exception($"Icon key '{IconKey}' does not exist in ActivityTypeIcon");
-            }
-
             return new ActivityTypeUpdate
             {
                 Name = Name,
-                IconKey = iconKey,
+                IconKey = IconKey,
                 Color = Color,
                 OrderNr = OrderNr
             };

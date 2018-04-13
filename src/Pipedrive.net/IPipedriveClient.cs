@@ -15,5 +15,7 @@ namespace Pipedrive
         IActivityTypesClient ActivityType { get; }
 
         ICurrenciesClient Currency { get; }
+
+        IDealFieldsClient DealField { get; }
     }
 }

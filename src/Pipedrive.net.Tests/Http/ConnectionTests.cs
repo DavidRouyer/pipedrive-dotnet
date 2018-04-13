@@ -117,7 +117,6 @@ namespace Pipedrive.Tests.Http
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
 
                 Assert.Equal("Validation Failed", exception.Message);
-                Assert.Equal("key is already in use", exception.ApiError.Errors[0].Message);
             }
 
             [Fact]
@@ -126,7 +125,7 @@ namespace Pipedrive.Tests.Http
                 var httpClient = Substitute.For<IHttpClient>();
                 IResponse response = new Response(
                     HttpStatusCode.Forbidden,
-                    "{\"message\":\"API rate limit exceeded. " +
+                    "{\"error\":\"API rate limit exceeded. " +
                     "See https://developers.pipedrive.com/docs/api/v1/#/ for details.\"}",
                     new Dictionary<string, string>(),
                     "application/json");
@@ -149,8 +148,8 @@ namespace Pipedrive.Tests.Http
                 var httpClient = Substitute.For<IHttpClient>();
                 IResponse response = new Response(
                     HttpStatusCode.Forbidden,
-                    "{\"message\":\"Maximum number of login attempts exceeded\"," +
-                    "\"documentation_url\":\"http://developer.github.com/v3\"}",
+                    "{\"error\":\"Maximum number of login attempts exceeded\"," +
+                    "\"error_info\":\"http://developer.github.com/v3\"}",
                     new Dictionary<string, string>(),
                     "application/json");
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
@@ -163,7 +162,7 @@ namespace Pipedrive.Tests.Http
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
 
                 Assert.Equal("Maximum number of login attempts exceeded", exception.Message);
-                Assert.Equal("http://developer.github.com/v3", exception.ApiError.DocumentationUrl);
+                Assert.Equal("http://developer.github.com/v3", exception.ApiError.ErrorInfo);
             }
 
             [Fact]
@@ -530,7 +529,7 @@ namespace Pipedrive.Tests.Http
                 Assert.Null(result);
             }
 
-            // TODO : uncomment
+            // TODO: uncomment
             /*[Fact]
             public async Task ReturnsObjectIfNotNew()
             {

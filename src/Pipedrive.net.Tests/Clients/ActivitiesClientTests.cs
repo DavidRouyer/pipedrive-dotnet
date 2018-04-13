@@ -153,6 +153,14 @@ namespace Pipedrive.Tests.Clients
         public class TheCreateMethod
         {
             [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new ActivitiesClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.Create(null));
+            }
+
+            [Fact]
             public void PostsToTheCorrectUrl()
             {
                 var connection = Substitute.For<IApiConnection>();
@@ -169,6 +177,14 @@ namespace Pipedrive.Tests.Clients
 
         public class TheEditMethod
         {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new ActivitiesClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.Edit(1, null));
+            }
+
             [Fact]
             public void PutsCorrectUrl()
             {

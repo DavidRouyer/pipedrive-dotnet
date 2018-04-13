@@ -10,25 +10,27 @@ namespace Pipedrive
     {
         public ApiError() { }
 
-        public ApiError(string message)
+        public ApiError(string error)
         {
-            Message = message;
+            Error = error;
         }
+
+        public string Succes { get; set; }
 
         /// <summary>
         /// The error message
         /// </summary>
-        public string Message { get; set; }
-
-        /// <summary>
-        /// URL to the documentation for this error.
-        /// </summary>
-        [JsonProperty("documentation_url")]
-        public string DocumentationUrl { get; set; }
+        public string Error { get; set; }
 
         /// <summary>
         /// Additional details about the error
         /// </summary>
-        public IReadOnlyList<ApiErrorDetail> Errors { get; set; }
+        [JsonProperty("error_info")]
+        public string ErrorInfo { get; set; }
+
+        public string Data { get; set; }
+
+        [JsonProperty("additional_data")]
+        public string AdditionalData { get; set; }
     }
 }

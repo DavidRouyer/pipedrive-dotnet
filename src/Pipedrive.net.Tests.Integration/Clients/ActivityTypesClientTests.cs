@@ -14,6 +14,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 var pipedrive = Helper.GetAuthenticatedClient();
 
                 var activityTypes = await pipedrive.ActivityType.GetAll();
+
                 Assert.True(activityTypes.Count >= 6);
                 Assert.True(activityTypes[0].ActiveFlag);
                 Assert.False(activityTypes[0].IsCustomFlag);
@@ -59,7 +60,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 var updatedActivityType = await fixture.Edit(activityType.Id, editActivityType);
 
                 Assert.Equal("updated-name", updatedActivityType.Name);
-                Assert.Equal("25", updatedActivityType.IconKey);
+                Assert.Equal(ActivityTypeIcon.Sound, updatedActivityType.IconKey);
             }
         }
 

@@ -12,8 +12,8 @@ namespace Pipedrive.Tests.Exceptions
             [Fact]
             public void IdentifiesMaxLoginAttemptsExceededReason()
             {
-                const string responseBody = "{\"message\":\"YOU SHALL NOT PASS!\"," +
-                                            "\"documentation_url\":\"http://developer.github.com/v3\"}";
+                const string responseBody = "{\"error\":\"YOU SHALL NOT PASS!\"," +
+                                            "\"error_info\":\"http://developer.github.com/v3\"}";
                 var response = new Response(
                     HttpStatusCode.Forbidden,
                     responseBody,
@@ -21,7 +21,7 @@ namespace Pipedrive.Tests.Exceptions
                     "application/json");
                 var forbiddenException = new ForbiddenException(response);
 
-                Assert.Equal("YOU SHALL NOT PASS!", forbiddenException.ApiError.Message);
+                Assert.Equal("YOU SHALL NOT PASS!", forbiddenException.ApiError.Error);
             }
 
             [Fact]

@@ -45,15 +45,14 @@ namespace Pipedrive.Tests.Exceptions
                 var response = new Response(
                     HttpStatusCode.GatewayTimeout,
                     @"{""errors"":[{""code"":""custom"",""field"":""key"",""message"":""key is " +
-                           @"already in use"",""resource"":""PublicKey""}],""message"":""Validation Failed""}",
+                           @"already in use"",""resource"":""PublicKey""}],""error"":""Validation Failed""}",
                     new Dictionary<string, string>(),
                     "application/json"
                 );
 
                 var exception = new ApiException(response);
 
-                Assert.Equal("Validation Failed", exception.ApiError.Message);
-                Assert.Equal("key is already in use", exception.ApiError.Errors.First().Message);
+                Assert.Equal("Validation Failed", exception.ApiError.Error);
                 Assert.Equal(HttpStatusCode.GatewayTimeout, exception.StatusCode);
             }
 
@@ -72,7 +71,7 @@ namespace Pipedrive.Tests.Exceptions
 
                 var exception = new ApiException(response);
 
-                Assert.Equal(responseContent, exception.ApiError.Message);
+                Assert.Equal(responseContent, exception.ApiError.Error);
                 Assert.Equal(HttpStatusCode.GatewayTimeout, exception.StatusCode);
             }
 
@@ -87,9 +86,9 @@ namespace Pipedrive.Tests.Exceptions
                 var thirdException = new ApiException(new Response(HttpStatusCode.ServiceUnavailable, "message2", new Dictionary<string, string>(), "application/json"));
 
                 // It's fine if the message is null when there's no response body as long as this doesn't throw.
-                Assert.Null(exception.ApiError.Message);
-                Assert.Equal("message1", anotherException.ApiError.Message);
-                Assert.Equal("message2", thirdException.ApiError.Message);
+                Assert.Null(exception.ApiError.Error);
+                Assert.Equal("message1", anotherException.ApiError.Error);
+                Assert.Equal("message2", thirdException.ApiError.Error);
             }
         }
 

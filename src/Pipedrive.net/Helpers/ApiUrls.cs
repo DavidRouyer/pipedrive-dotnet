@@ -16,6 +16,8 @@ namespace Pipedrive
 
         static readonly Uri _currenciesUrl = new Uri("currencies", UriKind.Relative);
 
+        static readonly Uri _dealFieldsUrl = new Uri("dealFields", UriKind.Relative);
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns all of the activities.
         /// </summary>
@@ -60,8 +62,6 @@ namespace Pipedrive
         /// <param name="id">The id of the activity type</param>
         public static Uri ActivityType(int id)
         {
-            Ensure.ArgumentNotNull(id, nameof(id));
-
             return new Uri($"activityTypes/{id}", UriKind.Relative);
         }
 
@@ -72,6 +72,24 @@ namespace Pipedrive
         public static Uri Currencies()
         {
             return _currenciesUrl;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the activity fields in response to a GET request.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri DealFields()
+        {
+            return _dealFieldsUrl;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for the specified deal field.
+        /// </summary>
+        /// <param name="id">The id of the deal field</param>
+        public static Uri DealField(int id)
+        {
+            return new Uri($"dealFields/{id}", UriKind.Relative);
         }
     }
 }

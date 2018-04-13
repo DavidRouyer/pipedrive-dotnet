@@ -14,8 +14,8 @@ namespace Pipedrive.Tests.Exceptions
                 [Fact]
                 public void ContainsAbuseMessageFromApi()
                 {
-                    const string responseBody = "{\"message\":\"You have triggered an abuse detection mechanism. Please wait a few minutes before you try again.\"," +
-                                                "\"documentation_url\":\"https://developer.github.com/v3/#abuse-rate-limits\"}";
+                    const string responseBody = "{\"error\":\"You have triggered an abuse detection mechanism. Please wait a few minutes before you try again.\"," +
+                                                "\"error_info\":\"https://developer.github.com/v3/#abuse-rate-limits\"}";
 
                     var response = new Response(
                         HttpStatusCode.Forbidden,
@@ -25,7 +25,7 @@ namespace Pipedrive.Tests.Exceptions
 
                     var abuseException = new AbuseException(response);
 
-                    Assert.Equal("You have triggered an abuse detection mechanism. Please wait a few minutes before you try again.", abuseException.ApiError.Message);
+                    Assert.Equal("You have triggered an abuse detection mechanism. Please wait a few minutes before you try again.", abuseException.ApiError.Error);
                 }
 
                 [Fact]

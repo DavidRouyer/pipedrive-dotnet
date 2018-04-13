@@ -111,7 +111,7 @@ namespace Pipedrive.Tests.Http
                 Assert.Null(response.Body);
             }
 
-            // TODO : uncomment
+            // TODO: uncomment
             /*[Fact]
             public void PerformsGitTagMapping()
             {

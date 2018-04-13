@@ -141,9 +141,9 @@ namespace Pipedrive
         {
             get
             {
-                if (ApiError != null && !string.IsNullOrWhiteSpace(ApiError.Message))
+                if (ApiError != null && !string.IsNullOrWhiteSpace(ApiError.Error))
                 {
-                    return ApiError.Message;
+                    return ApiError.Error;
                 }
 
                 return null;
