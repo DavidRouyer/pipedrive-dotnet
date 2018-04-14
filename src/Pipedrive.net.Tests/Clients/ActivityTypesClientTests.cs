@@ -74,8 +74,8 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new ActivityTypesClient(connection);
 
-                var editActivity = new ActivityTypeUpdate { Name = "name", IconKey = ActivityTypeIcon.Linegraph };
-                client.Edit(123, editActivity);
+                var editActivityType = new ActivityTypeUpdate { Name = "name", IconKey = ActivityTypeIcon.Linegraph };
+                client.Edit(123, editActivityType);
 
                 connection.Received().Put<ActivityType>(Arg.Is<Uri>(u => u.ToString() == "activityTypes/123"),
                     Arg.Is<ActivityTypeUpdate>(nc => nc.Name == "name"
@@ -89,11 +89,11 @@ namespace Pipedrive.Tests.Clients
             public void DeletesCorrectUrl()
             {
                 var connection = Substitute.For<IApiConnection>();
-                var client = new ActivitiesClient(connection);
+                var client = new ActivityTypesClient(connection);
 
                 client.Delete(123);
 
-                connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "activities/123"));
+                connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "activityTypes/123"));
             }
         }
     }
