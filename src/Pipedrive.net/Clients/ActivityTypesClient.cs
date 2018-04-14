@@ -31,14 +31,14 @@ namespace Pipedrive
             return ApiConnection.Post<ActivityType>(ApiUrls.ActivityTypes(), data);
         }
 
-        public Task<ActivityType> Edit(int id, ActivityTypeUpdate data)
+        public Task<ActivityType> Edit(long id, ActivityTypeUpdate data)
         {
             Ensure.ArgumentNotNull(data, nameof(data));
 
             return ApiConnection.Put<ActivityType>(ApiUrls.ActivityType(id), data);
         }
 
-        public Task Delete(int id)
+        public Task Delete(long id)
         {
             return ApiConnection.Delete(ApiUrls.ActivityType(id));
         }

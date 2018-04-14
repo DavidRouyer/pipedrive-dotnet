@@ -21,13 +21,13 @@ namespace Pipedrive
         public SummaryOrganization OrgId { get; set; }
 
         [JsonProperty("stage_id")]
-        public int StageId { get; set; }
+        public long StageId { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }
 
         [JsonProperty("value")]
-        public int Value { get; set; }
+        public long Value { get; set; }
 
         [JsonProperty("currency")]
         public string Currency { get; set; }
@@ -78,7 +78,7 @@ namespace Pipedrive
         public string CloseTime { get; set; }
 
         [JsonProperty("pipeline_id")]
-        public int PipelineId { get; set; }
+        public long PipelineId { get; set; }
 
         [JsonProperty("won_time")]
         public string WonTime { get; set; }

@@ -8,22 +8,22 @@ namespace Pipedrive
         public string Title { get; set; }
 
         [JsonProperty("value")]
-        public int Value { get; set; }
+        public long Value { get; set; }
 
         [JsonProperty("currency")]
         public string Currency { get; set; }
 
         [JsonProperty("user_id")]
-        public int? UserId { get; set; }
+        public long? UserId { get; set; }
 
         [JsonProperty("person_id")]
-        public int? PersonId { get; set; }
+        public long? PersonId { get; set; }
 
         [JsonProperty("org_id")]
-        public int? OrgId { get; set; }
+        public long? OrgId { get; set; }
 
         [JsonProperty("stage_id")]
-        public int? StageId { get; set; }
+        public long? StageId { get; set; }
 
         [JsonProperty("status")]
         public DealStatus Status { get; set; }

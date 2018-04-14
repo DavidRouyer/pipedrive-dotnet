@@ -59,7 +59,7 @@ namespace Pipedrive
         /// Returns the <see cref="Uri"/> for the specified activity type.
         /// </summary>
         /// <param name="id">The id of the activity type</param>
-        public static Uri ActivityType(int id)
+        public static Uri ActivityType(long id)
         {
             return new Uri($"activityTypes/{id}", UriKind.Relative);
         }
@@ -104,7 +104,7 @@ namespace Pipedrive
         /// Returns the <see cref="Uri"/> for the specified deal field.
         /// </summary>
         /// <param name="id">The id of the deal field</param>
-        public static Uri DealField(int id)
+        public static Uri DealField(long id)
         {
             return new Uri($"dealFields/{id}", UriKind.Relative);
         }

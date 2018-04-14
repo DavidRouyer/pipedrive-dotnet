@@ -25,19 +25,19 @@ namespace Pipedrive
         public string Duration { get; set; }
 
         [JsonProperty("user_id")]
-        public int? UserId { get; set; }
+        public long? UserId { get; set; }
 
         [JsonProperty("deal_id")]
-        public int? DealId { get; set; }
+        public long? DealId { get; set; }
 
         [JsonProperty("person_id")]
-        public int? PersonId { get; set; }
+        public long? PersonId { get; set; }
 
         [JsonProperty("participants")]
         public List<Participant> Participants { get; set; }
 
         [JsonProperty("org_id")]
-        public int? OrgId { get; set; }
+        public long? OrgId { get; set; }
 
         [JsonProperty("note")]
         public string Note { get; set; }

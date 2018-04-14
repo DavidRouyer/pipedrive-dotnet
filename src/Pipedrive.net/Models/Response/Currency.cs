@@ -4,7 +4,7 @@ namespace Pipedrive
 {
     public class Currency
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string Code { get; set; }
 

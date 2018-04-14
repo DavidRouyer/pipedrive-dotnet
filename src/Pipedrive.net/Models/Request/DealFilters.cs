@@ -11,7 +11,7 @@ namespace Pipedrive
 
         public int? FilterId { get; set; }
 
-        public int? StageId { get; set; }
+        public long? StageId { get; set; }
 
         public DealStatus? Status { get; set; }
 

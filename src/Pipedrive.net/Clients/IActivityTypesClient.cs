@@ -14,8 +14,8 @@ namespace Pipedrive
 
         Task<ActivityType> Create(NewActivityType data);
 
-        Task<ActivityType> Edit(int id, ActivityTypeUpdate data);
+        Task<ActivityType> Edit(long id, ActivityTypeUpdate data);
 
-        Task Delete(int id);
+        Task Delete(long id);
     }
 }

@@ -24,7 +24,7 @@ namespace Pipedrive
             return ApiConnection.GetAll<DealField>(ApiUrls.DealFields());
         }
 
-        public Task<DealField> Get(int id)
+        public Task<DealField> Get(long id)
         {
             return ApiConnection.Get<DealField>(ApiUrls.DealField(id));
         }
@@ -36,14 +36,14 @@ namespace Pipedrive
             return ApiConnection.Post<DealField>(ApiUrls.DealFields(), data);
         }
 
-        public Task<DealField> Edit(int id, DealFieldUpdate data)
+        public Task<DealField> Edit(long id, DealFieldUpdate data)
         {
             Ensure.ArgumentNotNull(data, nameof(data));
 
             return ApiConnection.Put<DealField>(ApiUrls.DealField(id), data);
         }
 
-        public Task Delete(int id)
+        public Task Delete(long id)
         {
             return ApiConnection.Delete(ApiUrls.DealField(id));
         }

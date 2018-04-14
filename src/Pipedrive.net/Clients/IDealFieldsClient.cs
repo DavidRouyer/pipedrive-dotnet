@@ -12,12 +12,12 @@ namespace Pipedrive
     {
         Task<IReadOnlyList<DealField>> GetAll();
 
-        Task<DealField> Get(int id);
+        Task<DealField> Get(long id);
 
         Task<DealField> Create(NewDealField data);
 
-        Task<DealField> Edit(int id, DealFieldUpdate data);
+        Task<DealField> Edit(long id, DealFieldUpdate data);
 
-        Task Delete(int id);
+        Task Delete(long id);
     }
 }

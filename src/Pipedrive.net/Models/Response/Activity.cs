@@ -9,10 +9,10 @@ namespace Pipedrive
         public long Id { get; set; }
 
         [JsonProperty("company_id")]
-        public int CompanyId { get; set; }
+        public long CompanyId { get; set; }
 
         [JsonProperty("user_id")]
-        public int UserId { get; set; }
+        public long UserId { get; set; }
 
         public bool Done { get; set; }
 
@@ -42,21 +42,21 @@ namespace Pipedrive
         public DateTime? LastNotificationTime { get; set; }
 
         [JsonProperty("last_notification_user_id")]
-        public int? LastNotificationUserId { get; set; }
+        public long? LastNotificationUserId { get; set; }
 
         [JsonProperty("notification_language_id")]
-        public int? NotificationLanguageId { get; set; }
+        public long? NotificationLanguageId { get; set; }
 
         public string Subject { get; set; }
 
         [JsonProperty("org_id")]
-        public int? OrgId { get; set; }
+        public long? OrgId { get; set; }
 
         [JsonProperty("person_id")]
-        public int? PersonId { get; set; }
+        public long? PersonId { get; set; }
 
         [JsonProperty("deal_id")]
-        public int? DealId { get; set; }
+        public long? DealId { get; set; }
 
         [JsonProperty("active_flag")]
         public bool ActiveFlag { get; set; }
@@ -65,7 +65,7 @@ namespace Pipedrive
         public DateTime? UpdateTime { get; set; }
 
         [JsonProperty("update_user_id")]
-        public int? UpdateUserId { get; set; }
+        public long? UpdateUserId { get; set; }
 
         [JsonProperty("gcal_event_id")]
         public string GcalEventId { get; set; }
@@ -79,7 +79,7 @@ namespace Pipedrive
         public string Note { get; set; }
 
         [JsonProperty("created_by_user_id")]
-        public int CreatedByUserId { get; set; }
+        public long CreatedByUserId { get; set; }
 
         public List<Participant> Participants { get; set; }
 
@@ -102,7 +102,7 @@ namespace Pipedrive
         public string DealDropboxBcc { get; set; }
 
         [JsonProperty("assigned_to_user_id")]
-        public int? AssignedToUserId { get; set; }
+        public long? AssignedToUserId { get; set; }
 
         public ActivityUpdate ToUpdate()
         {
