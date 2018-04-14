@@ -19,5 +19,7 @@ namespace Pipedrive
         IDealsClient Deal { get; }
 
         IDealFieldsClient DealField { get; }
+
+        IPersonsClient Person { get; }
     }
 }

@@ -38,7 +38,7 @@ namespace Pipedrive
         public string AddTime { get; set; }
 
         [JsonProperty("visible_to")]
-        public DealVisibility VisibleTo { get; set; }
+        public Visibility VisibleTo { get; set; }
 
         public NewDeal(string title)
         {

@@ -72,7 +72,7 @@ namespace Pipedrive
         public string LostReason { get; set; }
 
         [JsonProperty("visible_to")]
-        public DealVisibility VisibleTo { get; set; }
+        public Visibility VisibleTo { get; set; }
 
         [JsonProperty("close_time")]
         public string CloseTime { get; set; }

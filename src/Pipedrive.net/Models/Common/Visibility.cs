@@ -1,6 +1,6 @@
 ﻿namespace Pipedrive
 {
-    public enum DealVisibility
+    public enum Visibility
     {
         @private = 1,
         shared = 3
