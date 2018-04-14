@@ -34,11 +34,11 @@ namespace Pipedrive
         [JsonProperty("lost_reason")]
         public string LostReason { get; set; }
 
-        [JsonProperty("add_time")]
-        public string AddTime { get; set; }
-
         [JsonProperty("visible_to")]
         public Visibility VisibleTo { get; set; }
+
+        [JsonProperty("add_time")]
+        public string AddTime { get; set; }
 
         public NewDeal(string title)
         {

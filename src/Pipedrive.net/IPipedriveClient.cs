@@ -20,6 +20,8 @@ namespace Pipedrive
 
         IDealFieldsClient DealField { get; }
 
+        IOrganizationsClient Organization { get; }
+
         IPersonsClient Person { get; }
     }
 }
