@@ -15,6 +15,8 @@ namespace Pipedrive
 
         static readonly Uri _currenciesUrl = new Uri("currencies", UriKind.Relative);
 
+        static readonly Uri _dealsUrl = new Uri("deals", UriKind.Relative);
+
         static readonly Uri _dealFieldsUrl = new Uri("dealFields", UriKind.Relative);
 
         /// <summary>
@@ -69,6 +71,24 @@ namespace Pipedrive
         public static Uri Currencies()
         {
             return _currenciesUrl;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the deals in response to a GET request.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri Deals()
+        {
+            return _dealsUrl;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for the specified deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        public static Uri Deal(long id)
+        {
+            return new Uri($"deals/{id}", UriKind.Relative);
         }
 
         /// <summary>

@@ -16,6 +16,8 @@ namespace Pipedrive
 
         ICurrenciesClient Currency { get; }
 
+        IDealsClient Deal { get; }
+
         IDealFieldsClient DealField { get; }
     }
 }
