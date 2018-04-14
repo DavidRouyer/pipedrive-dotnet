@@ -6,7 +6,7 @@ namespace Pipedrive
 {
     public class Activity
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [JsonProperty("company_id")]
         public int CompanyId { get; set; }

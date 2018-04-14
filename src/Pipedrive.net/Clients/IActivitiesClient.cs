@@ -16,12 +16,12 @@ namespace Pipedrive
 
         Task<IReadOnlyList<Activity>> GetAllForUserId(int userId, ActivityFilters filters);
 
-        Task<Activity> Get(int id);
+        Task<Activity> Get(long id);
 
         Task<Activity> Create(NewActivity data);
 
-        Task<Activity> Edit(int id, ActivityUpdate data);
+        Task<Activity> Edit(long id, ActivityUpdate data);
 
-        Task Delete(int id);
+        Task Delete(long id);
     }
 }

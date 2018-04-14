@@ -66,7 +66,7 @@ namespace Pipedrive
             return ApiConnection.GetAll<Activity>(ApiUrls.Activities(), parameters, options);
         }
 
-        public Task<Activity> Get(int id)
+        public Task<Activity> Get(long id)
         {
             return ApiConnection.Get<Activity>(ApiUrls.Activity(id));
         }
@@ -78,14 +78,14 @@ namespace Pipedrive
             return ApiConnection.Post<Activity>(ApiUrls.Activities(), data);
         }
 
-        public Task<Activity> Edit(int id, ActivityUpdate data)
+        public Task<Activity> Edit(long id, ActivityUpdate data)
         {
             Ensure.ArgumentNotNull(data, nameof(data));
 
             return ApiConnection.Put<Activity>(ApiUrls.Activity(id), data);
         }
 
-        public Task Delete(int id)
+        public Task Delete(long id)
         {
             return ApiConnection.Delete(ApiUrls.Activity(id));
         }
