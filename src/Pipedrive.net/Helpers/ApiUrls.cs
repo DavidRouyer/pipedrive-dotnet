@@ -1,5 +1,4 @@
-﻿using Pipedrive.Helpers;
-using System;
+﻿using System;
 
 namespace Pipedrive
 {
@@ -31,10 +30,8 @@ namespace Pipedrive
         /// Returns the <see cref="Uri"/> for the specified activity.
         /// </summary>
         /// <param name="id">The id of the activity</param>
-        public static Uri Activity(int id)
+        public static Uri Activity(long id)
         {
-            Ensure.ArgumentNotNull(id, nameof(id));
-
             return new Uri($"activities/{id}", UriKind.Relative);
         }
 
