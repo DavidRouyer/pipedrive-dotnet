@@ -7,7 +7,7 @@ namespace Pipedrive
     /// A client for Pipedrive's Person API.
     /// </summary>
     /// <remarks>
-    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/#!/Persons">Deal API documentation</a> for more information.
+    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/#!/Persons">Person API documentation</a> for more information.
     public interface IPersonsClient
     {
         Task<IReadOnlyList<Person>> GetAll(PersonFilters filters);

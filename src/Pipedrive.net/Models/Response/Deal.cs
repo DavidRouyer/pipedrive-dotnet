@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 
 namespace Pipedrive
 {
@@ -9,16 +8,16 @@ namespace Pipedrive
         public long Id { get; set; }
 
         [JsonProperty("creator_user_id")]
-        public SummaryUser CreatorUserId { get; set; }
+        public UserSummary CreatorUserId { get; set; }
 
         [JsonProperty("user_id")]
-        public SummaryUser UserId { get; set; }
+        public UserSummary UserId { get; set; }
 
         [JsonProperty("person_id")]
-        public SummaryPerson PersonId { get; set; }
+        public PersonSummary PersonId { get; set; }
 
         [JsonProperty("org_id")]
-        public SummaryOrganization OrgId { get; set; }
+        public OrganizationSummary OrgId { get; set; }
 
         [JsonProperty("stage_id")]
         public long StageId { get; set; }
@@ -191,82 +190,5 @@ namespace Pipedrive
                 VisibleTo = VisibleTo
             };
         }
-    }
-
-    public class SummaryUser
-    {
-        [JsonProperty("id")]
-        public long Id { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-        
-        [JsonProperty("email")]
-        public string Email { get; set; }
-        
-        [JsonProperty("has_pic")]
-        public bool HasPic { get; set; }
-
-        [JsonProperty("pic_hash")]
-        public string PicHash { get; set; }
-        
-        [JsonProperty("active_flag")]
-        public bool ActiveFlag { get; set; }
-
-        [JsonProperty("value")]
-        public long Value { get; set; }
-    }
-
-    public class SummaryPerson
-    {
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("email")]
-        List<Email> Email { get; set; }
-
-        [JsonProperty("phone")]
-        List<Phone> Phone { get; set; }
-
-        [JsonProperty("value")]
-        public long Value { get; set; }
-    }
-
-    public class Email
-    {
-        [JsonProperty("value")]
-        public string Value { get; set; }
-
-        [JsonProperty("primary")]
-        public bool Primary { get; set; }
-    }
-    public class Phone
-    {
-        [JsonProperty("value")]
-        public string Value { get; set; }
-
-        [JsonProperty("primary")]
-        public bool Primary { get; set; }
-    }
-
-    public class SummaryOrganization
-    {
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
-        [JsonProperty("people_count")]
-        public int PeopleCount { get; set; }
-
-        [JsonProperty("owner_id")]
-        public long OwnerId { get; set; }
-
-        [JsonProperty("address")]
-        public string Address { get; set; }
-
-        [JsonProperty("cc_email")]
-        public string CcEmail { get; set; }
-
-        [JsonProperty("value")]
-        public long Value { get; set; }
     }
 }

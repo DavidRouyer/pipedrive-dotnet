@@ -12,10 +12,10 @@ namespace Pipedrive
         public long CompanyId { get; set; }
 
         [JsonProperty("owner_id")]
-        public SummaryUser OwnerId { get; set; }
+        public UserSummary OwnerId { get; set; }
 
         [JsonProperty("org_id")]
-        public SummaryOrganization OrgId { get; set; }
+        public OrganizationSummary OrgId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
