@@ -40,6 +40,7 @@ namespace Pipedrive
             Deal = new DealsClient(apiConnection);
             DealField = new DealFieldsClient(apiConnection);
             Organization = new OrganizationsClient(apiConnection);
+            OrganizationField = new OrganizationFieldsClient(apiConnection);
             Person = new PersonsClient(apiConnection);
             PersonField = new PersonFieldsClient(apiConnection);
         }
@@ -134,6 +135,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Organizations
         /// </remarks>
         public IOrganizationsClient Organization { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's Organization Field API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/OrganizationFields
+        /// </remarks>
+        public IOrganizationFieldsClient OrganizationField { get; private set; }
 
         /// <summary>
         /// Access Pipedrive's Person API.

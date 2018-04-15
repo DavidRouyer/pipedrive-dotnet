@@ -23,6 +23,7 @@
         status, // TODO: Can't create deal fields with some types like status
         varchar_options,
         visible_to,
-        picture
+        picture, // Person field
+        address // Organization field
     }
 }
