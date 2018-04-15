@@ -23,5 +23,7 @@ namespace Pipedrive
         IOrganizationsClient Organization { get; }
 
         IPersonsClient Person { get; }
+
+        IPersonFieldsClient PersonField { get; }
     }
 }

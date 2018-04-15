@@ -22,6 +22,7 @@
         stage,
         status, // TODO: Can't create deal fields with some types like status
         varchar_options,
-        visible_to
+        visible_to,
+        picture
     }
 }
