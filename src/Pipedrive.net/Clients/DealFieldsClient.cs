@@ -12,7 +12,7 @@ namespace Pipedrive
     public class DealFieldsClient : ApiClient, IDealFieldsClient
     {
         /// <summary>
-        /// Initializes a new Activity Field API client.
+        /// Initializes a new Deal Field API client.
         /// </summary>
         /// <param name="apiConnection">An API connection</param>
         public DealFieldsClient(IApiConnection apiConnection) : base(apiConnection)

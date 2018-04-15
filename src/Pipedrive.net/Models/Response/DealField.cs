@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Pipedrive
 {
@@ -60,7 +61,7 @@ namespace Pipedrive
         public string Link { get; set; }
 
         [JsonProperty("options")]
-        public object Options { get; set; }
+        public IReadOnlyList<Option> Options { get; set; }
 
         [JsonProperty("mandatory_flag")]
         public object MandatoryFlag { get; set; } // TODO: boolean or object like { "org_id": "<=0" }

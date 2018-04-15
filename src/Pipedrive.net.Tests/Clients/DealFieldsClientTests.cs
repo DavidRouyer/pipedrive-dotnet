@@ -91,8 +91,8 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new DealFieldsClient(connection);
 
-                var editActivity = new DealFieldUpdate { Name = "name", Options = "{}" };
-                client.Edit(123, editActivity);
+                var editDealField = new DealFieldUpdate { Name = "name", Options = "{}" };
+                client.Edit(123, editDealField);
 
                 connection.Received().Put<DealField>(Arg.Is<Uri>(u => u.ToString() == "dealFields/123"),
                     Arg.Is<DealFieldUpdate>(df => df.Name == "name"

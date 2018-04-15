@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -9,7 +8,7 @@ namespace Pipedrive.Tests.Integration.Clients
         public class TheGetAllMethod
         {
             [IntegrationTest]
-            public async Task CanRetrieveDealTypes()
+            public async Task CanRetrieveDealFields()
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
@@ -26,7 +25,7 @@ namespace Pipedrive.Tests.Integration.Clients
         public class TheGetMethod
         {
             [IntegrationTest]
-            public async Task CanRetrieveDealType()
+            public async Task CanRetrieveDealField()
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
@@ -66,13 +65,13 @@ namespace Pipedrive.Tests.Integration.Clients
                 var newDealField = new NewDealField("new-name", FieldType.varchar);
                 var dealField = await fixture.Create(newDealField);
 
-                var editActivityType = dealField.ToUpdate();
-                editActivityType.Name = "updated-name";
+                var editDealField = dealField.ToUpdate();
+                editDealField.Name = "updated-name";
 
-                var updatedActivityType = await fixture.Edit(dealField.Id.Value, editActivityType);
+                var updatedDealField = await fixture.Edit(dealField.Id.Value, editDealField);
 
-                Assert.Equal("updated-name", updatedActivityType.Name);
-                Assert.Equal(FieldType.varchar, updatedActivityType.FieldType);
+                Assert.Equal("updated-name", updatedDealField.Name);
+                Assert.Equal(FieldType.varchar, updatedDealField.FieldType);
             }
         }
 
