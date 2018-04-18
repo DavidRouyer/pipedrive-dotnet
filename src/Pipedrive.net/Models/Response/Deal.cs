@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Pipedrive.Internal;
 using System;
+using System.Collections.Generic;
 
 namespace Pipedrive
 {
+    [JsonConverter(typeof(DealConverter))]
     public class Deal
     {
         public long Id { get; set; }
@@ -171,6 +174,8 @@ namespace Pipedrive
 
         [JsonProperty("person_hidden")]
         public bool PersonHidden { get; set; }
+
+        public IDictionary<string, IField> UserDealFields { get; set; }
 
         public DealUpdate ToUpdate()
         {

@@ -64,6 +64,19 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetMethod
+        {
+            [IntegrationTest]
+            public async Task CanRetrieveDeal()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var deal = await pipedrive.Deal.Get(1);
+
+                Assert.True(deal.Active);
+            }
+        }
+
         public class TheCreateMethod
         {
             [IntegrationTest]

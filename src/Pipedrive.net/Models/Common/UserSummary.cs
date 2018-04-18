@@ -2,7 +2,7 @@
 
 namespace Pipedrive
 {
-    public class UserSummary
+    public class UserSummary: IField
     {
         [JsonProperty("id")]
         public long Id { get; set; }
