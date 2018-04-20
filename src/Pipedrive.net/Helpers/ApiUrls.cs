@@ -27,6 +27,8 @@ namespace Pipedrive
 
         static readonly Uri _personFieldsUrl = new Uri("personFields", UriKind.Relative);
 
+        static readonly Uri _usersUrl = new Uri("users", UriKind.Relative);
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns all of the activities.
         /// </summary>
@@ -187,6 +189,24 @@ namespace Pipedrive
         public static Uri PersonField(long id)
         {
             return new Uri($"personFields/{id}", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the users in response to a GET request.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri Users()
+        {
+            return _usersUrl;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for the specified user.
+        /// </summary>
+        /// <param name="id">The id of the user</param>
+        public static Uri User(long id)
+        {
+            return new Uri($"users/{id}", UriKind.Relative);
         }
     }
 }

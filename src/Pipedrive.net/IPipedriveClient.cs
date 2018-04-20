@@ -27,5 +27,7 @@ namespace Pipedrive
         IPersonsClient Person { get; }
 
         IPersonFieldsClient PersonField { get; }
+
+        IUsersClient User { get; }
     }
 }

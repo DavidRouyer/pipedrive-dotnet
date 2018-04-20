@@ -43,6 +43,7 @@ namespace Pipedrive
             OrganizationField = new OrganizationFieldsClient(apiConnection);
             Person = new PersonsClient(apiConnection);
             PersonField = new PersonFieldsClient(apiConnection);
+            User = new UsersClient(apiConnection);
         }
 
         /// <summary>
@@ -159,6 +160,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/PersonFields
         /// </remarks>
         public IPersonFieldsClient PersonField { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's User API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Users
+        /// </remarks>
+        public IUsersClient User { get; private set; }
 
         static Uri FixUpBaseUri(Uri uri)
         {
