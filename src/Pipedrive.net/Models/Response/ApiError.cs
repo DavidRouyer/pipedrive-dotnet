@@ -15,7 +15,7 @@ namespace Pipedrive
             Error = error;
         }
 
-        public string Succes { get; set; }
+        public string Success { get; set; }
 
         /// <summary>
         /// The error message
