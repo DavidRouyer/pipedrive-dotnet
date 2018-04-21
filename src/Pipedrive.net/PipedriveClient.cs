@@ -39,6 +39,7 @@ namespace Pipedrive
             Currency = new CurrenciesClient(apiConnection);
             Deal = new DealsClient(apiConnection);
             DealField = new DealFieldsClient(apiConnection);
+            Note = new NotesClient(apiConnection);
             Organization = new OrganizationsClient(apiConnection);
             OrganizationField = new OrganizationFieldsClient(apiConnection);
             Person = new PersonsClient(apiConnection);
@@ -128,6 +129,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/DealFields
         /// </remarks>
         public IDealFieldsClient DealField { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's Note API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Notes
+        /// </remarks>
+        public INotesClient Note { get; private set; }
 
         /// <summary>
         /// Access Pipedrive's Organization API.

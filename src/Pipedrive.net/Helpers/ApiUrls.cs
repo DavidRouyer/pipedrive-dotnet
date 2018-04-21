@@ -19,6 +19,8 @@ namespace Pipedrive
 
         static readonly Uri _dealFieldsUrl = new Uri("dealFields", UriKind.Relative);
 
+        static readonly Uri _notesUrl = new Uri("notes", UriKind.Relative);
+
         static readonly Uri _organizationsUrl = new Uri("organizations", UriKind.Relative);
 
         static readonly Uri _organizationFieldsUrl = new Uri("organizationFields", UriKind.Relative);
@@ -117,6 +119,24 @@ namespace Pipedrive
         public static Uri DealField(long id)
         {
             return new Uri($"dealFields/{id}", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the notes in response to a GET request.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri Notes()
+        {
+            return _notesUrl;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for the specified note.
+        /// </summary>
+        /// <param name="id">The id of the note</param>
+        public static Uri Note(long id)
+        {
+            return new Uri($"notes/{id}", UriKind.Relative);
         }
 
         /// <summary>
