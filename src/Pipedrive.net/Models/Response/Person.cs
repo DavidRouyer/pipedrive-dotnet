@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
+using Pipedrive.Internal;
 using System;
 using System.Collections.Generic;
 
 namespace Pipedrive
 {
-    public class Person
+    [JsonConverter(typeof(CustomFieldConverter))]
+    public class Person : IEntityWithCustomFields
     {
         public long Id { get; set; }
 
@@ -139,6 +141,8 @@ namespace Pipedrive
 
         [JsonProperty("cc_email")]
         public string CcEmail { get; set; }
+
+        public IDictionary<string, IField> CustomFields { get; set; }
 
         public PersonUpdate ToUpdate()
         {

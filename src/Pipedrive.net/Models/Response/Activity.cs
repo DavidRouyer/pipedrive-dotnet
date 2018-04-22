@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
+using Pipedrive.Internal;
 using System;
 using System.Collections.Generic;
 
 namespace Pipedrive
 {
-    public class Activity
+    [JsonConverter(typeof(CustomFieldConverter))]
+    public class Activity : IEntityWithCustomFields
     {
         public long Id { get; set; }
 
@@ -14,8 +16,10 @@ namespace Pipedrive
         [JsonProperty("user_id")]
         public long UserId { get; set; }
 
+        [JsonProperty("done")]
         public bool Done { get; set; }
 
+        [JsonProperty("type")]
         public string Type { get; set; }
 
         [JsonProperty("reference_type")]
@@ -30,6 +34,7 @@ namespace Pipedrive
         [JsonProperty("due_time")]
         public string DueTime { get; set; }
 
+        [JsonProperty("duration")]
         public string Duration { get; set; }
 
         [JsonProperty("add_date")]
@@ -47,6 +52,7 @@ namespace Pipedrive
         [JsonProperty("notification_language_id")]
         public long? NotificationLanguageId { get; set; }
 
+        [JsonProperty("subject")]
         public string Subject { get; set; }
 
         [JsonProperty("org_id")]
@@ -76,11 +82,13 @@ namespace Pipedrive
         [JsonProperty("google_calendar_etag")]
         public string GoogleCalendarEtag { get; set; }
 
+        [JsonProperty("note")]
         public string Note { get; set; }
 
         [JsonProperty("created_by_user_id")]
         public long CreatedByUserId { get; set; }
 
+        [JsonProperty("participants")]
         public List<Participant> Participants { get; set; }
 
         [JsonProperty("org_name")]
@@ -103,6 +111,8 @@ namespace Pipedrive
 
         [JsonProperty("assigned_to_user_id")]
         public long? AssignedToUserId { get; set; }
+
+        public IDictionary<string, IField> CustomFields { get; set; }
 
         public ActivityUpdate ToUpdate()
         {
