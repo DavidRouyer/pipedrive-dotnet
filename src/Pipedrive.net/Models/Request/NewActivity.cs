@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Pipedrive
 {
-    public class NewActivity
+    public class NewActivity : IEntityWithCustomFields
     {
         [JsonProperty("subject")]
         public string Subject { get; set; }
@@ -41,6 +41,9 @@ namespace Pipedrive
 
         [JsonProperty("note")]
         public string Note { get; set; }
+
+        [JsonIgnore]
+        public IDictionary<string, IField> CustomFields { get; set; } = new Dictionary<string, IField>();
 
         public NewActivity(string subject, string type)
         {

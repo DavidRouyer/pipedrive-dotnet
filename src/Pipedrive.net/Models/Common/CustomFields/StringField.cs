@@ -1,4 +1,4 @@
-﻿namespace Pipedrive
+﻿namespace Pipedrive.CustomFields
 {
     // varchar, varchar_auto, text
     public class StringField : IField

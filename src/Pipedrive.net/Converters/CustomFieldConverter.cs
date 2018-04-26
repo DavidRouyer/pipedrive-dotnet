@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Pipedrive.CustomFields;
 
 namespace Pipedrive.Internal
 {
@@ -53,8 +54,9 @@ namespace Pipedrive.Internal
                                         (int)linkedProperties[$"{property.Name}_timezone_id"]
                                         ));
                                 }
+                            }
                             // Date range
-                            } else if (linkedProperties.Any(p => p.Key == $"{property.Name}_until"))
+                            else if (linkedProperties.Any(p => p.Key == $"{property.Name}_until"))
                             {
                                 customFields.Add(
                                     property.Name,
@@ -109,17 +111,17 @@ namespace Pipedrive.Internal
                             // User
                             if (((JObject)child).Properties().Any(p => p.Name == "has_pic"))
                             {
-                                customFields.Add(property.Name, property.Value.ToObject<UserSummary>());
+                                customFields.Add(property.Name, property.Value.ToObject<UserField>());
                             }
                             // Organization
                             if (((JObject)child).Properties().Any(p => p.Name == "people_count"))
                             {
-                                customFields.Add(property.Name, property.Value.ToObject<OrganizationSummary>());
+                                customFields.Add(property.Name, property.Value.ToObject<CustomFields.OrganizationField>());
                             }
                             // Person
                             if (((JObject)child).Properties().Any(p => p.Name == "phone"))
                             {
-                                customFields.Add(property.Name, property.Value.ToObject<PersonSummary>());
+                                customFields.Add(property.Name, property.Value.ToObject<CustomFields.PersonField>());
                             }
                             break;
                         case JTokenType.Null:
@@ -138,7 +140,72 @@ namespace Pipedrive.Internal
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new System.NotImplementedException();
+            JToken token = JToken.FromObject(value);
+            JObject o = (JObject)token;
+            IDictionary<string,IField> customFields = ((IEntityWithCustomFields)value).CustomFields;
+            foreach(var field in customFields)
+            {
+                if (field.Value != null)
+                {
+                    o.Add(field.Key, null);
+                } else {
+                    switch (field.Value)
+                    {
+                        case StringField s:
+                            o.Add(field.Key, s.Value);
+                            break;
+                        case IntField i:
+                            o.Add(field.Key, i.Value);
+                            break;
+                        case DecimalField d:
+                            o.Add(field.Key, d.Value);
+                            break;
+                        case DateField d:
+                            o.Add(field.Key, d.Value);
+                            break;
+                        case TimeField t:
+                            o.Add(field.Key, t.Value);
+                            o.Add($"{field.Key}_timezone_id", t.TimezoneId);
+                            break;
+                        case MonetaryField m:
+                            o.Add(field.Key, m.Value);
+                            o.Add($"{field.Key}_currency", m.Currency);
+                            break;
+                        case TimeRangeField tr:
+                            o.Add(field.Key, tr.StartTime);
+                            o.Add($"{field.Key}_until", tr.EndTime);
+                            o.Add($"{field.Key}_timezone_id", tr.TimezoneId);
+                            break;
+                        case DateRangeField dr:
+                            o.Add(field.Key, dr.StartDate);
+                            o.Add($"{field.Key}_until", dr.EndDate);
+                            break;
+                        case AddressField a:
+                            o.Add(field.Key, a.Value);
+                            o.Add($"{field.Key}_subpremise", a.Subpremise);
+                            o.Add($"{field.Key}_street_number", a.StreetNumber);
+                            o.Add($"{field.Key}_route", a.Route);
+                            o.Add($"{field.Key}_sublocality", a.Sublocality);
+                            o.Add($"{field.Key}_locality", a.Locality);
+                            o.Add($"{field.Key}_admin_area_level_1", a.AdminAreaLevel1);
+                            o.Add($"{field.Key}_admin_area_level_2", a.AdminAreaLevel2);
+                            o.Add($"{field.Key}_country", a.Country);
+                            o.Add($"{field.Key}_postal_code", a.PostalCode);
+                            o.Add($"{field.Key}_formatted_address", a.FormattedAddress);
+                            break;
+                        case CustomFields.OrganizationField org:
+                            o.Add(field.Key, org.Value);
+                            break;
+                        case CustomFields.PersonField p:
+                            o.Add(field.Key, p.Value);
+                            break;
+                        case UserField u:
+                            o.Add(field.Key, u.Value);
+                            break;
+                    }
+                }
+            }
+            o.WriteTo(writer);
         }
     }
 }

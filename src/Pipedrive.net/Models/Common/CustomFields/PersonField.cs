@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Pipedrive
+namespace Pipedrive.CustomFields
 {
-    public class PersonSummary : IField
+    public class PersonField : IField
     {
         [JsonProperty("name")]
         public string Name { get; set; }

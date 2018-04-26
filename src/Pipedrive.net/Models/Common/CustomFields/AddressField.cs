@@ -1,4 +1,4 @@
-﻿namespace Pipedrive
+﻿namespace Pipedrive.CustomFields
 {
     public class AddressField : IField
     {

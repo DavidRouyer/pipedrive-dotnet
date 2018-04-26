@@ -112,6 +112,7 @@ namespace Pipedrive
         [JsonProperty("assigned_to_user_id")]
         public long? AssignedToUserId { get; set; }
 
+        [JsonIgnore]
         public IDictionary<string, IField> CustomFields { get; set; }
 
         public ActivityUpdate ToUpdate()

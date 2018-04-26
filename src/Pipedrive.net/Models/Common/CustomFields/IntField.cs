@@ -1,4 +1,4 @@
-﻿namespace Pipedrive
+﻿namespace Pipedrive.CustomFields
 {
     // int
     public class IntField : IField

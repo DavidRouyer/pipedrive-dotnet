@@ -1,6 +1,5 @@
-﻿namespace Pipedrive
+﻿namespace Pipedrive.CustomFields
 {
-    // @double
     public class DecimalField : IField
     {
         public decimal Value { get; set; }

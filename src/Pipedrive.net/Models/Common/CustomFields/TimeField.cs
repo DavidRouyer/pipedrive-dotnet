@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Pipedrive
+namespace Pipedrive.CustomFields
 {
     public class TimeField : IField
     {

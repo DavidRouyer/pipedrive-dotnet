@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Pipedrive.CustomFields;
 using Pipedrive.Internal;
 using System;
 using System.Collections.Generic;
@@ -11,16 +12,16 @@ namespace Pipedrive
         public long Id { get; set; }
 
         [JsonProperty("creator_user_id")]
-        public UserSummary CreatorUserId { get; set; }
+        public UserField CreatorUserId { get; set; }
 
         [JsonProperty("user_id")]
-        public UserSummary UserId { get; set; }
+        public UserField UserId { get; set; }
 
         [JsonProperty("person_id")]
-        public PersonSummary PersonId { get; set; }
+        public CustomFields.PersonField PersonId { get; set; }
 
         [JsonProperty("org_id")]
-        public OrganizationSummary OrgId { get; set; }
+        public CustomFields.OrganizationField OrgId { get; set; }
 
         [JsonProperty("stage_id")]
         public long StageId { get; set; }
@@ -175,6 +176,7 @@ namespace Pipedrive
         [JsonProperty("person_hidden")]
         public bool PersonHidden { get; set; }
 
+        [JsonIgnore]
         public IDictionary<string, IField> CustomFields { get; set; }
 
         public DealUpdate ToUpdate()

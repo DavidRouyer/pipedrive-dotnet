@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace Pipedrive
 {
-    public class NewDeal
+    public class NewDeal : IEntityWithCustomFields
     {
         [JsonProperty("title")]
         public string Title { get; set; }
@@ -39,6 +40,9 @@ namespace Pipedrive
 
         [JsonProperty("add_time")]
         public string AddTime { get; set; }
+
+        [JsonIgnore]
+        public IDictionary<string, IField> CustomFields { get; set; } = new Dictionary<string, IField>();
 
         public NewDeal(string title)
         {

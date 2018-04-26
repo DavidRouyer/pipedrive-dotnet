@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Pipedrive
+namespace Pipedrive.CustomFields
 {
-    public class UserSummary: IField
+    public class UserField : IField
     {
         [JsonProperty("id")]
         public long Id { get; set; }
