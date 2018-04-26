@@ -1,11 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
+    <AssemblyName>Pipedrive.net</AssemblyName>
+    <Title>Pipedrive.net</Title>
+    <Description>Pipedrive.net is an async .NET Standard client for pipedrive.com</Description>
+    <VersionPrefix>0.0.1</VersionPrefix>
+    <Version>0.0.1</Version>
+    <Authors>David Rouyer</Authors>
     <TargetFramework>netstandard2.0</TargetFramework>
+
+    <PackageId>Pipedrive.net</PackageId>
+    <PackageTags>pipedrive;crm</PackageTags>
+    <PackageProjectUrl>https://github.com/DavidRouyer/pipedrive-dotnet</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.github.com/DavidRouyer/pipedrive-dotnet/master/LICENSE</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/DavidRouyer/pipedrive-dotnet</RepositoryUrl>
+    <SignAssembly>true</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
-
 </Project>
