@@ -11,7 +11,8 @@
     <PackageId>Pipedrive.net</PackageId>
     <PackageTags>pipedrive;crm</PackageTags>
     <PackageProjectUrl>https://github.com/DavidRouyer/pipedrive-dotnet</PackageProjectUrl>
-    <PackageLicenseUrl>https://raw.github.com/DavidRouyer/pipedrive-dotnet/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/DavidRouyer/pipedrive-dotnet/master/LICENSE</PackageLicenseUrl>
+    <PackageReleaseNotes>https://github.com/DavidRouyer/pipedrive-dotnet/releases/tag/v0.0.1</PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/DavidRouyer/pipedrive-dotnet</RepositoryUrl>
     <SignAssembly>true</SignAssembly>
