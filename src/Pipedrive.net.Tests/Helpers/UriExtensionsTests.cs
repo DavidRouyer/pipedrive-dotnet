@@ -23,6 +23,19 @@ namespace Pipedrive.Tests.Helpers
             }
 
             [Fact]
+            public void AppendsParametersAsQueryStringWithExistingParameters()
+            {
+                var uri = new Uri("https://example.com?foo=foo%20val");
+
+                var uriWithParameters = uri.ApplyParameters(new Dictionary<string, string>
+                {
+                    {"bar", "barval"}
+                });
+
+                Assert.Equal(new Uri("https://example.com?bar=barval&foo=foo%20val"), uriWithParameters);
+            }
+
+            [Fact]
             public void AppendsParametersAsQueryStringWithRelativeUri()
             {
                 var uri = new Uri("issues", UriKind.Relative);

@@ -79,7 +79,7 @@ namespace Pipedrive
             {
                 if (!p.ContainsKey(existing.Key))
                 {
-                    p.Add(existing);
+                    p.Add(new KeyValuePair<string, string>(existing.Key, Uri.UnescapeDataString(existing.Value)));
                 }
             }
 
