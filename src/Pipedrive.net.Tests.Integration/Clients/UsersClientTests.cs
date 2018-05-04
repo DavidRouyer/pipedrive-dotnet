@@ -20,6 +20,36 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetByNameMethod
+        {
+            [IntegrationTest]
+            public async Task CanRetrieveUsers()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var users = await pipedrive.User.GetByName("david rouyer");
+
+                Assert.True(users.Count == 1);
+                Assert.True(users[0].ActiveFlag);
+                Assert.True(users[0].Activated);
+            }
+        }
+
+        public class TheGetByEmailMethod
+        {
+            [IntegrationTest]
+            public async Task CanRetrieveUsers()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var users = await pipedrive.User.GetByEmail("david@hopfab.com");
+
+                Assert.True(users.Count == 1);
+                Assert.True(users[0].ActiveFlag);
+                Assert.True(users[0].Activated);
+            }
+        }
+
         public class TheGetMethod
         {
             [IntegrationTest]
@@ -86,7 +116,7 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 Assert.NotNull(createdUser);
 
-                await Assert.ThrowsAsync<NotImplementedException>(() => fixture.Delete(createdUser.Id));
+                await Assert.ThrowsAsync<NotFoundException>(() => fixture.Delete(createdUser.Id));
             }
         }
     }

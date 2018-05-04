@@ -24,6 +24,24 @@ namespace Pipedrive
             return ApiConnection.GetAll<User>(ApiUrls.Users());
         }
 
+        public Task<IReadOnlyList<User>> GetByName(string name)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("term", name);
+            parameters.Add("search_by_email", "0");
+
+            return ApiConnection.GetAll<User>(ApiUrls.UsersFind(), parameters);
+        }
+
+        public Task<IReadOnlyList<User>> GetByEmail(string email)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("term", email);
+            parameters.Add("search_by_email", "1");
+
+            return ApiConnection.GetAll<User>(ApiUrls.UsersFind(), parameters);
+        }
+
         public Task<User> Get(long id)
         {
             return ApiConnection.Get<User>(ApiUrls.User(id));

@@ -12,6 +12,10 @@ namespace Pipedrive
     {
         Task<IReadOnlyList<User>> GetAll();
 
+        Task<IReadOnlyList<User>> GetByName(string name);
+
+        Task<IReadOnlyList<User>> GetByEmail(string email);
+
         Task<User> Get(long id);
 
         Task<User> Create(NewUser data);
