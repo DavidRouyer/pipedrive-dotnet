@@ -120,7 +120,7 @@ namespace Pipedrive
             return new ActivityUpdate
             {
                 Subject = Subject,
-                Done = Done ? ActivityDone.Done : ActivityDone.NotDone,
+                Done = Done ? ActivityDone.Done : ActivityDone.Undone,
                 Type = Type,
                 DueDate = DueDate,
                 DueTime = DueTime,

@@ -54,7 +54,7 @@ namespace Pipedrive
 
     public enum ActivityDone
     {
-        NotDone = 0,
+        Undone = 0,
         Done = 1
     }
 }
