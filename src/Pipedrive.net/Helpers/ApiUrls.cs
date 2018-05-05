@@ -113,6 +113,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for all the followers of the specified deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        public static Uri DealFollowers(long id)
+        {
+            return new Uri($"deals/{id}/followers", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for all the activities of the specified deal.
         /// </summary>
         /// <param name="id">The id of the deal</param>

@@ -252,6 +252,27 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
+        public class TheGetFollowersMethod
+        {
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                await client.GetFollowers(123);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<Follower>(
+                        Arg.Is<Uri>(u => u.ToString() == "deals/123/followers"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
+                            && d["id"] == "123")
+                        );
+                });
+            }
+        }
+
         public class TheGetActivitiesMethod
         {
             [Fact]

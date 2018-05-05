@@ -26,6 +26,8 @@ namespace Pipedrive
 
         Task<IReadOnlyList<DealUpdateFlow>> GetUpdates(long dealId, DealUpdateFilters filters);
 
+        Task<IReadOnlyList<Follower>> GetFollowers(long dealId);
+
         Task<IReadOnlyList<Activity>> GetActivities(long dealId, DealActivityFilters filters);
     }
 }

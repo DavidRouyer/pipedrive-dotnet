@@ -107,6 +107,16 @@ namespace Pipedrive
             return ApiConnection.GetAll<DealUpdateFlow>(ApiUrls.DealUpdates(dealId), parameters, options);
         }
 
+        public Task<IReadOnlyList<Follower>> GetFollowers(long dealId)
+        {
+            var parameters = new Dictionary<string, string>()
+            {
+                { "id", dealId.ToString() }
+            };
+
+            return ApiConnection.GetAll<Follower>(ApiUrls.DealFollowers(dealId), parameters);
+        }
+
         public Task<IReadOnlyList<Activity>> GetActivities(long dealId, DealActivityFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));

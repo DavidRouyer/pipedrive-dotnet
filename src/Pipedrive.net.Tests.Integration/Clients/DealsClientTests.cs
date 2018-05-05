@@ -199,6 +199,18 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetFollowersMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCount()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var dealFollowers = await pipedrive.Deal.GetFollowers(1);
+                Assert.Equal(1, dealFollowers.Count);
+            }
+        }
+
         public class TheGetActivitiesMethod
         {
             [IntegrationTest]
