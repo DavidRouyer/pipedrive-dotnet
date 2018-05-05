@@ -140,6 +140,65 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetUpdatesMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new DealUpdateFilters
+                {
+                    PageSize = 3,
+                    PageCount = 1
+                };
+
+                var dealUpdates = await pipedrive.Deal.GetUpdates(1, options);
+                Assert.Equal(3, dealUpdates.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new DealUpdateFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var deals = await pipedrive.Deal.GetUpdates(1, options);
+                Assert.Equal(2, deals.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new DealUpdateFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1
+                };
+
+                var firstPage = await pipedrive.Deal.GetUpdates(1, startOptions);
+
+                var skipStartOptions = new DealUpdateFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Deal.GetUpdates(1, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].Data.Id, secondPage[0].Data.Id);
+            }
+        }
+
         public class TheGetActivitiesMethod
         {
             [IntegrationTest]
@@ -147,14 +206,14 @@ namespace Pipedrive.Tests.Integration.Clients
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var options = new DealActivityFilters
+                var options = new DealUpdateFilters
                 {
                     PageSize = 3,
                     PageCount = 1
                 };
 
-                var activities = await pipedrive.Deal.GetActivities(1, options);
-                Assert.Equal(3, activities.Count);
+                var dealUpdates = await pipedrive.Deal.GetUpdates(1, options);
+                Assert.Equal(3, dealUpdates.Count);
             }
 
             [IntegrationTest]

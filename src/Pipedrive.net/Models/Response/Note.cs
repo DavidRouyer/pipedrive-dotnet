@@ -3,7 +3,7 @@ using System;
 
 namespace Pipedrive
 {
-    public class Note
+    public class Note : IDealUpdateEntity
     {
         public long Id { get; set; }
 

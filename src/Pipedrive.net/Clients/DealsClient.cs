@@ -91,6 +91,22 @@ namespace Pipedrive
             return ApiConnection.Delete(ApiUrls.Deal(id));
         }
 
+        public Task<IReadOnlyList<DealUpdateFlow>> GetUpdates(long dealId, DealUpdateFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+            parameters.Add("id", dealId.ToString());
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.GetAll<DealUpdateFlow>(ApiUrls.DealUpdates(dealId), parameters, options);
+        }
+
         public Task<IReadOnlyList<Activity>> GetActivities(long dealId, DealActivityFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));

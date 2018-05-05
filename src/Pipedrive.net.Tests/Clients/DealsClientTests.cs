@@ -213,6 +213,45 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
+        public class TheGetUpdatesMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new DealsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.GetUpdates(1, null));
+            }
+
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                var filters = new DealUpdateFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 0,
+                };
+
+                await client.GetUpdates(123, filters);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<DealUpdateFlow>(
+                        Arg.Is<Uri>(u => u.ToString() == "deals/123/flow"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
+                            && d["id"] == "123"),
+                        Arg.Is<ApiOptions>(o => o.PageSize == 1
+                                && o.PageCount == 1
+                                && o.StartPage == 0)
+                        );
+                });
+            }
+        }
+
         public class TheGetActivitiesMethod
         {
             [Fact]
