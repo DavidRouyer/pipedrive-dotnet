@@ -93,5 +93,14 @@ namespace Pipedrive
 
         [JsonProperty("description")]
         public string Description { get; set; }
+
+        public FileUpdate ToUpdate()
+        {
+            return new FileUpdate
+            {
+                Name = Name,
+                Description = Description
+            };
+        }
     }
 }
