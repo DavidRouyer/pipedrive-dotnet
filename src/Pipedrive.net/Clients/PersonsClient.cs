@@ -50,6 +50,24 @@ namespace Pipedrive
             return ApiConnection.GetAll<Person>(ApiUrls.Persons(), parameters, options);
         }
 
+        public Task<IReadOnlyList<SimplePerson>> GetByName(string name)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("term", name);
+            parameters.Add("search_by_email", "0");
+
+            return ApiConnection.GetAll<SimplePerson>(ApiUrls.PersonsFind(), parameters);
+        }
+
+        public Task<IReadOnlyList<SimplePerson>> GetByEmail(string email)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("term", email);
+            parameters.Add("search_by_email", "1");
+
+            return ApiConnection.GetAll<SimplePerson>(ApiUrls.PersonsFind(), parameters);
+        }
+
         public Task<Person> Get(long id)
         {
             return ApiConnection.Get<Person>(ApiUrls.Person(id));

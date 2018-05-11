@@ -94,6 +94,46 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
+        public class TheGetByNameMethod
+        {
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new PersonsClient(connection);
+
+                await client.GetByName("name");
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<SimplePerson>(Arg.Is<Uri>(u => u.ToString() == "persons/find"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                            && d["term"] == "name"
+                            && d["search_by_email"] == "0"));
+                });
+            }
+        }
+
+        public class TheGetByEmailMethod
+        {
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new PersonsClient(connection);
+
+                await client.GetByEmail("email");
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<SimplePerson>(Arg.Is<Uri>(u => u.ToString() == "persons/find"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                            && d["term"] == "email"
+                            && d["search_by_email"] == "1"));
+                });
+            }
+        }
+
         public class TheGetMethod
         {
             [Fact]

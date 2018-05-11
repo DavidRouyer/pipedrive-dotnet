@@ -65,6 +65,34 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetByNameMethod
+        {
+            [IntegrationTest]
+            public async Task CanRetrievePersons()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var persons = await pipedrive.Person.GetByName("david rouyer");
+
+                Assert.True(persons.Count == 1);
+                Assert.Equal("david@hopfab.com", persons[0].Email);
+            }
+        }
+
+        public class TheGetByEmailMethod
+        {
+            [IntegrationTest]
+            public async Task CanRetrievePersons()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var persons = await pipedrive.Person.GetByEmail("david@hopfab.com");
+
+                Assert.True(persons.Count == 1);
+                Assert.Equal("David Rouyer", persons[0].Name);
+            }
+        }
+
         public class TheCreateMethod
         {
             [IntegrationTest]

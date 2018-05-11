@@ -232,6 +232,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// return the <see cref="Uri"/> that return all the finded persons.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri PersonsFind()
+        {
+            return new Uri("persons/find", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for the specified person.
         /// </summary>
         /// <param name="id">The id of the person</param>

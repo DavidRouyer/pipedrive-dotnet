@@ -14,6 +14,10 @@ namespace Pipedrive
 
         Task<IReadOnlyList<Person>> GetAllForUserId(int userId, PersonFilters filters);
 
+        Task<IReadOnlyList<SimplePerson>> GetByName(string name);
+
+        Task<IReadOnlyList<SimplePerson>> GetByEmail(string email);
+
         Task<Person> Get(long id);
 
         Task<Person> Create(NewPerson data);
