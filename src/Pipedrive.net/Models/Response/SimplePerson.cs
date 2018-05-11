@@ -19,7 +19,7 @@ namespace Pipedrive
         public long? OrgId { get; set; }
 
         [JsonProperty("org_name")]
-        public long? OrgName { get; set; }
+        public string OrgName { get; set; }
 
         [JsonProperty("visible_to")]
         public string VisibleTo { get; set; }
