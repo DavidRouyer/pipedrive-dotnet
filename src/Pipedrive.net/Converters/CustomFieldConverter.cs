@@ -145,7 +145,7 @@ namespace Pipedrive.Internal
             IDictionary<string,IField> customFields = ((IEntityWithCustomFields)value).CustomFields;
             foreach(var field in customFields)
             {
-                if (field.Value != null)
+                if (field.Value == null)
                 {
                     o.Add(field.Key, null);
                 } else {
