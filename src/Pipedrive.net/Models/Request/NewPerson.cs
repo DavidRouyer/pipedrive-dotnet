@@ -15,10 +15,10 @@ namespace Pipedrive
         public long OrgId { get; set; }
 
         [JsonProperty("email")]
-        public List<Email> Email { get; set; }
+        public List<Email> Email { get; set; } = new List<Email>();
 
         [JsonProperty("phone")]
-        public List<Phone> Phone { get; set; }
+        public List<Phone> Phone { get; set; } = new List<Phone>();
 
         [JsonProperty("visible_to")]
         public Visibility VisibleTo { get; set; }

@@ -34,7 +34,7 @@ namespace Pipedrive
         public long? PersonId { get; set; }
 
         [JsonProperty("participants")]
-        public List<Participant> Participants { get; set; }
+        public List<Participant> Participants { get; set; } = new List<Participant>();
 
         [JsonProperty("org_id")]
         public long? OrgId { get; set; }
