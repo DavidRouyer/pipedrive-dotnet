@@ -50,6 +50,14 @@ namespace Pipedrive
             return ApiConnection.GetAll<Organization>(ApiUrls.Organizations(), parameters, options);
         }
 
+        public Task<IReadOnlyList<SimpleOrganization>> GetByName(string name)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("term", name);
+
+            return ApiConnection.GetAll<SimpleOrganization>(ApiUrls.OrganizationsFind(), parameters);
+        }
+
         public Task<Organization> Get(long id)
         {
             return ApiConnection.Get<Organization>(ApiUrls.Organization(id));

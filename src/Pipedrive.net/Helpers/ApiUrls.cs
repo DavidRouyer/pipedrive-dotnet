@@ -196,6 +196,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// return the <see cref="Uri"/> that return all the finded organizations.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri OrganizationsFind()
+        {
+            return new Uri("organizations/find", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for the specified organization.
         /// </summary>
         /// <param name="id">The id of the organization</param>

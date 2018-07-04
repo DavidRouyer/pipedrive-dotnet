@@ -14,6 +14,8 @@ namespace Pipedrive
 
         Task<IReadOnlyList<Organization>> GetAllForUserId(int userId, OrganizationFilters filters);
 
+        Task<IReadOnlyList<SimpleOrganization>> GetByName(string name);
+
         Task<Organization> Get(long id);
 
         Task<Organization> Create(NewOrganization data);

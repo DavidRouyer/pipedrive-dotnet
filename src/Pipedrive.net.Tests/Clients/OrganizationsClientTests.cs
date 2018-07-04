@@ -94,6 +94,25 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
+        public class TheGetByNameMethod
+        {
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new OrganizationsClient(connection);
+
+                await client.GetByName("name");
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<SimpleOrganization>(Arg.Is<Uri>(u => u.ToString() == "organizations/find"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
+                            && d["term"] == "name"));
+                });
+            }
+        }
+
         public class TheGetMethod
         {
             [Fact]
