@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Pipedrive.Internal;
 using System;
+using System.Collections.Generic;
 
 namespace Pipedrive
 {
+    [JsonConverter(typeof(CustomFieldConverter))]
     public class DealUpdate
     {
         [JsonProperty("title")]
@@ -42,5 +45,8 @@ namespace Pipedrive
 
         [JsonProperty("visible_to")]
         public Visibility VisibleTo { get; set; }
+
+        [JsonIgnore]
+        public IDictionary<string, IField> CustomFields { get; set; }
     }
 }

@@ -193,7 +193,8 @@ namespace Pipedrive
                 Probability = Probability,
                 LostReason = LostReason,
                 AddTime = AddTime,
-                VisibleTo = VisibleTo
+                VisibleTo = VisibleTo,
+                CustomFields = CustomFields
             };
         }
     }

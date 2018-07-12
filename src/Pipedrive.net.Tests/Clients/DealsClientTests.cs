@@ -1,4 +1,5 @@
 ﻿using NSubstitute;
+using Pipedrive.CustomFields;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -168,10 +169,12 @@ namespace Pipedrive.Tests.Clients
                 var client = new DealsClient(connection);
 
                 var newDeal = new NewDeal("title");
+                var customFields = new Dictionary<string, IField>() { { "5913c8efdcf5c641a516d1fbd498235544b1b195", new IntField(123) } };
+                newDeal.CustomFields = customFields;
                 client.Create(newDeal);
 
                 connection.Received().Post<Deal>(Arg.Is<Uri>(u => u.ToString() == "deals"),
-                    Arg.Is<NewDeal>(d => d.Title == "title"));
+                    Arg.Is<NewDeal>(d => d.Title == "title" && d.CustomFields == customFields));
             }
         }
 
@@ -191,11 +194,12 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new DealsClient(connection);
 
-                var editDeal = new DealUpdate { Title = "title" };
+                var customFields = new Dictionary<string, IField>() { { "5913c8efdcf5c641a516d1fbd498235544b1b195", new IntField(123) } };
+                var editDeal = new DealUpdate { Title = "title", CustomFields = customFields };
                 client.Edit(123, editDeal);
 
                 connection.Received().Put<Deal>(Arg.Is<Uri>(u => u.ToString() == "deals/123"),
-                    Arg.Is<DealUpdate>(d => d.Title == "title"));
+                    Arg.Is<DealUpdate>(d => d.Title == "title" && d.CustomFields == customFields));
             }
         }
 
