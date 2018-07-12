@@ -1,4 +1,6 @@
 using System;
+using System.IO;
+using System.Reflection;
 
 namespace Pipedrive.Tests.Integration
 {
@@ -23,6 +25,18 @@ namespace Pipedrive.Tests.Integration
         public static IPipedriveClient GetAuthenticatedClient(bool useSecondUser = false)
         {
             return new PipedriveClient(new ProductHeaderValue("PipedriveTests"), ApiUrl, ApiToken);
+        }
+
+        public static Stream LoadFixture(string fileName)
+        {
+            var key = "Pipedrive.Tests.Integration.Fixtures." + fileName;
+            var stream = typeof(Helper).GetTypeInfo().Assembly.GetManifestResourceStream(key);
+            if (stream == null)
+            {
+                throw new InvalidOperationException(
+                    "The file '" + fileName + "' was not found as an embedded resource in the assembly. Failing the test...");
+            }
+            return stream;
         }
     }
 }
