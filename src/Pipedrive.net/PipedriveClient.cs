@@ -46,6 +46,7 @@ namespace Pipedrive
             Person = new PersonsClient(apiConnection);
             PersonField = new PersonFieldsClient(apiConnection);
             User = new UsersClient(apiConnection);
+            Webhook = new WebhooksClient();
         }
 
         /// <summary>
@@ -186,6 +187,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Users
         /// </remarks>
         public IUsersClient User { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's Webhook API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Webhooks
+        /// </remarks>
+        public IWebhooksClient Webhook { get; private set; }
 
         static Uri FixUpBaseUri(Uri uri)
         {
