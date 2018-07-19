@@ -3,8 +3,8 @@
     <AssemblyName>Pipedrive.net</AssemblyName>
     <Title>Pipedrive.net</Title>
     <Description>Pipedrive.net is an async .NET Standard client for pipedrive.com</Description>
-    <VersionPrefix>0.0.12</VersionPrefix>
-    <Version>0.0.12</Version>
+    <VersionPrefix>0.0.13</VersionPrefix>
+    <Version>0.0.13</Version>
     <Authors>David Rouyer</Authors>
     <TargetFramework>netstandard2.0</TargetFramework>
 
@@ -12,7 +12,7 @@
     <PackageTags>pipedrive;crm</PackageTags>
     <PackageProjectUrl>https://github.com/DavidRouyer/pipedrive-dotnet</PackageProjectUrl>
     <PackageLicenseUrl>https://raw.githubusercontent.com/DavidRouyer/pipedrive-dotnet/master/LICENSE</PackageLicenseUrl>
-    <PackageReleaseNotes>https://github.com/DavidRouyer/pipedrive-dotnet/releases/tag/v0.0.12</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/DavidRouyer/pipedrive-dotnet/releases/tag/v0.0.13</PackageReleaseNotes>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/DavidRouyer/pipedrive-dotnet</RepositoryUrl>
     <SignAssembly>true</SignAssembly>
