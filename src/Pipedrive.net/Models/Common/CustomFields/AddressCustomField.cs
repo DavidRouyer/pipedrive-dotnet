@@ -1,6 +1,6 @@
 ﻿namespace Pipedrive.CustomFields
 {
-    public class AddressField : IField
+    public class AddressCustomField : ICustomField
     {
         public string Value { get; set; }
 
@@ -24,7 +24,7 @@
 
         public string FormattedAddress { get; set; }
 
-        public AddressField(
+        public AddressCustomField(
             string value,
             string subpremise,
             string streetNumber,

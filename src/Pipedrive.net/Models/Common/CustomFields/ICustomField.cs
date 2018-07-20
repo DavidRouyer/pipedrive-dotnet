@@ -1,6 +1,6 @@
 ﻿namespace Pipedrive
 {
-    public interface IField
+    public interface ICustomField
     {
     }
 }

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Pipedrive
 {
     [JsonConverter(typeof(CustomFieldConverter))]
-    public class DealUpdate
+    public class DealUpdate : IEntityWithCustomFields
     {
         [JsonProperty("title")]
         public string Title { get; set; }
@@ -47,6 +47,6 @@ namespace Pipedrive
         public Visibility VisibleTo { get; set; }
 
         [JsonIgnore]
-        public IDictionary<string, IField> CustomFields { get; set; }
+        public IDictionary<string, ICustomField> CustomFields { get; set; }
     }
 }

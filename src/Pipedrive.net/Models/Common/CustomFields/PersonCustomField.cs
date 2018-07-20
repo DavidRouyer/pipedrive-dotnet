@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Pipedrive.CustomFields
 {
-    public class PersonField : IField
+    public class PersonCustomField : ICustomField
     {
         [JsonProperty("name")]
         public string Name { get; set; }

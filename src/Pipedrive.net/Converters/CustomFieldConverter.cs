@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using Pipedrive.CustomFields;
 
 namespace Pipedrive.Internal
@@ -17,7 +18,7 @@ namespace Pipedrive.Internal
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var customFields = new Dictionary<string, IField>();
+            var customFields = new Dictionary<string, ICustomField>();
 
             var jObject = JObject.Load(reader);
             foreach (var property in jObject.Properties())
@@ -40,7 +41,7 @@ namespace Pipedrive.Internal
                                 // Time range
                                 if (linkedProperties.Any(p => p.Key == $"{property.Name}_until"))
                                 {
-                                    customFields.Add(property.Name, new TimeRangeField(
+                                    customFields.Add(property.Name, new TimeRangeCustomField(
                                         TimeSpan.Parse((string)property.Value),
                                         TimeSpan.Parse((string)linkedProperties[$"{property.Name}_until"]),
                                         (int)linkedProperties[$"{property.Name}_timezone_id"]
@@ -49,7 +50,7 @@ namespace Pipedrive.Internal
                                 // Time
                                 else
                                 {
-                                    customFields.Add(property.Name, new TimeField(
+                                    customFields.Add(property.Name, new TimeCustomField(
                                         TimeSpan.Parse((string)property.Value),
                                         (int)linkedProperties[$"{property.Name}_timezone_id"]
                                         ));
@@ -60,7 +61,7 @@ namespace Pipedrive.Internal
                             {
                                 customFields.Add(
                                     property.Name,
-                                    new DateRangeField(DateTime.Parse((string)property.Value),
+                                    new DateRangeCustomField(DateTime.Parse((string)property.Value),
                                     DateTime.Parse((string)linkedProperties[$"{property.Name}_until"])));
                             }
                             // Address
@@ -68,7 +69,7 @@ namespace Pipedrive.Internal
                             {
                                 customFields.Add(
                                     property.Name,
-                                    new AddressField(
+                                    new AddressCustomField(
                                         (string)property.Value,
                                         (string)linkedProperties[$"{property.Name}_subpremise"],
                                         (string)linkedProperties[$"{property.Name}_street_number"],
@@ -85,43 +86,43 @@ namespace Pipedrive.Internal
                             }
                             else if (DateTime.TryParseExact((string)property.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out datetime))
                             {
-                                customFields.Add(property.Name, new DateField(datetime));
+                                customFields.Add(property.Name, new DateCustomField(datetime));
                             }
                             else
                             {
-                                customFields.Add(property.Name, new StringField((string)property.Value));
+                                customFields.Add(property.Name, new StringCustomField((string)property.Value));
                             }
                             break;
                         case JTokenType.Float:
                             // Monetary
                             if (linkedProperties.Any(p => p.Key == $"{property.Name}_currency"))
                             {
-                                customFields.Add(property.Name, new MonetaryField((decimal)property.Value, (string)linkedProperties[$"{property.Name}_currency"]));
+                                customFields.Add(property.Name, new MonetaryCustomField((decimal)property.Value, (string)linkedProperties[$"{property.Name}_currency"]));
                             }
                             // Decimal
                             else
                             {
-                                customFields.Add(property.Name, new DecimalField((decimal)property.Value));
+                                customFields.Add(property.Name, new DecimalCustomField((decimal)property.Value));
                             }
                             break;
                         case JTokenType.Integer:
-                            customFields.Add(property.Name, new IntField((int)property.Value));
+                            customFields.Add(property.Name, new IntCustomField((int)property.Value));
                             break;
                         case JTokenType.Object:
                             // User
                             if (((JObject)child).Properties().Any(p => p.Name == "has_pic"))
                             {
-                                customFields.Add(property.Name, property.Value.ToObject<UserField>());
+                                customFields.Add(property.Name, property.Value.ToObject<UserCustomField>());
                             }
                             // Organization
                             if (((JObject)child).Properties().Any(p => p.Name == "people_count"))
                             {
-                                customFields.Add(property.Name, property.Value.ToObject<CustomFields.OrganizationField>());
+                                customFields.Add(property.Name, property.Value.ToObject<OrganizationCustomField>());
                             }
                             // Person
                             if (((JObject)child).Properties().Any(p => p.Name == "phone"))
                             {
-                                customFields.Add(property.Name, property.Value.ToObject<CustomFields.PersonField>());
+                                customFields.Add(property.Name, property.Value.ToObject<PersonCustomField>());
                             }
                             break;
                         case JTokenType.Null:
@@ -140,72 +141,132 @@ namespace Pipedrive.Internal
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            JToken token = JToken.FromObject(value);
-            JObject o = (JObject)token;
-            IDictionary<string,IField> customFields = ((IEntityWithCustomFields)value).CustomFields;
-            foreach(var field in customFields)
+            var contract = (JsonObjectContract)serializer
+                .ContractResolver
+                .ResolveContract(value.GetType());
+
+            writer.WriteStartObject();
+
+            foreach (var property in contract.Properties)
+            {
+                if (property.Ignored) continue;
+                if (!ShouldSerialize(property, value)) continue;
+
+                var property_name = property.PropertyName;
+                var property_value = property.ValueProvider.GetValue(value);
+
+                writer.WritePropertyName(property_name);
+                if (property.Converter != null && property.Converter.CanWrite)
+                {
+                    property.Converter.WriteJson(writer, property_value, serializer);
+                }
+                else
+                {
+                    serializer.Serialize(writer, property_value);
+                }
+            }
+
+            IDictionary<string, ICustomField> customFields = ((IEntityWithCustomFields)value).CustomFields;
+            foreach (var field in customFields)
             {
                 if (field.Value == null)
                 {
-                    o.Add(field.Key, null);
-                } else {
+                    writer.WritePropertyName(field.Key);
+                    writer.WriteValue(String.Empty);
+                }
+                else
+                {
                     switch (field.Value)
                     {
-                        case StringField s:
-                            o.Add(field.Key, s.Value);
+                        case StringCustomField s:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(s.Value);
                             break;
-                        case IntField i:
-                            o.Add(field.Key, i.Value);
+                        case IntCustomField i:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(i.Value);
                             break;
-                        case DecimalField d:
-                            o.Add(field.Key, d.Value);
+                        case DecimalCustomField d:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(d.Value);
                             break;
-                        case DateField d:
-                            o.Add(field.Key, d.Value);
+                        case DateCustomField d:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(d.Value);
                             break;
-                        case TimeField t:
-                            o.Add(field.Key, t.Value);
-                            o.Add($"{field.Key}_timezone_id", t.TimezoneId);
+                        case TimeCustomField t:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(t.Value);
+                            writer.WritePropertyName($"{field.Key}_timezone_id");
+                            writer.WriteValue(t.TimezoneId);
                             break;
-                        case MonetaryField m:
-                            o.Add(field.Key, m.Value);
-                            o.Add($"{field.Key}_currency", m.Currency);
+                        case MonetaryCustomField m:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(m.Value);
+                            writer.WritePropertyName($"{field.Key}_currency");
+                            writer.WriteValue(m.Currency);
                             break;
-                        case TimeRangeField tr:
-                            o.Add(field.Key, tr.StartTime);
-                            o.Add($"{field.Key}_until", tr.EndTime);
-                            o.Add($"{field.Key}_timezone_id", tr.TimezoneId);
+                        case TimeRangeCustomField tr:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(tr.StartTime);
+                            writer.WritePropertyName($"{field.Key}_until");
+                            writer.WriteValue(tr.EndTime);
+                            writer.WritePropertyName($"{field.Key}_timezone_id");
+                            writer.WriteValue(tr.TimezoneId);
                             break;
-                        case DateRangeField dr:
-                            o.Add(field.Key, dr.StartDate);
-                            o.Add($"{field.Key}_until", dr.EndDate);
+                        case DateRangeCustomField dr:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(dr.StartDate);
+                            writer.WritePropertyName($"{field.Key}_until");
+                            writer.WriteValue(dr.EndDate);
                             break;
-                        case AddressField a:
-                            o.Add(field.Key, a.Value);
-                            o.Add($"{field.Key}_subpremise", a.Subpremise);
-                            o.Add($"{field.Key}_street_number", a.StreetNumber);
-                            o.Add($"{field.Key}_route", a.Route);
-                            o.Add($"{field.Key}_sublocality", a.Sublocality);
-                            o.Add($"{field.Key}_locality", a.Locality);
-                            o.Add($"{field.Key}_admin_area_level_1", a.AdminAreaLevel1);
-                            o.Add($"{field.Key}_admin_area_level_2", a.AdminAreaLevel2);
-                            o.Add($"{field.Key}_country", a.Country);
-                            o.Add($"{field.Key}_postal_code", a.PostalCode);
-                            o.Add($"{field.Key}_formatted_address", a.FormattedAddress);
+                        case AddressCustomField a:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(a.Value);
+                            writer.WritePropertyName($"{field.Key}_subpremise");
+                            writer.WriteValue(a.Subpremise);
+                            writer.WritePropertyName($"{field.Key}_street_number");
+                            writer.WriteValue(a.StreetNumber);
+                            writer.WritePropertyName($"{field.Key}_route");
+                            writer.WriteValue(a.Route);
+                            writer.WritePropertyName($"{field.Key}_sublocality");
+                            writer.WriteValue(a.Sublocality);
+                            writer.WritePropertyName($"{field.Key}_locality");
+                            writer.WriteValue(a.Locality);
+                            writer.WritePropertyName($"{field.Key}_admin_area_level_1");
+                            writer.WriteValue(a.AdminAreaLevel1);
+                            writer.WritePropertyName($"{field.Key}_admin_area_level_2");
+                            writer.WriteValue(a.AdminAreaLevel2);
+                            writer.WritePropertyName($"{field.Key}_country");
+                            writer.WriteValue(a.Country);
+                            writer.WritePropertyName($"{field.Key}_postal_code");
+                            writer.WriteValue(a.PostalCode);
+                            writer.WritePropertyName($"{field.Key}_formatted_address");
+                            writer.WriteValue(a.FormattedAddress);
                             break;
-                        case CustomFields.OrganizationField org:
-                            o.Add(field.Key, org.Value);
+                        case OrganizationCustomField org:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(org.Value);
                             break;
-                        case CustomFields.PersonField p:
-                            o.Add(field.Key, p.Value);
+                        case PersonCustomField p:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(p.Value);
                             break;
-                        case UserField u:
-                            o.Add(field.Key, u.Value);
+                        case UserCustomField u:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(u.Value);
                             break;
                     }
                 }
             }
-            o.WriteTo(writer);
+
+            writer.WriteEndObject();
+        }
+
+        private static bool ShouldSerialize(JsonProperty property, object instance)
+        {
+            return property.ShouldSerialize == null
+                || property.ShouldSerialize(instance);
         }
     }
 }

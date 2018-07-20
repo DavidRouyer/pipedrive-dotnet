@@ -1,10 +1,10 @@
 ﻿namespace Pipedrive.CustomFields
 {
-    public class DecimalField : IField
+    public class DecimalCustomField : ICustomField
     {
         public decimal Value { get; set; }
 
-        public DecimalField(decimal value)
+        public DecimalCustomField(decimal value)
         {
             Value = value;
         }

@@ -12,16 +12,16 @@ namespace Pipedrive
         public long Id { get; set; }
 
         [JsonProperty("creator_user_id")]
-        public UserField CreatorUserId { get; set; }
+        public UserCustomField CreatorUserId { get; set; }
 
         [JsonProperty("user_id")]
-        public UserField UserId { get; set; }
+        public UserCustomField UserId { get; set; }
 
         [JsonProperty("person_id")]
-        public CustomFields.PersonField PersonId { get; set; }
+        public PersonCustomField PersonId { get; set; }
 
         [JsonProperty("org_id")]
-        public CustomFields.OrganizationField OrgId { get; set; }
+        public OrganizationCustomField OrgId { get; set; }
 
         [JsonProperty("stage_id")]
         public long StageId { get; set; }
@@ -177,7 +177,7 @@ namespace Pipedrive
         public bool PersonHidden { get; set; }
 
         [JsonIgnore]
-        public IDictionary<string, IField> CustomFields { get; set; }
+        public IDictionary<string, ICustomField> CustomFields { get; set; }
 
         public DealUpdate ToUpdate()
         {

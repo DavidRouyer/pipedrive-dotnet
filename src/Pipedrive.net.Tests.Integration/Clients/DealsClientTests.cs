@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using Pipedrive.CustomFields;
+using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -109,11 +111,48 @@ namespace Pipedrive.Tests.Integration.Clients
                 var editDeal = deal.ToUpdate();
                 editDeal.Title = "updated-title";
                 editDeal.Status = DealStatus.lost;
+                editDeal.CustomFields["33f60aa418da91210968773dda914742dd69d9c8"] = new StringCustomField("my string");
+                editDeal.CustomFields["429ced4a0dcd16b9be5048453c1ff6748a8c4646"] = new StringCustomField("my autocomplete string");
+                editDeal.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"] = new StringCustomField("my large text string");
+                editDeal.CustomFields["110dee8ec4d2f63bb4a739ceb537d59bdec70841"] = new IntCustomField(123);
+                editDeal.CustomFields["aeb53a8dfadae3725183f9ef1deeeaf416c43b3b"] = new MonetaryCustomField(123.45m, "EUR");
+                editDeal.CustomFields["29ea3aec79d40dc23717c8dc2ae733b80d4d106d"] = new DateCustomField(new DateTime(2018, 12, 31));
+                editDeal.CustomFields["fafd71954fc387aad08186ab7aead0697fba4229"] = new DateRangeCustomField(new DateTime(2018, 12, 30), new DateTime(2018, 12, 31));
+                editDeal.CustomFields["bde564bd45f0381b54eea85d5c70a904d17458d9"] = new TimeCustomField(new TimeSpan(23, 59, 59), 0);
+                editDeal.CustomFields["9ef10a2bcd8d149ddd0a64988762dc5a080a9230"] = new TimeRangeCustomField(new TimeSpan(23, 59, 58), new TimeSpan(23, 59, 59), 0);
+                editDeal.CustomFields["2008db4fe093862089023b01ad80feabac24d7d0"] = new AddressCustomField("value", "subpremise", "streetNumber", "route", "sublocality", "locality", "adminAreaLevel1", "adminAreaLevel2", "country", "postalCode", "formattedAddress");
+                editDeal.CustomFields["8a1cf3eacd582191a48730b5d953daa877c0ebe7"] = new StringCustomField("0606060606"); // Phone
+                editDeal.CustomFields["796428c82dfc3595032a4330238aa06d354db5da"] = new StringCustomField("4"); // Single option
+                editDeal.CustomFields["d6f06c499d7692a76f9239545817b441273a00eb"] = new StringCustomField("2,3"); // Multiple options
+                editDeal.CustomFields["91f2a72b3373f7a382b1313c047ebd67ed117721"] = new OrganizationCustomField() { Value = 5 };
+                editDeal.CustomFields["b7f70559583cdfd159d4831697d0540c297ef26f"] = new PersonCustomField() { Value = 6 };
+                editDeal.CustomFields["a0d868dde5bb67a59117d807fae1d6b3b025731e"] = new UserCustomField() { Value = 2616956 };
 
                 var updatedDeal = await fixture.Edit(deal.Id, editDeal);
 
                 Assert.Equal("updated-title", updatedDeal.Title);
                 Assert.Equal(DealStatus.lost, updatedDeal.Status);
+                Assert.Equal("my string", ((StringCustomField)updatedDeal.CustomFields["33f60aa418da91210968773dda914742dd69d9c8"]).Value);
+                Assert.Equal("my autocomplete string", ((StringCustomField)updatedDeal.CustomFields["429ced4a0dcd16b9be5048453c1ff6748a8c4646"]).Value);
+                Assert.Equal("my large text string", ((StringCustomField)updatedDeal.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"]).Value);
+                Assert.Equal(123, ((IntCustomField)updatedDeal.CustomFields["110dee8ec4d2f63bb4a739ceb537d59bdec70841"]).Value);
+                Assert.Equal(123.45m, ((MonetaryCustomField)updatedDeal.CustomFields["aeb53a8dfadae3725183f9ef1deeeaf416c43b3b"]).Value);
+                Assert.Equal("EUR", ((MonetaryCustomField)updatedDeal.CustomFields["aeb53a8dfadae3725183f9ef1deeeaf416c43b3b"]).Currency);
+                Assert.Equal(new DateTime(2018, 12, 31), ((DateCustomField)updatedDeal.CustomFields["29ea3aec79d40dc23717c8dc2ae733b80d4d106d"]).Value);
+                Assert.Equal(new DateTime(2018, 12, 30), ((DateRangeCustomField)updatedDeal.CustomFields["fafd71954fc387aad08186ab7aead0697fba4229"]).StartDate);
+                Assert.Equal(new DateTime(2018, 12, 31), ((DateRangeCustomField)updatedDeal.CustomFields["fafd71954fc387aad08186ab7aead0697fba4229"]).EndDate);
+                Assert.Equal(new TimeSpan(23, 59, 59), ((TimeCustomField)updatedDeal.CustomFields["bde564bd45f0381b54eea85d5c70a904d17458d9"]).Value);
+                Assert.Equal(0, ((TimeCustomField)updatedDeal.CustomFields["bde564bd45f0381b54eea85d5c70a904d17458d9"]).TimezoneId);
+                Assert.Equal(new TimeSpan(23, 59, 58), ((TimeRangeCustomField)updatedDeal.CustomFields["9ef10a2bcd8d149ddd0a64988762dc5a080a9230"]).StartTime);
+                Assert.Equal(new TimeSpan(23, 59, 59), ((TimeRangeCustomField)updatedDeal.CustomFields["9ef10a2bcd8d149ddd0a64988762dc5a080a9230"]).EndTime);
+                Assert.Equal(0, ((TimeRangeCustomField)updatedDeal.CustomFields["9ef10a2bcd8d149ddd0a64988762dc5a080a9230"]).TimezoneId);
+                Assert.Equal("value", ((AddressCustomField)updatedDeal.CustomFields["2008db4fe093862089023b01ad80feabac24d7d0"]).Value);
+                Assert.Equal("0606060606", ((StringCustomField)updatedDeal.CustomFields["8a1cf3eacd582191a48730b5d953daa877c0ebe7"]).Value);
+                Assert.Equal("4", ((StringCustomField)updatedDeal.CustomFields["796428c82dfc3595032a4330238aa06d354db5da"]).Value);
+                Assert.Equal("2,3", ((StringCustomField)updatedDeal.CustomFields["d6f06c499d7692a76f9239545817b441273a00eb"]).Value);
+                Assert.Equal(5, ((OrganizationCustomField)updatedDeal.CustomFields["91f2a72b3373f7a382b1313c047ebd67ed117721"]).Value);
+                Assert.Equal(6, ((PersonCustomField)updatedDeal.CustomFields["b7f70559583cdfd159d4831697d0540c297ef26f"]).Value);
+                Assert.Equal(2616956, ((UserCustomField)updatedDeal.CustomFields["a0d868dde5bb67a59117d807fae1d6b3b025731e"]).Value);
             }
         }
 

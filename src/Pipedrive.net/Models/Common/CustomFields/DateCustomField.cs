@@ -2,11 +2,11 @@
 
 namespace Pipedrive.CustomFields
 {
-    public class DateField : IField
+    public class DateCustomField : ICustomField
     {
         public DateTime Value { get; set; }
 
-        public DateField(DateTime value)
+        public DateCustomField(DateTime value)
         {
             Value = value;
         }

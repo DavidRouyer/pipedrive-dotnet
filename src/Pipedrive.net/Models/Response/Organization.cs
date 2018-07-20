@@ -15,7 +15,7 @@ namespace Pipedrive
         public long CompanyId { get; set; }
 
         [JsonProperty("owner_id")]
-        public UserField OwnerId { get; set; }
+        public UserCustomField OwnerId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -156,7 +156,7 @@ namespace Pipedrive
         public string CcEmail { get; set; }
 
         [JsonIgnore]
-        public IDictionary<string, IField> CustomFields { get; set; }
+        public IDictionary<string, ICustomField> CustomFields { get; set; }
 
         public OrganizationUpdate ToUpdate()
         {

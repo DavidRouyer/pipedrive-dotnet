@@ -1,11 +1,11 @@
 ﻿namespace Pipedrive.CustomFields
 {
     // int
-    public class IntField : IField
+    public class IntCustomField : ICustomField
     {
         public int Value { get; set; }
 
-        public IntField(int value)
+        public IntCustomField(int value)
         {
             Value = value;
         }

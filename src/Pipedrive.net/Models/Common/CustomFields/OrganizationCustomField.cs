@@ -2,7 +2,7 @@
 
 namespace Pipedrive.CustomFields
 {
-    public class OrganizationField : IField
+    public class OrganizationCustomField : ICustomField
     {
         [JsonProperty("name")]
         public string Name { get; set; }

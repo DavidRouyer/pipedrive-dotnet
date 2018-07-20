@@ -2,7 +2,7 @@
 
 namespace Pipedrive.CustomFields
 {
-    public class TimeRangeField : IField
+    public class TimeRangeCustomField : ICustomField
     {
         public TimeSpan StartTime {get; set; }
 
@@ -10,7 +10,7 @@ namespace Pipedrive.CustomFields
 
         public int TimezoneId { get; set; }
 
-        public TimeRangeField(TimeSpan startTime, TimeSpan endTime, int timezoneId)
+        public TimeRangeCustomField(TimeSpan startTime, TimeSpan endTime, int timezoneId)
         {
             StartTime = startTime;
             EndTime = endTime;

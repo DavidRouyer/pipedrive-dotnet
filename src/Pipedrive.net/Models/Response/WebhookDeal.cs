@@ -176,7 +176,7 @@ namespace Pipedrive
         public bool PersonHidden { get; set; }
 
         [JsonIgnore]
-        public IDictionary<string, IField> CustomFields { get; set; }
+        public IDictionary<string, ICustomField> CustomFields { get; set; }
 
         public DealUpdate ToUpdate()
         {

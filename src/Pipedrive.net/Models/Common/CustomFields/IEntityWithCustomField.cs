@@ -4,6 +4,6 @@ namespace Pipedrive
 {
     public interface IEntityWithCustomFields
     {
-        IDictionary<string, IField> CustomFields { get; set; }
+        IDictionary<string, ICustomField> CustomFields { get; set; }
     }
 }

@@ -1,11 +1,11 @@
 ﻿namespace Pipedrive.CustomFields
 {
     // varchar, varchar_auto, text
-    public class StringField : IField
+    public class StringCustomField : ICustomField
     {
         public string Value { get; set; }
 
-        public StringField(string value)
+        public StringCustomField(string value)
         {
             Value = value;
         }

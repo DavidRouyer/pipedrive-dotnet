@@ -2,7 +2,7 @@
 
 namespace Pipedrive.CustomFields
 {
-    public class UserField : IField
+    public class UserCustomField : ICustomField
     {
         [JsonProperty("id")]
         public long Id { get; set; }

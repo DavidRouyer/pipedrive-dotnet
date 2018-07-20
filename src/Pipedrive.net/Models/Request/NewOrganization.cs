@@ -18,7 +18,7 @@ namespace Pipedrive
         public string AddTime { get; set; }
 
         [JsonIgnore]
-        public IDictionary<string, IField> CustomFields { get; set; } = new Dictionary<string, IField>();
+        public IDictionary<string, ICustomField> CustomFields { get; set; } = new Dictionary<string, ICustomField>();
 
         public NewOrganization(string name)
         {

@@ -43,7 +43,7 @@ namespace Pipedrive
         public string Note { get; set; }
 
         [JsonIgnore]
-        public IDictionary<string, IField> CustomFields { get; set; } = new Dictionary<string, IField>();
+        public IDictionary<string, ICustomField> CustomFields { get; set; } = new Dictionary<string, ICustomField>();
 
         public NewActivity(string subject, string type)
         {

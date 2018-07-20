@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Collections.Generic;
 
 namespace Pipedrive
@@ -27,6 +28,7 @@ namespace Pipedrive
         public long? StageId { get; set; }
 
         [JsonProperty("status")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public DealStatus Status { get; set; }
 
         [JsonProperty("probability")]
@@ -42,7 +44,7 @@ namespace Pipedrive
         public string AddTime { get; set; }
 
         [JsonIgnore]
-        public IDictionary<string, IField> CustomFields { get; set; } = new Dictionary<string, IField>();
+        public IDictionary<string, ICustomField> CustomFields { get; set; } = new Dictionary<string, ICustomField>();
 
         public NewDeal(string title)
         {
