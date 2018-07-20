@@ -10,13 +10,13 @@ namespace Pipedrive
             get { return new NoteFilters(); }
         }
 
-        public int? UserId { get; set; }
+        public long? UserId { get; set; }
 
-        public int? DealId { get; set; }
+        public long? DealId { get; set; }
 
-        public int? PersonId { get; set; }
+        public long? PersonId { get; set; }
 
-        public int? OrgId { get; set; }
+        public long? OrgId { get; set; }
 
         public int? StartPage { get; set; }
 
