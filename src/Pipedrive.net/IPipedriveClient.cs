@@ -33,5 +33,7 @@ namespace Pipedrive
         IPersonFieldsClient PersonField { get; }
 
         IUsersClient User { get; }
+
+        IWebhooksClient Webhook { get; }
     }
 }
