@@ -10,5 +10,7 @@ namespace Pipedrive
     public interface IWebhooksClient
     {
         IWebhookResponse<WebhookDeal> ParseWebhookDealResponse(string request);
+
+        IWebhookResponse<Activity> ParseWebhookActivityResponse(string request);
     }
 }
