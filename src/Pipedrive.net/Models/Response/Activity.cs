@@ -1,12 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Pipedrive.Internal;
 using System;
 using System.Collections.Generic;
 
 namespace Pipedrive
 {
-    [JsonConverter(typeof(CustomFieldConverter))]
-    public class Activity : IEntityWithCustomFields, IDealUpdateEntity
+    public class Activity : IDealUpdateEntity
     {
         public long Id { get; set; }
 
@@ -111,9 +109,6 @@ namespace Pipedrive
 
         [JsonProperty("assigned_to_user_id")]
         public long? AssignedToUserId { get; set; }
-
-        [JsonIgnore]
-        public IDictionary<string, ICustomField> CustomFields { get; set; }
 
         public ActivityUpdate ToUpdate()
         {
