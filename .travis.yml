@@ -1,12 +1,22 @@
 language: csharp
 mono: none
-dist: trusty
 dotnet: 2.1.301
+
+matrix:
+  include:
+    - os: linux
+      dist: trusty
+      env: CONFIGURATION=Debug
+    - os: linux
+      dist: trusty
+      env: CONFIGURATION=Release
+
 script:
  - cd src
  - dotnet build
  - cd Pipedrive.net.Tests
  - dotnet test
+
  - cd ..
  - cd Pipedrive.net.Tests.Integration
  - dotnet test
