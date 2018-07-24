@@ -15,8 +15,8 @@ script:
  - cd src
  - dotnet build
  - cd Pipedrive.net.Tests
- - dotnet test
+ - dotnet test -c $CONFIGURATION
 
  - cd ..
  - cd Pipedrive.net.Tests.Integration
- - dotnet test
+ - dotnet test -c $CONFIGURATION
