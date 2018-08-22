@@ -65,6 +65,19 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetMethod
+        {
+            [IntegrationTest]
+            public async Task CanRetrievePerson()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var person = await pipedrive.Person.Get(141);
+
+                Assert.Equal("david@hopfab.com", person.Email[0].Value);
+            }
+        }
+
         public class TheGetByNameMethod
         {
             [IntegrationTest]

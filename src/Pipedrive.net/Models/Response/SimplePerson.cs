@@ -25,6 +25,6 @@ namespace Pipedrive
         public string VisibleTo { get; set; }
 
         [JsonProperty("picture")]
-        public object Picture { get; set; }
+        public SimplePicture Picture { get; set; }
     }
 }

@@ -64,6 +64,19 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetMethod
+        {
+            [IntegrationTest]
+            public async Task CanRetrieveOrganization()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var person = await pipedrive.Organization.Get(217);
+
+                Assert.Equal("david rouyer", person.Name);
+            }
+        }
+
         public class TheGetByNameMethod
         {
             [IntegrationTest]

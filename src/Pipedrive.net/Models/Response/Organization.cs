@@ -78,7 +78,7 @@ namespace Pipedrive
         public long? CategoryId { get; set; }
 
         [JsonProperty("picture_id")]
-        public long? PictureId { get; set; }
+        public Picture PictureId { get; set; }
 
         [JsonProperty("country_code")]
         public string CountryCode { get; set; }
