@@ -16,6 +16,8 @@ namespace Pipedrive
 
         Task<IReadOnlyList<Deal>> GetAllForUserId(int userId, DealFilters filters);
 
+        Task<IReadOnlyList<SimpleDeal>> GetByName(string name);
+
         Task<Deal> Get(long id);
 
         Task<Deal> Create(NewDeal data);

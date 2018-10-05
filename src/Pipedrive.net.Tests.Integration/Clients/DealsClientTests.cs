@@ -66,6 +66,19 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetByNameMethod
+        {
+            [IntegrationTest]
+            public async Task CanRetrieveDeals()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var deals = await pipedrive.Deal.GetByName("mon deal");
+
+                Assert.Equal(1, deals.Count);
+            }
+        }
+
         public class TheGetMethod
         {
             [IntegrationTest]
@@ -73,7 +86,7 @@ namespace Pipedrive.Tests.Integration.Clients
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var deal = await pipedrive.Deal.Get(1);
+                var deal = await pipedrive.Deal.Get(135);
 
                 Assert.True(deal.Active);
             }

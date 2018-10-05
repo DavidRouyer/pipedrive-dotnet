@@ -67,6 +67,14 @@ namespace Pipedrive
             return ApiConnection.GetAll<Deal>(ApiUrls.Deals(), parameters, options);
         }
 
+        public Task<IReadOnlyList<SimpleDeal>> GetByName(string name)
+        {
+            var parameters = new Dictionary<string, string>();
+            parameters.Add("term", name);
+
+            return ApiConnection.GetAll<SimpleDeal>(ApiUrls.DealsFind(), parameters);
+        }
+
         public Task<Deal> Get(long id)
         {
             return ApiConnection.Get<Deal>(ApiUrls.Deal(id));

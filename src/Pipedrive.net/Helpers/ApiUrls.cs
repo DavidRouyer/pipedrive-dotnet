@@ -97,6 +97,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// return the <see cref="Uri"/> that return all the finded deals.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri DealsFind()
+        {
+            return new Uri("deals/find", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for the specified deal.
         /// </summary>
         /// <param name="id">The id of the deal</param>
