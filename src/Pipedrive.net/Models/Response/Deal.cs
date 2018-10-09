@@ -78,19 +78,19 @@ namespace Pipedrive
         public Visibility VisibleTo { get; set; }
 
         [JsonProperty("close_time")]
-        public string CloseTime { get; set; }
+        public DateTime? CloseTime { get; set; }
 
         [JsonProperty("pipeline_id")]
         public long PipelineId { get; set; }
 
         [JsonProperty("won_time")]
-        public string WonTime { get; set; }
+        public DateTime? WonTime { get; set; }
 
         [JsonProperty("first_won_time")]
-        public string FirstWonTime { get; set; }
+        public DateTime? FirstWonTime { get; set; }
 
         [JsonProperty("lost_time")]
-        public string LostTime { get; set; }
+        public DateTime? LostTime { get; set; }
 
         [JsonProperty("products_count")]
         public int ProductsCount { get; set; }
@@ -126,10 +126,10 @@ namespace Pipedrive
         public DateTime? ExpectedCloseDate { get; set; }
 
         [JsonProperty("last_incoming_mail_time")]
-        public string LastIncomingMailTime { get; set; }
+        public DateTime? LastIncomingMailTime { get; set; }
 
         [JsonProperty("last_outgoing_mail_time")]
-        public string LastOutgoingMailTime { get; set; }
+        public DateTime? LastOutgoingMailTime { get; set; }
 
         [JsonProperty("stage_order_nr")]
         public int StageOrderNr { get; set; }
@@ -193,8 +193,12 @@ namespace Pipedrive
                 Status = Status,
                 Probability = Probability,
                 LostReason = LostReason,
-                AddTime = AddTime,
                 VisibleTo = VisibleTo,
+                AddTime = AddTime,
+                CloseTime = CloseTime,
+                LostTime = LostTime,
+                FirstWonTime = FirstWonTime,
+                WonTime = WonTime,
                 CustomFields = CustomFields
             };
         }

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Pipedrive
@@ -24,7 +25,7 @@ namespace Pipedrive
         public Visibility VisibleTo { get; set; }
 
         [JsonProperty("add_time")]
-        public string AddTime { get; set; }
+        public DateTime? AddTime { get; set; }
 
         [JsonIgnore]
         public IDictionary<string, ICustomField> CustomFields { get; set; } = new Dictionary<string, ICustomField>();

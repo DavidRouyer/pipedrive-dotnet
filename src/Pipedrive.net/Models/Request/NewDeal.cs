@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 using System.Collections.Generic;
 
 namespace Pipedrive
@@ -41,7 +42,19 @@ namespace Pipedrive
         public Visibility VisibleTo { get; set; }
 
         [JsonProperty("add_time")]
-        public string AddTime { get; set; }
+        public DateTime? AddTime { get; set; }
+
+        [JsonProperty("close_time")]
+        public DateTime? CloseTime { get; set; }
+
+        [JsonProperty("lost_time")]
+        public DateTime? LostTime { get; set; }
+
+        [JsonProperty("first_won_time")]
+        public DateTime? FirstWonTime { get; set; }
+
+        [JsonProperty("won_time")]
+        public DateTime? WonTime { get; set; }
 
         [JsonIgnore]
         public IDictionary<string, ICustomField> CustomFields { get; set; } = new Dictionary<string, ICustomField>();

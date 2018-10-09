@@ -129,10 +129,10 @@ namespace Pipedrive
         public string TimelineLastActivityTimeByOwner { get; set; }
 
         [JsonProperty("last_incoming_mail_time")]
-        public string LastIncomingMailTime { get; set; }
+        public DateTime? LastIncomingMailTime { get; set; }
 
         [JsonProperty("last_outgoing_mail_time")]
-        public string LastOutgoingMailTime { get; set; }
+        public DateTime? LastOutgoingMailTime { get; set; }
 
         [JsonProperty("org_name")]
         public string OrgName { get; set; }
