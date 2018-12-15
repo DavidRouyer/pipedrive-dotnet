@@ -45,6 +45,7 @@ namespace Pipedrive
             OrganizationField = new OrganizationFieldsClient(apiConnection);
             Person = new PersonsClient(apiConnection);
             PersonField = new PersonFieldsClient(apiConnection);
+            Pipeline = new PipelinesClient(apiConnection);
             User = new UsersClient(apiConnection);
             Webhook = new WebhooksClient();
         }
@@ -179,6 +180,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/PersonFields
         /// </remarks>
         public IPersonFieldsClient PersonField { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's Pipeline API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Pipelines
+        /// </remarks>
+        public IPipelinesClient Pipeline { get; private set; }
 
         /// <summary>
         /// Access Pipedrive's User API.
