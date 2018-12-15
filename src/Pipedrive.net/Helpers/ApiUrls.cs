@@ -33,6 +33,8 @@ namespace Pipedrive
 
         static readonly Uri _pipelinesUrl = new Uri("pipelines", UriKind.Relative);
 
+        static readonly Uri _stagesUrl = new Uri("stages", UriKind.Relative);
+
         static readonly Uri _usersUrl = new Uri("users", UriKind.Relative);
 
         /// <summary>
@@ -303,6 +305,24 @@ namespace Pipedrive
         public static Uri Pipeline(long id)
         {
             return new Uri($"pipelines/{id}", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the stages in response to a GET request.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri Stages()
+        {
+            return _stagesUrl;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for the specified stage.
+        /// </summary>
+        /// <param name="id">The id of the stage</param>
+        public static Uri Stage(long id)
+        {
+            return new Uri($"stages/{id}", UriKind.Relative);
         }
 
         /// <summary>

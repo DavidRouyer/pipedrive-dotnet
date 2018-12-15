@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -36,10 +35,6 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var pipeline = await fixture.Create(newPipeline);
                 Assert.NotNull(pipeline);
-
-                var retrievedAll = await fixture.GetAll();
-                var retrieved = retrievedAll.Where(ac => ac.Name == "name").FirstOrDefault();
-                Assert.NotNull(retrieved);
             }
         }
 
