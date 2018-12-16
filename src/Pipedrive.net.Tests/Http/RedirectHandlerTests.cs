@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -21,7 +21,7 @@ namespace Pipedrive.Tests.Http
 
             var response = await adapter.SendAsync(httpRequestMessage, new CancellationToken());
 
-            Assert.Equal(response.StatusCode, HttpStatusCode.OK);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Same(response.RequestMessage, httpRequestMessage);
         }
 
