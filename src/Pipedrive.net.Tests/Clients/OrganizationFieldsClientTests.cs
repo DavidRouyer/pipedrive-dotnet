@@ -96,7 +96,7 @@ namespace Pipedrive.Tests.Clients
 
                 connection.Received().Put<OrganizationField>(Arg.Is<Uri>(u => u.ToString() == "organizationFields/123"),
                     Arg.Is<OrganizationFieldUpdate>(df => df.Name == "name"
-                        && df.Options == "{}"));
+                        && (string)df.Options == "{}"));
             }
         }
     }

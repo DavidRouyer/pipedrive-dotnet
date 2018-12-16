@@ -84,7 +84,7 @@ namespace Pipedrive.Tests
         public class ThePageUrlMethods
         {
             [Theory]
-            [MemberData("PagingMethods")]
+            [MemberData(nameof(PagingMethods))]
             public void RetrievesTheCorrectPagePage(string linkName, Func<ApiInfo, Uri> pagingMethod)
             {
                 var pageUri = new Uri("https://api.github.com/user/repos?page=2");
@@ -98,7 +98,7 @@ namespace Pipedrive.Tests
             }
 
             [Theory]
-            [MemberData("PagingMethods")]
+            [MemberData(nameof(PagingMethods))]
             public void ReturnsNullIfThereIsNoMatchingPagingLink(string ignored, Func<ApiInfo, Uri> pagingMethod)
             {
                 var links = new Dictionary<string, Uri>();
