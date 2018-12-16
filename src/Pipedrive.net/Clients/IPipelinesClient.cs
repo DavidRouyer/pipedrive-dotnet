@@ -19,5 +19,7 @@ namespace Pipedrive
         Task<Pipeline> Edit(long id, PipelineUpdate data);
 
         Task Delete(long id);
+
+        Task<IReadOnlyList<PipelineDeal>> GetDeals(long pipelineId, PipelineDealFilters filters);
     }
 }

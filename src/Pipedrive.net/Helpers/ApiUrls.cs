@@ -308,6 +308,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for all the deals of the specified pipeline.
+        /// </summary>
+        /// <param name="id">The id of the pipeline</param>
+        public static Uri PipelineDeal(long id)
+        {
+            return new Uri($"pipelines/{id}/deals", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all of the stages in response to a GET request.
         /// </summary>
         /// <returns></returns>
@@ -323,6 +332,15 @@ namespace Pipedrive
         public static Uri Stage(long id)
         {
             return new Uri($"stages/{id}", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for all the deals of the specified stage.
+        /// </summary>
+        /// <param name="id">The id of the stage</param>
+        public static Uri StageDeal(long id)
+        {
+            return new Uri($"stages/{id}/deals", UriKind.Relative);
         }
 
         /// <summary>

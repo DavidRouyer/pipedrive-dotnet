@@ -2,20 +2,18 @@
 
 namespace Pipedrive
 {
-    public class DealFilters
+    public class StageDealFilters
     {
-        public static DealFilters None
+        public static StageDealFilters None
         {
-            get { return new DealFilters(); }
+            get { return new StageDealFilters(); }
         }
 
         public long? FilterId { get; set; }
 
-        public long? StageId { get; set; }
+        public long? UserId { get; set; }
 
-        public DealStatus? Status { get; set; }
-
-        public string Sort { get; set; }
+        public bool? Everyone { get; set; }
 
         public int? StartPage { get; set; }
 
@@ -35,17 +33,13 @@ namespace Pipedrive
                 {
                     d.Add("filter_id", FilterId.Value.ToString());
                 }
-                if (StageId.HasValue)
+                if (UserId.HasValue)
                 {
-                    d.Add("stage_id", FilterId.Value.ToString());
+                    d.Add("user_id", UserId.Value.ToString());
                 }
-                if (Status.HasValue)
+                if (Everyone.HasValue)
                 {
-                    d.Add("status", Status.Value.ToString());
-                }
-                if (!string.IsNullOrWhiteSpace(Sort))
-                {
-                    d.Add("sort", Sort);
+                    d.Add("everyone", Everyone.Value.ToString());
                 }
                 return d;
             }

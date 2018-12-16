@@ -25,7 +25,25 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new StagesClient(connection);
 
-                await client.GetAll(1);
+                await client.GetAll();
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<Stage>(
+                        Arg.Is<Uri>(u => u.ToString() == "stages"));
+                });
+            }
+        }
+
+        public class TheGetAllForPipelineIdMethod
+        {
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new StagesClient(connection);
+
+                await client.GetAllForPipelineId(1);
 
                 Received.InOrder(async () =>
                 {
@@ -114,6 +132,45 @@ namespace Pipedrive.Tests.Clients
                 client.Delete(123);
 
                 connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "stages/123"));
+            }
+        }
+
+        public class TheGetDealsMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new StagesClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.GetDeals(1, null));
+            }
+
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new StagesClient(connection);
+
+                var filters = new StageDealFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 0,
+                };
+
+                await client.GetDeals(123, filters);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<PipelineDeal>(
+                        Arg.Is<Uri>(u => u.ToString() == "stages/123/deals"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
+                            && d["id"] == "123"),
+                        Arg.Is<ApiOptions>(o => o.PageSize == 1
+                                && o.PageCount == 1
+                                && o.StartPage == 0)
+                        );
+                });
             }
         }
     }

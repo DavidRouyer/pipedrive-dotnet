@@ -9,7 +9,7 @@ namespace Pipedrive
             get { return new OrganizationFilters(); }
         }
 
-        public int? FilterId { get; set; }
+        public long? FilterId { get; set; }
 
         public char? FirstChar { get; set; }
 

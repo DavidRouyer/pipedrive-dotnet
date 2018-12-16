@@ -83,5 +83,64 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.False(deletedPipeline.Active);
             }
         }
+
+        public class TheGetDealsMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new PipelineDealFilters
+                {
+                    PageSize = 3,
+                    PageCount = 1
+                };
+
+                var pipelineDeals = await pipedrive.Pipeline.GetDeals(1, options);
+                Assert.Equal(3, pipelineDeals.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new PipelineDealFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var deals = await pipedrive.Pipeline.GetDeals(1, options);
+                Assert.Equal(2, deals.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new PipelineDealFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1
+                };
+
+                var firstPage = await pipedrive.Pipeline.GetDeals(1, startOptions);
+
+                var skipStartOptions = new PipelineDealFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Pipeline.GetDeals(1, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].Id, secondPage[0].Id);
+            }
+        }
     }
 }

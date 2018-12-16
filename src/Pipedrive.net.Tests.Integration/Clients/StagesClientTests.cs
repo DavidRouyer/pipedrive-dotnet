@@ -12,7 +12,24 @@ namespace Pipedrive.Tests.Integration.Clients
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var stages = await pipedrive.Stage.GetAll(1);
+                var stages = await pipedrive.Stage.GetAll();
+
+                Assert.True(stages.Count >= 1);
+                Assert.True(stages[0].ActiveFlag);
+                Assert.False(stages[0].RottenFlag);
+                Assert.True(stages[1].ActiveFlag);
+                Assert.False(stages[1].RottenFlag);
+            }
+        }
+
+        public class TheGetAllForPipelineIdMethod
+        {
+            [IntegrationTest]
+            public async Task CanRetrieveStages()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var stages = await pipedrive.Stage.GetAllForPipelineId(1);
 
                 Assert.True(stages.Count >= 1);
                 Assert.True(stages[0].ActiveFlag);
@@ -79,6 +96,65 @@ namespace Pipedrive.Tests.Integration.Clients
                 await fixture.Delete(createdStage.Id);
 
                 await Assert.ThrowsAsync<NotFoundException>(() => fixture.Get(stage.Id));
+            }
+        }
+
+        public class TheGetDealsMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new StageDealFilters
+                {
+                    PageSize = 3,
+                    PageCount = 1
+                };
+
+                var stageDeals = await pipedrive.Stage.GetDeals(1, options);
+                Assert.Equal(3, stageDeals.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new StageDealFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var deals = await pipedrive.Stage.GetDeals(1, options);
+                Assert.Equal(2, deals.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new StageDealFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1
+                };
+
+                var firstPage = await pipedrive.Stage.GetDeals(1, startOptions);
+
+                var skipStartOptions = new StageDealFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Stage.GetDeals(1, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].Id, secondPage[0].Id);
             }
         }
     }

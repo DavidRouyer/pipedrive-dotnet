@@ -19,7 +19,12 @@ namespace Pipedrive
         {
         }
 
-        public Task<IReadOnlyList<Stage>> GetAll(long pipelineId)
+        public Task<IReadOnlyList<Stage>> GetAll()
+        {
+            return ApiConnection.GetAll<Stage>(ApiUrls.Stages());
+        }
+
+        public Task<IReadOnlyList<Stage>> GetAllForPipelineId(long pipelineId)
         {
             var parameters = new Dictionary<string, string>()
             {
@@ -51,6 +56,22 @@ namespace Pipedrive
         public Task Delete(long id)
         {
             return ApiConnection.Delete(ApiUrls.Stage(id));
+        }
+
+        public Task<IReadOnlyList<PipelineDeal>> GetDeals(long stageId, StageDealFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+            parameters.Add("id", stageId.ToString());
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.GetAll<PipelineDeal>(ApiUrls.StageDeal(stageId), parameters, options);
         }
     }
 }

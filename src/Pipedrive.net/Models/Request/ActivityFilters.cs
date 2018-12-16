@@ -10,7 +10,7 @@ namespace Pipedrive
             get { return new ActivityFilters(); }
         }
 
-        public int? FilterId { get; set; }
+        public long? FilterId { get; set; }
 
         public string Type { get; set; }
 
