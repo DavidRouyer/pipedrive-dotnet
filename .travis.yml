@@ -5,10 +5,10 @@ dotnet: 2.2.101
 matrix:
   include:
     - os: linux
-      dist: trusty
+      dist: xenial
       env: CONFIGURATION=Debug
     - os: linux
-      dist: trusty
+      dist: xenial
       env: CONFIGURATION=Release
 
 script:
