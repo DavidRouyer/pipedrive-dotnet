@@ -172,5 +172,64 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.False(deletedPerson.ActiveFlag);
             }
         }
+
+        public class TheGetDealsMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new PersonDealFilters
+                {
+                    PageSize = 3,
+                    PageCount = 1
+                };
+
+                var stageDeals = await pipedrive.Person.GetDeals(6, options);
+                Assert.Equal(3, stageDeals.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new PersonDealFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var deals = await pipedrive.Person.GetDeals(6, options);
+                Assert.Equal(2, deals.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new PersonDealFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1
+                };
+
+                var firstPage = await pipedrive.Person.GetDeals(6, startOptions);
+
+                var skipStartOptions = new PersonDealFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Person.GetDeals(6, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].Id, secondPage[0].Id);
+            }
+        }
     }
 }

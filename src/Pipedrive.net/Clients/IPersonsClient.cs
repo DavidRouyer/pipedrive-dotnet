@@ -25,5 +25,7 @@ namespace Pipedrive
         Task<Person> Edit(long id, PersonUpdate data);
 
         Task Delete(long id);
+
+        Task<IReadOnlyList<Deal>> GetDeals(long personId, PersonDealFilters filters);
     }
 }

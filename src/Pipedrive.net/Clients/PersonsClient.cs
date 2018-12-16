@@ -91,5 +91,21 @@ namespace Pipedrive
         {
             return ApiConnection.Delete(ApiUrls.Person(id));
         }
+
+        public Task<IReadOnlyList<Deal>> GetDeals(long personId, PersonDealFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+            parameters.Add("id", personId.ToString());
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.GetAll<Deal>(ApiUrls.PersonDeal(personId), parameters, options);
+        }
     }
 }

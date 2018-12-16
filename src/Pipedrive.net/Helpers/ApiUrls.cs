@@ -227,6 +227,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for all the deals of the specified organization.
+        /// </summary>
+        /// <param name="id">The id of the organization</param>
+        public static Uri OrganizationDeal(long id)
+        {
+            return new Uri($"organizations/{id}/deals", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all of the organization fields in response to a GET request.
         /// </summary>
         /// <returns></returns>
@@ -269,6 +278,15 @@ namespace Pipedrive
         public static Uri Person(long id)
         {
             return new Uri($"persons/{id}", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for all the deals of the specified person.
+        /// </summary>
+        /// <param name="id">The id of the person</param>
+        public static Uri PersonDeal(long id)
+        {
+            return new Uri($"persons/{id}/deals", UriKind.Relative);
         }
 
         /// <summary>
