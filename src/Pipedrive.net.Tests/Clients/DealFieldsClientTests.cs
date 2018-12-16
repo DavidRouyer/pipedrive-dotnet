@@ -96,7 +96,7 @@ namespace Pipedrive.Tests.Clients
 
                 connection.Received().Put<DealField>(Arg.Is<Uri>(u => u.ToString() == "dealFields/123"),
                     Arg.Is<DealFieldUpdate>(df => df.Name == "name"
-                        && df.Options == "{}"));
+                        && (string)df.Options == "{}"));
             }
         }
     }

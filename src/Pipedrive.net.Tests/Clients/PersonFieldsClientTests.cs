@@ -96,7 +96,7 @@ namespace Pipedrive.Tests.Clients
 
                 connection.Received().Put<PersonField>(Arg.Is<Uri>(u => u.ToString() == "personFields/123"),
                     Arg.Is<PersonFieldUpdate>(df => df.Name == "name"
-                        && df.Options == "{}"));
+                        && (string)df.Options == "{}"));
             }
         }
     }
