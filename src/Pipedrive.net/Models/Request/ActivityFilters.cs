@@ -52,7 +52,7 @@ namespace Pipedrive
                 }
                 if (Done.HasValue)
                 {
-                    d.Add("done", Done.Value.ToString());
+                    d.Add("done", ((int)Done.Value).ToString());
                 }
                 return d;
             }

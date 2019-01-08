@@ -39,6 +39,7 @@ namespace Pipedrive.Tests.Clients
                     PageSize = 1,
                     PageCount = 1,
                     StartPage = 0,
+                    Status = DealStatus.lost,
                 };
 
                 await client.GetAll(filters);
@@ -47,8 +48,9 @@ namespace Pipedrive.Tests.Clients
                 {
                     await connection.GetAll<Deal>(
                         Arg.Is<Uri>(u => u.ToString() == "deals"),
-                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
-                                && d["owned_by_you"] == "0"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                                && d["owned_by_you"] == "0"
+                                && d["status"] == "lost"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
                                 && o.StartPage == 0)
@@ -78,6 +80,7 @@ namespace Pipedrive.Tests.Clients
                     PageSize = 1,
                     PageCount = 1,
                     StartPage = 0,
+                    Status = DealStatus.lost,
                 };
 
                 await client.GetAllForCurrent(filters);
@@ -86,8 +89,9 @@ namespace Pipedrive.Tests.Clients
                 {
                     await connection.GetAll<Deal>(
                         Arg.Is<Uri>(u => u.ToString() == "deals"),
-                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
-                                && d["owned_by_you"] == "1"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                                && d["owned_by_you"] == "1"
+                                && d["status"] == "lost"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
                                 && o.StartPage == 0)
@@ -117,6 +121,7 @@ namespace Pipedrive.Tests.Clients
                     PageSize = 1,
                     PageCount = 1,
                     StartPage = 0,
+                    Status = DealStatus.lost,
                 };
 
                 await client.GetAllForUserId(123, filters);
@@ -125,8 +130,9 @@ namespace Pipedrive.Tests.Clients
                 {
                     await connection.GetAll<Deal>(
                         Arg.Is<Uri>(u => u.ToString() == "deals"),
-                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
-                                && d["user_id"] == "123"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                                && d["user_id"] == "123"
+                                && d["status"] == "lost"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
                                 && o.StartPage == 0)
@@ -317,6 +323,7 @@ namespace Pipedrive.Tests.Clients
                     PageSize = 1,
                     PageCount = 1,
                     StartPage = 0,
+                    Done = ActivityDone.Done,
                 };
 
                 await client.GetActivities(123, filters);
@@ -325,8 +332,9 @@ namespace Pipedrive.Tests.Clients
                 {
                     await connection.GetAll<Activity>(
                         Arg.Is<Uri>(u => u.ToString() == "deals/123/activities"),
-                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
-                            && d["id"] == "123"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                            && d["id"] == "123"
+                            && d["done"] == "1"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
                                 && o.StartPage == 0)

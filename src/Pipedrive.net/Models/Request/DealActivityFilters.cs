@@ -29,7 +29,7 @@ namespace Pipedrive
                 var d = new Dictionary<string, string>();
                 if (Done.HasValue)
                 {
-                    d.Add("done", Done.Value.ToString());
+                    d.Add("done", ((int)Done.Value).ToString());
                 }
                 if (!string.IsNullOrWhiteSpace(Exclude))
                 {

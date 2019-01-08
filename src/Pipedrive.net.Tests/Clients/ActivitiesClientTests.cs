@@ -38,6 +38,7 @@ namespace Pipedrive.Tests.Clients
                     PageSize = 1,
                     PageCount = 1,
                     StartPage = 0,
+                    Done = ActivityDone.Done,
                 };
 
                 await client.GetAll(filters);
@@ -46,8 +47,9 @@ namespace Pipedrive.Tests.Clients
                 {
                     await connection.GetAll<Activity>(
                         Arg.Is<Uri>(u => u.ToString() == "activities"),
-                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
-                                && d["user_id"] == "0"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                                && d["user_id"] == "0"
+                                && d["done"] == "1"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
                                 && o.StartPage == 0)
@@ -77,6 +79,7 @@ namespace Pipedrive.Tests.Clients
                     PageSize = 1,
                     PageCount = 1,
                     StartPage = 0,
+                    Done = ActivityDone.Done,
                 };
 
                 await client.GetAllForCurrent(filters);
@@ -85,7 +88,8 @@ namespace Pipedrive.Tests.Clients
                 {
                     await connection.GetAll<Activity>(
                         Arg.Is<Uri>(u => u.ToString() == "activities"),
-                        Arg.Is<Dictionary<string,string>>(d => d.Count == 0),
+                        Arg.Is<Dictionary<string,string>>(d => d.Count == 1
+                                && d["done"] == "1"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
                                 && o.StartPage == 0)
@@ -115,6 +119,7 @@ namespace Pipedrive.Tests.Clients
                     PageSize = 1,
                     PageCount = 1,
                     StartPage = 0,
+                    Done = ActivityDone.Done,
                 };
 
                 await client.GetAllForUserId(123, filters);
@@ -123,8 +128,9 @@ namespace Pipedrive.Tests.Clients
                 {
                     await connection.GetAll<Activity>(
                         Arg.Is<Uri>(u => u.ToString() == "activities"),
-                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
-                                && d["user_id"] == "123"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                                && d["user_id"] == "123"
+                                && d["done"] == "1"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
                                 && o.StartPage == 0)
