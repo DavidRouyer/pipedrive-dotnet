@@ -39,6 +39,9 @@ namespace Pipedrive.Tests.Integration.Clients
                 var retrievedAll = await fixture.GetAll();
                 var retrieved = retrievedAll.Where(ac => ac.Name == "name").FirstOrDefault();
                 Assert.NotNull(retrieved);
+
+                // Cleanup
+                await fixture.Delete(activityType.Id);
             }
         }
 
@@ -61,6 +64,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 Assert.Equal("updated-name", updatedActivityType.Name);
                 Assert.Equal(ActivityTypeIcon.Sound, updatedActivityType.IconKey);
+
+                // Cleanup
+                await fixture.Delete(updatedActivityType.Id);
             }
         }
 

@@ -107,6 +107,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var retrieved = await fixture.Get(deal.Id);
                 Assert.NotNull(retrieved);
+
+                // Cleanup
+                await fixture.Delete(deal.Id);
             }
         }
 
@@ -166,6 +169,9 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.Equal(5, ((OrganizationCustomField)updatedDeal.CustomFields["91f2a72b3373f7a382b1313c047ebd67ed117721"]).Value);
                 Assert.Equal(6, ((PersonCustomField)updatedDeal.CustomFields["b7f70559583cdfd159d4831697d0540c297ef26f"]).Value);
                 Assert.Equal(2616956, ((UserCustomField)updatedDeal.CustomFields["a0d868dde5bb67a59117d807fae1d6b3b025731e"]).Value);
+
+                // Cleanup
+                await fixture.Delete(updatedDeal.Id);
             }
         }
 

@@ -51,6 +51,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var retrieved = await fixture.Get(dealField.Id.Value);
                 Assert.NotNull(retrieved);
+
+                // Cleanup
+                await fixture.Delete(dealField.Id.Value);
             }
         }
 
@@ -72,6 +75,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 Assert.Equal("updated-name", updatedDealField.Name);
                 Assert.Equal(FieldType.varchar, updatedDealField.FieldType);
+
+                // Cleanup
+                await fixture.Delete(updatedDealField.Id.Value);
             }
         }
 

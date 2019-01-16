@@ -121,6 +121,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var retrieved = await fixture.Get(person.Id);
                 Assert.NotNull(retrieved);
+
+                // Cleanup
+                await fixture.Delete(person.Id);
             }
         }
 
@@ -147,6 +150,9 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.Equal("updated-name", updatedPerson.Name);
                 Assert.Equal("test@example.com", updatedPerson.Email[0].Value);
                 Assert.True(updatedPerson.Email[0].Primary);
+
+                // Cleanup
+                await fixture.Delete(updatedPerson.Id);
             }
         }
 

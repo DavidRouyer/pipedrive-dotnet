@@ -35,6 +35,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var pipeline = await fixture.Create(newPipeline);
                 Assert.NotNull(pipeline);
+
+                // Cleanup
+                await fixture.Delete(pipeline.Id);
             }
         }
 
@@ -57,6 +60,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 Assert.Equal("updated-name", updatedPipeline.Name);
                 Assert.True(updatedPipeline.Active);
+
+                // Cleanup
+                await fixture.Delete(updatedPipeline.Id);
             }
         }
 

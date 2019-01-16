@@ -106,6 +106,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var retrieved = await fixture.Get(organization.Id);
                 Assert.NotNull(retrieved);
+
+                // Cleanup
+                await fixture.Delete(organization.Id);
             }
         }
 
@@ -128,6 +131,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 Assert.Equal("updated-name", updatedOrganization.Name);
                 Assert.Equal(Visibility.shared, updatedOrganization.VisibleTo);
+
+                // Cleanup
+                await fixture.Delete(updatedOrganization.Id);
             }
         }
 

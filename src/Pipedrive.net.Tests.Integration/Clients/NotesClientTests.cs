@@ -80,6 +80,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var retrieved = await fixture.Get(note.Id);
                 Assert.NotNull(retrieved);
+
+                // Cleanup
+                await fixture.Delete(note.Id);
             }
         }
 
@@ -102,6 +105,9 @@ namespace Pipedrive.Tests.Integration.Clients
                 var updatedNote = await fixture.Edit(note.Id, editNote);
 
                 Assert.Equal("updated-content", updatedNote.Content);
+
+                // Cleanup
+                await fixture.Delete(updatedNote.Id);
             }
         }
 

@@ -51,6 +51,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var stage = await fixture.Create(newStage);
                 Assert.NotNull(stage);
+
+                // Cleanup
+                await fixture.Delete(stage.Id);
             }
         }
 
@@ -75,6 +78,9 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.Equal("updated-name", updatedStage.Name);
                 Assert.True(updatedStage.RottenFlag);
                 Assert.Equal(100, updatedStage.RottenDays);
+
+                // Cleanup
+                await fixture.Delete(updatedStage.Id);
             }
         }
 

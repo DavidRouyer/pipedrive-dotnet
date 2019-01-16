@@ -79,6 +79,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var retrieved = await fixture.Get(activity.Id);
                 Assert.NotNull(retrieved);
+
+                // Cleanup
+                await fixture.Delete(activity.Id);
             }
         }
 
@@ -101,6 +104,9 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 Assert.Equal("updated-subject", updatedActivity.Subject);
                 Assert.Equal("lunch", updatedActivity.Type);
+
+                // Cleanup
+                await fixture.Delete(updatedActivity.Id);
             }
         }
 
