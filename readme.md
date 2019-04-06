@@ -10,4 +10,8 @@ In your application initialization, set your API key and organization URL:
 PipedriveClient client = new PipedriveClient(new ProductHeaderValue("PipedriveExample"), "[your organization url here]", "[your api key here]");
 ```
 
-You can obtain your secret API key from the API Settings https://[your organization].pipedrive.com/settings#api in Pipedrive.
+You can obtain your secret API key from the API Settings `https://[your organization].pipedrive.com/settings#api` in Pipedrive.
+
+## Debugging
+
+You can debug this library right from your application by configuring the [NuGet symbol server](https://docs.microsoft.com/en-us/nuget/create-packages/symbol-packages-snupkg#nugetorg-symbol-server).
