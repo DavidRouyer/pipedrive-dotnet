@@ -18,6 +18,9 @@ namespace Pipedrive
     /// </summary>
     public class Connection : IConnection
     {
+        static readonly ICredentialStore _anonymousCredentials = new InMemoryCredentialStore(Credentials.Anonymous);
+
+        readonly Authenticator _authenticator;
         readonly JsonHttpPipeline _jsonPipeline;
         readonly IHttpClient _httpClient;
 
@@ -28,31 +31,50 @@ namespace Pipedrive
         /// See more information regarding User-Agent requirements here: https://developer.github.com/v3/#user-agent-required
         /// </remarks>
         /// <param name="productInformation">
-        /// The name (and optionally version) of the product using this library, the name of your GitHub organization, or your GitHub username (in that order of preference). This is sent to the server as part of
-        /// the user agent for analytics purposes, and used by GitHub to contact you if there are problems.
+        /// The name (and optionally version) of the product using this library, the name of your Pipedrive organization, or your Pipedrive username (in that order of preference). This is sent to the server as part of
+        /// the user agent for analytics purposes, and used by Pipedrive to contact you if there are problems.
         /// </param>
         /// <param name="baseAddress">
-        /// The address to point this client to such as https://api.github.com or the URL to a GitHub Enterprise
+        /// The address to point this client to such as https://api.pipedrive.com
         /// instance</param>
-        /// <param name="credentialStore">Provides credentials to the client when making requests</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        public Connection(ProductHeaderValue productInformation, Uri baseAddress, string apiToken)
-            : this(productInformation, baseAddress, new HttpClientAdapter(HttpMessageHandlerFactory.CreateDefault), apiToken)
+        public Connection(ProductHeaderValue productInformation, Uri baseAddress)
+            : this(productInformation, baseAddress, _anonymousCredentials, new HttpClientAdapter(HttpMessageHandlerFactory.CreateDefault))
         {
         }
 
         /// <summary>
-        /// Creates a new connection instance used to make requests of the GitHub API.
+        /// Creates a new connection instance used to make requests of the Pipedrive API.
         /// </summary>
         /// <remarks>
         /// See more information regarding User-Agent requirements here: https://developer.github.com/v3/#user-agent-required
         /// </remarks>
         /// <param name="productInformation">
-        /// The name (and optionally version) of the product using this library, the name of your GitHub organization, or your GitHub username (in that order of preference). This is sent to the server as part of
-        /// the user agent for analytics purposes, and used by GitHub to contact you if there are problems.
+        /// The name (and optionally version) of the product using this library, the name of your Pipedrive organization, or your Pipedrive username (in that order of preference). This is sent to the server as part of
+        /// the user agent for analytics purposes, and used by Pipedrive to contact you if there are problems.
         /// </param>
         /// <param name="baseAddress">
-        /// The address to point this client to such as https://api.github.com or the URL to a GitHub Enterprise
+        /// The address to point this client to such as https://api.pipedrive.com
+        /// instance</param>
+        /// <param name="credentialStore">Provides credentials to the client when making requests</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
+        public Connection(ProductHeaderValue productInformation, Uri baseAddress, ICredentialStore credentialStore)
+            : this(productInformation, baseAddress, credentialStore, new HttpClientAdapter(HttpMessageHandlerFactory.CreateDefault))
+        {
+        }
+
+        /// <summary>
+        /// Creates a new connection instance used to make requests of the Pipedrive API.
+        /// </summary>
+        /// <remarks>
+        /// See more information regarding User-Agent requirements here: https://developer.github.com/v3/#user-agent-required
+        /// </remarks>
+        /// <param name="productInformation">
+        /// The name (and optionally version) of the product using this library, the name of your Pipedrive organization, or your Pipedrive username (in that order of preference). This is sent to the server as part of
+        /// the user agent for analytics purposes, and used by Pipedrive to contact you if there are problems.
+        /// </param>
+        /// <param name="baseAddress">
+        /// The address to point this client to such as https://api.pipedrive.com
         /// instance</param>
         /// <param name="credentialStore">Provides credentials to the client when making requests</param>
         /// <param name="httpClient">A raw <see cref="IHttpClient"/> used to make requests</param>
@@ -60,13 +82,13 @@ namespace Pipedrive
         public Connection(
             ProductHeaderValue productInformation,
             Uri baseAddress,
-            IHttpClient httpClient,
-            string apiToken)
+            ICredentialStore credentialStore,
+            IHttpClient httpClient)
         {
             Ensure.ArgumentNotNull(productInformation, nameof(productInformation));
             Ensure.ArgumentNotNull(baseAddress, nameof(baseAddress));
+            Ensure.ArgumentNotNull(credentialStore, nameof(credentialStore));
             Ensure.ArgumentNotNull(httpClient, nameof(httpClient));
-            Ensure.ArgumentNotNull(apiToken, nameof(apiToken));
 
             if (!baseAddress.IsAbsoluteUri)
             {
@@ -77,7 +99,7 @@ namespace Pipedrive
 
             UserAgent = FormatUserAgent(productInformation);
             BaseAddress = baseAddress;
-            ApiToken = apiToken;
+            _authenticator = new Authenticator(credentialStore);
             _httpClient = httpClient;
             _jsonPipeline = new JsonHttpPipeline();
         }
@@ -362,9 +384,40 @@ namespace Pipedrive
         /// </summary>
         public Uri BaseAddress { get; private set; }
 
-        public string ApiToken { get; private set; }
-
         public string UserAgent { get; private set; }
+
+        /// <summary>
+        /// Gets the <seealso cref="ICredentialStore"/> used to provide credentials for the connection.
+        /// </summary>
+        public ICredentialStore CredentialStore
+        {
+            get { return _authenticator.CredentialStore; }
+        }
+
+        /// <summary>
+        /// Gets or sets the credentials used by the connection.
+        /// </summary>
+        /// <remarks>
+        /// You can use this property if you only have a single hard-coded credential. Otherwise, pass in an
+        /// <see cref="ICredentialStore"/> to the constructor.
+        /// Setting this property will change the <see cref="ICredentialStore"/> to use
+        /// the default <see cref="InMemoryCredentialStore"/> with just these credentials.
+        /// </remarks>
+        public Credentials Credentials
+        {
+            get
+            {
+                var credentialTask = CredentialStore.GetCredentials();
+                if (credentialTask == null) return Credentials.Anonymous;
+                return credentialTask.Result ?? Credentials.Anonymous;
+            }
+            // Note this is for convenience. We probably shouldn't allow this to be mutable.
+            set
+            {
+                Ensure.ArgumentNotNull(value, nameof(value));
+                _authenticator.CredentialStore = new InMemoryCredentialStore(value);
+            }
+        }
 
         async Task<IApiResponse<T>> Run<T>(IRequest request, CancellationToken cancellationToken)
         {
@@ -377,7 +430,7 @@ namespace Pipedrive
         async Task<IResponse> RunRequest(IRequest request, CancellationToken cancellationToken)
         {
             request.Headers.Add("User-Agent", UserAgent);
-            ((Request)request).Endpoint = request.Endpoint.ApplyParameters(new Dictionary<string, string> { { "api_token", ApiToken } });
+            await _authenticator.Apply(request).ConfigureAwait(false);
             var response = await _httpClient.Send(request, cancellationToken).ConfigureAwait(false);
             if (response != null)
             {

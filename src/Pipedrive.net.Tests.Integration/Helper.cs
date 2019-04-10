@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Reflection;
 
@@ -22,9 +22,12 @@ namespace Pipedrive.Tests.Integration
             return null;
         });
 
-        public static IPipedriveClient GetAuthenticatedClient(bool useSecondUser = false)
+        public static IPipedriveClient GetAuthenticatedClient()
         {
-            return new PipedriveClient(new ProductHeaderValue("PipedriveTests"), ApiUrl, ApiToken);
+            return new PipedriveClient(new ProductHeaderValue("PipedriveTests"), ApiUrl)
+            {
+                Credentials = new Credentials(ApiToken, AuthenticationType.ApiToken)
+            };
         }
 
         public static Stream LoadFixture(string fileName)

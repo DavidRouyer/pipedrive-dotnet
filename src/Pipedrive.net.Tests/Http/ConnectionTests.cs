@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NSubstitute;
@@ -16,7 +14,8 @@ namespace Pipedrive.Tests.Http
     public class ConnectionTests
     {
         const string exampleUrl = "http://example.com";
-        const string exampleToken = "test";
+        static readonly string exampleToken = "test";
+        static readonly ICredentialStore _credentialStore = new InMemoryCredentialStore(new Credentials("test", AuthenticationType.ApiToken));
         static readonly Uri _exampleUri = new Uri(exampleUrl);
 
         public class TheGetMethod
@@ -29,8 +28,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 await connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative));
 
@@ -50,8 +49,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 await connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative));
                 await connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative));
@@ -73,8 +72,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 var resp = await connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative));
                 Assert.NotNull(resp.HttpResponse.ApiInfo);
@@ -88,8 +87,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 var exception = await Assert.ThrowsAsync<AuthorizationException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -110,8 +109,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 var exception = await Assert.ThrowsAsync<ApiValidationException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -132,8 +131,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 var exception = await Assert.ThrowsAsync<RateLimitExceededException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -155,8 +154,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 var exception = await Assert.ThrowsAsync<LoginAttemptsExceededException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -178,8 +177,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 var exception = await Assert.ThrowsAsync<NotFoundException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -199,8 +198,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 var exception = await Assert.ThrowsAsync<ForbiddenException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -223,8 +222,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 await Assert.ThrowsAsync<AbuseException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -245,8 +244,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 await Assert.ThrowsAsync<AbuseException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -273,8 +272,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 var exception = await Assert.ThrowsAsync<AbuseException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -297,8 +296,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 var exception = await Assert.ThrowsAsync<AbuseException>(
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
@@ -320,8 +319,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 await connection.Put<string>(new Uri("endpoint", UriKind.Relative), body);
 
@@ -345,8 +344,8 @@ namespace Pipedrive.Tests.Http
 
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 await connection.Put<string>(new Uri("endpoint", UriKind.Relative), body);
 
@@ -371,8 +370,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 await connection.Post<string>(new Uri("endpoint", UriKind.Relative), body, null, null);
 
@@ -392,8 +391,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 var body = new MemoryStream(new byte[] { 48, 49, 50 });
                 await connection.Post<string>(
@@ -419,8 +418,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
                 var body = new MemoryStream(new byte[] { 48, 49, 50 });
 
                 await connection.Post<string>(
@@ -445,8 +444,8 @@ namespace Pipedrive.Tests.Http
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
-                    httpClient,
-                    exampleToken);
+                    _credentialStore,
+                    httpClient);
 
                 await connection.Delete(new Uri("endpoint", UriKind.Relative));
 
@@ -465,51 +464,55 @@ namespace Pipedrive.Tests.Http
             public void EnsuresAbsoluteBaseAddress()
             {
                 Assert.Throws<ArgumentException>(() =>
-                    new Connection(new ProductHeaderValue("TestRunner"), new Uri("foo", UriKind.Relative), exampleToken));
+                    new Connection(new ProductHeaderValue("TestRunner"), new Uri("foo", UriKind.Relative)));
                 Assert.Throws<ArgumentException>(() =>
-                    new Connection(new ProductHeaderValue("TestRunner"), new Uri("foo", UriKind.RelativeOrAbsolute), exampleToken));
+                    new Connection(new ProductHeaderValue("TestRunner"), new Uri("foo", UriKind.RelativeOrAbsolute)));
             }
 
             [Fact]
             public void EnsuresNonNullArguments()
             {
+                // 2 args
+                Assert.Throws<ArgumentNullException>(() => new Connection(null, new Uri("https://example.com")));
+                Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("foo"), null));
+
                 // 3 args
                 Assert.Throws<ArgumentNullException>(() => new Connection(null,
                     new Uri("https://example.com"),
-                    "exampleToken"));
+                    Substitute.For<ICredentialStore>()));
                 Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("foo"),
                     null,
-                    "exampleToken"));
+                    Substitute.For<ICredentialStore>()));
                 Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("foo"),
                     new Uri("https://example.com"),
                     null));
 
                 // 4 Args
-                Assert.Throws<ArgumentNullException>(() => new Connection(null
-                    , new Uri("https://example.com"),
-                    Substitute.For<IHttpClient>(),
-                    "exampleToken"));
+                Assert.Throws<ArgumentNullException>(() => new Connection(null,
+                    new Uri("https://example.com"),
+                    Substitute.For<ICredentialStore>(),
+                    Substitute.For<IHttpClient>()));
+                Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("foo"),
+                    null,
+                    Substitute.For<ICredentialStore>(),
+                    Substitute.For<IHttpClient>()));
                 Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("foo"),
                     new Uri("https://example.com"),
-                    Substitute.For<IHttpClient>(),
+                    null,
+                    Substitute.For<IHttpClient>()));
+                Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("foo"),
+                    new Uri("https://example.com"),
+                    Substitute.For<ICredentialStore>(),
                     null));
-                Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("foo"),
-                    new Uri("https://example.com"),
-                    null,
-                    "exampleToken"));
-                Assert.Throws<ArgumentNullException>(() => new Connection(new ProductHeaderValue("foo"),
-                    null,
-                    Substitute.For<IHttpClient>(),
-                    "exampleToken"));
             }
 
             [Fact]
             public void CreatesConnectionWithBaseAddress()
             {
-                var connection = new Connection(new ProductHeaderValue("PipedriveTests"), new Uri("https://github.com/"), "");
+                var connection = new Connection(new ProductHeaderValue("PipedriveTests"), new Uri("https://github.com/"));
 
                 Assert.Equal(new Uri("https://github.com/"), connection.BaseAddress);
-                Assert.True(connection.UserAgent.StartsWith("PipedriveTests ("));
+                Assert.StartsWith("PipedriveTests (", connection.UserAgent);
             }
         }
 
@@ -518,11 +521,8 @@ namespace Pipedrive.Tests.Http
             [Fact]
             public async Task ReturnsNullIfNew()
             {
-                var httpClient = Substitute.For<IHttpClient>();
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
-                    _exampleUri,
-                    httpClient,
-                    "exampleToken");
+                    _exampleUri);
 
                 var result = connection.GetLastApiInfo();
 
