@@ -387,5 +387,23 @@ namespace Pipedrive
         {
             return new Uri($"users/{id}", UriKind.Relative);
         }
+
+        /// <summary>
+        /// Creates the relative <see cref="Uri"/> for initiating the OAuth Web login Flow
+        /// </summary>
+        /// <returns></returns>
+        public static Uri OAuthAuthorize()
+        {
+            return new Uri("oauth/authorize", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Creates the relative <see cref="Uri"/> to request an OAuth access token.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri OAuthAccessToken()
+        {
+            return new Uri("oauth/token", UriKind.Relative);
+        }
     }
 }

@@ -11,6 +11,7 @@ namespace Pipedrive.Internal
             {
                 { AuthenticationType.Anonymous, new AnonymousAuthenticator() },
                 { AuthenticationType.ApiToken, new ApiTokenAuthenticator() },
+                { AuthenticationType.Basic, new BasicAuthenticator() },
                 { AuthenticationType.Bearer, new BearerTokenAuthenticator() }
             };
 

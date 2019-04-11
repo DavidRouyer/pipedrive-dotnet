@@ -11,6 +11,10 @@
         /// </summary>
         ApiToken,
         /// <summary>
+        /// Credential for Basic authentication
+        /// </summary>
+        Basic,
+        /// <summary>
         /// Credential for Pipedrive App using signed JWT
         /// </summary>
         Bearer

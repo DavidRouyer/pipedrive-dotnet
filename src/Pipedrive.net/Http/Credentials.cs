@@ -22,6 +22,16 @@ namespace Pipedrive
             AuthenticationType = authenticationType;
         }
 
+        public Credentials(string login, string password, AuthenticationType authenticationType)
+        {
+            Ensure.ArgumentNotNullOrEmptyString(login, nameof(login));
+            Ensure.ArgumentNotNullOrEmptyString(password, nameof(password));
+
+            Login = login;
+            Password = password;
+            AuthenticationType = authenticationType;
+        }
+
         public string Login
         {
             get;
