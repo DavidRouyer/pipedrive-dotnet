@@ -36,6 +36,11 @@ namespace Pipedrive
         /// </summary>
         public int ExpiresIn { get; protected set; }
 
+        /// <summary>
+        /// The refresh token to obtain a renewed access token.
+        /// </summary>
+        public string RefreshToken { get; protected set; }
+
         internal string DebuggerDisplay
         {
             get
