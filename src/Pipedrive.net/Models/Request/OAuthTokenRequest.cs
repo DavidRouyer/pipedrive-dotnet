@@ -18,15 +18,19 @@ namespace Pipedrive
         /// <param name="clientId">The client Id you received from Pipedrive when you registered the application.</param>
         /// <param name="clientSecret">The client secret you received from Pipedrive when you registered the application.</param>
         /// <param name="code">The code you received as a response to making the OAuth login request</param>
-        public OAuthTokenRequest(string clientId, string clientSecret, string code)
+        public OAuthTokenRequest(string clientId, string clientSecret, string code, string grantType, string redirectUri)
         {
             Ensure.ArgumentNotNullOrEmptyString(clientId, nameof(clientId));
             Ensure.ArgumentNotNullOrEmptyString(clientSecret, nameof(clientSecret));
             Ensure.ArgumentNotNullOrEmptyString(code, nameof(code));
+            Ensure.ArgumentNotNullOrEmptyString(grantType, nameof(grantType));
+            Ensure.ArgumentNotNullOrEmptyString(redirectUri, nameof(redirectUri));
 
             ClientId = clientId;
             ClientSecret = clientSecret;
             Code = code;
+            GrantType = grantType;
+            RedirectUri = new Uri(redirectUri);
         }
 
         /// <summary>
