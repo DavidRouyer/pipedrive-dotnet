@@ -77,10 +77,7 @@ namespace Pipedrive.Tests.Clients
                     .Returns(_ => Task.FromResult(response));
                 var client = new OAuthClient(connection);
 
-                var token = await client.CreateAccessToken(new OAuthTokenRequest("secretid", "secretsecret", "code")
-                {
-                    RedirectUri = new Uri("https://example.com/foo")
-                });
+                var token = await client.CreateAccessToken(new OAuthAccessTokenRequest("secretid", "secretsecret", "code", new Uri("https://example.com/foo")));
 
                 Assert.Same(responseToken, token);
                 Assert.Equal("oauth/token", calledUri.ToString());

@@ -10,7 +10,7 @@ namespace Pipedrive
     /// Used to create an OAuth login request.
     /// </summary>
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
-    public class OAuthTokenRequest : RequestParameters
+    public class OAuthAccessTokenRequest : RequestParameters
     {
         /// <summary>
         /// Creates an instance of the OAuth login request with the required parameter.
@@ -18,19 +18,17 @@ namespace Pipedrive
         /// <param name="clientId">The client Id you received from Pipedrive when you registered the application.</param>
         /// <param name="clientSecret">The client secret you received from Pipedrive when you registered the application.</param>
         /// <param name="code">The code you received as a response to making the OAuth login request</param>
-        public OAuthTokenRequest(string clientId, string clientSecret, string code, string grantType, string redirectUri)
+        public OAuthAccessTokenRequest(string clientId, string clientSecret, string code, Uri redirectUri)
         {
             Ensure.ArgumentNotNullOrEmptyString(clientId, nameof(clientId));
             Ensure.ArgumentNotNullOrEmptyString(clientSecret, nameof(clientSecret));
             Ensure.ArgumentNotNullOrEmptyString(code, nameof(code));
-            Ensure.ArgumentNotNullOrEmptyString(grantType, nameof(grantType));
-            Ensure.ArgumentNotNullOrEmptyString(redirectUri, nameof(redirectUri));
+            Ensure.ArgumentNotNullOrEmptyString(redirectUri?.ToString() ?? string.Empty, nameof(redirectUri));
 
             ClientId = clientId;
             ClientSecret = clientSecret;
             Code = code;
-            GrantType = grantType;
-            RedirectUri = new Uri(redirectUri);
+            RedirectUri = redirectUri;
         }
 
         /// <summary>
@@ -49,7 +47,7 @@ namespace Pipedrive
         /// The grant type for acquiring an access token.
         /// </summary>
         [Parameter(Key = "grant_type")]
-        public string GrantType { get; private set; }
+        public string GrantType => "authorization_code";
 
         /// <summary>
         /// The code you received as a response to making the <see cref="IOAuthClient.CreateAccessToken">OAuth login

@@ -48,7 +48,25 @@ namespace Pipedrive.Clients
         /// </remarks>
         /// <param name="request"></param>
         /// <returns></returns>
-        public async Task<OAuthToken> CreateAccessToken(OAuthTokenRequest request)
+        public async Task<OAuthToken> CreateAccessToken(OAuthAccessTokenRequest request)
+        {
+            Ensure.ArgumentNotNull(request, nameof(request));
+
+            var endPoint = ApiUrls.OAuthAccessToken();
+
+            var parameters = request.ToParametersDictionary();
+            parameters.TryGetValue("client_id", out var clientId);
+            parameters.TryGetValue("client_secret", out var clientSecret);
+
+            var body = new FormUrlEncodedContent(parameters);
+
+            connection.Credentials = new Credentials(clientId, clientSecret, AuthenticationType.Basic);
+
+            var response = await connection.Post<OAuthToken>(endPoint, body, "application/json", null, hostAddress).ConfigureAwait(false);
+            return response.Body;
+        }
+        
+        public async Task<OAuthToken> RefreshAccessToken(OAuthRefreshTokenRequest request)
         {
             Ensure.ArgumentNotNull(request, nameof(request));
 
