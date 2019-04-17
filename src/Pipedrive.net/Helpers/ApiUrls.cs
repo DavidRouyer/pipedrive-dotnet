@@ -414,5 +414,14 @@ namespace Pipedrive
         {
             return new Uri("oauth/token", UriKind.Relative);
         }
+
+        /// <summary>
+        /// Creates the relative <see cref="Uri"/> to request an OAuth access token.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri OAuthRevokeToken()
+        {
+            return new Uri("oauth/revoke", UriKind.Relative);
+        }
     }
 }

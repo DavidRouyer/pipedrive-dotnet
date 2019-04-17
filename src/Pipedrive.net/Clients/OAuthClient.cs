@@ -83,5 +83,22 @@ namespace Pipedrive.Clients
             var response = await connection.Post<OAuthToken>(endPoint, body, "application/json", null, hostAddress).ConfigureAwait(false);
             return response.Body;
         }
+
+        public async Task RevokeToken(OAuthRevokeTokenRequest request)
+        {
+            Ensure.ArgumentNotNull(request, nameof(request));
+
+            var endPoint = ApiUrls.OAuthRevokeToken();
+
+            var parameters = request.ToParametersDictionary();
+            parameters.TryGetValue("client_id", out var clientId);
+            parameters.TryGetValue("client_secret", out var clientSecret);
+
+            var body = new FormUrlEncodedContent(parameters);
+
+            connection.Credentials = new Credentials(clientId, clientSecret, AuthenticationType.Basic);
+
+            await connection.Post(endPoint, body, "application/json").ConfigureAwait(false);
+        }
     }
 }

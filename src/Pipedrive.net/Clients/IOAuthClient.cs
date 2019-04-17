@@ -42,5 +42,7 @@ namespace Pipedrive.Clients
         /// <param name="request"></param>
         /// <returns></returns>
         Task<OAuthToken> RefreshAccessToken(OAuthRefreshTokenRequest request);
+        
+        Task RevokeToken(OAuthRevokeTokenRequest request);
     }
 }
