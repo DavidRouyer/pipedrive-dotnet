@@ -11,5 +11,8 @@ namespace Pipedrive
 
         [JsonProperty("visible_to")]
         public string VisibleTo { get; set; }
+
+        [JsonProperty("details")]
+        public object Details { get; set; }
     }
 }

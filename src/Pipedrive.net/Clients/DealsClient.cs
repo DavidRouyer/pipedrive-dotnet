@@ -1,4 +1,5 @@
 ﻿using Pipedrive.Helpers;
+using Pipedrive.Models.Response;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -125,7 +126,7 @@ namespace Pipedrive
             return ApiConnection.GetAll<Follower>(ApiUrls.DealFollowers(dealId), parameters);
         }
 
-        public Task<IReadOnlyList<Activity>> GetActivities(long dealId, DealActivityFilters filters)
+        public Task<IReadOnlyList<DealActivity>> GetActivities(long dealId, DealActivityFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));
 
@@ -138,7 +139,7 @@ namespace Pipedrive
                 PageSize = filters.PageSize
             };
 
-            return ApiConnection.GetAll<Activity>(ApiUrls.DealActivities(dealId), parameters, options);
+            return ApiConnection.GetAll<DealActivity>(ApiUrls.DealActivities(dealId), parameters, options);
         }
     }
 }

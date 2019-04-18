@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pipedrive.Models.Response;
 
 namespace Pipedrive
 {
@@ -30,6 +31,6 @@ namespace Pipedrive
 
         Task<IReadOnlyList<Follower>> GetFollowers(long dealId);
 
-        Task<IReadOnlyList<Activity>> GetActivities(long dealId, DealActivityFilters filters);
+        Task<IReadOnlyList<DealActivity>> GetActivities(long dealId, DealActivityFilters filters);
     }
 }
