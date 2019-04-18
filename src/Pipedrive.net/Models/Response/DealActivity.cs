@@ -89,6 +89,9 @@ namespace Pipedrive.Models.Response
         [JsonProperty("participants")]
         public List<Participant> Participants { get; set; }
 
+        [JsonProperty("note_clean")]
+        public string NoteClean { get; set; }
+
         [JsonProperty("org_name")]
         public string OrgName { get; set; }
 
