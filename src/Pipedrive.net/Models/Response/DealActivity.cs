@@ -124,7 +124,7 @@ namespace Pipedrive.Models.Response
                 DealId = DealId?.Id,
                 PersonId = PersonId?.Value,
                 Participants = Participants,
-                OrgId = OrgId.Value,
+                OrgId = OrgId?.Value,
                 Note = Note
             };
         }
