@@ -109,5 +109,24 @@ namespace Pipedrive.Models.Response
 
         [JsonProperty("assigned_to_user_id")]
         public long? AssignedToUserId { get; set; }
+
+        public Activity ToActivity()
+        {
+            return new Activity
+            {
+                Subject = Subject,
+                Done = Done,
+                Type = Type,
+                DueDate = DueDate,
+                DueTime = DueTime,
+                Duration = Duration,
+                UserId = UserId.Id,
+                DealId = DealId.Id,
+                PersonId = PersonId.Value,
+                Participants = Participants,
+                OrgId = OrgId.Value,
+                Note = Note
+            };
+        }
     }
 }

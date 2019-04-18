@@ -35,8 +35,8 @@ namespace Pipedrive
         [JsonProperty("duration")]
         public string Duration { get; set; }
 
-        [JsonProperty("add_date")]
-        public DateTime AddDate { get; set; }
+        [JsonProperty("add_time")]
+        public DateTime AddTime { get; set; }
 
         [JsonProperty("marked_as_done_time")]
         public DateTime? MarkedAsDoneTime { get; set; }
