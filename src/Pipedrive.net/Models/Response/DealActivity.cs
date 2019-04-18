@@ -121,8 +121,8 @@ namespace Pipedrive.Models.Response
                 DueTime = DueTime,
                 Duration = Duration,
                 UserId = UserId.Id,
-                DealId = DealId.Id,
-                PersonId = PersonId.Value,
+                DealId = DealId?.Id,
+                PersonId = PersonId?.Value,
                 Participants = Participants,
                 OrgId = OrgId.Value,
                 Note = Note
