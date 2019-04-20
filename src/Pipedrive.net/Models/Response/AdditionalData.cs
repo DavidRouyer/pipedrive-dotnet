@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Pipedrive.Internal
+namespace Pipedrive
 {
-    internal class AdditionalData
+    public class AdditionalData
     {
         [JsonProperty("pagination")]
         public PaginationInfo Pagination { get; set; }

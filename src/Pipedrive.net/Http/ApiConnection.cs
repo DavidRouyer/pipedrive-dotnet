@@ -70,8 +70,8 @@ namespace Pipedrive
         {
             Ensure.ArgumentNotNull(uri, nameof(uri));
 
-            var response = await Connection.Get<T>(uri, parameters, null).ConfigureAwait(false);
-            return response.Body;
+            var response = await Connection.Get<JsonResponse<T>>(uri, parameters, null).ConfigureAwait(false);
+            return response.Body.Data;
         }
 
         /// <summary>
@@ -88,8 +88,8 @@ namespace Pipedrive
             Ensure.ArgumentNotNull(uri, nameof(uri));
             Ensure.ArgumentNotNull(accepts, nameof(accepts));
 
-            var response = await Connection.Get<T>(uri, parameters, accepts).ConfigureAwait(false);
-            return response.Body;
+            var response = await Connection.Get<JsonResponse<T>>(uri, parameters, accepts).ConfigureAwait(false);
+            return response.Body.Data;
         }
 
         /// <summary>
@@ -417,10 +417,10 @@ namespace Pipedrive
         {
             Ensure.ArgumentNotNull(uri, nameof(uri));
 
-            var response = await Connection.Get<List<T>>(uri, parameters, accepts).ConfigureAwait(false);
+            var response = await Connection.Get<JsonResponse<List<T>>>(uri, parameters, accepts).ConfigureAwait(false);
             return new ReadOnlyPagedCollection<T>(
                 response,
-                nextPageUri => Connection.Get<List<T>>(nextPageUri, parameters, accepts));
+                nextPageUri => Connection.Get<JsonResponse<List<T>>>(nextPageUri, parameters, accepts));
         }
 
         async Task<IReadOnlyPagedCollection<TU>> GetPage<TU>(
@@ -433,7 +433,7 @@ namespace Pipedrive
 
             var connection = Connection;
 
-            var response = await connection.Get<List<TU>>(uri, parameters, accepts).ConfigureAwait(false);
+            var response = await connection.Get<JsonResponse<List<TU>>>(uri, parameters, accepts).ConfigureAwait(false);
             return new ReadOnlyPagedCollection<TU>(
                 response,
                 nextPageUri =>
@@ -443,7 +443,7 @@ namespace Pipedrive
                         options);
 
                     return shouldContinue
-                        ? connection.Get<List<TU>>(nextPageUri, parameters, accepts)
+                        ? connection.Get<JsonResponse<List<TU>>>(nextPageUri, parameters, accepts)
                         : null;
                 });
         }

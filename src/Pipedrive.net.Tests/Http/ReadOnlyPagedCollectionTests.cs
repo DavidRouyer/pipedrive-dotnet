@@ -13,8 +13,8 @@ namespace Pipedrive.Tests.Http
             [Fact]
             public void AcceptsAResponseWithANullBody()
             {
-                var response = Substitute.For<IApiResponse<List<string>>>();
-                response.Body.Returns((List<string>)null);
+                var response = Substitute.For<IApiResponse<JsonResponse<List<string>>>>();
+                response.Body.Returns((JsonResponse<List<string>>)null);
 
                 var exception = Record.Exception(() =>
                     new ReadOnlyPagedCollection<string>(response, uri => Task.FromResult(response)));
