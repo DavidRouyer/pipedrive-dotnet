@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
-namespace Pipedrive
+namespace Pipedrive.Models.Response
 {
-    public class Activity : IDealUpdateEntity
+    public class DealActivity
     {
         public long Id { get; set; }
 
@@ -12,7 +12,7 @@ namespace Pipedrive
         public long CompanyId { get; set; }
 
         [JsonProperty("user_id")]
-        public long UserId { get; set; }
+        public AssociatedUser UserId { get; set; }
 
         [JsonProperty("done")]
         public bool Done { get; set; }
@@ -54,13 +54,13 @@ namespace Pipedrive
         public string Subject { get; set; }
 
         [JsonProperty("org_id")]
-        public long? OrgId { get; set; }
+        public AssociatedOrganization OrgId { get; set; }
 
         [JsonProperty("person_id")]
-        public long? PersonId { get; set; }
+        public AssociatedPerson PersonId { get; set; }
 
         [JsonProperty("deal_id")]
-        public long? DealId { get; set; }
+        public AssociatedDeal DealId { get; set; }
 
         [JsonProperty("active_flag")]
         public bool ActiveFlag { get; set; }
@@ -84,10 +84,13 @@ namespace Pipedrive
         public string Note { get; set; }
 
         [JsonProperty("created_by_user_id")]
-        public long CreatedByUserId { get; set; }
+        public AssociatedUser CreatedByUserId { get; set; }
 
         [JsonProperty("participants")]
         public List<Participant> Participants { get; set; }
+
+        [JsonProperty("note_clean")]
+        public string NoteClean { get; set; }
 
         [JsonProperty("org_name")]
         public string OrgName { get; set; }
@@ -110,21 +113,21 @@ namespace Pipedrive
         [JsonProperty("assigned_to_user_id")]
         public long? AssignedToUserId { get; set; }
 
-        public ActivityUpdate ToUpdate()
+        public Activity ToActivity()
         {
-            return new ActivityUpdate
+            return new Activity
             {
                 Subject = Subject,
-                Done = Done ? ActivityDone.Done : ActivityDone.Undone,
+                Done = Done,
                 Type = Type,
                 DueDate = DueDate,
                 DueTime = DueTime,
                 Duration = Duration,
-                UserId = UserId,
-                DealId = DealId,
-                PersonId = PersonId,
+                UserId = UserId.Id,
+                DealId = DealId?.Id,
+                PersonId = PersonId?.Value,
                 Participants = Participants,
-                OrgId = OrgId,
+                OrgId = OrgId?.Value,
                 Note = Note
             };
         }
