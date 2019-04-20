@@ -10,7 +10,7 @@ namespace Pipedrive
     /// Used to create an OAuth login request.
     /// </summary>
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
-    public class OAuthTokenRequest : RequestParameters
+    public class OAuthAccessTokenRequest : RequestParameters
     {
         /// <summary>
         /// Creates an instance of the OAuth login request with the required parameter.
@@ -18,7 +18,7 @@ namespace Pipedrive
         /// <param name="clientId">The client Id you received from Pipedrive when you registered the application.</param>
         /// <param name="clientSecret">The client secret you received from Pipedrive when you registered the application.</param>
         /// <param name="code">The code you received as a response to making the OAuth login request</param>
-        public OAuthTokenRequest(string clientId, string clientSecret, string code)
+        public OAuthAccessTokenRequest(string clientId, string clientSecret, string code, Uri redirectUri)
         {
             Ensure.ArgumentNotNullOrEmptyString(clientId, nameof(clientId));
             Ensure.ArgumentNotNullOrEmptyString(clientSecret, nameof(clientSecret));
@@ -27,6 +27,8 @@ namespace Pipedrive
             ClientId = clientId;
             ClientSecret = clientSecret;
             Code = code;
+            RedirectUri = redirectUri;
+            GrantType = "authorization_code";
         }
 
         /// <summary>
@@ -68,9 +70,10 @@ namespace Pipedrive
         {
             get
             {
-                return string.Format(CultureInfo.InvariantCulture, "ClientId: {0}, ClientSecret: {1}, Code: {2}, RedirectUri: {3}",
+                return string.Format(CultureInfo.InvariantCulture, "ClientId: {0}, ClientSecret: {1}, GrantType: {2}, Code: {3}, RedirectUri: {4}",
                     ClientId,
                     ClientSecret,
+                    GrantType,
                     Code,
                     RedirectUri);
             }

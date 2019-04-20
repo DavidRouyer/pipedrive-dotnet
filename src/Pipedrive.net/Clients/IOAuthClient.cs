@@ -17,7 +17,7 @@ namespace Pipedrive.Clients
 
         /// <summary>
         /// Makes a request to get an access token using the code returned when pipedrive.com redirects back from the URL
-        /// <see cref="GetPipedriveLoginUrl">GitHub login url</see> to the application.
+        /// <see cref="GetPipedriveLoginUrl">Pipedrive login url</see> to the application.
         /// </summary>
         /// <remarks>
         /// If the user accepts your request, Pipedrive redirects back to your site with a temporary code in a code
@@ -27,6 +27,8 @@ namespace Pipedrive.Clients
         /// </remarks>
         /// <param name="request"></param>
         /// <returns></returns>
-        Task<OAuthToken> CreateAccessToken(OAuthTokenRequest request);
+        Task<OAuthToken> CreateAccessToken(OAuthAccessTokenRequest request);
+
+        Task<OAuthToken> RefreshAccessToken(OAuthRefreshTokenRequest request);
     }
 }
