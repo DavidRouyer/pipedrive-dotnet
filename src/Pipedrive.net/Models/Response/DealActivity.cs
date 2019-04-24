@@ -12,7 +12,7 @@ namespace Pipedrive.Models.Response
         public long CompanyId { get; set; }
 
         [JsonProperty("user_id")]
-        public AssociatedUser UserId { get; set; }
+        public long UserId { get; set; }
 
         [JsonProperty("done")]
         public bool Done { get; set; }
@@ -54,13 +54,13 @@ namespace Pipedrive.Models.Response
         public string Subject { get; set; }
 
         [JsonProperty("org_id")]
-        public AssociatedOrganization OrgId { get; set; }
+        public long OrgId { get; set; }
 
         [JsonProperty("person_id")]
-        public AssociatedPerson PersonId { get; set; }
+        public long PersonId { get; set; }
 
         [JsonProperty("deal_id")]
-        public AssociatedDeal DealId { get; set; }
+        public long DealId { get; set; }
 
         [JsonProperty("active_flag")]
         public bool ActiveFlag { get; set; }
@@ -84,7 +84,7 @@ namespace Pipedrive.Models.Response
         public string Note { get; set; }
 
         [JsonProperty("created_by_user_id")]
-        public AssociatedUser CreatedByUserId { get; set; }
+        public long CreatedByUserId { get; set; }
 
         [JsonProperty("participants")]
         public List<Participant> Participants { get; set; }
@@ -123,11 +123,11 @@ namespace Pipedrive.Models.Response
                 DueDate = DueDate,
                 DueTime = DueTime,
                 Duration = Duration,
-                UserId = UserId.Id,
-                DealId = DealId?.Id,
-                PersonId = PersonId?.Value,
+                UserId = UserId,
+                DealId = DealId,
+                PersonId = PersonId,
                 Participants = Participants,
-                OrgId = OrgId?.Value,
+                OrgId = OrgId,
                 Note = Note
             };
         }
