@@ -54,13 +54,13 @@ namespace Pipedrive.Models.Response
         public string Subject { get; set; }
 
         [JsonProperty("org_id")]
-        public long OrgId { get; set; }
+        public long? OrgId { get; set; }
 
         [JsonProperty("person_id")]
-        public long PersonId { get; set; }
+        public long? PersonId { get; set; }
 
         [JsonProperty("deal_id")]
-        public long DealId { get; set; }
+        public long? DealId { get; set; }
 
         [JsonProperty("active_flag")]
         public bool ActiveFlag { get; set; }
