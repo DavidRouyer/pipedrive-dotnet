@@ -29,6 +29,7 @@ namespace Pipedrive
             ClientSecret = clientSecret;
             Code = code;
             RedirectUri = redirectUri;
+            GrantType = "authorization_code";
         }
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace Pipedrive
         /// The grant type for acquiring an access token.
         /// </summary>
         [Parameter(Key = "grant_type")]
-        public string GrantType => "authorization_code";
+        public string GrantType { get; private set; }
 
         /// <summary>
         /// The code you received as a response to making the <see cref="IOAuthClient.CreateAccessToken">OAuth login
@@ -70,9 +71,10 @@ namespace Pipedrive
         {
             get
             {
-                return string.Format(CultureInfo.InvariantCulture, "ClientId: {0}, ClientSecret: {1}, Code: {2}, RedirectUri: {3}",
+                return string.Format(CultureInfo.InvariantCulture, "ClientId: {0}, ClientSecret: {1}, GrantType: {2}, Code: {3}, RedirectUri: {4}",
                     ClientId,
                     ClientSecret,
+                    GrantType,
                     Code,
                     RedirectUri);
             }

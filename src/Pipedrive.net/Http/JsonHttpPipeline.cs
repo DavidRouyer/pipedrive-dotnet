@@ -41,14 +41,8 @@ namespace Pipedrive.Internal
                 // simple json does not support the root node being empty. Will submit a pr but in the mean time....
                 if (!string.IsNullOrEmpty(body) && body != "{}")
                 {
-                    T newBody = default(T);
-                    if (body.StartsWith("{", StringComparison.Ordinal) || body.StartsWith("[", StringComparison.Ordinal))
-                    {
-                        var json = JsonConvert.DeserializeObject<JsonResponse<T>>(body);
-                        newBody = json.Data;
-                    }
-
-                    return new ApiResponse<T>(response, newBody);
+                    var json = JsonConvert.DeserializeObject<T>(body);
+                    return new ApiResponse<T>(response, json);
                 }
             }
             return new ApiResponse<T>(response);

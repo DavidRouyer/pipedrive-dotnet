@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Pipedrive.Internal
+namespace Pipedrive
 {
-    internal class JsonResponse<T>
+    public class JsonResponse<T>
     {
         public bool Success { get; set; }
 

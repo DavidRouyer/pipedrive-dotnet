@@ -1,4 +1,5 @@
-﻿using Pipedrive.Helpers;
+﻿using Pipedrive.Clients;
+using Pipedrive.Helpers;
 using System;
 
 namespace Pipedrive
@@ -57,6 +58,7 @@ namespace Pipedrive
             DealField = new DealFieldsClient(apiConnection);
             File = new FilesClient(apiConnection);
             Note = new NotesClient(apiConnection);
+            OAuth = new OAuthClient(connection);
             Organization = new OrganizationsClient(apiConnection);
             OrganizationField = new OrganizationFieldsClient(apiConnection);
             Person = new PersonsClient(apiConnection);
@@ -185,6 +187,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Notes
         /// </remarks>
         public INotesClient Note { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's OAuth API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://pipedrive.readme.io/docs/marketplace-oauth-authorization
+        /// </remarks>
+        public IOAuthClient OAuth { get; private set; }
 
         /// <summary>
         /// Access Pipedrive's Organization API.

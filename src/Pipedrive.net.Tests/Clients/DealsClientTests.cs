@@ -1,5 +1,6 @@
 ﻿using NSubstitute;
 using Pipedrive.CustomFields;
+using Pipedrive.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -330,7 +331,7 @@ namespace Pipedrive.Tests.Clients
 
                 Received.InOrder(async () =>
                 {
-                    await connection.GetAll<Activity>(
+                    await connection.GetAll<DealActivity>(
                         Arg.Is<Uri>(u => u.ToString() == "deals/123/activities"),
                         Arg.Is<Dictionary<string, string>>(d => d.Count == 2
                             && d["id"] == "123"

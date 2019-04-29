@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using Newtonsoft.Json;
+using Pipedrive.Internal;
 
 namespace Pipedrive
 {
@@ -32,6 +33,8 @@ namespace Pipedrive
         /// <summary>
         /// The list of scopes the token includes.
         /// </summary>
+        [JsonProperty("scope")]
+        [JsonConverter(typeof(SplitCommaConverter))]
         public IReadOnlyList<string> Scope { get; protected set; }
 
         /// <summary>
@@ -50,11 +53,11 @@ namespace Pipedrive
         {
             get
             {
-                return string.Format(CultureInfo.InvariantCulture, "TokenType: {0}, AccessToken: {1}, RefreshToken: {2}, Scopes: {3}",
+                return string.Format(CultureInfo.InvariantCulture, "TokenType: {0}, AccessToken: {1}, Scopes: {2}, RefreshToken: {3}",
                     TokenType,
                     AccessToken,
-                    RefreshToken,
-                    Scope);
+                    Scope,
+                    RefreshToken);
             }
         }
     }

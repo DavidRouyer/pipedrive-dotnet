@@ -77,14 +77,55 @@ namespace Pipedrive.Tests.Clients
                     .Returns(_ => Task.FromResult(response));
                 var client = new OAuthClient(connection);
 
-                var token = await client.CreateAccessToken(new OAuthAccessTokenRequest("secretid", "secretsecret", "code", new Uri("https://example.com/foo")));
+                var token = await client.CreateAccessToken(new OAuthAccessTokenRequest(
+                    "secretid",
+                    "secretsecret",
+                    "code",
+                    new Uri("https://example.com/foo")));
 
                 Assert.Same(responseToken, token);
                 Assert.Equal("oauth/token", calledUri.ToString());
                 Assert.NotNull(calledBody);
                 Assert.Equal("https://oauth.pipedrive.com/", calledHostAddress.ToString());
                 Assert.Equal(
-                    "client_id=secretid&client_secret=secretsecret&code=code&redirect_uri=https%3A%2F%2Fexample.com%2Ffoo",
+                    "client_id=secretid&client_secret=secretsecret&grant_type=authorization_code&code=code&redirect_uri=https%3A%2F%2Fexample.com%2Ffoo",
+                    await calledBody.ReadAsStringAsync());
+            }
+        }
+
+        public class TheRefreshAccessTokenMethod
+        {
+            [Fact]
+            public async Task PostsWithCorrectBodyAndContentType()
+            {
+                var responseToken = new OAuthToken(null, null, null);
+                var response = Substitute.For<IApiResponse<OAuthToken>>();
+                response.Body.Returns(responseToken);
+                var connection = Substitute.For<IConnection>();
+                connection.BaseAddress.Returns(new Uri("https://oauth.pipedrive.com/"));
+                Uri calledUri = null;
+                FormUrlEncodedContent calledBody = null;
+                Uri calledHostAddress = null;
+                connection.Post<OAuthToken>(
+                    Arg.Do<Uri>(uri => calledUri = uri),
+                    Arg.Do<object>(body => calledBody = body as FormUrlEncodedContent),
+                    "application/json",
+                    null,
+                    Arg.Do<Uri>(uri => calledHostAddress = uri))
+                    .Returns(_ => Task.FromResult(response));
+                var client = new OAuthClient(connection);
+
+                var token = await client.RefreshAccessToken(new OAuthRefreshTokenRequest(
+                    "secretid",
+                    "secretsecret",
+                    "atoken"));
+
+                Assert.Same(responseToken, token);
+                Assert.Equal("oauth/token", calledUri.ToString());
+                Assert.NotNull(calledBody);
+                Assert.Equal("https://oauth.pipedrive.com/", calledHostAddress.ToString());
+                Assert.Equal(
+                    "client_id=secretid&client_secret=secretsecret&refresh_token=atoken&grant_type=refresh_token",
                     await calledBody.ReadAsStringAsync());
             }
         }
