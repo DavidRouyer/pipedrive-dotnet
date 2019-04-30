@@ -164,7 +164,8 @@ namespace Pipedrive
             {
                 Name = Name,
                 OwnerId = OwnerId?.Value,
-                VisibleTo = VisibleTo
+                VisibleTo = VisibleTo,
+                CustomFields = CustomFields
             };
         }
     }
