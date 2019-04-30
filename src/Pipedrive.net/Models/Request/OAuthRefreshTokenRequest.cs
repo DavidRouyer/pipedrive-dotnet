@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Globalization;
 using Pipedrive.Helpers;
 using Pipedrive.Internal;
@@ -26,6 +26,7 @@ namespace Pipedrive
             ClientId = clientId;
             ClientSecret = clientSecret;
             RefreshToken = refreshToken;
+            GrantType = "refresh_token";
         }
 
         /// <summary>
