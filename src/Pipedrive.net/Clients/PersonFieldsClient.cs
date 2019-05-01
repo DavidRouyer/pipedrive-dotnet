@@ -29,18 +29,20 @@ namespace Pipedrive
             return ApiConnection.Get<PersonField>(ApiUrls.PersonField(id));
         }
 
-        public Task<PersonField> Create(NewPersonField data)
+        public async Task<PersonField> Create(NewPersonField data)
         {
             Ensure.ArgumentNotNull(data, nameof(data));
 
-            return ApiConnection.Post<PersonField>(ApiUrls.PersonFields(), data);
+            var response = await ApiConnection.Post<JsonResponse<PersonField>>(ApiUrls.PersonFields(), data);
+            return response.Data;
         }
 
-        public Task<PersonField> Edit(long id, PersonFieldUpdate data)
+        public async Task<PersonField> Edit(long id, PersonFieldUpdate data)
         {
             Ensure.ArgumentNotNull(data, nameof(data));
 
-            return ApiConnection.Put<PersonField>(ApiUrls.PersonField(id), data);
+            var response = await ApiConnection.Put<JsonResponse<PersonField>>(ApiUrls.PersonField(id), data);
+            return response.Data;
         }
 
         public Task Delete(long id)
