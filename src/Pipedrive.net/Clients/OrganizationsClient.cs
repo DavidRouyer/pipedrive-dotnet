@@ -63,20 +63,18 @@ namespace Pipedrive
             return ApiConnection.Get<Organization>(ApiUrls.Organization(id));
         }
 
-        public async Task<Organization> Create(NewOrganization data)
+        public Task<Organization> Create(NewOrganization data)
         {
             Ensure.ArgumentNotNull(data, nameof(data));
 
-            var response = await ApiConnection.Post<JsonResponse<Organization>>(ApiUrls.Organizations(), data);
-            return response.Data;
+            return ApiConnection.Post<Organization>(ApiUrls.Organizations(), data);
         }
 
-        public async Task<Organization> Edit(long id, OrganizationUpdate data)
+        public Task<Organization> Edit(long id, OrganizationUpdate data)
         {
             Ensure.ArgumentNotNull(data, nameof(data));
 
-            var response = await ApiConnection.Put<JsonResponse<Organization>>(ApiUrls.Organization(id), data);
-            return response.Data;
+            return ApiConnection.Put<Organization>(ApiUrls.Organization(id), data);
         }
 
         public Task Delete(long id)

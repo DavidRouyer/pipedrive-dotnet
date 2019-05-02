@@ -29,20 +29,18 @@ namespace Pipedrive
             return ApiConnection.Get<OrganizationField>(ApiUrls.OrganizationField(id));
         }
 
-        public async Task<OrganizationField> Create(NewOrganizationField data)
+        public Task<OrganizationField> Create(NewOrganizationField data)
         {
             Ensure.ArgumentNotNull(data, nameof(data));
 
-            var response = await ApiConnection.Post<JsonResponse<OrganizationField>>(ApiUrls.OrganizationFields(), data);
-            return response.Data;
+            return ApiConnection.Post<OrganizationField>(ApiUrls.OrganizationFields(), data);
         }
 
-        public async Task<OrganizationField> Edit(long id, OrganizationFieldUpdate data)
+        public Task<OrganizationField> Edit(long id, OrganizationFieldUpdate data)
         {
             Ensure.ArgumentNotNull(data, nameof(data));
 
-            var response = await ApiConnection.Put<JsonResponse<OrganizationField>>(ApiUrls.OrganizationField(id), data);
-            return response.Data;
+            return ApiConnection.Put<OrganizationField>(ApiUrls.OrganizationField(id), data);
         }
 
         public Task Delete(long id)
