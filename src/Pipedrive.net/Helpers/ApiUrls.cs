@@ -380,6 +380,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// return the <see cref="Uri"/> that return all the finded users.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri UsersMe()
+        {
+            return new Uri("users/me", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for the specified user.
         /// </summary>
         /// <param name="id">The id of the user</param>
@@ -404,6 +413,15 @@ namespace Pipedrive
         public static Uri OAuthAccessToken()
         {
             return new Uri("oauth/token", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Creates the relative <see cref="Uri"/> to request an OAuth access token.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri OAuthRevokeToken()
+        {
+            return new Uri("oauth/revoke", UriKind.Relative);
         }
     }
 }

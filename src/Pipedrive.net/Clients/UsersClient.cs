@@ -65,5 +65,10 @@ namespace Pipedrive
         {
             return ApiConnection.Delete(ApiUrls.User(id));
         }
+
+        public Task<User> Me()
+        {
+            return ApiConnection.Get<User>(ApiUrls.UsersMe());
+        }
     }
 }

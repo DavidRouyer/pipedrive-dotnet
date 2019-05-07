@@ -21,6 +21,7 @@ namespace Pipedrive
         {
             Ensure.ArgumentNotNullOrEmptyString(clientId, nameof(clientId));
             Ensure.ArgumentNotNullOrEmptyString(clientSecret, nameof(clientSecret));
+            Ensure.ArgumentNotNullOrEmptyString(refreshToken, nameof(refreshToken));
 
             ClientId = clientId;
             ClientSecret = clientSecret;

@@ -23,6 +23,7 @@ namespace Pipedrive
             Ensure.ArgumentNotNullOrEmptyString(clientId, nameof(clientId));
             Ensure.ArgumentNotNullOrEmptyString(clientSecret, nameof(clientSecret));
             Ensure.ArgumentNotNullOrEmptyString(code, nameof(code));
+            Ensure.ArgumentNotNullOrEmptyString(redirectUri?.ToString() ?? string.Empty, nameof(redirectUri));
 
             ClientId = clientId;
             ClientSecret = clientSecret;
