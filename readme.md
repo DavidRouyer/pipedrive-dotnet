@@ -1,4 +1,4 @@
-# Pipedrive.net [![Build Status](https://travis-ci.org/DavidRouyer/pipedrive-dotnet.svg?branch=master)](https://travis-ci.org/DavidRouyer/pipedrive-dotnet)
+# Pipedrive.net [![Build Status](https://davidrouyer.visualstudio.com/pipedrive-dotnet/_apis/build/status/DavidRouyer.pipedrive-dotnet?branchName=master)](https://davidrouyer.visualstudio.com/pipedrive-dotnet/_build/latest?definitionId=3&branchName=master)
 
 ## Getting started
 
