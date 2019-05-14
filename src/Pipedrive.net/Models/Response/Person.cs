@@ -155,7 +155,8 @@ namespace Pipedrive
                 Phone = Phone,
                 OrgId = OrgId?.Value,
                 OwnerId = OwnerId?.Value,
-                VisibleTo = VisibleTo
+                VisibleTo = VisibleTo,
+                CustomFields = CustomFields
             };
         }
     }

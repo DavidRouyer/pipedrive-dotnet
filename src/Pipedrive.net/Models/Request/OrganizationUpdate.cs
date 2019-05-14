@@ -1,8 +1,11 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Pipedrive.Internal;
 
 namespace Pipedrive
 {
-    public class OrganizationUpdate
+    [JsonConverter(typeof(CustomFieldConverter))]
+    public class OrganizationUpdate : IEntityWithCustomFields
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -12,5 +15,8 @@ namespace Pipedrive
 
         [JsonProperty("visible_to")]
         public Visibility VisibleTo { get; set; }
+
+        [JsonIgnore]
+        public IDictionary<string, ICustomField> CustomFields { get; set; }
     }
 }
