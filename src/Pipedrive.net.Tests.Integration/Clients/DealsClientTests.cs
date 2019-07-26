@@ -327,5 +327,18 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.NotEqual(firstPage[0].Id, secondPage[0].Id);
             }
         }
+
+        public class TheAddParticipantMethod
+        {
+            [IntegrationTest]
+            public async Task CanAddParticipant()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Deal;
+
+                var addParticipant = await fixture.AddParticipant(1, 141);
+                Assert.NotNull(addParticipant);
+            }
+        }
     }
 }

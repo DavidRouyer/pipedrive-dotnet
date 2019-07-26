@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
+using static Pipedrive.DealsClient;
 
 namespace Pipedrive.Tests.Clients
 {
@@ -341,6 +342,22 @@ namespace Pipedrive.Tests.Clients
                                 && o.StartPage == 0)
                         );
                 });
+            }
+        }
+
+        public class TheAddParticipantMethod
+        {
+            [Fact]
+            public void PostsToTheCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                client.AddParticipant(1, 2);
+
+                // TODO: check the parameter
+                connection.Received().Post<AddDealParticipant>(Arg.Is<Uri>(u => u.ToString() == "deals/1/participants"),
+                    Arg.Any<object>());
             }
         }
     }

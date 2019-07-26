@@ -141,5 +141,13 @@ namespace Pipedrive
 
             return ApiConnection.GetAll<DealActivity>(ApiUrls.DealActivities(dealId), parameters, options);
         }
+
+        public Task<AddDealParticipant> AddParticipant(long dealId, long personId)
+        {
+            return ApiConnection.Post<AddDealParticipant>(ApiUrls.DealParticipant(dealId), new
+            {
+                person_id = personId
+            });
+        }
     }
 }
