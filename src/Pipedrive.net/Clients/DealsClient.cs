@@ -126,6 +126,19 @@ namespace Pipedrive
             return ApiConnection.GetAll<Follower>(ApiUrls.DealFollowers(dealId), parameters);
         }
 
+        public Task<Follower> AddFollower(long dealId, long userId)
+        {
+            return ApiConnection.Post<Follower>(ApiUrls.DealFollowers(dealId), new
+            {
+                user_id = userId
+            });
+        }
+
+        public Task DeleteFollower(long dealId, long followerId)
+        {
+            return ApiConnection.Delete(ApiUrls.DeleteDealFollower(dealId, followerId));
+        }
+
         public Task<IReadOnlyList<DealActivity>> GetActivities(long dealId, DealActivityFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));
@@ -142,12 +155,33 @@ namespace Pipedrive
             return ApiConnection.GetAll<DealActivity>(ApiUrls.DealActivities(dealId), parameters, options);
         }
 
-        public Task<AddDealParticipant> AddParticipant(long dealId, long personId)
+        public Task<IReadOnlyList<DealParticipant>> GetParticipants(long dealId, DealParticipantFilters filters)
         {
-            return ApiConnection.Post<AddDealParticipant>(ApiUrls.DealParticipant(dealId), new
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+            parameters.Add("id", dealId.ToString());
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.GetAll<DealParticipant>(ApiUrls.DealParticipants(dealId), parameters, options);
+        }
+
+        public Task<DealParticipant> AddParticipant(long dealId, long personId)
+        {
+            return ApiConnection.Post<DealParticipant>(ApiUrls.DealParticipants(dealId), new
             {
                 person_id = personId
             });
+        }
+
+        public Task DeleteParticipant(long dealId, long dealParticipantId)
+        {
+            return ApiConnection.Delete(ApiUrls.DeleteDealParticipant(dealId, dealParticipantId));
         }
     }
 }

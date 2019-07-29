@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Pipedrive.Models.Response
 {
-    public class AddDealParticipant
+    public class DealParticipant
     {
         public long Id { get; set; }
 
@@ -23,7 +23,7 @@ namespace Pipedrive.Models.Response
         public Person Person { get; set; }
 
         [JsonProperty("related_item_data")]
-        public AddDealParticipantRelatedItemData RelatedItemData { get; set; }
+        public DealParticipantRelatedItemData RelatedItemData { get; set; }
 
         [JsonProperty("related_item_type")]
         public string RelatedItemType { get; set; }
@@ -32,7 +32,7 @@ namespace Pipedrive.Models.Response
         public long RelatedItemId { get; set; }
     }
 
-    public class AddDealParticipantRelatedItemData
+    public class DealParticipantRelatedItemData
     {
         [JsonProperty("deal_id")]
         public long DealId { get; set; }

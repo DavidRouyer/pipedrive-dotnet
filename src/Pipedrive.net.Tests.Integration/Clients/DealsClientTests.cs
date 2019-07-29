@@ -269,6 +269,31 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheAddFollowerMethod
+        {
+            [IntegrationTest]
+            public async Task CanAddFollower()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Deal;
+
+                var addFollower = await fixture.AddFollower(1, 595707);
+                Assert.NotNull(addFollower);
+            }
+        }
+
+        public class TheDeleteFollowerMethod
+        {
+            [IntegrationTest]
+            public async Task CanDeleteFollower()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Deal;
+
+                await fixture.DeleteFollower(1, 461);
+            }
+        }
+
         public class TheGetActivitiesMethod
         {
             [IntegrationTest]
@@ -328,6 +353,65 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetParticipantsMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new DealParticipantFilters
+                {
+                    PageSize = 3,
+                    PageCount = 1
+                };
+
+                var dealUpdates = await pipedrive.Deal.GetParticipants(4, options);
+                Assert.Equal(3, dealUpdates.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new DealParticipantFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var deals = await pipedrive.Deal.GetParticipants(4, options);
+                Assert.Equal(2, deals.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new DealParticipantFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1
+                };
+
+                var firstPage = await pipedrive.Deal.GetParticipants(4, startOptions);
+
+                var skipStartOptions = new DealParticipantFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Deal.GetParticipants(4, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].PersonId, secondPage[0].PersonId);
+            }
+        }
+
         public class TheAddParticipantMethod
         {
             [IntegrationTest]
@@ -338,6 +422,18 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var addParticipant = await fixture.AddParticipant(1, 141);
                 Assert.NotNull(addParticipant);
+            }
+        }
+
+        public class TheDeleteParticipantMethod
+        {
+            [IntegrationTest]
+            public async Task CanDeleteParticipant()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Deal;
+
+                await fixture.DeleteParticipant(1, 5);
             }
         }
     }

@@ -137,6 +137,16 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for deleting the participant of the specified deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        /// <param name="dealParticipantId">The id of the deal participant</param>
+        public static Uri DeleteDealFollower(long id, long dealParticipantId)
+        {
+            return new Uri($"deals/{id}/followers/{dealParticipantId}", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for all the activities of the specified deal.
         /// </summary>
         /// <param name="id">The id of the deal</param>
@@ -149,9 +159,19 @@ namespace Pipedrive
         /// Returns the <see cref="Uri"/> for all the participants of the specified deal.
         /// </summary>
         /// <param name="id">The id of the deal</param>
-        public static Uri DealParticipant(long id)
+        public static Uri DealParticipants(long id)
         {
             return new Uri($"deals/{id}/participants", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for deleting the participant of the specified deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        /// <param name="dealParticipantId">The id of the deal participant</param>
+        public static Uri DeleteDealParticipant(long id, long dealParticipantId)
+        {
+            return new Uri($"deals/{id}/participants/{dealParticipantId}", UriKind.Relative);
         }
 
         /// <summary>

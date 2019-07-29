@@ -304,6 +304,36 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
+        public class TheAddFollowerMethod
+        {
+            [Fact]
+            public void PostsToTheCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                client.AddFollower(1, 2);
+
+                // TODO: check the parameter
+                connection.Received().Post<Follower>(Arg.Is<Uri>(u => u.ToString() == "deals/1/followers"),
+                    Arg.Any<object>());
+            }
+        }
+
+        public class TheDeleteFollowerMethod
+        {
+            [Fact]
+            public void DeletesCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                client.DeleteFollower(1, 461);
+
+                connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "deals/1/followers/461"));
+            }
+        }
+
         public class TheGetActivitiesMethod
         {
             [Fact]
@@ -345,6 +375,45 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
+        public class TheGetParticipantsMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new DealsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.GetParticipants(1, null));
+            }
+
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                var filters = new DealParticipantFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 0,
+                };
+
+                await client.GetParticipants(123, filters);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<DealParticipant>(
+                        Arg.Is<Uri>(u => u.ToString() == "deals/123/participants"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
+                            && d["id"] == "123"),
+                        Arg.Is<ApiOptions>(o => o.PageSize == 1
+                                && o.PageCount == 1
+                                && o.StartPage == 0)
+                        );
+                });
+            }
+        }
+
         public class TheAddParticipantMethod
         {
             [Fact]
@@ -356,8 +425,22 @@ namespace Pipedrive.Tests.Clients
                 client.AddParticipant(1, 2);
 
                 // TODO: check the parameter
-                connection.Received().Post<AddDealParticipant>(Arg.Is<Uri>(u => u.ToString() == "deals/1/participants"),
+                connection.Received().Post<DealParticipant>(Arg.Is<Uri>(u => u.ToString() == "deals/1/participants"),
                     Arg.Any<object>());
+            }
+        }
+
+        public class TheDeleteParticipantMethod
+        {
+            [Fact]
+            public void DeletesCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                client.DeleteParticipant(123, 456);
+
+                connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "deals/123/participants/456"));
             }
         }
     }
