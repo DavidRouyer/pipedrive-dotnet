@@ -12,5 +12,7 @@ namespace Pipedrive
         IWebhookResponse<WebhookDeal> ParseWebhookDealResponse(string request);
 
         IWebhookResponse<Activity> ParseWebhookActivityResponse(string request);
+
+        IWebhookResponse<WebhookOrganization> ParseWebhookOrganizationResponse(string request);
     }
 }

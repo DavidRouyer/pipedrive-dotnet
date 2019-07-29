@@ -54,5 +54,22 @@ namespace Pipedrive.Tests.Integration.Clients
                 }
             }
         }
+
+        public class TheParseWebhookOrganizationResponseMethod
+        {
+            [Fact]
+            public async Task DeserializeCreateInformations()
+            {
+                var stream = Helper.LoadFixture("webhook_organization_create.json");
+
+                using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
+                {
+                    var fixture = await reader.ReadToEndAsync();
+
+                    var webhookClient = new WebhooksClient();
+                    var result = webhookClient.ParseWebhookOrganizationResponse(fixture);
+                }
+            }
+        }
     }
 }
