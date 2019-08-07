@@ -59,10 +59,11 @@ namespace Pipedrive.Internal
                             // Date range
                             else if (linkedProperties.Any(p => p.Key == $"{property.Name}_until"))
                             {
+                                DateTime.TryParseExact((string)property.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var datetimeStart);
+                                DateTime.TryParseExact((string)linkedProperties[$"{property.Name}_until"], "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var datetimeEnd);
                                 customFields.Add(
                                     property.Name,
-                                    new DateRangeCustomField(DateTime.Parse((string)property.Value),
-                                    DateTime.Parse((string)linkedProperties[$"{property.Name}_until"])));
+                                    new DateRangeCustomField(datetimeStart, datetimeEnd));
                             }
                             // Address
                             else if (linkedProperties.Any(p => p.Key == $"{property.Name}_formatted_address"))
