@@ -13,7 +13,7 @@ namespace Pipedrive
         public string Title { get; set; }
 
         [JsonProperty("value")]
-        public long? Value { get; set; }
+        public decimal? Value { get; set; }
 
         [JsonProperty("currency")]
         public string Currency { get; set; }
