@@ -7,7 +7,7 @@
 In your application initialization, set your API key and organization URL:
 
 ```csharp
-PipedriveClient client = new PipedriveClient(new ProductHeaderValue("PipedriveExample"), "[your organization url here]")
+PipedriveClient client = new PipedriveClient(new ProductHeaderValue("PipedriveExample"), new Uri("[your organization url here]"))
 {
   Credentials = new Credentials("[your api key here]", AuthenticationType.ApiToken)
 };
