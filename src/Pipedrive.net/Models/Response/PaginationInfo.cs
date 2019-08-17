@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 
-namespace Pipedrive.Internal
+namespace Pipedrive
 {
-    internal class PaginationInfo
+    public class PaginationInfo
     {
         [JsonProperty("start")]
         public long Start { get; set; }

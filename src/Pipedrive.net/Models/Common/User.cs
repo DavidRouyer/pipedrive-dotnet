@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace Pipedrive
 {
     public class User
     {
         public long Id { get; set; }
-        
+
         public string Name { get; set; }
 
         [JsonProperty("default_currency")]
@@ -63,6 +63,15 @@ namespace Pipedrive
 
         [JsonProperty("is_you")]
         public bool IsYou { get; set; }
+
+        [JsonProperty("company_id")]
+        public string CompanyId { get; set; }
+
+        [JsonProperty("company_name")]
+        public string CompanyName{ get; set; }
+
+        [JsonProperty("company_domain")]
+        public string CompanyDomain { get; set; }
 
         public UserUpdate ToUpdate()
         {

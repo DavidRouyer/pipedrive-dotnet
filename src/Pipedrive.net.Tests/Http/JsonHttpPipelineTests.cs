@@ -96,7 +96,7 @@ namespace Pipedrive.Tests.Http
         public class TheDeserializeResponseMethod
         {
             [Fact]
-            public void IgnoresResponsesNotIdentifiedAsJsonWhenNotDeserializingToString()
+            public void DeserializeResponsesNotIdentifiedAsJsonWhenNotDeserializingToString()
             {
                 const string data = "works";
                 var httpResponse = new Response(
@@ -108,7 +108,7 @@ namespace Pipedrive.Tests.Http
 
                 var response = jsonPipeline.DeserializeResponse<string>(httpResponse);
 
-                Assert.Null(response.Body);
+                Assert.Equal("works", response.Body);
             }
 
             // TODO: uncomment

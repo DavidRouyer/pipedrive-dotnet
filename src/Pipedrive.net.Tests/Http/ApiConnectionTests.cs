@@ -18,15 +18,17 @@ namespace Pipedrive.Tests.Http
             public async Task MakesGetRequestForItem()
             {
                 var getUri = new Uri("anything", UriKind.Relative);
-                IApiResponse<object> response = new ApiResponse<object>(new Response());
+                IApiResponse<JsonResponse<object>> response = new ApiResponse<JsonResponse<object>>(
+                    new Response(),
+                    new JsonResponse<object>() { Data = new object() });
                 var connection = Substitute.For<IConnection>();
-                connection.Get<object>(Args.Uri, null, null).Returns(Task.FromResult(response));
+                connection.Get<JsonResponse<object>>(Args.Uri, null, null).Returns(Task.FromResult(response));
                 var apiConnection = new ApiConnection(connection);
 
                 var data = await apiConnection.Get<object>(getUri);
 
-                Assert.Same(response.Body, data);
-                connection.Received().GetResponse<object>(getUri);
+                Assert.Same(response.Body.Data, data);
+                connection.Received().GetResponse<JsonResponse<object>>(getUri);
             }
 
             [Fact]
@@ -34,15 +36,17 @@ namespace Pipedrive.Tests.Http
             {
                 var getUri = new Uri("anything", UriKind.Relative);
                 const string accepts = "custom/accepts";
-                IApiResponse<object> response = new ApiResponse<object>(new Response());
+                IApiResponse<JsonResponse<object>> response = new ApiResponse<JsonResponse<object>>(
+                    new Response(),
+                    new JsonResponse<object>() { Data = new object() });
                 var connection = Substitute.For<IConnection>();
-                connection.Get<object>(Args.Uri, null, Args.String).Returns(Task.FromResult(response));
+                connection.Get<JsonResponse<object>>(Args.Uri, null, Args.String).Returns(Task.FromResult(response));
                 var apiConnection = new ApiConnection(connection);
 
                 var data = await apiConnection.Get<object>(getUri, null, accepts);
 
-                Assert.Same(response.Body, data);
-                connection.Received().Get<object>(getUri, null, accepts);
+                Assert.Same(response.Body.Data, data);
+                connection.Received().Get<JsonResponse<object>>(getUri, null, accepts);
             }
 
             [Fact]
@@ -61,17 +65,17 @@ namespace Pipedrive.Tests.Http
             public async Task MakesGetRequestForAllItems()
             {
                 var getAllUri = new Uri("anything", UriKind.Relative);
-                IApiResponse<List<object>> response = new ApiResponse<List<object>>(
+                IApiResponse<JsonResponse<List<object>>> response = new ApiResponse<JsonResponse<List<object>>>(
                     new Response(),
-                    new List<object> { new object(), new object() });
+                    new JsonResponse<List<object>>() { AdditionalData = null, RelatedObjects = new object(), Success = true, Data = new List<object> { new object(), new object() } });
                 var connection = Substitute.For<IConnection>();
-                connection.Get<List<object>>(Args.Uri, Args.EmptyDictionary, null).Returns(Task.FromResult(response));
+                connection.Get<JsonResponse<List<object>>>(Args.Uri, Args.EmptyDictionary, null).Returns(Task.FromResult(response));
                 var apiConnection = new ApiConnection(connection);
 
                 var data = await apiConnection.GetAll<object>(getAllUri);
 
                 Assert.Equal(2, data.Count);
-                connection.Received().Get<List<object>>(getAllUri, Args.EmptyDictionary, null);
+                connection.Received().Get<JsonResponse<List<object>>>(getAllUri, Args.EmptyDictionary, null);
             }
 
             [Fact]
@@ -113,31 +117,37 @@ namespace Pipedrive.Tests.Http
             {
                 var postUri = new Uri("anything", UriKind.Relative);
                 var sentData = new object();
-                IApiResponse<object> response = new ApiResponse<object>(new Response(), new object());
+                IApiResponse<JsonResponse<object>> response = new ApiResponse<JsonResponse<object>>(
+                    new Response(),
+                    new JsonResponse<object>() { Data = new object() }
+                );
                 var connection = Substitute.For<IConnection>();
-                connection.Post<object>(Args.Uri, Args.Object, null, null).Returns(Task.FromResult(response));
+                connection.Post<JsonResponse<object>>(Args.Uri, Args.Object, null, null).Returns(Task.FromResult(response));
                 var apiConnection = new ApiConnection(connection);
 
                 var data = await apiConnection.Post<object>(postUri, sentData);
 
-                Assert.Same(data, response.Body);
-                connection.Received().Post<object>(postUri, sentData, null, null);
+                Assert.Same(data, response.Body.Data);
+                connection.Received().Post<JsonResponse<object>>(postUri, sentData, null, null);
             }
 
             [Fact]
             public async Task MakesUploadRequest()
             {
                 var uploadUrl = new Uri("anything", UriKind.Relative);
-                IApiResponse<string> response = new ApiResponse<string>(new Response(), "the response");
+                IApiResponse<JsonResponse<string>> response = new ApiResponse<JsonResponse<string>>(
+                    new Response(),
+                    new JsonResponse<string>() { Data = "the response" }
+                );
                 var connection = Substitute.For<IConnection>();
-                connection.Post<string>(Args.Uri, Arg.Any<Stream>(), Args.String, Args.String)
+                connection.Post<JsonResponse<string>>(Args.Uri, Arg.Any<Stream>(), Args.String, Args.String)
                     .Returns(Task.FromResult(response));
                 var apiConnection = new ApiConnection(connection);
                 var rawData = new MemoryStream();
 
                 await apiConnection.Post<string>(uploadUrl, rawData, "accepts", "content-type");
 
-                connection.Received().Post<string>(uploadUrl, rawData, "accepts", "content-type");
+                connection.Received().Post<JsonResponse<string>>(uploadUrl, rawData, "accepts", "content-type");
             }
 
             [Fact]
@@ -166,15 +176,18 @@ namespace Pipedrive.Tests.Http
             {
                 var putUri = new Uri("anything", UriKind.Relative);
                 var sentData = new object();
-                IApiResponse<object> response = new ApiResponse<object>(new Response());
+                IApiResponse<JsonResponse<object>> response = new ApiResponse<JsonResponse<object>>(
+                    new Response(),
+                    new JsonResponse<object>() { Data = new object()
+                });
                 var connection = Substitute.For<IConnection>();
-                connection.Put<object>(Args.Uri, Args.Object).Returns(Task.FromResult(response));
+                connection.Put<JsonResponse<object>>(Args.Uri, Args.Object).Returns(Task.FromResult(response));
                 var apiConnection = new ApiConnection(connection);
 
                 var data = await apiConnection.Put<object>(putUri, sentData);
 
-                Assert.Same(data, response.Body);
-                connection.Received().Put<object>(putUri, sentData);
+                Assert.Same(data, response.Body.Data);
+                connection.Received().Put<JsonResponse<object>>(putUri, sentData);
             }
 
             [Fact]

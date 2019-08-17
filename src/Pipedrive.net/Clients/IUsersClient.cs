@@ -23,5 +23,7 @@ namespace Pipedrive
         Task<User> Edit(long id, UserUpdate data);
 
         Task Delete(long id);
+
+        Task<User> Me();
     }
 }
