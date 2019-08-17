@@ -6,7 +6,7 @@ namespace Pipedrive
 {
     public class ActivityField
     {
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         public string Key { get; set; }
 

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -10,6 +10,7 @@
     <None Remove="Fixtures\webhook_activity_update.json" />
     <None Remove="Fixtures\webhook_deal_create.json" />
     <None Remove="Fixtures\webhook_deal_update.json" />
+    <None Remove="Fixtures\webhook_organization_create.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,10 +23,13 @@
     <EmbeddedResource Include="Fixtures\webhook_deal_update.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Fixtures\webhook_organization_create.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
       <PrivateAssets>all</PrivateAssets>

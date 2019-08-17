@@ -12,12 +12,12 @@ namespace Pipedrive.Tests.Integration.Clients
 
             var options = new ApiOptions
             {
-                PageSize = 3,
+                PageSize = 20,
                 PageCount = 1
             };
 
             var activityFields = await pipedrive.ActivityField.GetAll(options);
-            Assert.Equal(3, activityFields.Count);
+            Assert.Equal(20, activityFields.Count);
         }
 
         [IntegrationTest]
