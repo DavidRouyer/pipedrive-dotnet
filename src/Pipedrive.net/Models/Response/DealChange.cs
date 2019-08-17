@@ -14,10 +14,10 @@ namespace Pipedrive
         public long UserId { get; set; }
 
         [JsonProperty("old_value")]
-        public object OldValue { get; set; }
+        public decimal OldValue { get; set; }
 
         [JsonProperty("new_value")]
-        public object NewValue { get; set; }
+        public decimal NewValue { get; set; }
 
         [JsonProperty("is_bulk_update_flag")]
         public string IsBulkUpdateFlag { get; set; }
