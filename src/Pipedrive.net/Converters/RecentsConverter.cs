@@ -31,7 +31,7 @@ namespace Pipedrive.Internal
                             break;
 
                         case "deal":
-                            recentsEntity = dataObject.ToObject<SimpleDeal>();
+                            recentsEntity = dataObject.ToObject<DealRecent>();
                             break;
                     }
                     break;

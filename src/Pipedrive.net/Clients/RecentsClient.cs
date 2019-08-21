@@ -21,14 +21,20 @@ namespace Pipedrive
         {
         }
 
-        public Task<IReadOnlyList<Recents>> Get(DateTime sinceWhen)
+        public Task<IReadOnlyList<Recents>> GetAll(RecentsFilters filters)
         {
-            var parameters = new Dictionary<string, string>
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+
+            var options = new ApiOptions
             {
-                { "since_timestamp", sinceWhen.ToString("yyyy-MM-dd HH:mm:ss") }
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
             };
 
-            return ApiConnection.GetAll<Recents>(ApiUrls.Recents(), parameters);
+            return ApiConnection.GetAll<Recents>(ApiUrls.Recents(), parameters,options);
         }
         public Task<IReadOnlyList<Recents>> GetDealRecents(DateTime sinceWhen)
         {

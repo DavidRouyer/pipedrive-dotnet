@@ -12,8 +12,6 @@ namespace Pipedrive
     /// See the <a href="https://developers.pipedrive.com/docs/api/v1/#!/Recents">Recents API documentation</a> for more information.
     public interface IRecentsClient
     {
-        Task<IReadOnlyList<Recents>> Get(DateTime sinceWhen);
-        Task<IReadOnlyList<Recents>> GetDealRecents(DateTime sinceWhen);
-        Task<IReadOnlyList<Recents>> GetActivityRecents(DateTime sinceWhen);
+        Task<IReadOnlyList<Recents>> GetAll(RecentsFilters filters);
     }
 }

@@ -64,6 +64,7 @@ namespace Pipedrive
             Person = new PersonsClient(apiConnection);
             PersonField = new PersonFieldsClient(apiConnection);
             Pipeline = new PipelinesClient(apiConnection);
+            Recents = new RecentsClient(apiConnection);
             Stage = new StagesClient(apiConnection);
             User = new UsersClient(apiConnection);
             Webhook = new WebhooksClient();
