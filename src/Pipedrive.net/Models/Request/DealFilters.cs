@@ -37,7 +37,7 @@ namespace Pipedrive
                 }
                 if (StageId.HasValue)
                 {
-                    d.Add("stage_id", FilterId.Value.ToString());
+                    d.Add("stage_id", StageId.Value.ToString());
                 }
                 if (Status.HasValue)
                 {
