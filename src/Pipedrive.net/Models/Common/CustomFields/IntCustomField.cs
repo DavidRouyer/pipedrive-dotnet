@@ -3,9 +3,9 @@
     // int
     public class IntCustomField : ICustomField
     {
-        public int Value { get; set; }
+        public long Value { get; set; }
 
-        public IntCustomField(int value)
+        public IntCustomField(long value)
         {
             Value = value;
         }
