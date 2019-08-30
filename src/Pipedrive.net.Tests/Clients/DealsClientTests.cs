@@ -1,11 +1,10 @@
-﻿using NSubstitute;
-using Pipedrive.CustomFields;
-using Pipedrive.Models.Response;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NSubstitute;
+using Pipedrive.CustomFields;
+using Pipedrive.Models.Response;
 using Xunit;
-using static Pipedrive.DealsClient;
 
 namespace Pipedrive.Tests.Clients
 {
@@ -295,7 +294,7 @@ namespace Pipedrive.Tests.Clients
 
                 Received.InOrder(async () =>
                 {
-                    await connection.GetAll<Follower>(
+                    await connection.GetAll<DealFollower>(
                         Arg.Is<Uri>(u => u.ToString() == "deals/123/followers"),
                         Arg.Is<Dictionary<string, string>>(d => d.Count == 1
                             && d["id"] == "123")
@@ -314,9 +313,8 @@ namespace Pipedrive.Tests.Clients
 
                 client.AddFollower(1, 2);
 
-                // TODO: check the parameter
-                connection.Received().Post<Follower>(Arg.Is<Uri>(u => u.ToString() == "deals/1/followers"),
-                    Arg.Any<object>());
+                connection.Received().Post<DealFollower>(Arg.Is<Uri>(u => u.ToString() == "deals/1/followers"),
+                    Arg.Is<object>(o => o.ToString() == new { user_id = 2 }.ToString()));
             }
         }
 

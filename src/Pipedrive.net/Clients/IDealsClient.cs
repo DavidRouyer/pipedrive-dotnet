@@ -29,9 +29,9 @@ namespace Pipedrive
 
         Task<IReadOnlyList<DealUpdateFlow>> GetUpdates(long dealId, DealUpdateFilters filters);
 
-        Task<IReadOnlyList<Follower>> GetFollowers(long dealId);
+        Task<IReadOnlyList<DealFollower>> GetFollowers(long dealId);
 
-        Task<Follower> AddFollower(long dealId, long userId);
+        Task<DealFollower> AddFollower(long dealId, long userId);
 
         Task DeleteFollower(long dealId, long followerId);
 

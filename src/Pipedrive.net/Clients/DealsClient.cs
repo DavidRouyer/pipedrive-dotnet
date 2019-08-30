@@ -1,7 +1,7 @@
-﻿using Pipedrive.Helpers;
-using Pipedrive.Models.Response;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pipedrive.Helpers;
+using Pipedrive.Models.Response;
 
 namespace Pipedrive
 {
@@ -116,19 +116,19 @@ namespace Pipedrive
             return ApiConnection.GetAll<DealUpdateFlow>(ApiUrls.DealUpdates(dealId), parameters, options);
         }
 
-        public Task<IReadOnlyList<Follower>> GetFollowers(long dealId)
+        public Task<IReadOnlyList<DealFollower>> GetFollowers(long dealId)
         {
             var parameters = new Dictionary<string, string>()
             {
                 { "id", dealId.ToString() }
             };
 
-            return ApiConnection.GetAll<Follower>(ApiUrls.DealFollowers(dealId), parameters);
+            return ApiConnection.GetAll<DealFollower>(ApiUrls.DealFollowers(dealId), parameters);
         }
 
-        public Task<Follower> AddFollower(long dealId, long userId)
+        public Task<DealFollower> AddFollower(long dealId, long userId)
         {
-            return ApiConnection.Post<Follower>(ApiUrls.DealFollowers(dealId), new
+            return ApiConnection.Post<DealFollower>(ApiUrls.DealFollowers(dealId), new
             {
                 user_id = userId
             });
