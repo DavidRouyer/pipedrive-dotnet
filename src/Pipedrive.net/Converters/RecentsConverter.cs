@@ -38,7 +38,7 @@ namespace Pipedrive.Internal
                 }
             }
 
-            Recents model = (Recents)Activator.CreateInstance(objectType);
+            var model = (Recents)Activator.CreateInstance(objectType);
             serializer.Populate(jObject.CreateReader(), model);
             model.Data = recentsEntity;
 

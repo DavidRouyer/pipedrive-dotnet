@@ -36,25 +36,5 @@ namespace Pipedrive
 
             return ApiConnection.GetAll<Recents>(ApiUrls.Recents(), parameters,options);
         }
-        public Task<IReadOnlyList<Recents>> GetDealRecents(DateTime sinceWhen)
-        {
-            var parameters = new Dictionary<string, string>
-            {
-                { "since_timestamp", sinceWhen.ToString("yyyy-MM-dd HH:mm:ss") },
-                { "items", "deal" }
-            };
-
-            return ApiConnection.GetAll<Recents>(ApiUrls.Recents(), parameters);
-        }
-        public Task<IReadOnlyList<Recents>> GetActivityRecents(DateTime sinceWhen)
-        {
-            var parameters = new Dictionary<string, string>
-            {
-                { "since_timestamp", sinceWhen.ToString("yyyy-MM-dd HH:mm:ss") },
-                { "items", "activity" }
-            };
-
-            return ApiConnection.GetAll<Recents>(ApiUrls.Recents(), parameters);
-        }
     }
 }

@@ -9,7 +9,7 @@ namespace Pipedrive
         public long Id { get; set; }
 
         [JsonProperty("item")]
-        public string Object { get; set; }
+        public string Item { get; set; }
 
         [JsonIgnore]
         public IRecentsEntity Data { get; set; }

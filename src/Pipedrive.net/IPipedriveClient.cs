@@ -33,7 +33,9 @@ namespace Pipedrive
         IPersonFieldsClient PersonField { get; }
 
         IPipelinesClient Pipeline { get; }
+
         IRecentsClient Recents { get; }
+
         IStagesClient Stage { get; }
 
         IUsersClient User { get; }

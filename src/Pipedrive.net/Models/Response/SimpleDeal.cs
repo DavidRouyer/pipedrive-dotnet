@@ -2,7 +2,7 @@
 
 namespace Pipedrive
 {
-    public class SimpleDeal : IRecentsEntity
+    public class SimpleDeal
     {
         public long Id { get; set; }
 
