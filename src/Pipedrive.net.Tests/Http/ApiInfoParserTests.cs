@@ -97,15 +97,17 @@ namespace Pipedrive.Tests
                 Assert.Same(pageUri, pagingMethod(info));
             }
 
+            #pragma warning disable xUnit1026
             [Theory]
             [MemberData(nameof(PagingMethods))]
-            public void ReturnsNullIfThereIsNoMatchingPagingLink(Func<ApiInfo, Uri> pagingMethod)
+            public void ReturnsNullIfThereIsNoMatchingPagingLink(string ignored, Func<ApiInfo, Uri> pagingMethod)
             {
                 var links = new Dictionary<string, Uri>();
                 var info = BuildApiInfo(links);
 
                 Assert.Null(pagingMethod(info));
             }
+            #pragma warning restore xUnit1026
 
             public static IEnumerable<object[]> PagingMethods
             {
