@@ -1,11 +1,8 @@
 ﻿using NSubstitute;
-using Pipedrive.CustomFields;
-using Pipedrive.Models.Response;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
-using static Pipedrive.DealsClient;
 
 namespace Pipedrive.Tests.Clients
 {
@@ -33,7 +30,7 @@ namespace Pipedrive.Tests.Clients
                     PageSize = 1,
                     PageCount = 1,
                     StartPage = 0,
-                    SinceWhen = new DateTime(2018,1,1, 13,23,12)
+                    SinceWhen = new DateTime(2018, 1, 1, 13, 23, 12)
                 };
 
                 await client.GetAll(filters);
@@ -51,6 +48,7 @@ namespace Pipedrive.Tests.Clients
                         );
                 });
             }
+
             [Fact]
             public async Task RequestsCorrectUrlForDeals()
             {
@@ -83,6 +81,5 @@ namespace Pipedrive.Tests.Clients
                 });
             }
         }
-
     }
 }

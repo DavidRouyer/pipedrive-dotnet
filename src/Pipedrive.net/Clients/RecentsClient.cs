@@ -1,6 +1,4 @@
-﻿using Pipedrive.Clients;
-using Pipedrive.Helpers;
-using System;
+﻿using Pipedrive.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -34,7 +32,7 @@ namespace Pipedrive
                 PageSize = filters.PageSize
             };
 
-            return ApiConnection.GetAll<Recents>(ApiUrls.Recents(), parameters,options);
+            return ApiConnection.GetAll<Recents>(ApiUrls.Recents(), parameters, options);
         }
     }
 }
