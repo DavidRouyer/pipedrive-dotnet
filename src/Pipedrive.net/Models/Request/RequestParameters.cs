@@ -20,7 +20,7 @@ namespace Pipedrive
         /// <summary>
         /// Converts the derived object into a dictionary that can be used to supply query string parameters.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A dictionary of query string parameters</returns>
         public virtual IDictionary<string, string> ToParametersDictionary()
         {
             var map = _propertiesMap.GetOrAdd(GetType(), GetPropertyParametersForType);
@@ -107,6 +107,7 @@ namespace Pipedrive
         {
             readonly Func<PropertyInfo, object, string> _valueFunc;
             readonly PropertyInfo _property;
+
             public PropertyParameter(PropertyInfo property)
             {
                 _property = property;

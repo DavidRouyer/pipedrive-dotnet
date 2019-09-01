@@ -20,7 +20,6 @@ namespace Pipedrive.Internal
         /// <returns>A <see cref="Task" /> of <see cref="IResponse"/></returns>
         Task<IResponse> Send(IRequest request, CancellationToken cancellationToken);
 
-
         /// <summary>
         /// Set the Pipedrive API request timeout.
         /// </summary>

@@ -99,7 +99,7 @@ namespace Pipedrive.Tests
 
             [Theory]
             [MemberData(nameof(PagingMethods))]
-            public void ReturnsNullIfThereIsNoMatchingPagingLink(string ignored, Func<ApiInfo, Uri> pagingMethod)
+            public void ReturnsNullIfThereIsNoMatchingPagingLink(Func<ApiInfo, Uri> pagingMethod)
             {
                 var links = new Dictionary<string, Uri>();
                 var info = BuildApiInfo(links);

@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Pipedrive
 {
@@ -56,7 +56,7 @@ namespace Pipedrive
 
         [JsonProperty("use_field")]
         public string UseField { get; set; }
-        
+
         [JsonProperty("link")]
         public string Link { get; set; }
 

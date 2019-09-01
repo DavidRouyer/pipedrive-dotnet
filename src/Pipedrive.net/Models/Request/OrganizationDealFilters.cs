@@ -33,14 +33,17 @@ namespace Pipedrive
                 {
                     d.Add("status", Status.Value.ToString());
                 }
+
                 if (!string.IsNullOrWhiteSpace(Sort))
                 {
                     d.Add("sort", Sort);
                 }
+
                 if (OnlyPrimaryAssociation.HasValue)
                 {
                     d.Add("only_primary_association", OnlyPrimaryAssociation.Value.ToString());
                 }
+
                 return d;
             }
         }

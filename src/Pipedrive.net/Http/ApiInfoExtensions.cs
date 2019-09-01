@@ -1,5 +1,5 @@
-﻿using Pipedrive.Helpers;
-using System;
+﻿using System;
+using Pipedrive.Helpers;
 
 namespace Pipedrive
 {

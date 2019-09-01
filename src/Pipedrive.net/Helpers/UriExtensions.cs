@@ -1,7 +1,7 @@
-﻿using Pipedrive.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Pipedrive.Helpers;
 
 namespace Pipedrive
 {
@@ -15,7 +15,7 @@ namespace Pipedrive
         /// eg https://example.com/some/path becomes https://example.com
         /// </summary>
         /// <param name="uri">Base Uri</param>
-        /// <returns></returns>
+        /// <returns>Uri without relative path</returns>
         public static Uri StripRelativeUri(this Uri uri)
         {
             return new Uri(uri, "/");
@@ -27,7 +27,7 @@ namespace Pipedrive
         /// </summary>
         /// <param name="uri">Base Uri</param>
         /// <param name="relativeUri">Relative Uri to add to the base Uri, replacing any existing relative Uri component</param>
-        /// <returns></returns>
+        /// <returns>Uri with the new relative uri</returns>
         public static Uri ReplaceRelativeUri(this Uri uri, Uri relativeUri)
         {
             // Prepending a forward slash to the relative Uri causes it to replace any that is existing
@@ -64,11 +64,11 @@ namespace Pipedrive
             else
             {
                 queryString = hasQueryString == -1
-                    ? ""
+                    ? string.Empty
                     : uri.OriginalString.Substring(hasQueryString);
             }
 
-            var values = queryString.Replace("?", "")
+            var values = queryString.Replace("?", string.Empty)
                                     .Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
 
             var existingParameters = values.ToDictionary(

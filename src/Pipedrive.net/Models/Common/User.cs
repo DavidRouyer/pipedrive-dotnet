@@ -68,7 +68,7 @@ namespace Pipedrive
         public string CompanyId { get; set; }
 
         [JsonProperty("company_name")]
-        public string CompanyName{ get; set; }
+        public string CompanyName { get; set; }
 
         [JsonProperty("company_domain")]
         public string CompanyDomain { get; set; }

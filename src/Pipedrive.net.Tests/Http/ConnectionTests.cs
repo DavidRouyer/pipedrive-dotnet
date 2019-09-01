@@ -33,7 +33,7 @@ namespace Pipedrive.Tests.Http
 
                 await connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative));
 
-                httpClient.Received(1).Send(Arg.Is<IRequest>(req =>
+                await httpClient.Received(1).Send(Arg.Is<IRequest>(req =>
                     req.BaseAddress == _exampleUri &&
                     req.ContentType == null &&
                     req.Body == null &&
@@ -56,7 +56,7 @@ namespace Pipedrive.Tests.Http
                 await connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative));
                 await connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative));
 
-                httpClient.Received(3).Send(Arg.Is<IRequest>(req =>
+                await httpClient.Received(3).Send(Arg.Is<IRequest>(req =>
                     req.BaseAddress == _exampleUri &&
                     req.Method == HttpMethod.Get &&
                     req.Endpoint == new Uri($"endpoint?api_token={exampleToken}", UriKind.Relative)), Args.CancellationToken);
@@ -104,8 +104,7 @@ namespace Pipedrive.Tests.Http
                     @"{""errors"":[{""code"":""custom"",""field"":""key"",""message"":""key is " +
                     @"already in use"",""resource"":""PublicKey""}],""message"":""Validation Failed""}",
                     new Dictionary<string, string>(),
-                    "application/json"
-                );
+                    "application/json");
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri,
@@ -251,7 +250,6 @@ namespace Pipedrive.Tests.Http
                     () => connection.GetResponse<string>(new Uri("endpoint", UriKind.Relative)));
             }
 
-
             [Fact]
             public async Task AbuseExceptionContainsTheRetryAfterHeaderAmount()
             {
@@ -289,9 +287,9 @@ namespace Pipedrive.Tests.Http
                 var httpClient = Substitute.For<IHttpClient>();
                 IResponse response = new Response(
                     HttpStatusCode.Forbidden,
-                     "{\"message\":\"" + messageText + "\"," +
+                    "{\"message\":\"" + messageText + "\"," +
                     "\"documentation_url\":\"https://developer.github.com/v3/#abuse-rate-limits\"}",
-                   new Dictionary<string, string>(),
+                    new Dictionary<string, string>(),
                     "application/json");
                 httpClient.Send(Args.Request, Args.CancellationToken).Returns(Task.FromResult(response));
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
@@ -324,7 +322,7 @@ namespace Pipedrive.Tests.Http
 
                 await connection.Put<string>(new Uri("endpoint", UriKind.Relative), body);
 
-                httpClient.Received(1).Send(Arg.Is<IRequest>(req =>
+                await httpClient.Received(1).Send(Arg.Is<IRequest>(req =>
                     req.BaseAddress == _exampleUri &&
                     (string)req.Body == expectedBody &&
                     req.Method == HttpMethod.Put &&
@@ -349,7 +347,7 @@ namespace Pipedrive.Tests.Http
 
                 await connection.Put<string>(new Uri("endpoint", UriKind.Relative), body);
 
-                httpClient.Received(1).Send(Arg.Is<IRequest>(req =>
+                await httpClient.Received(1).Send(Arg.Is<IRequest>(req =>
                     req.BaseAddress == _exampleUri &&
                     (string)req.Body == expectedBody &&
                     req.Method == HttpMethod.Put &&
@@ -375,7 +373,7 @@ namespace Pipedrive.Tests.Http
 
                 await connection.Post<string>(new Uri("endpoint", UriKind.Relative), body, null, null);
 
-                httpClient.Received(1).Send(Arg.Is<IRequest>(req =>
+                await httpClient.Received(1).Send(Arg.Is<IRequest>(req =>
                     req.BaseAddress == _exampleUri &&
                     req.ContentType == "application/json" &&
                     (string)req.Body == data &&
@@ -401,7 +399,7 @@ namespace Pipedrive.Tests.Http
                     null,
                     "application/arbitrary");
 
-                httpClient.Received().Send(Arg.Is<IRequest>(req =>
+                await httpClient.Received().Send(Arg.Is<IRequest>(req =>
                     req.BaseAddress == _exampleUri &&
                     req.Body == body &&
                     req.Headers["Accept"] == "application/json" &&
@@ -428,7 +426,7 @@ namespace Pipedrive.Tests.Http
                     "application/json",
                     null);
 
-                httpClient.Received().Send(Arg.Is<IRequest>(req =>
+                await httpClient.Received().Send(Arg.Is<IRequest>(req =>
                     req.Headers["Accept"] == "application/json" &&
                     req.ContentType == "application/json"), Args.CancellationToken);
             }
@@ -449,7 +447,7 @@ namespace Pipedrive.Tests.Http
 
                 await connection.Delete(new Uri("endpoint", UriKind.Relative));
 
-                httpClient.Received(1).Send(Arg.Is<IRequest>(req =>
+                await httpClient.Received(1).Send(Arg.Is<IRequest>(req =>
                     req.BaseAddress == _exampleUri &&
                     req.Body == null &&
                     req.ContentType == null &&
@@ -519,7 +517,7 @@ namespace Pipedrive.Tests.Http
         public class TheLastAPiInfoProperty
         {
             [Fact]
-            public async Task ReturnsNullIfNew()
+            public void ReturnsNullIfNew()
             {
                 var connection = new Connection(new ProductHeaderValue("PipedriveTests"),
                     _exampleUri);

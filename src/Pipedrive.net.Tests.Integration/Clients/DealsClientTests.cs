@@ -1,6 +1,6 @@
-﻿using Pipedrive.CustomFields;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Pipedrive.CustomFields;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients

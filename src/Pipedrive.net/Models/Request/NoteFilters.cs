@@ -48,42 +48,52 @@ namespace Pipedrive
                 {
                     d.Add("user_id", UserId.Value.ToString());
                 }
+
                 if (DealId.HasValue)
                 {
                     d.Add("deal_id", DealId.Value.ToString());
                 }
+
                 if (PersonId.HasValue)
                 {
                     d.Add("person_id", PersonId.Value.ToString());
                 }
+
                 if (OrgId.HasValue)
                 {
                     d.Add("org_id", OrgId.Value.ToString());
                 }
+
                 if (!string.IsNullOrWhiteSpace(Sort))
                 {
                     d.Add("sort", Sort);
                 }
+
                 if (StartDate.HasValue)
                 {
                     d.Add("start_date", StartDate.Value.ToString());
                 }
+
                 if (EndDate.HasValue)
                 {
                     d.Add("end_date", EndDate.Value.ToString());
                 }
+
                 if (PinnedToDealFlag.HasValue)
                 {
                     d.Add("pinned_to_deal_flag", PinnedToDealFlag.Value.ToString());
                 }
+
                 if (PinnedToOrganizationFlag.HasValue)
                 {
                     d.Add("pinned_to_organization_flag", PinnedToOrganizationFlag.Value.ToString());
                 }
+
                 if (PinnedToPersonFlag.HasValue)
                 {
                     d.Add("pinned_to_person_flag", PinnedToPersonFlag.Value.ToString());
                 }
+
                 return d;
             }
         }

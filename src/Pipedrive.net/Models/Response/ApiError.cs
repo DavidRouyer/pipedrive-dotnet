@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Pipedrive
 {
@@ -8,7 +8,9 @@ namespace Pipedrive
     /// </summary>
     public class ApiError
     {
-        public ApiError() { }
+        public ApiError()
+        {
+        }
 
         public ApiError(string error)
         {

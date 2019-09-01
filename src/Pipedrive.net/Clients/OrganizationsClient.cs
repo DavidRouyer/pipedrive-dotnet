@@ -1,6 +1,6 @@
-﻿using Pipedrive.Helpers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pipedrive.Helpers;
 
 namespace Pipedrive
 {

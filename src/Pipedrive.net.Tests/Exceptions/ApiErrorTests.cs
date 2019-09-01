@@ -9,6 +9,7 @@ namespace Pipedrive.Tests.Exceptions
    ""error"": ""Validation Failed"",
    ""error_info"": ""Please check developers.pipedrive.com""
  }";
+
         [Fact]
         public void CanBeDeserialized()
         {

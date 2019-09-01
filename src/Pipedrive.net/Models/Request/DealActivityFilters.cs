@@ -31,10 +31,12 @@ namespace Pipedrive
                 {
                     d.Add("done", ((int)Done.Value).ToString());
                 }
+
                 if (!string.IsNullOrWhiteSpace(Exclude))
                 {
                     d.Add("exclude", Exclude);
                 }
+
                 return d;
             }
         }

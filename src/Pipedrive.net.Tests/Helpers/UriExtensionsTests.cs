@@ -15,8 +15,8 @@ namespace Pipedrive.Tests.Helpers
 
                 var uriWithParameters = uri.ApplyParameters(new Dictionary<string, string>
                 {
-                    {"foo", "foo val"},
-                    {"bar", "barval"}
+                    { "foo", "foo val" },
+                    { "bar", "barval" }
                 });
 
                 Assert.Equal(new Uri("https://example.com?foo=foo%20val&bar=barval"), uriWithParameters);
@@ -29,7 +29,7 @@ namespace Pipedrive.Tests.Helpers
 
                 var uriWithParameters = uri.ApplyParameters(new Dictionary<string, string>
                 {
-                    {"bar", "barval"}
+                    { "bar", "barval" }
                 });
 
                 Assert.Equal(new Uri("https://example.com?bar=barval&foo=foo%20val"), uriWithParameters);
@@ -42,8 +42,8 @@ namespace Pipedrive.Tests.Helpers
 
                 var uriWithParameters = uri.ApplyParameters(new Dictionary<string, string>
                 {
-                    {"foo", "fooval"},
-                    {"bar", "barval"}
+                    { "foo", "fooval" },
+                    { "bar", "barval" }
                 });
 
                 Assert.Equal(new Uri("issues?foo=fooval&bar=barval", UriKind.Relative), uriWithParameters);
@@ -56,7 +56,7 @@ namespace Pipedrive.Tests.Helpers
 
                 var parameters = new Dictionary<string, string>
                 {
-                    {"foo", null }
+                    { "foo", null }
                 };
 
                 Assert.Throws<ArgumentNullException>(() => uri.ApplyParameters(parameters));
@@ -69,7 +69,7 @@ namespace Pipedrive.Tests.Helpers
 
                 var parameters = new Dictionary<string, string>
                 {
-                    {"foo", null }
+                    { "foo", null }
                 };
 
                 Assert.Throws<ArgumentNullException>(() => uri.ApplyParameters(parameters));

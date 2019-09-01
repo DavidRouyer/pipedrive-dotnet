@@ -39,26 +39,32 @@ namespace Pipedrive
                 {
                     d.Add("filter_id", FilterId.Value.ToString());
                 }
+
                 if (UserId.HasValue)
                 {
                     d.Add("user_id", UserId.Value.ToString());
                 }
+
                 if (Everyone.HasValue)
                 {
                     d.Add("everyone", Everyone.Value.ToString());
                 }
+
                 if (StageId.HasValue)
                 {
                     d.Add("stage_id", StageId.Value.ToString());
                 }
+
                 if (GetSummary.HasValue)
                 {
                     d.Add("get_summary", GetSummary.Value.ToString());
                 }
+
                 if (!string.IsNullOrWhiteSpace(TotalsConvertCurrency))
                 {
                     d.Add("totals_convert_currency", TotalsConvertCurrency);
                 }
+
                 return d;
             }
         }

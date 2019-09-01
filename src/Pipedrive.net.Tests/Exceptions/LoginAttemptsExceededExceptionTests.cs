@@ -1,6 +1,6 @@
-﻿using Pipedrive.Internal;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
+using Pipedrive.Internal;
 using Xunit;
 
 namespace Pipedrive.Tests.Exceptions

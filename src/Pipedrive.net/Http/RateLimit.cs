@@ -7,7 +7,9 @@ namespace Pipedrive
 {
     public class RateLimit
     {
-        public RateLimit() { }
+        public RateLimit()
+        {
+        }
 
         public RateLimit(IDictionary<string, string> responseHeaders)
         {
@@ -43,7 +45,10 @@ namespace Pipedrive
         /// The date and time at which the current rate limit window resets
         /// </summary>
         [Parameter(Key = "ignoreThisField")]
-        public DateTimeOffset Reset { get { return ResetAsUtcEpochSeconds.FromUnixTime(); } }
+        public DateTimeOffset Reset
+        {
+            get { return ResetAsUtcEpochSeconds.FromUnixTime(); }
+        }
 
         /// <summary>
         /// The date and time at which the current rate limit window resets - in UTC epoch seconds

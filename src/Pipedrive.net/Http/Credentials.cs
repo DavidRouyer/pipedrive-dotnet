@@ -11,7 +11,9 @@ namespace Pipedrive
             AuthenticationType = AuthenticationType.Anonymous;
         }
 
-        public Credentials(string token) : this(token, AuthenticationType.ApiToken) { }
+        public Credentials(string token) : this(token, AuthenticationType.ApiToken)
+        {
+        }
 
         public Credentials(string token, AuthenticationType authenticationType)
         {

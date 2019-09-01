@@ -93,10 +93,9 @@ namespace Pipedrive
         /// <param name="body">The object to serialize as the body of the request</param>
         /// <param name="accepts">Specifies accepted response media types.</param>
         /// <param name="contentType">Specifies the media type of the request body</param>
-        /// <param name="timeout"></param>
+        /// <param name="timeout">Expiration time of the request</param>
         /// <returns><seealso cref="IResponse"/> representing the received HTTP response</returns>
         Task<IApiResponse<T>> Post<T>(Uri uri, object body, string accepts, string contentType, TimeSpan timeout);
-
 
         /// <summary>
         /// Performs an asynchronous HTTP POST request.
@@ -179,7 +178,7 @@ namespace Pipedrive
         /// <typeparam name="T">The type to map the response to</typeparam>
         /// <param name="uri">URI endpoint to send request to</param>
         /// <param name="data">The object to serialize as the body of the request</param>
-        /// <param name="accepts">Specifies accept response media type</param>        
+        /// <param name="accepts">Specifies accept response media type</param>
         Task<IApiResponse<T>> Delete<T>(Uri uri, object data, string accepts);
 
         /// <summary>
@@ -196,9 +195,9 @@ namespace Pipedrive
         /// Gets or sets the credentials used by the connection.
         /// </summary>
         /// <remarks>
-        /// You can use this property if you only have a single hard-coded credential. Otherwise, pass in an 
-        /// <see cref="ICredentialStore"/> to the constructor. 
-        /// Setting this property will change the <see cref="ICredentialStore"/> to use 
+        /// You can use this property if you only have a single hard-coded credential. Otherwise, pass in an
+        /// <see cref="ICredentialStore"/> to the constructor.
+        /// Setting this property will change the <see cref="ICredentialStore"/> to use
         /// the default <see cref="InMemoryCredentialStore"/> with just these credentials.
         /// </remarks>
         Credentials Credentials { get; set; }

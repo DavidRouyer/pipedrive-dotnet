@@ -54,7 +54,7 @@ namespace Pipedrive
                     values.Add("PageSize: " + PageSize.Value);
                 }
 
-                return String.Join(", ", values);
+                return string.Join(", ", values);
             }
         }
     }
