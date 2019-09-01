@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Pipedrive
 {
-    public class Activity : IDealUpdateEntity
+    public class Activity : IDealUpdateEntity, IRecentsEntity
     {
         public long Id { get; set; }
 

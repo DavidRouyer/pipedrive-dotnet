@@ -37,6 +37,8 @@ namespace Pipedrive
 
         static readonly Uri _usersUrl = new Uri("users", UriKind.Relative);
 
+        static readonly Uri _recentsUrl = new Uri("recents", UriKind.Relative);
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns all of the activities.
         /// </summary>
@@ -361,6 +363,15 @@ namespace Pipedrive
         public static Uri PipelineDeal(long id)
         {
             return new Uri($"pipelines/{id}/deals", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns the recents in response to a GET request.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri Recents()
+        {
+            return _recentsUrl;
         }
 
         /// <summary>

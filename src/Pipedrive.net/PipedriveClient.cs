@@ -64,6 +64,7 @@ namespace Pipedrive
             Person = new PersonsClient(apiConnection);
             PersonField = new PersonFieldsClient(apiConnection);
             Pipeline = new PipelinesClient(apiConnection);
+            Recents = new RecentsClient(apiConnection);
             Stage = new StagesClient(apiConnection);
             User = new UsersClient(apiConnection);
             Webhook = new WebhooksClient();
@@ -235,6 +236,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Pipelines
         /// </remarks>
         public IPipelinesClient Pipeline { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's Recents API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Recents
+        /// </remarks>
+        public IRecentsClient Recents { get; private set; }
 
         /// <summary>
         /// Access Pipedrive's Stage API.

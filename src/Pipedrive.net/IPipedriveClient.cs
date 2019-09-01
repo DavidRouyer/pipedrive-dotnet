@@ -34,6 +34,8 @@ namespace Pipedrive
 
         IPipelinesClient Pipeline { get; }
 
+        IRecentsClient Recents { get; }
+
         IStagesClient Stage { get; }
 
         IUsersClient User { get; }
