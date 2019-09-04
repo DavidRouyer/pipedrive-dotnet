@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Net;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using NSubstitute;
@@ -28,7 +28,7 @@ namespace Pipedrive.Tests.Http
                 var data = await apiConnection.Get<object>(getUri);
 
                 Assert.Same(response.Body.Data, data);
-                connection.Received().GetResponse<JsonResponse<object>>(getUri);
+                await connection.Received().GetResponse<JsonResponse<object>>(getUri);
             }
 
             [Fact]
@@ -46,7 +46,7 @@ namespace Pipedrive.Tests.Http
                 var data = await apiConnection.Get<object>(getUri, null, accepts);
 
                 Assert.Same(response.Body.Data, data);
-                connection.Received().Get<JsonResponse<object>>(getUri, null, accepts);
+                await connection.Received().Get<JsonResponse<object>>(getUri, null, accepts);
             }
 
             [Fact]
@@ -75,7 +75,7 @@ namespace Pipedrive.Tests.Http
                 var data = await apiConnection.GetAll<object>(getAllUri);
 
                 Assert.Equal(2, data.Count);
-                connection.Received().Get<JsonResponse<List<object>>>(getAllUri, Args.EmptyDictionary, null);
+                await connection.Received().Get<JsonResponse<List<object>>>(getAllUri, Args.EmptyDictionary, null);
             }
 
             [Fact]
@@ -109,7 +109,7 @@ namespace Pipedrive.Tests.Http
 
                 await apiConnection.Post(postUri);
 
-                connection.Received().Post(postUri);
+                await connection.Received().Post(postUri);
             }
 
             [Fact]
@@ -119,8 +119,7 @@ namespace Pipedrive.Tests.Http
                 var sentData = new object();
                 IApiResponse<JsonResponse<object>> response = new ApiResponse<JsonResponse<object>>(
                     new Response(),
-                    new JsonResponse<object>() { Data = new object() }
-                );
+                    new JsonResponse<object>() { Data = new object() });
                 var connection = Substitute.For<IConnection>();
                 connection.Post<JsonResponse<object>>(Args.Uri, Args.Object, null, null).Returns(Task.FromResult(response));
                 var apiConnection = new ApiConnection(connection);
@@ -128,7 +127,7 @@ namespace Pipedrive.Tests.Http
                 var data = await apiConnection.Post<object>(postUri, sentData);
 
                 Assert.Same(data, response.Body.Data);
-                connection.Received().Post<JsonResponse<object>>(postUri, sentData, null, null);
+                await connection.Received().Post<JsonResponse<object>>(postUri, sentData, null, null);
             }
 
             [Fact]
@@ -137,8 +136,7 @@ namespace Pipedrive.Tests.Http
                 var uploadUrl = new Uri("anything", UriKind.Relative);
                 IApiResponse<JsonResponse<string>> response = new ApiResponse<JsonResponse<string>>(
                     new Response(),
-                    new JsonResponse<string>() { Data = "the response" }
-                );
+                    new JsonResponse<string>() { Data = "the response" });
                 var connection = Substitute.For<IConnection>();
                 connection.Post<JsonResponse<string>>(Args.Uri, Arg.Any<Stream>(), Args.String, Args.String)
                     .Returns(Task.FromResult(response));
@@ -147,13 +145,13 @@ namespace Pipedrive.Tests.Http
 
                 await apiConnection.Post<string>(uploadUrl, rawData, "accepts", "content-type");
 
-                connection.Received().Post<JsonResponse<string>>(uploadUrl, rawData, "accepts", "content-type");
+                await connection.Received().Post<JsonResponse<string>>(uploadUrl, rawData, "accepts", "content-type");
             }
 
             [Fact]
             public async Task EnsuresArgumentsNotNull()
             {
-                var postUri = new Uri("", UriKind.Relative);
+                var postUri = new Uri(string.Empty, UriKind.Relative);
                 var connection = new ApiConnection(Substitute.For<IConnection>());
 
                 // 1 parameter overload
@@ -178,8 +176,10 @@ namespace Pipedrive.Tests.Http
                 var sentData = new object();
                 IApiResponse<JsonResponse<object>> response = new ApiResponse<JsonResponse<object>>(
                     new Response(),
-                    new JsonResponse<object>() { Data = new object()
-                });
+                    new JsonResponse<object>()
+                    {
+                        Data = new object()
+                    });
                 var connection = Substitute.For<IConnection>();
                 connection.Put<JsonResponse<object>>(Args.Uri, Args.Object).Returns(Task.FromResult(response));
                 var apiConnection = new ApiConnection(connection);
@@ -187,13 +187,13 @@ namespace Pipedrive.Tests.Http
                 var data = await apiConnection.Put<object>(putUri, sentData);
 
                 Assert.Same(data, response.Body.Data);
-                connection.Received().Put<JsonResponse<object>>(putUri, sentData);
+                await connection.Received().Put<JsonResponse<object>>(putUri, sentData);
             }
 
             [Fact]
             public async Task EnsuresArgumentsNotNull()
             {
-                var putUri = new Uri("", UriKind.Relative);
+                var putUri = new Uri(string.Empty, UriKind.Relative);
                 var connection = new ApiConnection(Substitute.For<IConnection>());
 
                 // 2 parameter overload
@@ -217,7 +217,7 @@ namespace Pipedrive.Tests.Http
 
                 await apiConnection.Delete(deleteUri);
 
-                connection.Received().Delete(deleteUri);
+                await connection.Received().Delete(deleteUri);
             }
 
             [Fact]
@@ -301,9 +301,11 @@ namespace Pipedrive.Tests.Http
 
                 await apiConnection.GetQueuedOperation<object>(queuedOperationUrl, CancellationToken.None);
 
-                connection.Received(3).GetResponse<IReadOnlyList<object>>(queuedOperationUrl, Args.CancellationToken);
+                await connection.Received(3).GetResponse<IReadOnlyList<object>>(queuedOperationUrl, Args.CancellationToken);
             }
 
+            // TODO: infinit loop in test?
+            /*[Fact]
             public async Task CanCancelQueuedOperation()
             {
                 var queuedOperationUrl = new Uri("anything", UriKind.Relative);
@@ -331,7 +333,7 @@ namespace Pipedrive.Tests.Http
 
                 Assert.True(canceled);
                 Assert.Null(operationResult);
-            }
+            }*/
 
             [Fact]
             public async Task EnsuresArgumentNotNull()

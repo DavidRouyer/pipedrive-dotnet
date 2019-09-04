@@ -3,7 +3,7 @@
 namespace Pipedrive.Internal
 {
     /// <summary>
-    /// Indicate to the serializer that this property or value 
+    /// Indicate to the serializer that this property or value
     /// has a different representation when being serialized to JSON
     /// </summary>
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]

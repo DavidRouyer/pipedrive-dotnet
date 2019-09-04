@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 using Pipedrive.CustomFields;
 using Pipedrive.Internal;
-using System;
-using System.Collections.Generic;
 
 namespace Pipedrive
 {

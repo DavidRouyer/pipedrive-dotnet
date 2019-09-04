@@ -26,9 +26,9 @@ namespace Pipedrive.Tests.Http
         }
 
         [Theory]
-        [InlineData(HttpStatusCode.MovedPermanently)]  // 301
-        [InlineData(HttpStatusCode.Found)]  // 302
-        [InlineData(HttpStatusCode.TemporaryRedirect)]  // 307
+        [InlineData(HttpStatusCode.MovedPermanently)] // 301
+        [InlineData(HttpStatusCode.Found)] // 302
+        [InlineData(HttpStatusCode.TemporaryRedirect)] // 307
         public async Task ShouldRedirectSameMethod(HttpStatusCode statusCode)
         {
             var redirectResponse = new HttpResponseMessage(statusCode);
@@ -80,12 +80,11 @@ namespace Pipedrive.Tests.Http
             Assert.Equal("fooAuth", response.RequestMessage.Headers.Authorization.Scheme);
         }
 
-
         [Theory]
-        [InlineData(HttpStatusCode.MovedPermanently)]  // 301
-        [InlineData(HttpStatusCode.Found)]  // 302
-        [InlineData(HttpStatusCode.SeeOther)]  // 303
-        [InlineData(HttpStatusCode.TemporaryRedirect)]  // 307
+        [InlineData(HttpStatusCode.MovedPermanently)] // 301
+        [InlineData(HttpStatusCode.Found)] // 302
+        [InlineData(HttpStatusCode.SeeOther)] // 303
+        [InlineData(HttpStatusCode.TemporaryRedirect)] // 307
         public async Task RedirectWithDifferentHostShouldLoseAuthHeader(HttpStatusCode statusCode)
         {
             var redirectResponse = new HttpResponseMessage(statusCode);
@@ -104,9 +103,9 @@ namespace Pipedrive.Tests.Http
         }
 
         [Theory]
-        [InlineData(HttpStatusCode.MovedPermanently)]  // 301
-        [InlineData(HttpStatusCode.Found)]  // 302
-        [InlineData(HttpStatusCode.TemporaryRedirect)]  // 307
+        [InlineData(HttpStatusCode.MovedPermanently)] // 301
+        [InlineData(HttpStatusCode.Found)] // 302
+        [InlineData(HttpStatusCode.TemporaryRedirect)] // 307
         public async Task Status301ShouldRedirectPOSTWithBody(HttpStatusCode statusCode)
         {
             var redirectResponse = new HttpResponseMessage(statusCode);
@@ -180,7 +179,7 @@ namespace Pipedrive.Tests.Http
     {
         readonly HttpResponseMessage _response1;
         readonly HttpResponseMessage _response2;
-        private bool _Response1Sent;
+        private bool _response1Sent;
 
         public MockRedirectHandler(HttpResponseMessage response1, HttpResponseMessage response2 = null)
         {
@@ -188,11 +187,12 @@ namespace Pipedrive.Tests.Http
             _response2 = response2;
         }
 
+        #pragma warning disable 1998
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if (!_Response1Sent)
+            if (!_response1Sent)
             {
-                _Response1Sent = true;
+                _response1Sent = true;
                 _response1.RequestMessage = request;
                 return _response1;
             }
@@ -202,5 +202,6 @@ namespace Pipedrive.Tests.Http
                 return _response2;
             }
         }
+        #pragma warning restore 1998
     }
 }

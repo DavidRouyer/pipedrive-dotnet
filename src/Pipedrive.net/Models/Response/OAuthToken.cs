@@ -9,7 +9,9 @@ namespace Pipedrive
     [DebuggerDisplay("{DebuggerDisplay,nq}")]
     public class OAuthToken
     {
-        public OAuthToken() { }
+        public OAuthToken()
+        {
+        }
 
         public OAuthToken(string tokenType, string accessToken, IReadOnlyList<string> scope)
         {
@@ -38,7 +40,7 @@ namespace Pipedrive
         public IReadOnlyList<string> Scope { get; protected set; }
 
         /// <summary>
-        /// The TTL (time to live) of access token in seconds. 
+        /// The TTL (time to live) of access token in seconds.
         /// </summary>
         [JsonProperty("expires_in")]
         public int ExpiresIn { get; protected set; }

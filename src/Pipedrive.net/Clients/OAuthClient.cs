@@ -83,7 +83,7 @@ namespace Pipedrive.Clients
             var response = await connection.Post<OAuthToken>(endPoint, body, "application/json", null, hostAddress).ConfigureAwait(false);
             return response.Body;
         }
-        
+
         public async Task RevokeToken(OAuthRevokeTokenRequest request)
         {
             Ensure.ArgumentNotNull(request, nameof(request));

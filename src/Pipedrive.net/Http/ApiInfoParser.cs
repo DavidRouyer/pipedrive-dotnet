@@ -1,7 +1,7 @@
-﻿using Pipedrive.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using Pipedrive.Helpers;
 
 namespace Pipedrive.Internal
 {

@@ -33,12 +33,11 @@ namespace Pipedrive.Tests.Http
                                     }
                                 },
                                 "5634b0b187fd2e91e3126a75006cc4fa",
-                                new RateLimit(100, 75, 1372700873)
-                            );
+                                new RateLimit(100, 75, 1372700873));
 
                 var clone = original.Clone();
 
-                // Note the use of Assert.NotSame tests for value types - this should continue to test should the underlying 
+                // Note the use of Assert.NotSame tests for value types - this should continue to test should the underlying
                 // model are changed to Object types
                 Assert.NotSame(original, clone);
 
@@ -57,13 +56,9 @@ namespace Pipedrive.Tests.Http
 
                 Assert.NotSame(original.RateLimit, clone.RateLimit);
                 Assert.Equal(original.RateLimit.Limit, clone.RateLimit.Limit);
-                Assert.NotSame(original.RateLimit.Limit, clone.RateLimit.Limit);
                 Assert.Equal(original.RateLimit.Remaining, clone.RateLimit.Remaining);
-                Assert.NotSame(original.RateLimit.Remaining, clone.RateLimit.Remaining);
                 Assert.Equal(original.RateLimit.ResetAsUtcEpochSeconds, clone.RateLimit.ResetAsUtcEpochSeconds);
-                Assert.NotSame(original.RateLimit.ResetAsUtcEpochSeconds, clone.RateLimit.ResetAsUtcEpochSeconds);
                 Assert.Equal(original.RateLimit.Reset, clone.RateLimit.Reset);
-                Assert.NotSame(original.RateLimit.Reset, clone.RateLimit.Reset);
             }
 
             [Fact]
@@ -90,8 +85,7 @@ namespace Pipedrive.Tests.Http
                         }
                     },
                     null,
-                    new RateLimit(100, 75, 1372700873)
-                );
+                    new RateLimit(100, 75, 1372700873));
 
                 var clone = original.Clone();
 
@@ -127,8 +121,7 @@ namespace Pipedrive.Tests.Http
                         }
                     },
                     "123abc",
-                    null
-                );
+                    null);
 
                 var clone = original.Clone();
 

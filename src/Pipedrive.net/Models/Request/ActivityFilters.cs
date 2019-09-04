@@ -38,22 +38,27 @@ namespace Pipedrive
                 {
                     d.Add("filter_id", FilterId.Value.ToString());
                 }
+
                 if (!string.IsNullOrWhiteSpace(Type))
                 {
                     d.Add("type", Type);
                 }
+
                 if (StartDate.HasValue)
                 {
                     d.Add("start_date", StartDate.Value.ToString("yyyy-MM-dd"));
                 }
+
                 if (EndDate.HasValue)
                 {
                     d.Add("end_date", EndDate.Value.ToString("yyyy-MM-dd"));
                 }
+
                 if (Done.HasValue)
                 {
                     d.Add("done", ((int)Done.Value).ToString());
                 }
+
                 return d;
             }
         }

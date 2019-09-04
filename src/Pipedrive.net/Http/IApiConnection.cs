@@ -249,7 +249,7 @@ namespace Pipedrive
         Task<T> Delete<T>(Uri uri, object data, string accepts);
 
         /// <summary>
-        /// Executes a GET to the API object at the specified URI. This operation is appropriate for API calls which 
+        /// Executes a GET to the API object at the specified URI. This operation is appropriate for API calls which
         /// queue long running calculations and return a collection of a resource.
         /// It expects the API to respond with an initial 202 Accepted, and queries again until a 200 OK is received.
         /// It returns an empty collection if it receives a 204 No Content response.

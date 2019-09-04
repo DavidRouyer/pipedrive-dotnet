@@ -31,10 +31,12 @@ namespace Pipedrive
                 {
                     d.Add("status", Status.Value.ToString());
                 }
+
                 if (!string.IsNullOrWhiteSpace(Sort))
                 {
                     d.Add("sort", Sort);
                 }
+
                 return d;
             }
         }

@@ -33,14 +33,17 @@ namespace Pipedrive
                 {
                     d.Add("filter_id", FilterId.Value.ToString());
                 }
+
                 if (UserId.HasValue)
                 {
                     d.Add("user_id", UserId.Value.ToString());
                 }
+
                 if (Everyone.HasValue)
                 {
                     d.Add("everyone", Everyone.Value.ToString());
                 }
+
                 return d;
             }
         }

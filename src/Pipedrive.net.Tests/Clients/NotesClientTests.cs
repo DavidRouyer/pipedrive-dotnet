@@ -1,7 +1,7 @@
-﻿using NSubstitute;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NSubstitute;
 using Xunit;
 
 namespace Pipedrive.Tests.Clients
@@ -49,8 +49,7 @@ namespace Pipedrive.Tests.Clients
                         Arg.Is<Dictionary<string, string>>(d => d.Count == 0),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
-                                && o.StartPage == 0)
-                        );
+                                && o.StartPage == 0));
                 });
             }
         }

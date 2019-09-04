@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using Pipedrive.Internal;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Pipedrive.Internal;
 
 namespace Pipedrive
 {

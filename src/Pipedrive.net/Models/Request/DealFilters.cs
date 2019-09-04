@@ -35,18 +35,22 @@ namespace Pipedrive
                 {
                     d.Add("filter_id", FilterId.Value.ToString());
                 }
+
                 if (StageId.HasValue)
                 {
                     d.Add("stage_id", StageId.Value.ToString());
                 }
+
                 if (Status.HasValue)
                 {
                     d.Add("status", Status.Value.ToString());
                 }
+
                 if (!string.IsNullOrWhiteSpace(Sort))
                 {
                     d.Add("sort", Sort);
                 }
+
                 return d;
             }
         }

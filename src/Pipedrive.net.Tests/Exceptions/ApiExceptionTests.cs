@@ -47,8 +47,7 @@ namespace Pipedrive.Tests.Exceptions
                     @"{""errors"":[{""code"":""custom"",""field"":""key"",""message"":""key is " +
                            @"already in use"",""resource"":""PublicKey""}],""error"":""Validation Failed""}",
                     new Dictionary<string, string>(),
-                    "application/json"
-                );
+                    "application/json");
 
                 var exception = new ApiException(response);
 
@@ -103,8 +102,7 @@ namespace Pipedrive.Tests.Exceptions
                     HttpStatusCode.GatewayTimeout,
                     responseBody,
                     new Dictionary<string, string>(),
-                    "application/json"
-                    );
+                    "application/json");
 
                 var exception = new ApiException(response);
                 var stringRepresentation = exception.ToString();
@@ -118,8 +116,7 @@ namespace Pipedrive.Tests.Exceptions
                     HttpStatusCode.GatewayTimeout,
                     null,
                     new Dictionary<string, string>(),
-                    "application/json"
-                );
+                    "application/json");
 
                 var exception = new ApiException(response);
                 var stringRepresentation = exception.ToString();
@@ -134,8 +131,7 @@ namespace Pipedrive.Tests.Exceptions
                     HttpStatusCode.GatewayTimeout,
                     responceBody,
                     new Dictionary<string, string>(),
-                    "image/*"
-                );
+                    "image/*");
 
                 var exception = new ApiException(response);
                 var stringRepresentation = exception.ToString();
@@ -150,8 +146,7 @@ namespace Pipedrive.Tests.Exceptions
                     HttpStatusCode.GatewayTimeout,
                     responceBody,
                     new Dictionary<string, string>(),
-                    "application/json"
-                );
+                    "application/json");
 
                 var exception = new ApiException(response);
                 var stringRepresentation = exception.ToString();

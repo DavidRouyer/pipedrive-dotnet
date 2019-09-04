@@ -127,7 +127,7 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 await fixture.Delete(createdActivity.Id);
 
-                var deletedActivity =  await fixture.Get(createdActivity.Id);
+                var deletedActivity = await fixture.Get(createdActivity.Id);
 
                 Assert.False(deletedActivity.ActiveFlag);
             }

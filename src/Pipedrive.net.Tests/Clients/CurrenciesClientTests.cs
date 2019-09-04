@@ -1,7 +1,7 @@
-﻿using NSubstitute;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NSubstitute;
 using Xunit;
 
 namespace Pipedrive.Tests.Clients
@@ -27,7 +27,7 @@ namespace Pipedrive.Tests.Clients
 
                 await client.GetAll();
 
-                Received.InOrder(async() =>
+                Received.InOrder(async () =>
                 {
                     await connection.GetAll<Currency>(Arg.Is<Uri>(u => u.ToString() == "currencies"));
                 });

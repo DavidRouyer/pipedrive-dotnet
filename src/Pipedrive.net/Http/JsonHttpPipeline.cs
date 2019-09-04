@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using Pipedrive.Helpers;
-using System;
+﻿using System;
 using System.IO;
 using System.Net.Http;
+using Newtonsoft.Json;
+using Pipedrive.Helpers;
 
 namespace Pipedrive.Internal
 {
@@ -38,6 +38,7 @@ namespace Pipedrive.Internal
             if (response.ContentType != null && response.ContentType.Equals("application/json", StringComparison.Ordinal))
             {
                 var body = response.Body as string;
+
                 // simple json does not support the root node being empty. Will submit a pr but in the mean time....
                 if (!string.IsNullOrEmpty(body) && body != "{}")
                 {
@@ -45,6 +46,7 @@ namespace Pipedrive.Internal
                     return new ApiResponse<T>(response, json);
                 }
             }
+
             return new ApiResponse<T>(response);
         }
     }

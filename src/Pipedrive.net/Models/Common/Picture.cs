@@ -1,12 +1,12 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using Newtonsoft.Json;
 
 namespace Pipedrive
 {
     public class Picture
     {
         [JsonProperty("item_type")]
-        public string ItemType { get; set;}
+        public string ItemType { get; set; }
 
         [JsonProperty("item_id")]
         public long ItemId { get; set; }

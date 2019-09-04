@@ -14,12 +14,19 @@ namespace Pipedrive.Internal
         }
 
         public object Body { get; set; }
+
         public Dictionary<string, string> Headers { get; private set; }
+
         public HttpMethod Method { get; set; }
+
         public Dictionary<string, string> Parameters { get; private set; }
+
         public Uri BaseAddress { get; set; }
+
         public Uri Endpoint { get; set; }
+
         public TimeSpan Timeout { get; set; }
+
         public string ContentType { get; set; }
     }
 }
