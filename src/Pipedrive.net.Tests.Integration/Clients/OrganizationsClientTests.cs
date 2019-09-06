@@ -218,5 +218,64 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.NotEqual(firstPage[0].Id, secondPage[0].Id);
             }
         }
+
+        public class TheGetPersonsMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new OrganizationFilters
+                {
+                    PageSize = 3,
+                    PageCount = 1
+                };
+
+                var persons = await pipedrive.Organization.GetPersons(5, options);
+                Assert.Equal(3, persons.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new OrganizationFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var persons = await pipedrive.Organization.GetPersons(5, options);
+                Assert.Equal(2, persons.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new OrganizationFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1
+                };
+
+                var firstPage = await pipedrive.Organization.GetPersons(5, startOptions);
+
+                var skipStartOptions = new OrganizationFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Organization.GetPersons(5, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].Id, secondPage[0].Id);
+            }
+        }
     }
 }

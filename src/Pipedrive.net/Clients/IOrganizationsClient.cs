@@ -25,5 +25,7 @@ namespace Pipedrive
         Task Delete(long id);
 
         Task<IReadOnlyList<Deal>> GetDeals(long organizationId, OrganizationDealFilters filters);
+
+        Task<IReadOnlyList<Person>> GetPersons(long organizationId, OrganizationFilters filters);
     }
 }
