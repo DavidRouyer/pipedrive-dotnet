@@ -88,9 +88,9 @@ namespace Pipedrive.Tests.Clients
 
                 Received.InOrder(async () =>
                 {
-                    await connection.GetAll<Product>(Arg.Is<Uri>(u => u.ToString() == "products/find"),
-                                                     Arg.Is<Dictionary<string, string>>(d => d.Count == 1
-                                                                                             && d["term"] == searchTerm));
+                    await connection.GetAll<SimpleProduct>(Arg.Is<Uri>(u => u.ToString() == "products/find"),
+                                                           Arg.Is<Dictionary<string, string>>(d => d.Count == 1
+                                                                                                && d["term"] == searchTerm));
                 });
             }
         }
@@ -254,8 +254,8 @@ namespace Pipedrive.Tests.Clients
 
                 Received.InOrder(async () =>
                 {
-                    await connection.Put<Product>(Arg.Is<Uri>(u => u.ToString() == $"products/{productId}"),
-                                                  Arg.Is<ProductUpdate>(d => d.Name == newProductName));
+                    await connection.Put<UpdatedProduct>(Arg.Is<Uri>(u => u.ToString() == $"products/{productId}"),
+                                                         Arg.Is<ProductUpdate>(d => d.Name == newProductName));
                 });
             }
         }

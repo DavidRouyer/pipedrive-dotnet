@@ -140,9 +140,9 @@ namespace Pipedrive.Tests.Integration.Clients
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var followers = await pipedrive.Product.GetPermittedUsers(2);
+                var permittedUsers = await pipedrive.Product.GetPermittedUsers(2);
 
-                Assert.Equal(3, followers.Count);
+                Assert.Equal(4, permittedUsers.Count);
             }
         }
 
