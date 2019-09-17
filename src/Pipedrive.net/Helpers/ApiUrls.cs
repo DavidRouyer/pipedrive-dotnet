@@ -177,6 +177,44 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that returns products attached to deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        public static Uri DealProducts(long id)
+        {
+            return new Uri($"deals/{id}/products", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for adding a product to a deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        public static Uri AddProductToDeal(long id)
+        {
+            return new Uri($"deals/{id}/products", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for updating a product on a deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        /// <param name="dealProductId">The id of the deal-product</param>
+        public static Uri UpdateDealProduct(long id, long dealProductId)
+        {
+            return new Uri($"deals/{id}/products/{dealProductId}", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for deleting a product on a deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        /// <param name="dealProductId">The id of the deal-product</param>
+        public static Uri DeleteDealProduct(long id, long dealProductId)
+        {
+            return new Uri($"deals/{id}/products/{dealProductId}", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all of the activity fields in response to a GET request.
         /// </summary>
         /// <returns></returns>

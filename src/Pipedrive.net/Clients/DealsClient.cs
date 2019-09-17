@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pipedrive.Helpers;
+using Pipedrive.Models.Request;
 using Pipedrive.Models.Response;
 
 namespace Pipedrive
@@ -183,5 +184,39 @@ namespace Pipedrive
         {
             return ApiConnection.Delete(ApiUrls.DeleteDealParticipant(dealId, dealParticipantId));
         }
+
+        public Task<IReadOnlyList<DealProduct>> GetProductsForDeal(long dealId, DealProductFilters dealProductFilters)
+        {
+            Ensure.ArgumentNotNull(dealProductFilters, nameof(dealProductFilters));
+
+            var options = new ApiOptions
+            {
+                StartPage = dealProductFilters.StartPage,
+                PageCount = dealProductFilters.PageCount,
+                PageSize = dealProductFilters.PageSize
+            };
+
+            return ApiConnection.GetAll<DealProduct>(ApiUrls.DealProducts(dealId), dealProductFilters.Parameters, options);
+        }
+
+        public Task<CreatedDealProduct> AddProductToDeal(NewDealProduct newDealProduct)
+        {
+            Ensure.ArgumentNotNull(newDealProduct, nameof(newDealProduct));
+
+            return ApiConnection.Post<CreatedDealProduct>(ApiUrls.AddProductToDeal(newDealProduct.DealId), newDealProduct);
+        }
+
+        public Task<UpdatedDealProduct> UpdateDealProduct(DealProductUpdate dealProductUpdate)
+        {
+            Ensure.ArgumentNotNull(dealProductUpdate, nameof(dealProductUpdate));
+
+            return ApiConnection.Put<UpdatedDealProduct>(ApiUrls.UpdateDealProduct(dealProductUpdate.DealId, dealProductUpdate.DealProductId), dealProductUpdate);
+        }
+
+        public Task DeleteDealProduct(long dealId, long dealProductId)
+        {
+            return ApiConnection.Delete(ApiUrls.DeleteDealProduct(dealId, dealProductId));
+        }
+
     }
 }

@@ -4,8 +4,8 @@ using System.Collections.ObjectModel;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Pipedrive.Internal;
 using Pipedrive.Helpers;
+using Pipedrive.Internal;
 
 namespace Pipedrive
 {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pipedrive.Models.Request;
 using Pipedrive.Models.Response;
 
 namespace Pipedrive
@@ -42,5 +43,14 @@ namespace Pipedrive
         Task<DealParticipant> AddParticipant(long dealId, long personId);
 
         Task DeleteParticipant(long dealId, long dealParticipantId);
+
+        Task<IReadOnlyList<DealProduct>> GetProductsForDeal(long dealId, DealProductFilters dealProductFilters);
+
+        Task<CreatedDealProduct> AddProductToDeal(NewDealProduct newDealProduct);
+
+        Task<UpdatedDealProduct> UpdateDealProduct(DealProductUpdate dealProductUpdate);
+
+        Task DeleteDealProduct(long dealId, long dealProductId);
+
     }
 }

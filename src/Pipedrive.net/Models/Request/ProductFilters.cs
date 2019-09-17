@@ -2,9 +2,15 @@
 
 namespace Pipedrive.Models.Request
 {
-    public class ProductFilters : BaseFilter
+    public class ProductFilters
     {
         public static ProductFilters None => new ProductFilters();
+
+        public int? StartPage { get; set; }
+
+        public int? PageCount { get; set; }
+
+        public int? PageSize { get; set; }
 
         public int? UserId { get; set; }
 
@@ -33,14 +39,5 @@ namespace Pipedrive.Models.Request
             }
         }
 
-    }
-
-    public abstract class BaseFilter
-    {
-        public int? StartPage { get; set; }
-
-        public int? PageCount { get; set; }
-
-        public int? PageSize { get; set; }
     }
 }
