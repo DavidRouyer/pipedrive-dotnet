@@ -126,8 +126,8 @@ namespace Pipedrive.Tests.Http
                     Content = new ByteArrayContent(Encoding.UTF8.GetBytes("{}")),
                     Headers =
                     {
-                        {"peanut", "butter"},
-                        {"ele", "phant"}
+                        { "peanut", "butter" },
+                        { "ele", "phant" }
                     }
                 };
                 var tester = new HttpClientAdapterTester();

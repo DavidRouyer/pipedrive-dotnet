@@ -18,8 +18,7 @@ namespace Pipedrive.Tests.Exceptions
                     @"{""errors"":[{""code"":""custom"",""field"":""key"",""message"":""key is " +
                     @"already in use"",""resource"":""PublicKey""}],""error"":""Validation Failed""}",
                     new Dictionary<string, string>(),
-                    "application/json"
-                );
+                    "application/json");
 
                 var exception = new ApiValidationException(response);
 

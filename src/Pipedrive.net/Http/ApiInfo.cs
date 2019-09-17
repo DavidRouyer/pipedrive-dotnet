@@ -1,7 +1,7 @@
-﻿using Pipedrive.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Pipedrive.Helpers;
 
 namespace Pipedrive
 {
@@ -37,7 +37,7 @@ namespace Pipedrive
         public RateLimit RateLimit { get; private set; }
 
         /// <summary>
-        /// Allows you to clone ApiInfo 
+        /// Allows you to clone ApiInfo
         /// </summary>
         /// <returns>A clone of <seealso cref="ApiInfo"/></returns>
         public ApiInfo Clone()

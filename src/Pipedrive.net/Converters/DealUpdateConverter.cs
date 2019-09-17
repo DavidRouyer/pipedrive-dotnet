@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Pipedrive.Internal
 {
@@ -42,6 +42,7 @@ namespace Pipedrive.Internal
                             dealUpdateEntity = dataObject.ToObject<DealChange>();
                             break;
                     }
+
                     break;
                 }
             }

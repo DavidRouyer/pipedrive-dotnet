@@ -6,9 +6,15 @@ namespace Pipedrive.Tests.Integration
 {
     public static class Helper
     {
-        public static Uri ApiUrl { get { return _apiUrl.Value; } }
+        public static Uri ApiUrl
+        {
+            get { return _apiUrl.Value; }
+        }
 
-        public static string ApiToken { get { return Environment.GetEnvironmentVariable("PIPEDRIVE_APITOKEN"); } }
+        public static string ApiToken
+        {
+            get { return Environment.GetEnvironmentVariable("PIPEDRIVE_APITOKEN"); }
+        }
 
         static readonly Lazy<Uri> _apiUrl = new Lazy<Uri>(() =>
         {
@@ -39,6 +45,7 @@ namespace Pipedrive.Tests.Integration
                 throw new InvalidOperationException(
                     "The file '" + fileName + "' was not found as an embedded resource in the assembly. Failing the test...");
             }
+
             return stream;
         }
     }

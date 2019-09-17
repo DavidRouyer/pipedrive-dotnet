@@ -1,7 +1,7 @@
-﻿using NSubstitute;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NSubstitute;
 using Xunit;
 
 namespace Pipedrive.Tests.Clients
@@ -52,8 +52,7 @@ namespace Pipedrive.Tests.Clients
                                 && d["done"] == "1"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
-                                && o.StartPage == 0)
-                        );
+                                && o.StartPage == 0));
                 });
             }
         }
@@ -88,12 +87,11 @@ namespace Pipedrive.Tests.Clients
                 {
                     await connection.GetAll<Activity>(
                         Arg.Is<Uri>(u => u.ToString() == "activities"),
-                        Arg.Is<Dictionary<string,string>>(d => d.Count == 1
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
                                 && d["done"] == "1"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
-                                && o.StartPage == 0)
-                        );
+                                && o.StartPage == 0));
                 });
             }
         }
@@ -133,8 +131,7 @@ namespace Pipedrive.Tests.Clients
                                 && d["done"] == "1"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
-                                && o.StartPage == 0)
-                        );
+                                && o.StartPage == 0));
                 });
             }
         }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Pipedrive.Internal;
 using NSubstitute;
+using Pipedrive.Internal;
 using Xunit;
 
 namespace Pipedrive.Tests.Http

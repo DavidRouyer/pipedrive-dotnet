@@ -67,7 +67,7 @@ namespace Pipedrive
                         return new KeyValuePair<string, string>(key, value);
                     }
 
-                    //just a plain old value, return it
+                    // just a plain old value, return it
                     return new KeyValuePair<string, string>(keyValue, null);
                 })
                 .ToDictionary(x => x.Key, x => x.Value);

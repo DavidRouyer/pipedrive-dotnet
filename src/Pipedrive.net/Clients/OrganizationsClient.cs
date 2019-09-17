@@ -1,6 +1,6 @@
-﻿using Pipedrive.Helpers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pipedrive.Helpers;
 
 namespace Pipedrive
 {
@@ -82,12 +82,12 @@ namespace Pipedrive
             return ApiConnection.Delete(ApiUrls.Organization(id));
         }
 
-        public Task<IReadOnlyList<Deal>> GetDeals(long personId, OrganizationDealFilters filters)
+        public Task<IReadOnlyList<Deal>> GetDeals(long id, OrganizationDealFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));
 
             var parameters = filters.Parameters;
-            parameters.Add("id", personId.ToString());
+            parameters.Add("id", id.ToString());
             var options = new ApiOptions
             {
                 StartPage = filters.StartPage,
@@ -95,7 +95,22 @@ namespace Pipedrive
                 PageSize = filters.PageSize
             };
 
-            return ApiConnection.GetAll<Deal>(ApiUrls.OrganizationDeal(personId), parameters, options);
+            return ApiConnection.GetAll<Deal>(ApiUrls.OrganizationDeal(id), parameters, options);
+        }
+
+        public Task<IReadOnlyList<Person>> GetPersons(long id, OrganizationFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+            var parameters = filters.Parameters;
+            parameters.Add("id", id.ToString());
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.GetAll<Person>(ApiUrls.OrganizationPersons(id), parameters, options);
         }
     }
 }

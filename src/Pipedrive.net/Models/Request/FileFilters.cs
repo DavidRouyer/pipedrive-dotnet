@@ -31,10 +31,12 @@ namespace Pipedrive
                 {
                     d.Add("include_deleted_files", IncludeDeletedFiles);
                 }
+
                 if (!string.IsNullOrWhiteSpace(Sort))
                 {
                     d.Add("sort", Sort);
                 }
+
                 return d;
             }
         }

@@ -1,5 +1,4 @@
-﻿using Pipedrive.Helpers;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Pipedrive.Helpers;
 
 namespace Pipedrive.Internal
 {
@@ -65,6 +65,7 @@ namespace Pipedrive.Internal
 
                 cancellationTokenForRequest = unifiedCancellationToken.Token;
             }
+
             return cancellationTokenForRequest;
         }
 
@@ -75,12 +76,14 @@ namespace Pipedrive.Internal
             object responseBody = null;
             string contentType = null;
 
-            // We added support for downloading images,zip-files and application/octet-stream. 
+            // We added support for downloading images,zip-files and application/octet-stream.
             // Let's constrain this appropriately.
-            var binaryContentTypes = new[] {
-                "application/zip" ,
-                "application/x-gzip" ,
-                "application/octet-stream"};
+            var binaryContentTypes = new[]
+            {
+                "application/zip",
+                "application/x-gzip",
+                "application/octet-stream"
+            };
 
             using (var content = responseMessage.Content)
             {
@@ -120,6 +123,7 @@ namespace Pipedrive.Internal
                 {
                     requestMessage.Headers.Add(header.Key, header.Value);
                 }
+
                 var httpContent = request.Body as HttpContent;
                 if (httpContent != null)
                 {
@@ -145,6 +149,7 @@ namespace Pipedrive.Internal
                 {
                     requestMessage.Dispose();
                 }
+
                 throw;
             }
 
@@ -157,6 +162,7 @@ namespace Pipedrive.Internal
             {
                 return httpContent.Headers.ContentType.MediaType;
             }
+
             return null;
         }
 
@@ -194,6 +200,7 @@ namespace Pipedrive.Internal
             {
                 redirectCount = (int)request.Properties[RedirectCountKey];
             }
+
             if (redirectCount > 3)
             {
                 throw new InvalidOperationException("The redirect count for this request has been exceeded. Aborting.");

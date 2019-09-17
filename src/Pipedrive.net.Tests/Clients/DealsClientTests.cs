@@ -55,8 +55,7 @@ namespace Pipedrive.Tests.Clients
                                 && d["status"] == "lost"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
-                                && o.StartPage == 0)
-                        );
+                                && o.StartPage == 0));
                 });
             }
         }
@@ -96,8 +95,7 @@ namespace Pipedrive.Tests.Clients
                                 && d["status"] == "lost"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
-                                && o.StartPage == 0)
-                        );
+                                && o.StartPage == 0));
                 });
             }
         }
@@ -137,8 +135,7 @@ namespace Pipedrive.Tests.Clients
                                 && d["status"] == "lost"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
-                                && o.StartPage == 0)
-                        );
+                                && o.StartPage == 0));
                 });
             }
         }
@@ -277,8 +274,7 @@ namespace Pipedrive.Tests.Clients
                             && d["id"] == "123"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
-                                && o.StartPage == 0)
-                        );
+                                && o.StartPage == 0));
                 });
             }
         }
@@ -298,8 +294,7 @@ namespace Pipedrive.Tests.Clients
                     await connection.GetAll<DealFollower>(
                         Arg.Is<Uri>(u => u.ToString() == "deals/123/followers"),
                         Arg.Is<Dictionary<string, string>>(d => d.Count == 1
-                            && d["id"] == "123")
-                        );
+                            && d["id"] == "123"));
                 });
             }
         }
@@ -368,8 +363,7 @@ namespace Pipedrive.Tests.Clients
                             && d["done"] == "1"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
-                                && o.StartPage == 0)
-                        );
+                                && o.StartPage == 0));
                 });
             }
         }
@@ -407,8 +401,7 @@ namespace Pipedrive.Tests.Clients
                             && d["id"] == "123"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
-                                && o.StartPage == 0)
-                        );
+                                && o.StartPage == 0));
                 });
             }
         }

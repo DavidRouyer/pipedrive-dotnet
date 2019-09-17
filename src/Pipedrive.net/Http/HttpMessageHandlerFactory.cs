@@ -24,6 +24,7 @@ namespace Pipedrive.Internal
             {
                 handler.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
             }
+
             if (handler.SupportsProxy && proxy != null)
             {
                 handler.UseProxy = true;

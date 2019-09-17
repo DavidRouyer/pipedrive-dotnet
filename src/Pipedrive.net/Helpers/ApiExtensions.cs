@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 using Pipedrive.Helpers;
 
 namespace Pipedrive
@@ -71,7 +71,7 @@ namespace Pipedrive
         /// </remarks>
         /// <exception cref="ApiException">Thrown if the status is neither 204 nor 404</exception>
         /// <param name="response">True for a 204 response, False for a 404</param>
-        /// <returns></returns>
+        /// <returns>True or false, depending on the status code</returns>
         public static bool IsTrue(this IResponse response)
         {
             Ensure.ArgumentNotNull(response, nameof(response));
@@ -80,6 +80,7 @@ namespace Pipedrive
             {
                 throw new ApiException("Invalid Status Code returned. Expected a 204 or a 404", response.StatusCode);
             }
+
             return response.StatusCode == HttpStatusCode.NoContent;
         }
     }

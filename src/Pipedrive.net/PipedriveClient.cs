@@ -103,8 +103,11 @@ namespace Pipedrive
         /// </remarks>
         public Credentials Credentials
         {
-            get { return Connection.Credentials; }
-            // Note this is for convenience. We probably shouldn't allow this to be mutable.
+            get
+            {
+                return Connection.Credentials;
+            }
+
             set
             {
                 Ensure.ArgumentNotNull(value, nameof(value));

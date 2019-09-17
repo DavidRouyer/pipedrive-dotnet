@@ -1,6 +1,4 @@
-﻿using Pipedrive.Internal;
-using Pipedrive.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
@@ -8,11 +6,14 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Pipedrive.Helpers;
+using Pipedrive.Internal;
 
 namespace Pipedrive
 {
     // NOTE: Every request method must go through the `RunRequest` code path. So if you need to add a new method
     // ensure it goes through there. :)
+
     /// <summary>
     /// A connection for making HTTP requests against URI endpoints.
     /// </summary>
@@ -116,6 +117,7 @@ namespace Pipedrive
             // See https://github.com/octokit/octokit.net/pull/855#discussion_r36774884
             return _lastApiInfo == null ? null : _lastApiInfo.Clone();
         }
+
         private ApiInfo _lastApiInfo;
 
         public Task<IApiResponse<T>> Get<T>(Uri uri, IDictionary<string, string> parameters, string accepts)
@@ -251,6 +253,7 @@ namespace Pipedrive
             if (body != null)
             {
                 request.Body = body;
+
                 // Default Content Type per: http://developer.github.com/v3/
                 request.ContentType = contentType ?? "application/json";
             }
@@ -411,6 +414,7 @@ namespace Pipedrive
                 if (credentialTask == null) return Credentials.Anonymous;
                 return credentialTask.Result ?? Credentials.Anonymous;
             }
+
             // Note this is for convenience. We probably shouldn't allow this to be mutable.
             set
             {
@@ -437,6 +441,7 @@ namespace Pipedrive
                 // Use the clone method to avoid keeping hold of the original (just in case it effect the lifetime of the whole response
                 _lastApiInfo = response.ApiInfo.Clone();
             }
+
             HandleErrors(response);
             return response;
         }
@@ -461,7 +466,8 @@ namespace Pipedrive
                 throw exceptionFunc(response);
             }
 
-            if ((int)response.StatusCode >= 400 && (int)response.StatusCode != 410) // Pipedrive uses 410 (Gone) for successful delete
+            // Pipedrive uses 410 (Gone) for successful delete
+            if ((int)response.StatusCode >= 400 && (int)response.StatusCode != 410)
             {
                 throw new ApiException(response);
             }
@@ -474,7 +480,7 @@ namespace Pipedrive
 
         static Exception GetExceptionForForbidden(IResponse response)
         {
-            string body = response.Body as string ?? "";
+            string body = response.Body as string ?? string.Empty;
 
             if (body.Contains("rate limit exceeded"))
             {
@@ -504,6 +510,7 @@ namespace Pipedrive
         }
 
         private static string _platformInformation;
+
         static string GetPlatformInformation()
         {
             if (string.IsNullOrEmpty(_platformInformation))
@@ -514,8 +521,7 @@ namespace Pipedrive
                         "{0} {1}; {2}",
                         Environment.OSVersion.Platform,
                         Environment.OSVersion.Version.ToString(3),
-                        Environment.Is64BitOperatingSystem ? "amd64" : "x86"
-                        );
+                        Environment.Is64BitOperatingSystem ? "amd64" : "x86");
                 }
                 catch
                 {
@@ -532,6 +538,7 @@ namespace Pipedrive
         }
 
         private static string _versionInformation;
+
         static string GetVersionInformation()
         {
             if (string.IsNullOrEmpty(_versionInformation))

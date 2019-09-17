@@ -44,18 +44,18 @@ namespace Pipedrive.Internal
                                     customFields.Add(property.Name, new TimeRangeCustomField(
                                         TimeSpan.Parse((string)property.Value),
                                         TimeSpan.Parse((string)linkedProperties[$"{property.Name}_until"]),
-                                        (int)linkedProperties[$"{property.Name}_timezone_id"]
-                                        ));
+                                        (int)linkedProperties[$"{property.Name}_timezone_id"]));
                                 }
+
                                 // Time
                                 else
                                 {
                                     customFields.Add(property.Name, new TimeCustomField(
                                         TimeSpan.Parse((string)property.Value),
-                                        (int)linkedProperties[$"{property.Name}_timezone_id"]
-                                        ));
+                                        (int)linkedProperties[$"{property.Name}_timezone_id"]));
                                 }
                             }
+
                             // Date range
                             else if (linkedProperties.Any(p => p.Key == $"{property.Name}_until"))
                             {
@@ -65,6 +65,7 @@ namespace Pipedrive.Internal
                                     property.Name,
                                     new DateRangeCustomField(datetimeStart, datetimeEnd));
                             }
+
                             // Address
                             else if (linkedProperties.Any(p => p.Key == $"{property.Name}_formatted_address"))
                             {
@@ -81,9 +82,7 @@ namespace Pipedrive.Internal
                                         (string)linkedProperties[$"{property.Name}_admin_area_level_2"],
                                         (string)linkedProperties[$"{property.Name}_country"],
                                         (string)linkedProperties[$"{property.Name}_postal_code"],
-                                        (string)linkedProperties[$"{property.Name}_formatted_address"]
-                                    )
-                                );
+                                        (string)linkedProperties[$"{property.Name}_formatted_address"]));
                             }
                             else if (DateTime.TryParseExact((string)property.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out datetime))
                             {
@@ -93,6 +92,7 @@ namespace Pipedrive.Internal
                             {
                                 customFields.Add(property.Name, new StringCustomField((string)property.Value));
                             }
+
                             break;
                         case JTokenType.Float:
                             // Monetary
@@ -100,11 +100,13 @@ namespace Pipedrive.Internal
                             {
                                 customFields.Add(property.Name, new MonetaryCustomField((decimal)property.Value, (string)linkedProperties[$"{property.Name}_currency"]));
                             }
+
                             // Decimal
                             else
                             {
                                 customFields.Add(property.Name, new DecimalCustomField((decimal)property.Value));
                             }
+
                             break;
                         case JTokenType.Integer:
                             customFields.Add(property.Name, new IntCustomField((int)property.Value));
@@ -115,16 +117,19 @@ namespace Pipedrive.Internal
                             {
                                 customFields.Add(property.Name, property.Value.ToObject<UserCustomField>());
                             }
+
                             // Organization
                             if (((JObject)child).Properties().Any(p => p.Name == "people_count"))
                             {
                                 customFields.Add(property.Name, property.Value.ToObject<OrganizationCustomField>());
                             }
+
                             // Person
                             if (((JObject)child).Properties().Any(p => p.Name == "phone"))
                             {
                                 customFields.Add(property.Name, property.Value.ToObject<PersonCustomField>());
                             }
+
                             break;
                         case JTokenType.Null:
                         case JTokenType.Undefined:
@@ -133,6 +138,7 @@ namespace Pipedrive.Internal
                     }
                 }
             }
+
             IEntityWithCustomFields model = (IEntityWithCustomFields)Activator.CreateInstance(objectType);
             serializer.Populate(jObject.CreateReader(), model);
             model.CustomFields = customFields;
@@ -173,7 +179,7 @@ namespace Pipedrive.Internal
                 if (field.Value == null)
                 {
                     writer.WritePropertyName(field.Key);
-                    writer.WriteValue(String.Empty);
+                    writer.WriteValue(string.Empty);
                 }
                 else
                 {

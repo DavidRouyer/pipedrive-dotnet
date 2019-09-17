@@ -127,6 +127,7 @@ namespace Pipedrive.Tests.Models
             public class SimpleRequestParameters : RequestParameters
             {
                 public string Foo { get; set; }
+
                 public int Bar { get; set; }
             }
 

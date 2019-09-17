@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Net;
 using System.Threading.Tasks;
-using System.Collections.ObjectModel;
 using Pipedrive.Helpers;
 
 namespace Pipedrive
@@ -28,6 +28,7 @@ namespace Pipedrive
                 {
                     allItems.AddRange(page);
                 }
+
                 return new ReadOnlyCollection<T>(allItems);
             }
             catch (NotFoundException)

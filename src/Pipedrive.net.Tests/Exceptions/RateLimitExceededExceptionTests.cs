@@ -1,8 +1,8 @@
-﻿using Pipedrive.Internal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net;
+using Pipedrive.Internal;
 using Xunit;
 
 namespace Pipedrive.Tests.Exceptions
@@ -16,9 +16,9 @@ namespace Pipedrive.Tests.Exceptions
             {
                 var headers = new Dictionary<string, string>
                 {
-                    {"X-RateLimit-Limit", "100"},
-                    {"X-RateLimit-Remaining", "42"},
-                    {"X-RateLimit-Reset", "1372700873"}
+                    { "X-RateLimit-Limit", "100" },
+                    { "X-RateLimit-Remaining", "42" },
+                    { "X-RateLimit-Reset", "1372700873" }
                 };
                 var response = new Response(HttpStatusCode.Forbidden, null, headers, "application/json");
 
@@ -40,9 +40,9 @@ namespace Pipedrive.Tests.Exceptions
             {
                 var headers = new Dictionary<string, string>
                 {
-                    {"X-RateLimit-Limit", "XXX"},
-                    {"X-RateLimit-Remaining", "XXXX"},
-                    {"X-RateLimit-Reset", "XXXX"}
+                    { "X-RateLimit-Limit", "XXX" },
+                    { "X-RateLimit-Remaining", "XXXX" },
+                    { "X-RateLimit-Reset", "XXXX" }
                 };
                 var response = new Response(HttpStatusCode.Forbidden, null, headers, "application/json");
 

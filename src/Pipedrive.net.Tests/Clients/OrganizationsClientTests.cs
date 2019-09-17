@@ -1,7 +1,7 @@
-﻿using NSubstitute;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using NSubstitute;
 using Xunit;
 
 namespace Pipedrive.Tests.Clients
@@ -49,8 +49,7 @@ namespace Pipedrive.Tests.Clients
                         Arg.Is<Dictionary<string, string>>(d => d.Count == 0),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
-                                && o.StartPage == 0)
-                        );
+                                && o.StartPage == 0));
                 });
             }
         }
@@ -88,8 +87,7 @@ namespace Pipedrive.Tests.Clients
                                 && d["user_id"] == "123"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
-                                && o.StartPage == 0)
-                        );
+                                && o.StartPage == 0));
                 });
             }
         }
@@ -225,8 +223,45 @@ namespace Pipedrive.Tests.Clients
                             && d["id"] == "123"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
-                                && o.StartPage == 0)
-                        );
+                                && o.StartPage == 0));
+                });
+            }
+        }
+
+        public class TheGetPersonsMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new OrganizationsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.GetPersons(1, null));
+            }
+
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new OrganizationsClient(connection);
+
+                var filters = new OrganizationFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 0,
+                };
+
+                await client.GetPersons(123, filters);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<Person>(
+                        Arg.Is<Uri>(u => u.ToString() == "organizations/123/persons"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
+                            && d["id"] == "123"),
+                        Arg.Is<ApiOptions>(o => o.PageSize == 1
+                                && o.PageCount == 1
+                                && o.StartPage == 0));
                 });
             }
         }

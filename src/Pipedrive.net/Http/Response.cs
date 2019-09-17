@@ -1,7 +1,7 @@
-﻿using Pipedrive.Helpers;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net;
+using Pipedrive.Helpers;
 
 namespace Pipedrive.Internal
 {
@@ -37,18 +37,22 @@ namespace Pipedrive.Internal
         /// Raw response body. Typically a string, but when requesting images, it will be a byte array.
         /// </summary>
         public object Body { get; private set; }
+
         /// <summary>
         /// Information about the API.
         /// </summary>
         public IReadOnlyDictionary<string, string> Headers { get; private set; }
+
         /// <summary>
         /// Information about the API response parsed from the response headers.
         /// </summary>
         public ApiInfo ApiInfo { get; internal set; } // This setter is internal for use in tests.
+
         /// <summary>
         /// The response status code.
         /// </summary>
         public HttpStatusCode StatusCode { get; private set; }
+
         /// <summary>
         /// The content type of the response.
         /// </summary>

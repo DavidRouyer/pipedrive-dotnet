@@ -1,6 +1,5 @@
 ﻿namespace Pipedrive
 {
-
     public enum FieldType
     {
         varchar,
