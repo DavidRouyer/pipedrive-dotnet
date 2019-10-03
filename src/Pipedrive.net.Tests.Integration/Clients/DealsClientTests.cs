@@ -103,12 +103,15 @@ namespace Pipedrive.Tests.Integration.Clients
                 var fixture = pipedrive.Deal;
 
                 var newDeal = new NewDeal("title");
+                newDeal.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"] = new StringCustomField("my custom string field");
 
                 var deal = await fixture.Create(newDeal);
+                Assert.Equal("my custom string field", ((StringCustomField)deal.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"]).Value);
                 Assert.NotNull(deal);
 
                 var retrieved = await fixture.Get(deal.Id);
                 Assert.NotNull(retrieved);
+                Assert.Equal("my custom string field", ((StringCustomField)retrieved.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"]).Value);
 
                 // Cleanup
                 await fixture.Delete(deal.Id);

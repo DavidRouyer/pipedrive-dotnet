@@ -1,12 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Pipedrive.Internal;
 using Pipedrive.Models.Request;
 
 namespace Pipedrive.Models.Response
 {
-    public class Product : AbstractProduct
+    [JsonConverter(typeof(CustomFieldConverter))]
+    public class Product : AbstractProduct, IEntityWithCustomFields
     {
         public List<ProductPrice> Prices { get; set; }
+
+        [JsonIgnore]
+        public IDictionary<string, ICustomField> CustomFields { get; set; }
 
         public ProductUpdate ToUpdate()
         {
@@ -25,7 +31,8 @@ namespace Pipedrive.Models.Response
                     DirectCost = x.DirectCost,
                     Price = x.Price ?? 0M,
                     UnitCost = x.UnitCost
-                }).ToList()
+                }).ToList(),
+                CustomFields = CustomFields
             };
         }
     }
