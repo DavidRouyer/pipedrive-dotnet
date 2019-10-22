@@ -11,6 +11,7 @@
     <None Remove="Fixtures\webhook_deal_create.json" />
     <None Remove="Fixtures\webhook_deal_update.json" />
     <None Remove="Fixtures\webhook_organization_create.json" />
+    <None Remove="Fixtures\webhook_person_update.json" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Fixtures\webhook_organization_create.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fixtures\webhook_person_update.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
