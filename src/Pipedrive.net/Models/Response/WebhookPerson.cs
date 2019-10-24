@@ -104,7 +104,7 @@ namespace Pipedrive
         public Visibility VisibleTo { get; set; }
 
         [JsonProperty("picture_id")]
-        public Picture PictureId { get; set; }
+        public long? PictureId { get; set; }
 
         [JsonProperty("next_activity_date")]
         public string NextActivityDate { get; set; }
