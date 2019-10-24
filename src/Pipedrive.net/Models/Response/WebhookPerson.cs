@@ -17,7 +17,7 @@ namespace Pipedrive
         public long OwnerId { get; set; }
 
         [JsonProperty("org_id")]
-        public long OrgId { get; set; }
+        public long? OrgId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
