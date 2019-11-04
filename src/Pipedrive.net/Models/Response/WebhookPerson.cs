@@ -133,6 +133,9 @@ namespace Pipedrive
         [JsonProperty("last_outgoing_mail_time")]
         public DateTime? LastOutgoingMailTime { get; set; }
 
+        [JsonProperty("label")]
+        public long? Label { get; set; }
+
         [JsonProperty("org_name")]
         public string OrgName { get; set; }
 
