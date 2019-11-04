@@ -59,11 +59,30 @@ namespace Pipedrive.Internal
                             // Date range
                             else if (linkedProperties.Any(p => p.Key == $"{property.Name}_until"))
                             {
-                                DateTime.TryParseExact((string)property.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var datetimeStart);
-                                DateTime.TryParseExact((string)linkedProperties[$"{property.Name}_until"], "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var datetimeEnd);
+                                var startDate = (string)property.Value;
+                                var endDate = (string)linkedProperties[$"{property.Name}_until"];
+                                DateTime? fromDate = null;
+                                DateTime? toDate = null;
+
+                                if (!string.IsNullOrWhiteSpace(startDate) && startDate != "0000-00-00")
+                                {
+                                    if (DateTime.TryParseExact(startDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var tempFromDate))
+                                    {
+                                        fromDate = tempFromDate;
+                                    }
+                                }
+
+                                if (!string.IsNullOrWhiteSpace(endDate) && endDate != "0000-00-00")
+                                {
+                                    if (DateTime.TryParseExact(endDate, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var tempToDate))
+                                    {
+                                        toDate = tempToDate;
+                                    }
+                                }
+
                                 customFields.Add(
                                     property.Name,
-                                    new DateRangeCustomField(datetimeStart, datetimeEnd));
+                                    new DateRangeCustomField(fromDate, toDate));
                             }
 
                             // Address
