@@ -31,7 +31,7 @@ namespace Pipedrive
         public string SubscriptionUrl { get; set; }
 
         [JsonProperty("is_active")]
-        public bool IsActive { get; set; }
+        public int IsActive { get; set; }
 
         [JsonProperty("add_time")]
         public DateTime AddTime { get; set; }
