@@ -37,6 +37,8 @@ namespace Pipedrive
 
         static readonly Uri _usersUrl = new Uri("users", UriKind.Relative);
 
+        static readonly Uri _webhooksUrl = new Uri("webhooks", UriKind.Relative);
+
         /// <summary>
         /// Returns the <see cref="Uri"/> that returns all of the activities.
         /// </summary>
@@ -434,6 +436,25 @@ namespace Pipedrive
         {
             return new Uri($"users/{id}", UriKind.Relative);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the webhooks.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri Webhooks()
+        {
+            return _webhooksUrl;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for the specified activity.
+        /// </summary>
+        /// <param name="id">The id of the webhook</param>
+        public static Uri Webhook(long id)
+        {
+            return new Uri($"{_webhooksUrl}/{id}", UriKind.Relative);
+        }
+
 
         /// <summary>
         /// Creates the relative <see cref="Uri"/> for initiating the OAuth Web login Flow

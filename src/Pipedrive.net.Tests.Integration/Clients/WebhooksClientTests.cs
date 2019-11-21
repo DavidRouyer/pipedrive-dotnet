@@ -13,28 +13,30 @@ namespace Pipedrive.Tests.Integration.Clients
             [Fact]
             public async Task DeserializeCreateInformations()
             {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
                 var stream = Helper.LoadFixture("webhook_deal_create.json");
 
                 using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
                 {
                     var fixture = await reader.ReadToEndAsync();
 
-                    var webhookClient = new WebhooksClient();
-                    var result = webhookClient.ParseWebhookDealResponse(fixture);
+                    var result = pipedrive.Webhook.ParseWebhookDealResponse(fixture);
                 }
             }
 
             [Fact]
             public async Task DeserializeUpdateInformations()
             {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
                 var stream = Helper.LoadFixture("webhook_deal_update.json");
 
                 using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
                 {
                     var fixture = await reader.ReadToEndAsync();
 
-                    var webhookClient = new WebhooksClient();
-                    var result = webhookClient.ParseWebhookDealResponse(fixture);
+                    var result = pipedrive.Webhook.ParseWebhookDealResponse(fixture);
                 }
             }
         }
@@ -44,14 +46,15 @@ namespace Pipedrive.Tests.Integration.Clients
             [Fact]
             public async Task DeserializeUpdateInformations()
             {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
                 var stream = Helper.LoadFixture("webhook_activity_update.json");
 
                 using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
                 {
                     var fixture = await reader.ReadToEndAsync();
 
-                    var webhookClient = new WebhooksClient();
-                    var result = webhookClient.ParseWebhookActivityResponse(fixture);
+                    var result = pipedrive.Webhook.ParseWebhookActivityResponse(fixture);
                 }
             }
         }
@@ -61,14 +64,15 @@ namespace Pipedrive.Tests.Integration.Clients
             [Fact]
             public async Task DeserializeCreateInformations()
             {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
                 var stream = Helper.LoadFixture("webhook_organization_create.json");
 
                 using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
                 {
                     var fixture = await reader.ReadToEndAsync();
 
-                    var webhookClient = new WebhooksClient();
-                    var result = webhookClient.ParseWebhookOrganizationResponse(fixture);
+                    var result = pipedrive.Webhook.ParseWebhookOrganizationResponse(fixture);
                 }
             }
         }
@@ -78,14 +82,15 @@ namespace Pipedrive.Tests.Integration.Clients
             [Fact]
             public async Task DeserializeUpdateInformations()
             {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
                 var stream = Helper.LoadFixture("webhook_person_update.json");
 
                 using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
                 {
                     var fixture = await reader.ReadToEndAsync();
 
-                    var webhookClient = new WebhooksClient();
-                    var result = webhookClient.ParseWebhookPersonResponse(fixture);
+                    var result = pipedrive.Webhook.ParseWebhookPersonResponse(fixture);
                     Console.WriteLine(result.Current.AddTime);
                 }
             }
