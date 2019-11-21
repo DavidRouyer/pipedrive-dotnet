@@ -51,6 +51,13 @@ namespace Pipedrive
             "*"
         };
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NewWebhook"/> class.
+        /// </summary>
+        /// <param name="subscriptionUrl">A full, valid, publicly accessible URL. Determines where to send the notifications. Please note that you cannot use Pipedrive API endpoints as the subscription_url.</param>
+        /// <param name="eventAction">Type of action to receive notifications about. Wildcard will match all supported actions.</param>
+        /// <param name="eventObject">Type of object to receive notifications about. Wildcard will match all supported objects.</param>
+        /// <exception cref="ArgumentOutOfRangeException">Will throw if eventAction or eventObject are not valid values</exception>
         public NewWebhook(string subscriptionUrl, string eventAction, string eventObject)
         {
             if (!_validEventActions.Contains(eventAction.ToLower())) throw new ArgumentOutOfRangeException($"eventAction is invalid, please use one of the following values: { string.Join(",", _validEventActions) }");
