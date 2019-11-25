@@ -13,7 +13,7 @@ namespace Pipedrive
         public long OwnerId { get; set; }
 
         [JsonProperty("org_id")]
-        public long OrgId { get; set; }
+        public long? OrgId { get; set; }
 
         [JsonProperty("email")]
         public List<Email> Email { get; set; } = new List<Email>();
@@ -32,7 +32,7 @@ namespace Pipedrive
 
         public NewPerson(string name)
         {
-            this.Name = name;
+            Name = name;
         }
     }
 }

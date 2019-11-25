@@ -21,7 +21,7 @@ namespace Pipedrive.Models.Request
         public decimal DiscountPercentage { get; set; }
 
         [JsonProperty("duration")]
-        public long Duration { get; set; }
+        public long Duration { get; set; } = 1;
 
         [JsonProperty("product_variation_id")]
         public long? ProductVariationId { get; set; }
@@ -30,7 +30,7 @@ namespace Pipedrive.Models.Request
         public string Comments { get; set; }
 
         [JsonProperty("enabled_flag")]
-        public bool EnabledFlag { get; set; }
+        public bool EnabledFlag { get; set; } = true;
 
         public DealProductUpdate(long dealId, long dealProductId, decimal itemPrice, int quantity)
         {

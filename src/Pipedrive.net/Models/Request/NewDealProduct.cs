@@ -21,7 +21,7 @@ namespace Pipedrive
         public decimal DiscountPercentage { get; set; }
 
         [JsonProperty("duration")]
-        public long During { get; set; }
+        public long Duration { get; set; } = 1;
 
         [JsonProperty("product_variation_id")]
         public long? ProductVariationId { get; set; }
@@ -30,7 +30,7 @@ namespace Pipedrive
         public string Comments { get; set; }
 
         [JsonProperty("enabled_flag")]
-        public bool EnabledFlag { get; set; }
+        public bool EnabledFlag { get; set; } = true;
 
         public NewDealProduct(long dealId, long productId, decimal itemPrice, int quantity)
         {
