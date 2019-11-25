@@ -154,7 +154,10 @@ namespace Pipedrive.Tests.Integration.Clients
                 var pipedrive = Helper.GetAuthenticatedClient();
                 var fixture = pipedrive.Product;
 
-                var newProduct = new NewProduct("New Product Name");
+                var newProduct = new NewProduct("New Product Name")
+                {
+                    Prices = new List<NewProductPrice> { new NewProductPrice { CurrencyCode = "GBP", Price = 10.23M } }
+                };
 
                 var product = await fixture.Create(newProduct);
                 Assert.NotNull(product);
