@@ -199,18 +199,17 @@ namespace Pipedrive
             return ApiConnection.GetAll<DealProduct>(ApiUrls.DealProducts(dealId), dealProductFilters.Parameters, options);
         }
 
-        public Task<CreatedDealProduct> AddProductToDeal(NewDealProduct newDealProduct)
+        public Task<CreatedDealProduct> AddProductToDeal(long dealId, NewDealProduct newDealProduct)
         {
             Ensure.ArgumentNotNull(newDealProduct, nameof(newDealProduct));
 
-            return ApiConnection.Post<CreatedDealProduct>(ApiUrls.AddProductToDeal(newDealProduct.DealId), newDealProduct);
+            return ApiConnection.Post<CreatedDealProduct>(ApiUrls.AddProductToDeal(dealId), newDealProduct);
         }
 
-        public Task<UpdatedDealProduct> UpdateDealProduct(DealProductUpdate dealProductUpdate)
+        public Task<UpdatedDealProduct> UpdateDealProduct(long dealId, long dealProductId, DealProductUpdate dealProductUpdate)
         {
             Ensure.ArgumentNotNull(dealProductUpdate, nameof(dealProductUpdate));
-
-            return ApiConnection.Put<UpdatedDealProduct>(ApiUrls.UpdateDealProduct(dealProductUpdate.DealId, dealProductUpdate.DealProductId), dealProductUpdate);
+            return ApiConnection.Put<UpdatedDealProduct>(ApiUrls.UpdateDealProduct(dealId, dealProductId), dealProductUpdate);
         }
 
         public Task DeleteDealProduct(long dealId, long dealProductId)

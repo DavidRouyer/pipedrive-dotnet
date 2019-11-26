@@ -5,9 +5,6 @@ namespace Pipedrive
     public class NewDealProduct
     {
 
-        [JsonProperty("id")]
-        public long DealId { get; set; }
-
         [JsonProperty("product_id")]
         public long ProductId { get; set; }
 
@@ -32,9 +29,8 @@ namespace Pipedrive
         [JsonProperty("enabled_flag")]
         public bool EnabledFlag { get; set; } = true;
 
-        public NewDealProduct(long dealId, long productId, decimal itemPrice, int quantity)
+        public NewDealProduct(long productId, decimal itemPrice, int quantity)
         {
-            DealId = dealId;
             ProductId = productId;
             ItemPrice = itemPrice;
             Quantity = quantity;

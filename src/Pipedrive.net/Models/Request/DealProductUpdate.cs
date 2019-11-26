@@ -5,12 +5,6 @@ namespace Pipedrive.Models.Request
     public class DealProductUpdate
     {
 
-        [JsonProperty("id")]
-        public long DealId { get; set; }
-
-        [JsonProperty("deal_product_id")]
-        public long DealProductId { get; set; }
-
         [JsonProperty("item_price")]
         public decimal ItemPrice { get; set; }
 
@@ -31,14 +25,6 @@ namespace Pipedrive.Models.Request
 
         [JsonProperty("enabled_flag")]
         public bool EnabledFlag { get; set; } = true;
-
-        public DealProductUpdate(long dealId, long dealProductId, decimal itemPrice, int quantity)
-        {
-            DealId = dealId;
-            DealProductId = dealProductId;
-            ItemPrice = itemPrice;
-            Quantity = quantity;
-        }
 
     }
 }

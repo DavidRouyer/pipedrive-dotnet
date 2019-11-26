@@ -476,8 +476,8 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new DealsClient(connection);
 
-                var newDealProduct = new NewDealProduct(1, 2, 10, 44);
-                client.AddProductToDeal(newDealProduct);
+                var newDealProduct = new NewDealProduct(2, 10, 44);
+                client.AddProductToDeal(1, newDealProduct);
 
                 connection.Received().Post<CreatedDealProduct>(Arg.Is<Uri>(u => u.ToString() == "deals/1/products"),
                     Arg.Is(newDealProduct));
@@ -492,8 +492,8 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new DealsClient(connection);
 
-                var dealProductUpdate = new DealProductUpdate(1, 2, 10, 44);
-                client.UpdateDealProduct(dealProductUpdate);
+                var dealProductUpdate = new DealProductUpdate();
+                client.UpdateDealProduct(1, 2, dealProductUpdate);
 
                 connection.Received().Put<UpdatedDealProduct>(Arg.Is<Uri>(u => u.ToString() == "deals/1/products/2"),
                     Arg.Is(dealProductUpdate));

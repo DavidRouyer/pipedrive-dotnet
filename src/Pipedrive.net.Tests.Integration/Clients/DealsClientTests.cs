@@ -470,14 +470,16 @@ namespace Pipedrive.Tests.Integration.Clients
             [IntegrationTest]
             public async Task AddProductToDeal()
             {
-                var newDealProduct = new NewDealProduct(1, 1, 10, 30);
-                newDealProduct.DiscountPercentage = 55;
-                newDealProduct.EnabledFlag = true;
+                var newDealProduct = new NewDealProduct(1, 10, 30)
+                {
+                    DiscountPercentage = 55,
+                    EnabledFlag = true
+                };
 
                 var pipedrive = Helper.GetAuthenticatedClient();
                 var fixture = pipedrive.Deal;
 
-                var dealProduct = await fixture.AddProductToDeal(newDealProduct);
+                var dealProduct = await fixture.AddProductToDeal(1, newDealProduct);
 
                 Assert.Equal(1, dealProduct.DealId);
                 Assert.Equal(1, dealProduct.ProductId);
@@ -499,13 +501,17 @@ namespace Pipedrive.Tests.Integration.Clients
                 var pipedrive = Helper.GetAuthenticatedClient();
                 var fixture = pipedrive.Deal;
 
-                var createdDealProduct = await fixture.AddProductToDeal(new NewDealProduct(1, 1, 10, 30));
+                var createdDealProduct = await fixture.AddProductToDeal(1, new NewDealProduct(1, 10, 30));
 
-                var dealProductUpdate = new DealProductUpdate(1, createdDealProduct.ProductAttachmentId.Value, 44, 1);
-                dealProductUpdate.Duration = 1;
-                dealProductUpdate.DiscountPercentage = 11;
+                var dealProductUpdate = new DealProductUpdate
+                {
+                    ItemPrice = 44,
+                    Quantity = 1,
+                    Duration = 1,
+                    DiscountPercentage = 11
+                };
 
-                var updatedDealProduct = await fixture.UpdateDealProduct(dealProductUpdate);
+                var updatedDealProduct = await fixture.UpdateDealProduct(1, createdDealProduct.ProductAttachmentId.Value, dealProductUpdate);
 
                 Assert.Equal(1, updatedDealProduct.DealId);
                 Assert.Equal(1, updatedDealProduct.ProductId);
@@ -526,7 +532,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 var pipedrive = Helper.GetAuthenticatedClient();
                 var fixture = pipedrive.Deal;
 
-                var dealProduct = await fixture.AddProductToDeal(new NewDealProduct(1, 1, 10, 30));
+                var dealProduct = await fixture.AddProductToDeal(1, new NewDealProduct(1, 10, 30));
 
                 await fixture.DeleteDealProduct(1, dealProduct.ProductAttachmentId.Value);
             }

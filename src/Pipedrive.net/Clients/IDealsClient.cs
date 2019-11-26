@@ -46,9 +46,9 @@ namespace Pipedrive
 
         Task<IReadOnlyList<DealProduct>> GetProductsForDeal(long dealId, DealProductFilters dealProductFilters);
 
-        Task<CreatedDealProduct> AddProductToDeal(NewDealProduct newDealProduct);
+        Task<CreatedDealProduct> AddProductToDeal(long dealId, NewDealProduct newDealProduct);
 
-        Task<UpdatedDealProduct> UpdateDealProduct(DealProductUpdate dealProductUpdate);
+        Task<UpdatedDealProduct> UpdateDealProduct(long dealId, long dealProductId, DealProductUpdate dealProductUpdate);
 
         Task DeleteDealProduct(long dealId, long dealProductId);
 
