@@ -1,4 +1,4 @@
-# Pipedrive.net [![Build Status](https://davidrouyer.visualstudio.com/pipedrive-dotnet/_apis/build/status/DavidRouyer.pipedrive-dotnet?branchName=master)](https://davidrouyer.visualstudio.com/pipedrive-dotnet/_build/latest?definitionId=3&branchName=master)
+# Pipedrive.net ![](https://github.com/DavidRouyer/pipedrive-dotnet/workflows/main.yml/badge.svg)
 
 ## Getting started
 
