@@ -4,6 +4,9 @@ using Newtonsoft.Json.Converters;
 
 namespace Pipedrive.Webhooks
 {
+    /// <summary>
+    /// Pipedrive webhook meta block https://pipedrive.readme.io/docs/guide-for-webhooks#section-webhooks-meta-block
+    /// </summary>
     public class Meta
     {
         [JsonProperty("v")]
@@ -44,7 +47,7 @@ namespace Pipedrive.Webhooks
         public bool IsBulkUpdate { get; set; }
 
         [JsonProperty("pipedrive_service_name")]
-        public bool PipedriveServiceName { get; set; }
+        public string PipedriveServiceName { get; set; }
 
         [JsonProperty("matches_filters")]
         public MatchesFilters MatchesFilters { get; set; }
