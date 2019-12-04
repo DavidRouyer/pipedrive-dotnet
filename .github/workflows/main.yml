@@ -17,7 +17,6 @@ jobs:
 
     - name: Run unit tests
       run: |
-        dotnet restore
         dotnet test ./src/Pipedrive.net.Tests/Pipedrive.Tests.csproj
 
     - name: Build project
