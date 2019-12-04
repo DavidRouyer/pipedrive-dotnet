@@ -1,4 +1,4 @@
-# Pipedrive.net ![](https://github.com/DavidRouyer/pipedrive-dotnet/workflows/main.yml/badge.svg)
+# Pipedrive.net ![](https://github.com/DavidRouyer/pipedrive-dotnet/workflows/.NET%20Core%20CI/badge.svg)
 
 ## Getting started
 
