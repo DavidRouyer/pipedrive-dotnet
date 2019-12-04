@@ -1,0 +1,25 @@
+name: .NET Core CI
+
+on:
+  push:
+
+jobs:
+  build:
+    timeout-minutes: 30
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-16.04]
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+
+    - name: Run unit tests
+      run: |
+        dotnet restore
+        dotnet test ./src/Pipedrive.net.Tests/Pipedrive.Tests.csproj
+
+    - name: Build project
+      run: |
+        dotnet build ./src/Pipedrive.net/Pipedrive.csproj
