@@ -12,13 +12,15 @@ namespace Pipedrive
     {
         public ApiInfo(IDictionary<string, Uri> links,
             string etag,
-            RateLimit rateLimit)
+            RateLimit rateLimit,
+            FairUsageLimit fairUsageLimit)
         {
             Ensure.ArgumentNotNull(links, nameof(links));
 
             Links = new ReadOnlyDictionary<string, Uri>(links);
             Etag = etag;
             RateLimit = rateLimit;
+            FairUsageLimit = fairUsageLimit;
         }
 
         /// <summary>
@@ -37,6 +39,11 @@ namespace Pipedrive
         public RateLimit RateLimit { get; private set; }
 
         /// <summary>
+        /// Information about the API fair usage policy limit
+        /// </summary>
+        public FairUsageLimit FairUsageLimit { get; private set; }
+
+        /// <summary>
         /// Allows you to clone ApiInfo
         /// </summary>
         /// <returns>A clone of <seealso cref="ApiInfo"/></returns>
@@ -44,7 +51,8 @@ namespace Pipedrive
         {
             return new ApiInfo(Links.Clone(),
                                Etag != null ? new string(Etag.ToCharArray()) : null,
-                               RateLimit != null ? RateLimit.Clone() : null);
+                               RateLimit?.Clone(),
+                               FairUsageLimit?.Clone());
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Pipedrive.Internal
                 }
             }
 
-            return new ApiInfo(httpLinks, etag, new RateLimit(responseHeaders));
+            return new ApiInfo(httpLinks, etag, new RateLimit(responseHeaders), new FairUsageLimit(responseHeaders));
         }
     }
 }

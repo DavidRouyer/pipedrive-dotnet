@@ -15,12 +15,13 @@ namespace Pipedrive
         {
             Ensure.ArgumentNotNull(responseHeaders, nameof(responseHeaders));
 
-            Limit = (int)GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Limit");
-            Remaining = (int)GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Remaining");
+            Limit = GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Limit");
+            Remaining = GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Remaining");
             ResetInSeconds = GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Reset");
+
         }
 
-        public RateLimit(int limit, int remaining, long reset)
+        public RateLimit(int limit, int remaining, int reset)
         {
             Ensure.ArgumentNotNull(limit, nameof(limit));
             Ensure.ArgumentNotNull(remaining, nameof(remaining));
@@ -48,16 +49,16 @@ namespace Pipedrive
         public DateTimeOffset Reset => new DateTimeOffset(DateTime.UtcNow.CeilingSecond().AddSeconds(ResetInSeconds));
 
         /// <summary>
-        /// The date and time at which the current rate limit window resets - in UTC epoch seconds
+        /// The number of seconds until the current rate limit window resets
         /// </summary>
         [Parameter(Key = "reset")]
-        public long ResetInSeconds { get; private set; }
+        public int ResetInSeconds { get; private set; }
 
-        static long GetHeaderValueAsInt32Safe(IDictionary<string, string> responseHeaders, string key)
+        static int GetHeaderValueAsInt32Safe(IDictionary<string, string> responseHeaders, string key)
         {
             string value;
-            long result;
-            return !responseHeaders.TryGetValue(key, out value) || value == null || !long.TryParse(value, out result)
+            int result;
+            return !responseHeaders.TryGetValue(key, out value) || value == null || !int.TryParse(value, out result)
                 ? 0
                 : result;
         }
