@@ -33,7 +33,7 @@ namespace Pipedrive.Tests.Http
                                     }
                                 },
                                 "5634b0b187fd2e91e3126a75006cc4fa",
-                                new RateLimit(100, 75, 1372700873));
+                                new RateLimit(100, 75, 49));
 
                 var clone = original.Clone();
 
@@ -57,7 +57,7 @@ namespace Pipedrive.Tests.Http
                 Assert.NotSame(original.RateLimit, clone.RateLimit);
                 Assert.Equal(original.RateLimit.Limit, clone.RateLimit.Limit);
                 Assert.Equal(original.RateLimit.Remaining, clone.RateLimit.Remaining);
-                Assert.Equal(original.RateLimit.ResetAsUtcEpochSeconds, clone.RateLimit.ResetAsUtcEpochSeconds);
+                Assert.Equal(original.RateLimit.ResetInSeconds, clone.RateLimit.ResetInSeconds);
                 Assert.Equal(original.RateLimit.Reset, clone.RateLimit.Reset);
             }
 
@@ -85,7 +85,7 @@ namespace Pipedrive.Tests.Http
                         }
                     },
                     null,
-                    new RateLimit(100, 75, 1372700873));
+                    new RateLimit(100, 75, 776));
 
                 var clone = original.Clone();
 
@@ -94,7 +94,7 @@ namespace Pipedrive.Tests.Http
                 Assert.Null(clone.Etag);
                 Assert.Equal(100, clone.RateLimit.Limit);
                 Assert.Equal(75, clone.RateLimit.Remaining);
-                Assert.Equal(1372700873, clone.RateLimit.ResetAsUtcEpochSeconds);
+                Assert.Equal(776, clone.RateLimit.ResetInSeconds);
             }
 
             [Fact]

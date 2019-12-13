@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Net;
+using Pipedrive.Helpers;
 using Pipedrive.Internal;
 using Xunit;
 
@@ -18,7 +18,7 @@ namespace Pipedrive.Tests.Exceptions
                 {
                     { "X-RateLimit-Limit", "100" },
                     { "X-RateLimit-Remaining", "42" },
-                    { "X-RateLimit-Reset", "1372700873" }
+                    { "X-RateLimit-Reset", "49" }
                 };
                 var response = new Response(HttpStatusCode.Forbidden, null, headers, "application/json");
 
@@ -27,10 +27,7 @@ namespace Pipedrive.Tests.Exceptions
                 Assert.Equal(HttpStatusCode.Forbidden, exception.StatusCode);
                 Assert.Equal(100, exception.Limit);
                 Assert.Equal(42, exception.Remaining);
-                var expectedReset = DateTimeOffset.ParseExact(
-                    "Mon 01 Jul 2013 5:47:53 PM -00:00",
-                    "ddd dd MMM yyyy h:mm:ss tt zzz",
-                    CultureInfo.InvariantCulture);
+                var expectedReset = DateTime.UtcNow.CeilingSecond().AddSeconds(49);
                 Assert.Equal("API Rate Limit exceeded", exception.Message);
                 Assert.Equal(expectedReset, exception.Reset);
             }
@@ -51,10 +48,7 @@ namespace Pipedrive.Tests.Exceptions
                 Assert.Equal(HttpStatusCode.Forbidden, exception.StatusCode);
                 Assert.Equal(0, exception.Limit);
                 Assert.Equal(0, exception.Remaining);
-                var expectedReset = DateTimeOffset.ParseExact(
-                    "Thu 01 Jan 1970 0:00:00 AM -00:00",
-                    "ddd dd MMM yyyy h:mm:ss tt zzz",
-                    CultureInfo.InvariantCulture);
+                var expectedReset = new DateTimeOffset(DateTime.UtcNow.CeilingSecond());
                 Assert.Equal(expectedReset, exception.Reset);
             }
 
@@ -67,10 +61,7 @@ namespace Pipedrive.Tests.Exceptions
                 Assert.Equal(HttpStatusCode.Forbidden, exception.StatusCode);
                 Assert.Equal(0, exception.Limit);
                 Assert.Equal(0, exception.Remaining);
-                var expectedReset = DateTimeOffset.ParseExact(
-                    "Thu 01 Jan 1970 0:00:00 AM -00:00",
-                    "ddd dd MMM yyyy h:mm:ss tt zzz",
-                    CultureInfo.InvariantCulture);
+                var expectedReset = new DateTimeOffset(DateTime.UtcNow.CeilingSecond());
                 Assert.Equal(expectedReset, exception.Reset);
             }
         }

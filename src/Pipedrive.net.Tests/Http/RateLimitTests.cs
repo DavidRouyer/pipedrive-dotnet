@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using Pipedrive.Helpers;
 using Xunit;
 
 namespace Pipedrive.Tests.Http
@@ -18,17 +16,14 @@ namespace Pipedrive.Tests.Http
                 {
                     { "X-RateLimit-Limit", "100" },
                     { "X-RateLimit-Remaining", "42" },
-                    { "X-RateLimit-Reset", "1372700873" }
+                    { "X-RateLimit-Reset", "779" }
                 };
 
                 var rateLimit = new RateLimit(headers);
 
                 Assert.Equal(100, rateLimit.Limit);
                 Assert.Equal(42, rateLimit.Remaining);
-                var expectedReset = DateTimeOffset.ParseExact(
-                    "Mon 01 Jul 2013 5:47:53 PM -00:00",
-                    "ddd dd MMM yyyy h:mm:ss tt zzz",
-                    CultureInfo.InvariantCulture);
+                var expectedReset = new DateTimeOffset(DateTime.UtcNow.CeilingSecond().AddSeconds(779));
                 Assert.Equal(expectedReset, rateLimit.Reset);
             }
 
@@ -46,10 +41,7 @@ namespace Pipedrive.Tests.Http
 
                 Assert.Equal(0, rateLimit.Limit);
                 Assert.Equal(0, rateLimit.Remaining);
-                var expectedReset = DateTimeOffset.ParseExact(
-                    "Thu 01 Jan 1970 0:00:00 AM -00:00",
-                    "ddd dd MMM yyyy h:mm:ss tt zzz",
-                    CultureInfo.InvariantCulture);
+                var expectedReset = new DateTimeOffset(DateTime.UtcNow.CeilingSecond());
                 Assert.Equal(expectedReset, rateLimit.Reset);
             }
 
@@ -62,10 +54,7 @@ namespace Pipedrive.Tests.Http
 
                 Assert.Equal(0, rateLimit.Limit);
                 Assert.Equal(0, rateLimit.Remaining);
-                var expectedReset = DateTimeOffset.ParseExact(
-                    "Thu 01 Jan 1970 0:00:00 AM -00:00",
-                    "ddd dd MMM yyyy h:mm:ss tt zzz",
-                    CultureInfo.InvariantCulture);
+                var expectedReset = new DateTimeOffset(DateTime.UtcNow.CeilingSecond());
                 Assert.Equal(expectedReset, rateLimit.Reset);
             }
 
@@ -81,7 +70,7 @@ namespace Pipedrive.Tests.Http
             [Fact]
             public void CanClone()
             {
-                var original = new RateLimit(100, 42, 1372700873);
+                var original = new RateLimit(100, 42, 449);
 
                 var clone = original.Clone();
 
@@ -90,7 +79,7 @@ namespace Pipedrive.Tests.Http
                 Assert.NotSame(original, clone);
                 Assert.Equal(original.Limit, clone.Limit);
                 Assert.Equal(original.Remaining, clone.Remaining);
-                Assert.Equal(original.ResetAsUtcEpochSeconds, clone.ResetAsUtcEpochSeconds);
+                Assert.Equal(original.ResetInSeconds, clone.ResetInSeconds);
                 Assert.Equal(original.Reset, clone.Reset);
             }
         }

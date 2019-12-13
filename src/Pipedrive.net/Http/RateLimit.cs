@@ -17,7 +17,7 @@ namespace Pipedrive
 
             Limit = (int)GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Limit");
             Remaining = (int)GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Remaining");
-            ResetAsUtcEpochSeconds = GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Reset");
+            ResetInSeconds = GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Reset");
         }
 
         public RateLimit(int limit, int remaining, long reset)
@@ -28,7 +28,7 @@ namespace Pipedrive
 
             Limit = limit;
             Remaining = remaining;
-            ResetAsUtcEpochSeconds = reset;
+            ResetInSeconds = reset;
         }
 
         /// <summary>
@@ -45,16 +45,13 @@ namespace Pipedrive
         /// The date and time at which the current rate limit window resets
         /// </summary>
         [Parameter(Key = "ignoreThisField")]
-        public DateTimeOffset Reset
-        {
-            get { return ResetAsUtcEpochSeconds.FromUnixTime(); }
-        }
+        public DateTimeOffset Reset => new DateTimeOffset(DateTime.UtcNow.CeilingSecond().AddSeconds(ResetInSeconds));
 
         /// <summary>
         /// The date and time at which the current rate limit window resets - in UTC epoch seconds
         /// </summary>
         [Parameter(Key = "reset")]
-        public long ResetAsUtcEpochSeconds { get; private set; }
+        public long ResetInSeconds { get; private set; }
 
         static long GetHeaderValueAsInt32Safe(IDictionary<string, string> responseHeaders, string key)
         {
@@ -75,7 +72,7 @@ namespace Pipedrive
             {
                 Limit = Limit,
                 Remaining = Remaining,
-                ResetAsUtcEpochSeconds = ResetAsUtcEpochSeconds
+                ResetInSeconds = ResetInSeconds
             };
         }
     }
