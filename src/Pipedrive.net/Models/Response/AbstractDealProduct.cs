@@ -22,10 +22,10 @@ namespace Pipedrive.Models.Response
         public long? ProductVariationId { get; set; }
 
         [JsonProperty("item_price")]
-        public long ItemPrice { get; set; }
+        public decimal ItemPrice { get; set; }
 
         [JsonProperty("discount_percentage")]
-        public long DiscountPercentage { get; set; }
+        public decimal DiscountPercentage { get; set; }
 
         [JsonProperty("duration")]
         public long Duration { get; set; }
