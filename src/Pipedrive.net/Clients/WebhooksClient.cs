@@ -24,5 +24,10 @@ namespace Pipedrive
         {
             return JsonConvert.DeserializeObject<WebhookResponse<WebhookOrganization>>(request);
         }
+
+        public IWebhookResponse<WebhookPerson> ParseWebhookPersonResponse(string request)
+        {
+            return JsonConvert.DeserializeObject<WebhookResponse<WebhookPerson>>(request);
+        }
     }
 }

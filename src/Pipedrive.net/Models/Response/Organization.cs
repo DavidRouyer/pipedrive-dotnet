@@ -116,6 +116,9 @@ namespace Pipedrive
         [JsonProperty("timeline_last_activity_time_by_owner")]
         public string TimelineLastActivityTimeByOwner { get; set; }
 
+        [JsonProperty("label")]
+        public long? Label { get; set; }
+
         [JsonProperty("address")]
         public string Address { get; set; }
 

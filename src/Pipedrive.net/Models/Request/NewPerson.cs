@@ -24,7 +24,7 @@ namespace Pipedrive
         public List<Phone> Phone { get; set; } = new List<Phone>();
 
         [JsonProperty("visible_to")]
-        public Visibility VisibleTo { get; set; }
+        public Visibility VisibleTo { get; set; } = Visibility.shared;
 
         [JsonProperty("add_time")]
         public DateTime? AddTime { get; set; }

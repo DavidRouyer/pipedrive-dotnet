@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using Pipedrive.CustomFields;
 using Pipedrive.Internal;
 
 namespace Pipedrive
 {
     [JsonConverter(typeof(CustomFieldConverter))]
-    public class Person : IEntityWithCustomFields
+    public class WebhookPerson : IEntityWithCustomFields
     {
         public long Id { get; set; }
 
@@ -15,10 +14,10 @@ namespace Pipedrive
         public long CompanyId { get; set; }
 
         [JsonProperty("owner_id")]
-        public UserCustomField OwnerId { get; set; }
+        public long OwnerId { get; set; }
 
         [JsonProperty("org_id")]
-        public OrganizationCustomField OrgId { get; set; }
+        public long? OrgId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -105,7 +104,7 @@ namespace Pipedrive
         public Visibility VisibleTo { get; set; }
 
         [JsonProperty("picture_id")]
-        public Picture PictureId { get; set; }
+        public long? PictureId { get; set; }
 
         [JsonProperty("next_activity_date")]
         public string NextActivityDate { get; set; }
@@ -156,8 +155,8 @@ namespace Pipedrive
                 Name = Name,
                 Email = Email,
                 Phone = Phone,
-                OrgId = OrgId?.Value,
-                OwnerId = OwnerId?.Value,
+                OrgId = OrgId,
+                OwnerId = OwnerId,
                 VisibleTo = VisibleTo,
                 CustomFields = CustomFields
             };
