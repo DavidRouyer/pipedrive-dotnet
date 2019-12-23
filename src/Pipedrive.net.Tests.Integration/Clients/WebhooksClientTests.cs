@@ -79,19 +79,22 @@ namespace Pipedrive.Tests.Integration.Clients
 
         public class TheParseWebhookPersonResponseMethod
         {
-            [Fact]
-            public async Task DeserializeUpdateInformations()
+            [Theory]
+            [InlineData("webhook_person_update.json")]
+            [InlineData("webhook_person_update_import.json")]
+            public async Task DeserializeUpdateInformations(string fileName)
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
-
-                var stream = Helper.LoadFixture("webhook_person_update.json");
+                var stream = Helper.LoadFixture(fileName);
 
                 using (StreamReader reader = new StreamReader(stream, Encoding.UTF8))
                 {
                     var fixture = await reader.ReadToEndAsync();
 
                     var result = pipedrive.Webhook.ParseWebhookPersonResponse(fixture);
-                    Console.WriteLine(result.Current.AddTime);
+
+                    Assert.NotEmpty(result.Meta.Action);
+                    Assert.NotEqual(0, result.Current.Id);
                 }
             }
         }

@@ -198,7 +198,7 @@ namespace Pipedrive.Internal
                 if (field.Value == null)
                 {
                     writer.WritePropertyName(field.Key);
-                    writer.WriteValue(string.Empty);
+                    writer.WriteNull();
                 }
                 else
                 {
