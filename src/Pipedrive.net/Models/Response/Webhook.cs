@@ -55,6 +55,6 @@ namespace Pipedrive
         public DateTime LastDeliveryTime { get; set; }
 
         [JsonProperty("last_http_status")]
-        public string LastHttpStatus { get; set; }
+        public int LastHttpStatus { get; set; }
     }
 }
