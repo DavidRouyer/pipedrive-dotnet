@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Pipedrive.Internal;
 using Xunit;
 
@@ -19,6 +18,7 @@ namespace Pipedrive.Tests
                     { "X-OAuth-Scopes", "user, public_repo, repo, gist" },
                     { "X-RateLimit-Limit", "5000" },
                     { "X-RateLimit-Remaining", "4997" },
+                    { "x-daily-requests-left", "18763" },
                     { "ETag", "5634b0b187fd2e91e3126a75006cc4fa" }
                 };
 
@@ -27,6 +27,7 @@ namespace Pipedrive.Tests
                 Assert.NotNull(apiInfo);
                 Assert.Equal(5000, apiInfo.RateLimit.Limit);
                 Assert.Equal(4997, apiInfo.RateLimit.Remaining);
+                Assert.Equal(18763, apiInfo.FairUsageLimit.DailyRequestsLeft);
                 Assert.Equal("5634b0b187fd2e91e3126a75006cc4fa", apiInfo.Etag);
             }
 
@@ -97,7 +98,7 @@ namespace Pipedrive.Tests
                 Assert.Same(pageUri, pagingMethod(info));
             }
 
-            #pragma warning disable xUnit1026
+#pragma warning disable xUnit1026
             [Theory]
             [MemberData(nameof(PagingMethods))]
             public void ReturnsNullIfThereIsNoMatchingPagingLink(string ignored, Func<ApiInfo, Uri> pagingMethod)
@@ -107,7 +108,7 @@ namespace Pipedrive.Tests
 
                 Assert.Null(pagingMethod(info));
             }
-            #pragma warning restore xUnit1026
+#pragma warning restore xUnit1026
 
             public static IEnumerable<object[]> PagingMethods
             {
@@ -122,7 +123,8 @@ namespace Pipedrive.Tests
 
             static ApiInfo BuildApiInfo(IDictionary<string, Uri> links)
             {
-                return new ApiInfo(links, "etag", new RateLimit(new Dictionary<string, string>()));
+                var headers = new Dictionary<string, string>();
+                return new ApiInfo(links, "etag", new RateLimit(headers), new FairUsageLimit(headers));
             }
         }
     }
