@@ -455,7 +455,6 @@ namespace Pipedrive
             return new Uri($"{_webhooksUrl}/{id}", UriKind.Relative);
         }
 
-
         /// <summary>
         /// Creates the relative <see cref="Uri"/> for initiating the OAuth Web login Flow
         /// </summary>

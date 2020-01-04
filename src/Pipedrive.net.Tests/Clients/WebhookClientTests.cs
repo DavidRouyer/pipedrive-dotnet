@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using NSubstitute;
+using Pipedrive.Models.Common.Webhooks;
 using Xunit;
 
 namespace Pipedrive.Tests.Clients
@@ -50,12 +51,12 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new WebhooksClient(connection);
 
-                var newWebhook = new NewWebhook("https://test.com", "*", "*");
+                var newWebhook = new NewWebhook("https://test.com", EventAction.All, EventObject.All);
                 client.Create(newWebhook);
 
                 connection.Received().Post<Webhook>(Arg.Is<Uri>(u => u.ToString() == "webhooks"),
-                    Arg.Is<NewWebhook>(df => df.EventAction == "*"
-                        && df.EventObject == "*"
+                    Arg.Is<NewWebhook>(df => df.EventAction.ToString() == "*"
+                        && df.EventObject.ToString() == "*"
                         && df.SubscriptionUrl == "https://test.com"));
             }
         }

@@ -41,6 +41,5 @@ namespace Pipedrive
 
         [JsonProperty("http_auth_password")]
         public string HttpAuthPassword { get; set; }
-
     }
 }

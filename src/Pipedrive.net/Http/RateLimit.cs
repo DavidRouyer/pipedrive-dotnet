@@ -18,7 +18,6 @@ namespace Pipedrive
             Limit = GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Limit");
             Remaining = GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Remaining");
             ResetInSeconds = GetHeaderValueAsInt32Safe(responseHeaders, "X-RateLimit-Reset");
-
         }
 
         public RateLimit(int limit, int remaining, int reset)
