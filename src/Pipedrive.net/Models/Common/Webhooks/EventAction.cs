@@ -9,12 +9,16 @@ namespace Pipedrive.Models.Common.Webhooks
     {
         [EnumMember(Value = "added")]
         Added,
+
         [EnumMember(Value = "updated")]
         Updated,
+
         [EnumMember(Value = "merged")]
         Merged,
+
         [EnumMember(Value = "deleted")]
         Deleted,
+
         [EnumMember(Value = "*")]
         All,
     }
