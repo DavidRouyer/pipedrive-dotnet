@@ -55,8 +55,8 @@ namespace Pipedrive.Tests.Clients
                 client.Create(newWebhook);
 
                 connection.Received().Post<Webhook>(Arg.Is<Uri>(u => u.ToString() == "webhooks"),
-                    Arg.Is<NewWebhook>(df => df.EventAction.ToString() == "*"
-                        && df.EventObject.ToString() == "*"
+                    Arg.Is<NewWebhook>(df => df.EventAction == EventAction.All
+                        && df.EventObject == EventObject.All
                         && df.SubscriptionUrl == "https://test.com"));
             }
         }
