@@ -66,7 +66,7 @@ namespace Pipedrive
             Pipeline = new PipelinesClient(apiConnection);
             Stage = new StagesClient(apiConnection);
             User = new UsersClient(apiConnection);
-            Webhook = new WebhooksClient();
+            Webhook = new WebhooksClient(apiConnection);
         }
 
         /// <summary>
