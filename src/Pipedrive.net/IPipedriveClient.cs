@@ -6,6 +6,8 @@ namespace Pipedrive
     {
         void SetRequestTimeout(TimeSpan timeout);
 
+        ApiInfo GetLastApiInfo();
+
         IConnection Connection { get; }
 
         IActivitiesClient Activity { get; }
