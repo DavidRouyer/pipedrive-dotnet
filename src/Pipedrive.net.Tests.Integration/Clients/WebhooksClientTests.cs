@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -8,6 +7,27 @@ namespace Pipedrive.Tests.Integration.Clients
 {
     public class WebhooksClientTests
     {
+        public class TheCreateMethod
+        {
+            [IntegrationTest]
+            public async Task CanCreate()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Webhook;
+
+                var newWebhook = new NewWebhook("http://example.com", Models.Common.Webhooks.EventAction.All, Models.Common.Webhooks.EventObject.All);
+
+                var webhook = await fixture.Create(newWebhook);
+                Assert.NotNull(webhook);
+
+                var retrieved = await fixture.GetAll();
+                Assert.True(retrieved.Count > 0, "Expected count to be greater than 0.");
+
+                // Cleanup
+                await fixture.Delete(webhook.Id);
+            }
+        }
+
         public class TheParseWebhookDealResponseMethod
         {
             [Fact]

@@ -52,9 +52,9 @@ namespace Pipedrive
         public string HttpAuthPassword { get; set; }
 
         [JsonProperty("last_delivery_time")]
-        public DateTime LastDeliveryTime { get; set; }
+        public DateTime? LastDeliveryTime { get; set; }
 
         [JsonProperty("last_http_status")]
-        public int LastHttpStatus { get; set; }
+        public int? LastHttpStatus { get; set; }
     }
 }
