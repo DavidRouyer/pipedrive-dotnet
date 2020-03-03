@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using Pipedrive.Internal;
 
 namespace Pipedrive
 {
-    [JsonConverter(typeof(CustomFieldConverter))]
     public class NewDeal : IEntityWithCustomFields
     {
         [JsonProperty("title")]
