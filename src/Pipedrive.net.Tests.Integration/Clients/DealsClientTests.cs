@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Pipedrive.CustomFields;
+using Pipedrive.Models.Request;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -101,12 +103,15 @@ namespace Pipedrive.Tests.Integration.Clients
                 var fixture = pipedrive.Deal;
 
                 var newDeal = new NewDeal("title");
+                newDeal.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"] = new StringCustomField("my custom string field");
 
                 var deal = await fixture.Create(newDeal);
+                Assert.Equal("my custom string field", ((StringCustomField)deal.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"]).Value);
                 Assert.NotNull(deal);
 
                 var retrieved = await fixture.Get(deal.Id);
                 Assert.NotNull(retrieved);
+                Assert.Equal("my custom string field", ((StringCustomField)retrieved.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"]).Value);
 
                 // Cleanup
                 await fixture.Delete(deal.Id);
@@ -434,6 +439,102 @@ namespace Pipedrive.Tests.Integration.Clients
                 var fixture = pipedrive.Deal;
 
                 await fixture.DeleteParticipant(1, 5);
+            }
+        }
+
+        public class TheGetProductsForDealMethod
+        {
+            [IntegrationTest]
+            public async Task GetProductsForDeal()
+            {
+                var dealProductFilters = new DealProductFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 0,
+                    IncludeProductData = "1"
+                };
+
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Deal;
+
+                var dealProducts = await fixture.GetProductsForDeal(1, dealProductFilters);
+
+                Assert.Equal(2, dealProducts.Count);
+                Assert.True(dealProducts.All(x => x.DealId == 1));
+            }
+        }
+
+        public class TheAddProductToDealMethod
+        {
+            [IntegrationTest]
+            public async Task AddProductToDeal()
+            {
+                var newDealProduct = new NewDealProduct(1, 10, 30)
+                {
+                    DiscountPercentage = 55,
+                    EnabledFlag = true
+                };
+
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Deal;
+
+                var dealProduct = await fixture.AddProductToDeal(1, newDealProduct);
+
+                Assert.Equal(1, dealProduct.DealId);
+                Assert.Equal(1, dealProduct.ProductId);
+                Assert.Equal(10, dealProduct.ItemPrice);
+                Assert.Equal(30, dealProduct.Quantity);
+                Assert.Equal(135, dealProduct.Sum);
+                Assert.Equal(55, dealProduct.DiscountPercentage);
+
+                // Cleanup
+                await fixture.DeleteDealProduct(1, dealProduct.ProductAttachmentId.Value);
+            }
+        }
+
+        public class TheUpdateDealProductMethod
+        {
+            [IntegrationTest]
+            public async Task UpdateDealProduct()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Deal;
+
+                var createdDealProduct = await fixture.AddProductToDeal(1, new NewDealProduct(1, 10, 30));
+
+                var dealProductUpdate = new DealProductUpdate
+                {
+                    ItemPrice = 44,
+                    Quantity = 1,
+                    Duration = 1,
+                    DiscountPercentage = 11
+                };
+
+                var updatedDealProduct = await fixture.UpdateDealProduct(1, createdDealProduct.ProductAttachmentId.Value, dealProductUpdate);
+
+                Assert.Equal(1, updatedDealProduct.DealId);
+                Assert.Equal(1, updatedDealProduct.ProductId);
+                Assert.Equal(44, updatedDealProduct.ItemPrice);
+                Assert.Equal(1, updatedDealProduct.Quantity);
+                Assert.Equal(39.16m, updatedDealProduct.Sum);
+
+                // Cleanup
+                await fixture.DeleteDealProduct(1, createdDealProduct.ProductAttachmentId.Value);
+            }
+        }
+
+        public class TheDeleteDealProductMethod
+        {
+            [IntegrationTest]
+            public async Task DeleteDealProduct()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Deal;
+
+                var dealProduct = await fixture.AddProductToDeal(1, new NewDealProduct(1, 10, 30));
+
+                await fixture.DeleteDealProduct(1, dealProduct.ProductAttachmentId.Value);
             }
         }
     }

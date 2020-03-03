@@ -1,4 +1,5 @@
 ﻿using System;
+using Pipedrive.Clients;
 
 namespace Pipedrive
 {
@@ -35,6 +36,8 @@ namespace Pipedrive
         IPersonFieldsClient PersonField { get; }
 
         IPipelinesClient Pipeline { get; }
+
+        IProductsClient Product { get; }
 
         IStagesClient Stage { get; }
 
