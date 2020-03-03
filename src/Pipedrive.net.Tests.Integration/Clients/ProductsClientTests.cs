@@ -206,7 +206,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.Equal("updated-name", updatedProduct.Name);
                 Assert.Equal(20.50M, updatedProduct.Prices["GBP"].Price);
 
-                //Cleanup
+                // Cleanup
                 await fixture.Delete(updatedProduct.Id);
             }
         }
@@ -244,6 +244,5 @@ namespace Pipedrive.Tests.Integration.Clients
                 await fixture.DeleteFollower(1, 1);
             }
         }
-
     }
 }

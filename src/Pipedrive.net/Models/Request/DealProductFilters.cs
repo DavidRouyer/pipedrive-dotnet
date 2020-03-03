@@ -5,7 +5,6 @@ namespace Pipedrive.Models.Request
 {
     public class DealProductFilters
     {
-
         public static DealProductFilters None => new DealProductFilters();
 
         public int? StartPage { get; set; }
@@ -33,6 +32,5 @@ namespace Pipedrive.Models.Request
                 return d;
             }
         }
-
     }
 }

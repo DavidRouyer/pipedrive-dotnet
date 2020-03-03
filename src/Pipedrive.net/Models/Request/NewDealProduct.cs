@@ -4,7 +4,6 @@ namespace Pipedrive
 {
     public class NewDealProduct
     {
-
         [JsonProperty("product_id")]
         public long ProductId { get; set; }
 
@@ -35,6 +34,5 @@ namespace Pipedrive
             ItemPrice = itemPrice;
             Quantity = quantity;
         }
-
     }
 }

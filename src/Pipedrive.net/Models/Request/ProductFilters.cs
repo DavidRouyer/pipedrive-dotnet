@@ -27,17 +27,19 @@ namespace Pipedrive.Models.Request
                 {
                     d.Add("user_id", UserId.Value.ToString());
                 }
+
                 if (FilterId.HasValue)
                 {
                     d.Add("filter_id", FilterId.Value.ToString());
                 }
+
                 if (!string.IsNullOrWhiteSpace(FirstCharacter))
                 {
                     d.Add("first_char", FirstCharacter);
                 }
+
                 return d;
             }
         }
-
     }
 }

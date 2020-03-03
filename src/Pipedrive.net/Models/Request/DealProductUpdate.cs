@@ -4,7 +4,6 @@ namespace Pipedrive.Models.Request
 {
     public class DealProductUpdate
     {
-
         [JsonProperty("item_price")]
         public decimal ItemPrice { get; set; }
 
@@ -25,6 +24,5 @@ namespace Pipedrive.Models.Request
 
         [JsonProperty("enabled_flag")]
         public bool EnabledFlag { get; set; } = true;
-
     }
 }

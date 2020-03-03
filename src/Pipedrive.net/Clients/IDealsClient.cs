@@ -51,6 +51,5 @@ namespace Pipedrive
         Task<UpdatedDealProduct> UpdateDealProduct(long dealId, long dealProductId, DealProductUpdate dealProductUpdate);
 
         Task DeleteDealProduct(long dealId, long dealProductId);
-
     }
 }

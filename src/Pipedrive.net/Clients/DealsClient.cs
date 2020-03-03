@@ -216,6 +216,5 @@ namespace Pipedrive
         {
             return ApiConnection.Delete(ApiUrls.DeleteDealProduct(dealId, dealProductId));
         }
-
     }
 }

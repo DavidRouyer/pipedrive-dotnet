@@ -52,8 +52,7 @@ namespace Pipedrive.Tests.Clients
                         Arg.Is<Dictionary<string, string>>(d => d.Count == 0),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                                 && o.PageCount == 1
-                                                && o.StartPage == 0)
-                    );
+                                                && o.StartPage == 0));
                 });
             }
         }
@@ -296,6 +295,5 @@ namespace Pipedrive.Tests.Clients
                 });
             }
         }
-
     }
 }

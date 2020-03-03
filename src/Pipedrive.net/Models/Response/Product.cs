@@ -36,5 +36,4 @@ namespace Pipedrive.Models.Response
             };
         }
     }
-
 }

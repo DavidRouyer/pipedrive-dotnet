@@ -6,6 +6,5 @@ namespace Pipedrive
     {
         [JsonProperty("product_id")]
         public long ProductId { get; set; }
-
     }
 }

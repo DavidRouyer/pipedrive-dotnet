@@ -4,7 +4,6 @@ namespace Pipedrive.Models.Response
 {
     public class DealProduct : AbstractDealProduct
     {
-
         [JsonProperty("sum_formatted")]
         public string SumFormatted { get; set; }
 
@@ -13,6 +12,5 @@ namespace Pipedrive.Models.Response
 
         [JsonProperty("product")]
         public UpdatedProduct Product { get; set; }
-
     }
 }

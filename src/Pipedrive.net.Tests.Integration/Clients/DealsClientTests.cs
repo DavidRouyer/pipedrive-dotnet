@@ -537,6 +537,5 @@ namespace Pipedrive.Tests.Integration.Clients
                 await fixture.DeleteDealProduct(1, dealProduct.ProductAttachmentId.Value);
             }
         }
-
     }
 }

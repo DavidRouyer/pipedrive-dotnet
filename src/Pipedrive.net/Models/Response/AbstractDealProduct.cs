@@ -5,7 +5,6 @@ namespace Pipedrive.Models.Response
 {
     public abstract class AbstractDealProduct
     {
-
         [JsonProperty("id")]
         public long Id { get; set; }
 
@@ -65,6 +64,5 @@ namespace Pipedrive.Models.Response
 
         [JsonProperty("quantity")]
         public int Quantity { get; set; }
-
     }
 }
