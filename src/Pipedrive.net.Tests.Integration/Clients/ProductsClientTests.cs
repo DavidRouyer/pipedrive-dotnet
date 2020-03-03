@@ -114,7 +114,7 @@ namespace Pipedrive.Tests.Integration.Clients
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var files = await pipedrive.Product.GetFilesForProduct(2);
+                var files = await pipedrive.Product.GetFilesForProduct(1);
 
                 Assert.Equal(1, files.Count);
             }
@@ -127,7 +127,7 @@ namespace Pipedrive.Tests.Integration.Clients
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var followers = await pipedrive.Product.GetFollowersForProduct(2);
+                var followers = await pipedrive.Product.GetFollowersForProduct(1);
 
                 Assert.Equal(1, followers.Count);
             }
@@ -142,7 +142,7 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var permittedUsers = await pipedrive.Product.GetPermittedUsers(2);
 
-                Assert.Equal(4, permittedUsers.Count);
+                Assert.Equal(2, permittedUsers.Count);
             }
         }
 
@@ -164,6 +164,8 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var retrieved = await fixture.Get(product.Id);
                 Assert.NotNull(retrieved);
+                Assert.Equal("GBP", retrieved.Prices.First().Currency);
+                Assert.Equal(10.23M, retrieved.Prices.First().Price);
 
                 // Cleanup
                 await fixture.Delete(product.Id);

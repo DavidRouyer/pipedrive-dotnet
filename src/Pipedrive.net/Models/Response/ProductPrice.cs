@@ -9,6 +9,7 @@ namespace Pipedrive.Models.Response
         [JsonProperty("product_id")]
         public long ProductId { get; set; }
 
+        [JsonProperty("price")]
         public decimal? Price { get; set; }
 
         [JsonProperty("currency")]
