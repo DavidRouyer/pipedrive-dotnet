@@ -20,12 +20,12 @@ namespace Pipedrive.Models.Response
         public string Category { get; set; }
 
         [JsonProperty("active_flag")]
-        public bool Active { get; set; }
+        public bool ActiveFlag { get; set; }
 
         public bool Selectable { get; set; }
 
         [JsonProperty("first_char")]
-        public string FirstCharacter { get; set; }
+        public string FirstChar { get; set; }
 
         [JsonProperty("visible_to")]
         public Visibility VisibleTo { get; set; }
@@ -37,7 +37,7 @@ namespace Pipedrive.Models.Response
         public int? FilesCount { get; set; }
 
         [JsonProperty("followers_count")]
-        public int FollowerCount { get; set; }
+        public int FollowersCount { get; set; }
 
         [JsonProperty("add_time")]
         public DateTime AddTime { get; set; }

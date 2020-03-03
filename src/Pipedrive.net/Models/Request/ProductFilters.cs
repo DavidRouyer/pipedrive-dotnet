@@ -16,7 +16,7 @@ namespace Pipedrive.Models.Request
 
         public long? FilterId { get; set; }
 
-        public string FirstCharacter { get; set; }
+        public string FirstChar { get; set; }
 
         public IDictionary<string, string> Parameters
         {
@@ -33,9 +33,9 @@ namespace Pipedrive.Models.Request
                     d.Add("filter_id", FilterId.Value.ToString());
                 }
 
-                if (!string.IsNullOrWhiteSpace(FirstCharacter))
+                if (!string.IsNullOrWhiteSpace(FirstChar))
                 {
-                    d.Add("first_char", FirstCharacter);
+                    d.Add("first_char", FirstChar);
                 }
 
                 return d;

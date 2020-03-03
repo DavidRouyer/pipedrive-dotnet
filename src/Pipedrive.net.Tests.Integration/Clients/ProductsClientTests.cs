@@ -156,7 +156,7 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var newProduct = new NewProduct("New Product Name")
                 {
-                    Prices = new List<NewProductPrice> { new NewProductPrice { CurrencyCode = "GBP", Price = 10.23M } }
+                    Prices = new List<NewProductPrice> { new NewProductPrice { Currency = "GBP", Price = 10.23M } }
                 };
 
                 var product = await fixture.Create(newProduct);
@@ -193,13 +193,13 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var newProduct = new NewProduct("product")
                 {
-                    Prices = new List<NewProductPrice> { new NewProductPrice { CurrencyCode = "GBP", Price = 10.23M } }
+                    Prices = new List<NewProductPrice> { new NewProductPrice { Currency = "GBP", Price = 10.23M } }
                 };
                 var product = await fixture.Create(newProduct);
 
                 var editedProduct = product.ToUpdate();
                 editedProduct.Name = "updated-name";
-                editedProduct.Prices.First(x => x.CurrencyCode == "GBP").Price = 20.50M;
+                editedProduct.Prices.First(x => x.Currency == "GBP").Price = 20.50M;
 
                 var updatedProduct = await fixture.Edit(product.Id, editedProduct);
 
@@ -229,7 +229,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 await fixture.Delete(createdProduct.Id);
 
                 var deletedProduct = await fixture.Get(createdProduct.Id);
-                Assert.False(deletedProduct.Active);
+                Assert.False(deletedProduct.ActiveFlag);
             }
         }
 

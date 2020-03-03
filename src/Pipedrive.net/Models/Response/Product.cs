@@ -22,15 +22,15 @@ namespace Pipedrive.Models.Response
                 Code = Code,
                 Unit = Unit,
                 Tax = Tax,
-                Active = Active,
+                ActiveFlag = ActiveFlag,
                 VisibleTo = VisibleTo,
                 OwnerId = Owner.Id,
                 Prices = Prices.Select(x => new NewProductPrice
                 {
-                    CurrencyCode = x.CurrencyCode,
-                    DirectCost = x.DirectCost,
                     Price = x.Price ?? 0M,
-                    UnitCost = x.UnitCost
+                    Currency = x.Currency,
+                    Cost = x.Cost,
+                    OverheadCost = x.OverheadCost
                 }).ToList(),
                 CustomFields = CustomFields
             };

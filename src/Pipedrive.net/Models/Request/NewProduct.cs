@@ -20,7 +20,7 @@ namespace Pipedrive.Models.Request
         public decimal Tax { get; set; }
 
         [JsonProperty("active_flag")]
-        public bool Active { get; set; } = true;
+        public bool ActiveFlag { get; set; } = true;
 
         [JsonProperty("visible_to")]
         public Visibility VisibleTo { get; set; }

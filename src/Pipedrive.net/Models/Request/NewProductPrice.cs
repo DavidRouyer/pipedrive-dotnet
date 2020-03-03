@@ -8,12 +8,12 @@ namespace Pipedrive.Models.Request
         public decimal Price { get; set; }
 
         [JsonProperty("currency")]
-        public string CurrencyCode { get; set; }
+        public string Currency { get; set; }
 
         [JsonProperty("cost")]
-        public decimal? UnitCost { get; set; }
+        public decimal? Cost { get; set; }
 
         [JsonProperty("overhead_cost")]
-        public decimal? DirectCost { get; set; }
+        public decimal? OverheadCost { get; set; }
     }
 }
