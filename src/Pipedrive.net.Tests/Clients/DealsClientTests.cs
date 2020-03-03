@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using NSubstitute;
 using Pipedrive.CustomFields;
+using Pipedrive.Models.Request;
 using Pipedrive.Models.Response;
 using Xunit;
 
@@ -290,7 +291,7 @@ namespace Pipedrive.Tests.Clients
 
                 Received.InOrder(async () =>
                 {
-                    await connection.GetAll<Follower>(
+                    await connection.GetAll<DealFollower>(
                         Arg.Is<Uri>(u => u.ToString() == "deals/123/followers"),
                         Arg.Is<Dictionary<string, string>>(d => d.Count == 1
                             && d["id"] == "123"));
@@ -308,9 +309,8 @@ namespace Pipedrive.Tests.Clients
 
                 client.AddFollower(1, 2);
 
-                // TODO: check the parameter
-                connection.Received().Post<Follower>(Arg.Is<Uri>(u => u.ToString() == "deals/1/followers"),
-                    Arg.Any<object>());
+                connection.Received().Post<DealFollower>(Arg.Is<Uri>(u => u.ToString() == "deals/1/followers"),
+                    Arg.Is<object>(o => o.ToString() == new { user_id = 2 }.ToString()));
             }
         }
 
@@ -435,5 +435,84 @@ namespace Pipedrive.Tests.Clients
                 connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "deals/123/participants/456"));
             }
         }
+
+        public class TheGetProductsForDealMethod
+        {
+            [Fact]
+            public void GetProductsForDeal()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                var dealProductFilters = new DealProductFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 0,
+                    IncludeProductData = "1"
+                };
+
+                client.GetProductsForDeal(1, dealProductFilters);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<DealProduct>(
+                        Arg.Is<Uri>(u => u.ToString() == "deals/1/products"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
+                                                                && d["include_product_data"] == "1"),
+                        Arg.Is<ApiOptions>(o => o.PageSize == 1
+                                                && o.PageCount == 1
+                                                && o.StartPage == 0)
+                    );
+                });
+            }
+        }
+
+        public class TheAddProductToDealMethod
+        {
+            [Fact]
+            public void AddProductToDeal()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                var newDealProduct = new NewDealProduct(2, 10, 44);
+                client.AddProductToDeal(1, newDealProduct);
+
+                connection.Received().Post<CreatedDealProduct>(Arg.Is<Uri>(u => u.ToString() == "deals/1/products"),
+                    Arg.Is(newDealProduct));
+            }
+        }
+
+        public class TheUpdateDealProductMethod
+        {
+            [Fact]
+            public void UpdateDealProduct()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                var dealProductUpdate = new DealProductUpdate();
+                client.UpdateDealProduct(1, 2, dealProductUpdate);
+
+                connection.Received().Put<UpdatedDealProduct>(Arg.Is<Uri>(u => u.ToString() == "deals/1/products/2"),
+                    Arg.Is(dealProductUpdate));
+            }
+        }
+
+        public class TheDeleteDealProductMethod
+        {
+            [Fact]
+            public void DeleteDealProduct()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                client.DeleteDealProduct(1, 22);
+
+                connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "deals/1/products/22"));
+            }
+        }
+
     }
 }

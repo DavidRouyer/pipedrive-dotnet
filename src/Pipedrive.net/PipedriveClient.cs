@@ -64,6 +64,7 @@ namespace Pipedrive
             Person = new PersonsClient(apiConnection);
             PersonField = new PersonFieldsClient(apiConnection);
             Pipeline = new PipelinesClient(apiConnection);
+            Product = new ProductsClient(apiConnection);
             Stage = new StagesClient(apiConnection);
             User = new UsersClient(apiConnection);
             Webhook = new WebhooksClient(apiConnection);
@@ -238,6 +239,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Pipelines
         /// </remarks>
         public IPipelinesClient Pipeline { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's Product API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Products
+        /// </remarks>
+        public IProductsClient Product { get; private set; }
 
         /// <summary>
         /// Access Pipedrive's Stage API.

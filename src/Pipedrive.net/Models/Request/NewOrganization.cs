@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Pipedrive.Internal;
 
 namespace Pipedrive
 {
+    [JsonConverter(typeof(CustomFieldConverter))]
     public class NewOrganization : IEntityWithCustomFields
     {
         [JsonProperty("name")]
