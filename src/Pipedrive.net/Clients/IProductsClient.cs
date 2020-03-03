@@ -13,7 +13,7 @@ namespace Pipedrive.Clients
     {
         Task<IReadOnlyList<Product>> GetAll(ProductFilters filters);
 
-        Task<IReadOnlyList<SimpleProduct>> GetByName(string searchTerm, string currencyCode);
+        Task<IReadOnlyList<SimpleProduct>> GetByName(string searchTerm, string currencyCode = null);
 
         Task<Product> Get(long id);
 

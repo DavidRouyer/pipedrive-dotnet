@@ -19,6 +19,6 @@ namespace Pipedrive.Models.Response
         public decimal Price { get; set; }
 
         [JsonProperty("price_formatted")]
-        public string FormattedPrice { get; set; }
+        public string PriceFormatted { get; set; }
     }
 }

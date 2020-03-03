@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using NSubstitute;
 using Pipedrive.Clients;
+using Pipedrive.CustomFields;
 using Pipedrive.Models.Request;
 using Pipedrive.Models.Response;
 using Xunit;
@@ -77,19 +78,35 @@ namespace Pipedrive.Tests.Clients
             }
 
             [Fact]
-            public async Task RequestsCorrectUrl()
+            public async Task RequestsCorrectUrlWithOneParameter()
             {
                 var connection = Substitute.For<IApiConnection>();
                 var client = new ProductsClient(connection);
 
-                const string searchTerm = "prod";
-                await client.GetByName(searchTerm, null);
+                await client.GetByName("product");
 
                 Received.InOrder(async () =>
                 {
                     await connection.GetAll<SimpleProduct>(Arg.Is<Uri>(u => u.ToString() == "products/find"),
                                                            Arg.Is<Dictionary<string, string>>(d => d.Count == 1
-                                                                                                && d["term"] == searchTerm));
+                                                                                                && d["term"] == "product"));
+                });
+            }
+
+            [Fact]
+            public async Task RequestsCorrectUrlWithTwoParameters()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new ProductsClient(connection);
+
+                await client.GetByName("product", "EUR");
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<SimpleProduct>(Arg.Is<Uri>(u => u.ToString() == "products/find"),
+                                                           Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                                                                                                && d["term"] == "product"
+                                                                                                && d["currency"] == "EUR"));
                 });
             }
         }
@@ -102,12 +119,11 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new ProductsClient(connection);
 
-                const long productId = 123;
-                await client.Get(productId);
+                await client.Get(123);
 
                 Received.InOrder(async () =>
                 {
-                    await connection.Get<Product>(Arg.Is<Uri>(u => u.ToString() == $"products/{productId}"));
+                    await connection.Get<Product>(Arg.Is<Uri>(u => u.ToString() == "products/123"));
                 });
             }
         }
@@ -120,12 +136,11 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new ProductsClient(connection);
 
-                const long productId = 123;
-                await client.GetDealsForProduct(productId);
+                await client.GetDealsForProduct(123);
 
                 Received.InOrder(async () =>
                 {
-                    await connection.Get<IReadOnlyList<Deal>>(Arg.Is<Uri>(u => u.ToString() == $"products/{productId}/deals"));
+                    await connection.Get<IReadOnlyList<Deal>>(Arg.Is<Uri>(u => u.ToString() == "products/123/deals"));
                 });
             }
         }
@@ -138,12 +153,11 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new ProductsClient(connection);
 
-                const long productId = 123;
-                await client.GetFilesForProduct(productId);
+                await client.GetFilesForProduct(123);
 
                 Received.InOrder(async () =>
                 {
-                    await connection.Get<IReadOnlyList<File>>(Arg.Is<Uri>(u => u.ToString() == $"products/{productId}/files"));
+                    await connection.Get<IReadOnlyList<File>>(Arg.Is<Uri>(u => u.ToString() == "products/123/files"));
                 });
             }
         }
@@ -156,12 +170,11 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new ProductsClient(connection);
 
-                const long productId = 123;
-                await client.GetFollowersForProduct(productId);
+                await client.GetFollowersForProduct(123);
 
                 Received.InOrder(async () =>
                 {
-                    await connection.Get<IReadOnlyList<ProductFollower>>(Arg.Is<Uri>(u => u.ToString() == $"products/{productId}/followers"));
+                    await connection.Get<IReadOnlyList<ProductFollower>>(Arg.Is<Uri>(u => u.ToString() == "products/123/followers"));
                 });
             }
         }
@@ -174,12 +187,11 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new ProductsClient(connection);
 
-                const long productId = 123;
-                await client.GetPermittedUsers(productId);
+                await client.GetPermittedUsers(123);
 
                 Received.InOrder(async () =>
                 {
-                    await connection.Get<IReadOnlyList<long>>(Arg.Is<Uri>(u => u.ToString() == $"products/{productId}/permittedUsers"));
+                    await connection.Get<IReadOnlyList<long>>(Arg.Is<Uri>(u => u.ToString() == "products/123/permittedUsers"));
                 });
             }
         }
@@ -200,33 +212,15 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new ProductsClient(connection);
 
-                const string newProductName = "name";
-                await client.Create(new NewProduct(newProductName));
+                var newProduct = new NewProduct("name");
+                var customFields = new Dictionary<string, ICustomField>() { { "5913c8efdcf5c641a516d1fbd498235544b1b195", new IntCustomField(123) } };
+                newProduct.CustomFields = customFields;
+                await client.Create(newProduct);
 
                 Received.InOrder(async () =>
                 {
                     await connection.Post<Product>(Arg.Is<Uri>(u => u.ToString() == "products"),
-                                                   Arg.Is<NewProduct>(d => d.Name == newProductName));
-                });
-            }
-        }
-
-        public class TheAddFollowerMethod
-        {
-            [Fact]
-            public async Task PostsToTheCorrectUrl()
-            {
-                var connection = Substitute.For<IApiConnection>();
-                var client = new ProductsClient(connection);
-
-                const long productId = 123;
-                const long userId = 1234;
-                await client.AddFollower(productId, userId);
-
-                Received.InOrder(async () =>
-                {
-                    await connection.Post<ProductFollower>(Arg.Is<Uri>(u => u.ToString() == $"products/{productId}/followers"),
-                                                           Arg.Is<object>(o => o.ToString() == new { user_id = userId }.ToString()));
+                                                   Arg.Is<NewProduct>(d => d.Name == "name" && d.CustomFields == customFields));
                 });
             }
         }
@@ -247,14 +241,14 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new ProductsClient(connection);
 
-                const long productId = 123;
-                const string newProductName = "new product name";
-                await client.Edit(productId, new ProductUpdate { Name = newProductName });
+                var customFields = new Dictionary<string, ICustomField>() { { "5913c8efdcf5c641a516d1fbd498235544b1b195", new IntCustomField(123) } };
+                var editProduct = new ProductUpdate { Name = "new product name", CustomFields = customFields };
+                await client.Edit(123, editProduct);
 
                 Received.InOrder(async () =>
                 {
-                    await connection.Put<UpdatedProduct>(Arg.Is<Uri>(u => u.ToString() == $"products/{productId}"),
-                                                         Arg.Is<ProductUpdate>(d => d.Name == newProductName));
+                    await connection.Put<UpdatedProduct>(Arg.Is<Uri>(u => u.ToString() == "products/123"),
+                                                         Arg.Is<ProductUpdate>(d => d.Name == "new product name" && d.CustomFields == customFields));
                 });
             }
         }
@@ -267,12 +261,29 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new ProductsClient(connection);
 
-                const long productId = 123;
-                await client.Delete(productId);
+                await client.Delete(123);
 
                 Received.InOrder(async () =>
                 {
-                    await connection.Delete(Arg.Is<Uri>(u => u.ToString() == $"products/{productId}"));
+                    await connection.Delete(Arg.Is<Uri>(u => u.ToString() == "products/123"));
+                });
+            }
+        }
+
+        public class TheAddFollowerMethod
+        {
+            [Fact]
+            public async Task PostsToTheCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new ProductsClient(connection);
+
+                await client.AddFollower(123, 1234);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.Post<ProductFollower>(Arg.Is<Uri>(u => u.ToString() == "products/123/followers"),
+                                                           Arg.Is<object>(o => o.ToString() == new { user_id = 1234 }.ToString()));
                 });
             }
         }
@@ -285,13 +296,11 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new ProductsClient(connection);
 
-                const long productId = 123;
-                const long followerId = 1234;
-                await client.DeleteFollower(productId, followerId);
+                await client.DeleteFollower(123, 1234);
 
                 Received.InOrder(async () =>
                 {
-                    await connection.Delete(Arg.Is<Uri>(u => u.ToString() == $"products/{productId}/followers/{followerId}"));
+                    await connection.Delete(Arg.Is<Uri>(u => u.ToString() == "products/123/followers/1234"));
                 });
             }
         }

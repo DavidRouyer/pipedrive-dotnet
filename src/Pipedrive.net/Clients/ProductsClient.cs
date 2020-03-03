@@ -35,7 +35,7 @@ namespace Pipedrive.Clients
             return ApiConnection.GetAll<Product>(ApiUrls.Products(), filters.Parameters, options);
         }
 
-        public Task<IReadOnlyList<SimpleProduct>> GetByName(string searchTerm, string currencyCode)
+        public Task<IReadOnlyList<SimpleProduct>> GetByName(string searchTerm, string currencyCode = null)
         {
             Ensure.ArgumentNotNullOrEmptyString(searchTerm, nameof(searchTerm));
             if (searchTerm.Length < 3) throw new Exception("searchTerm must be a minimum of 3 characters in length");

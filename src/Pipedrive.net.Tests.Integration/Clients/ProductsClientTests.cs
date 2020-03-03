@@ -170,19 +170,6 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
-        public class TheAddFollowerMethod
-        {
-            [IntegrationTest]
-            public async Task CanAddFollower()
-            {
-                var pipedrive = Helper.GetAuthenticatedClient();
-                var fixture = pipedrive.Product;
-
-                var addFollower = await fixture.AddFollower(1, 9953182);
-                Assert.NotNull(addFollower);
-            }
-        }
-
         public class TheEditMethod
         {
             [IntegrationTest]
@@ -230,6 +217,19 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var deletedProduct = await fixture.Get(createdProduct.Id);
                 Assert.False(deletedProduct.ActiveFlag);
+            }
+        }
+
+        public class TheAddFollowerMethod
+        {
+            [IntegrationTest]
+            public async Task CanAddFollower()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Product;
+
+                var addFollower = await fixture.AddFollower(1, 9953182);
+                Assert.NotNull(addFollower);
             }
         }
 
