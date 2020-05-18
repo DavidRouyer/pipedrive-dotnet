@@ -33,6 +33,8 @@ namespace Pipedrive
 
         static readonly Uri _pipelinesUrl = new Uri("pipelines", UriKind.Relative);
 
+        static readonly Uri _productsUrl = new Uri("products", UriKind.Relative);
+
         static readonly Uri _stagesUrl = new Uri("stages", UriKind.Relative);
 
         static readonly Uri _usersUrl = new Uri("users", UriKind.Relative);
@@ -174,6 +176,44 @@ namespace Pipedrive
         public static Uri DeleteDealParticipant(long id, long dealParticipantId)
         {
             return new Uri($"deals/{id}/participants/{dealParticipantId}", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns products attached to deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        public static Uri DealProducts(long id)
+        {
+            return new Uri($"deals/{id}/products", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for adding a product to a deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        public static Uri AddProductToDeal(long id)
+        {
+            return new Uri($"deals/{id}/products", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for updating a product on a deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        /// <param name="dealProductId">The id of the deal-product</param>
+        public static Uri UpdateDealProduct(long id, long dealProductId)
+        {
+            return new Uri($"deals/{id}/products/{dealProductId}", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for deleting a product on a deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        /// <param name="dealProductId">The id of the deal-product</param>
+        public static Uri DeleteDealProduct(long id, long dealProductId)
+        {
+            return new Uri($"deals/{id}/products/{dealProductId}", UriKind.Relative);
         }
 
         /// <summary>
@@ -372,6 +412,78 @@ namespace Pipedrive
         public static Uri PipelineDeal(long id)
         {
             return new Uri($"pipelines/{id}/deals", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the products in response to a GET request.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri Products()
+        {
+            return _productsUrl;
+        }
+
+        /// <summary>
+        /// return the <see cref="Uri"/> that returns all the found products.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ProductsFind()
+        {
+            return new Uri("products/find", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// return the <see cref="Uri"/> that returns the product.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri Product(long id)
+        {
+            return new Uri($"products/{id}", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// return the <see cref="Uri"/> that returns the deals for a specific product.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ProductDeals(long id)
+        {
+            return new Uri($"products/{id}/deals", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// return the <see cref="Uri"/> that returns the files for a specific product.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ProductFiles(long id)
+        {
+            return new Uri($"products/{id}/files", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// return the <see cref="Uri"/> that returns the followers for a specific product.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ProductFollowers(long id)
+        {
+            return new Uri($"products/{id}/followers", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// return the <see cref="Uri"/> can be used for deleting a follower from a product.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ProductDeleteFollower(long id, long userId)
+        {
+            return new Uri($"products/{id}/followers/{userId}", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// return the <see cref="Uri"/> that returns the permitted users for a specific product.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ProductPermittedUsers(long id)
+        {
+            return new Uri($"products/{id}/permittedUsers", UriKind.Relative);
         }
 
         /// <summary>
