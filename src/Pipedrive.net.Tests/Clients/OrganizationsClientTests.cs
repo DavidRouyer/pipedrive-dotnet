@@ -265,5 +265,54 @@ namespace Pipedrive.Tests.Clients
                 });
             }
         }
+
+        public class TheGetFollowersMethod
+        {
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new OrganizationsClient(connection);
+
+                await client.GetFollowers(123);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<OrganizationFollower>(
+                        Arg.Is<Uri>(u => u.ToString() == "organizations/123/followers"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
+                            && d["id"] == "123"));
+                });
+            }
+        }
+
+        public class TheAddFollowerMethod
+        {
+            [Fact]
+            public void PostsToTheCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new OrganizationsClient(connection);
+
+                client.AddFollower(1, 2);
+
+                connection.Received().Post<OrganizationFollower>(Arg.Is<Uri>(u => u.ToString() == "organizations/1/followers"),
+                    Arg.Is<object>(o => o.ToString() == new { user_id = 2 }.ToString()));
+            }
+        }
+
+        public class TheDeleteFollowerMethod
+        {
+            [Fact]
+            public void DeletesCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new OrganizationsClient(connection);
+
+                client.DeleteFollower(1, 461);
+
+                connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "organizations/1/followers/461"));
+            }
+        }
     }
 }

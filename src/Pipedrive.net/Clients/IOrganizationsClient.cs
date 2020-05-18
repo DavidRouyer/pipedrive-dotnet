@@ -27,5 +27,11 @@ namespace Pipedrive
         Task<IReadOnlyList<Deal>> GetDeals(long organizationId, OrganizationDealFilters filters);
 
         Task<IReadOnlyList<Person>> GetPersons(long organizationId, OrganizationFilters filters);
+
+        Task<IReadOnlyList<OrganizationFollower>> GetFollowers(long dealId);
+
+        Task<OrganizationFollower> AddFollower(long dealId, long userId);
+
+        Task DeleteFollower(long dealId, long followerId);
     }
 }

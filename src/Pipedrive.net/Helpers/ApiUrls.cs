@@ -307,6 +307,25 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for all the followers of the specified organization.
+        /// </summary>
+        /// <param name="id">The id of the organization</param>
+        public static Uri OrganizationFollowers(long id)
+        {
+            return new Uri($"organizations/{id}/followers", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for deleting the follower of the specified organization.
+        /// </summary>
+        /// <param name="id">The id of the organization</param>
+        /// <param name="organizationFollowerId">The id of the organization follower</param>
+        public static Uri DeleteOrganizationFollower(long id, long organizationFollowerId)
+        {
+            return new Uri($"organizations/{id}/followers/{organizationFollowerId}", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all of the organization fields in response to a GET request.
         /// </summary>
         /// <returns></returns>

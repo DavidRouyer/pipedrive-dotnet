@@ -269,8 +269,8 @@ namespace Pipedrive.Tests.Integration.Clients
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var dealFollowers = await pipedrive.Deal.GetFollowers(1);
-                Assert.Equal(1, dealFollowers.Count);
+                var followers = await pipedrive.Deal.GetFollowers(1);
+                Assert.Equal(1, followers.Count);
             }
         }
 
