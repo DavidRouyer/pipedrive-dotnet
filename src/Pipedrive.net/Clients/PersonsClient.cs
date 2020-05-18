@@ -107,5 +107,28 @@ namespace Pipedrive
 
             return ApiConnection.GetAll<Deal>(ApiUrls.PersonDeal(personId), parameters, options);
         }
+
+        public Task<IReadOnlyList<PersonFollower>> GetFollowers(long personId)
+        {
+            var parameters = new Dictionary<string, string>()
+            {
+                { "id", personId.ToString() }
+            };
+
+            return ApiConnection.GetAll<PersonFollower>(ApiUrls.PersonFollowers(personId), parameters);
+        }
+
+        public Task<PersonFollower> AddFollower(long personId, long userId)
+        {
+            return ApiConnection.Post<PersonFollower>(ApiUrls.PersonFollowers(personId), new
+            {
+                user_id = userId
+            });
+        }
+
+        public Task DeleteFollower(long dealId, long followerId)
+        {
+            return ApiConnection.Delete(ApiUrls.DeletePersonFollower(dealId, followerId));
+        }
     }
 }

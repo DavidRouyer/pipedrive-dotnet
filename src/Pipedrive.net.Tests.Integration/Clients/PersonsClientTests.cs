@@ -237,5 +237,42 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.NotEqual(firstPage[0].Id, secondPage[0].Id);
             }
         }
+
+        public class TheGetFollowersMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCount()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var dealFollowers = await pipedrive.Person.GetFollowers(1);
+                Assert.Equal(1, dealFollowers.Count);
+            }
+        }
+
+        public class TheAddFollowerMethod
+        {
+            [IntegrationTest]
+            public async Task CanAddFollower()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Person;
+
+                var addFollower = await fixture.AddFollower(1, 595707);
+                Assert.NotNull(addFollower);
+            }
+        }
+
+        public class TheDeleteFollowerMethod
+        {
+            [IntegrationTest]
+            public async Task CanDeleteFollower()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Person;
+
+                await fixture.DeleteFollower(1, 461);
+            }
+        }
     }
 }

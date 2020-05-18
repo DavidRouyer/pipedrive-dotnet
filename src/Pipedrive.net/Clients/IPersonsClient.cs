@@ -27,5 +27,11 @@ namespace Pipedrive
         Task Delete(long id);
 
         Task<IReadOnlyList<Deal>> GetDeals(long personId, PersonDealFilters filters);
+
+        Task<IReadOnlyList<PersonFollower>> GetFollowers(long dealId);
+
+        Task<PersonFollower> AddFollower(long dealId, long userId);
+
+        Task DeleteFollower(long dealId, long followerId);
     }
 }

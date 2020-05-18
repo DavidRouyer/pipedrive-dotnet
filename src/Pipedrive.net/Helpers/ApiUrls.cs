@@ -141,13 +141,13 @@ namespace Pipedrive
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> for deleting the participant of the specified deal.
+        /// Returns the <see cref="Uri"/> for deleting the follower of the specified deal.
         /// </summary>
         /// <param name="id">The id of the deal</param>
-        /// <param name="dealParticipantId">The id of the deal participant</param>
-        public static Uri DeleteDealFollower(long id, long dealParticipantId)
+        /// <param name="dealFollowerId">The id of the deal follower</param>
+        public static Uri DeleteDealFollower(long id, long dealFollowerId)
         {
-            return new Uri($"deals/{id}/followers/{dealParticipantId}", UriKind.Relative);
+            return new Uri($"deals/{id}/followers/{dealFollowerId}", UriKind.Relative);
         }
 
         /// <summary>
@@ -367,6 +367,25 @@ namespace Pipedrive
         public static Uri PersonDeal(long id)
         {
             return new Uri($"persons/{id}/deals", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for all the followers of the specified person.
+        /// </summary>
+        /// <param name="id">The id of the person</param>
+        public static Uri PersonFollowers(long id)
+        {
+            return new Uri($"persons/{id}/followers", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for deleting the follower of the specified person.
+        /// </summary>
+        /// <param name="id">The id of the person</param>
+        /// <param name="personFollowerId">The id of the person follower</param>
+        public static Uri DeletePersonFollower(long id, long personFollowerId)
+        {
+            return new Uri($"persons/{id}/followers/{personFollowerId}", UriKind.Relative);
         }
 
         /// <summary>
