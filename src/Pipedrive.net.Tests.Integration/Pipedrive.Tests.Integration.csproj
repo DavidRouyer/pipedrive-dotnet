@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Fixtures\image.jpg" />
     <None Remove="Fixtures\webhook_activity_update.json" />
     <None Remove="Fixtures\webhook_deal_create.json" />
     <None Remove="Fixtures\webhook_deal_update.json" />
@@ -16,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Fixtures\image.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Fixtures\webhook_activity_update.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

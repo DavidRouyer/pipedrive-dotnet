@@ -1,12 +1,11 @@
-﻿using System.IO;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Pipedrive
 {
     public class NewFile
     {
         [JsonProperty("file")]
-        public Stream File { get; set; }
+        public RawFile File { get; set; }
 
         [JsonProperty("deal_id")]
         public long? DealId { get; set; }
@@ -26,7 +25,7 @@ namespace Pipedrive
         [JsonProperty("note_id")]
         public long? NoteId { get; set; }
 
-        public NewFile(Stream file)
+        public NewFile(RawFile file)
         {
             this.File = file;
         }

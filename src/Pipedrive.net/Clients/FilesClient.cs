@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Pipedrive.Helpers;
 
@@ -39,41 +40,49 @@ namespace Pipedrive
             return ApiConnection.Get<File>(ApiUrls.File(id));
         }
 
-        /*public async Task<File> Create(NewFile data)
+        public async Task<File> Create(NewFile data)
         {
             Ensure.ArgumentNotNull(data, nameof(data));
 
             var content = new MultipartFormDataContent();
-            content.Add(new StreamContent(data.File), "\"file\"");
+
+            var byteArrayContent = new ByteArrayContent(data.File.Content);
+            byteArrayContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(data.File.ContentType);
+
+            content.Add(byteArrayContent, "file", data.File.Name);
 
             if (data.DealId.HasValue)
             {
                 content.Add(new StringContent(data.DealId.ToString()), "deal_id");
             }
+
             if (data.PersonId.HasValue)
             {
                 content.Add(new StringContent(data.PersonId.ToString()), "person_id");
             }
+
             if (data.OrgId.HasValue)
             {
                 content.Add(new StringContent(data.OrgId.ToString()), "org_id");
             }
+
             if (data.ProductId.HasValue)
             {
                 content.Add(new StringContent(data.ProductId.ToString()), "product_id");
             }
+
             if (data.ActivityId.HasValue)
             {
                 content.Add(new StringContent(data.ActivityId.ToString()), "activity_id");
             }
+
             if (data.NoteId.HasValue)
             {
                 content.Add(new StringContent(data.NoteId.ToString()), "note_id");
             }
-            var contentString = content.ReadAsStringAsync();
 
             return await ApiConnection.Post<File>(ApiUrls.Files(), content, "application/json", "multipart/form-data");
-        }*/
+        }
 
         public Task<File> Edit(long id, FileUpdate data)
         {

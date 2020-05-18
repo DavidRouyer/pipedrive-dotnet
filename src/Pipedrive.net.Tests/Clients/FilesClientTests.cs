@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using NSubstitute;
 using Xunit;
@@ -71,7 +72,7 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
-        /*public class TheCreateMethod
+        public class TheCreateMethod
         {
             [Fact]
             public async Task EnsuresNonNullArguments()
@@ -87,13 +88,16 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new FilesClient(connection);
 
-                var newFile = new NewFile(new MemoryStream());
+                var newFile = new NewFile(new RawFile("abc.pdf", new byte[] { }, "application/pdf"));
                 await client.Create(newFile);
 
                 await connection.Received().Post<File>(Arg.Is<Uri>(u => u.ToString() == "files"),
-                    Arg.Is<NewFile>(nc => nc.File == new MemoryStream()));
+                    Arg.Is<MultipartFormDataContent>(
+                        nc => nc is MultipartFormDataContent),
+                    Arg.Is<string>(a => a == "application/json"),
+                    Arg.Is<string>(c => c == "multipart/form-data"));
             }
-        }*/
+        }
 
         public class TheEditMethod
         {

@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Reflection;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -64,7 +66,7 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
-        /*public class TheCreateMethod
+        public class TheCreateMethod
         {
             [IntegrationTest]
             public async Task CanCreate()
@@ -72,10 +74,13 @@ namespace Pipedrive.Tests.Integration.Clients
                 var pipedrive = Helper.GetAuthenticatedClient();
                 var fixture = pipedrive.File;
 
-                var imageUrl = @"./Content/image.jpg";
-                FileStream reader = new FileStream(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), imageUrl), FileMode.Open);
-
-                var newFile = new NewFile(reader);
+                var newFile = new NewFile(new RawFile(
+                    "image.jpg",
+                    ReadFile(GetFileFromPath(@"./Fixtures/image.jpg")),
+                    "image/jpg"))
+                {
+                    DealId = 1
+                };
 
                 var file = await fixture.Create(newFile);
                 Assert.NotNull(file);
@@ -93,8 +98,14 @@ namespace Pipedrive.Tests.Integration.Clients
                 var pipedrive = Helper.GetAuthenticatedClient();
                 var fixture = pipedrive.File;
 
-                byte[] data = System.Convert.FromBase64String("R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
-                var newFile = new NewFile(new MemoryStream(data));
+                var newFile = new NewFile(new RawFile(
+                    "image.jpg",
+                    ReadFile(GetFileFromPath(@"./Fixtures/image.jpg")),
+                    "image/jpg"))
+                {
+                    DealId = 1
+                };
+
                 var file = await fixture.Create(newFile);
 
                 var editFile = file.ToUpdate();
@@ -116,8 +127,14 @@ namespace Pipedrive.Tests.Integration.Clients
                 var pipedrive = Helper.GetAuthenticatedClient();
                 var fixture = pipedrive.File;
 
-                byte[] data = System.Convert.FromBase64String("R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
-                var newFile = new NewFile(new MemoryStream(data));
+                var newFile = new NewFile(new RawFile(
+                    "image.jpg",
+                    ReadFile(GetFileFromPath(@"./Fixtures/image.jpg")),
+                    "image/jpg"))
+                {
+                    DealId = 1
+                };
+
                 var file = await fixture.Create(newFile);
 
                 var createdFile = await fixture.Get(file.Id);
@@ -126,10 +143,24 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 await fixture.Delete(createdFile.Id);
 
-                var deletedFile =  await fixture.Get(createdFile.Id);
+                var deletedFile = await fixture.Get(createdFile.Id);
 
                 Assert.False(deletedFile.ActiveFlag);
             }
-        }*/
+        }
+
+        private static FileStream GetFileFromPath(string filePath)
+        {
+            return new FileStream(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), filePath), FileMode.Open);
+        }
+
+        private static byte[] ReadFile(Stream fileStream)
+        {
+            using (var ms = new MemoryStream())
+            {
+                fileStream.CopyTo(ms);
+                return ms.ToArray();
+            }
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace Pipedrive
 
         Task<File> Get(long id);
 
-        /*Task<File> Create(NewFile data);*/
+        Task<File> Create(NewFile data);
 
         Task<File> Edit(long id, FileUpdate data);
 
