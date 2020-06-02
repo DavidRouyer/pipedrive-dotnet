@@ -8,7 +8,7 @@ namespace Pipedrive.CustomFields
         public string Name { get; set; }
 
         [JsonProperty("people_count")]
-        public int PeopleCount { get; set; }
+        public long PeopleCount { get; set; }
 
         [JsonProperty("owner_id")]
         public long OwnerId { get; set; }

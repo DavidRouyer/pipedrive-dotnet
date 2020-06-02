@@ -13,13 +13,13 @@ namespace Pipedrive
         public long PipelineId { get; set; }
 
         [JsonProperty("deal_probability")]
-        public int DealProbability { get; set; }
+        public long DealProbability { get; set; }
 
         [JsonProperty("rotten_flag")]
         public bool RottenFlag { get; set; }
 
         [JsonProperty("rotten_days")]
-        public int? RottenDays { get; set; }
+        public long? RottenDays { get; set; }
 
         public NewStage(string name, long pipelineId)
         {

@@ -193,7 +193,7 @@ namespace Pipedrive.Tests.Clients
                 var client = new DealsClient(connection);
 
                 var newDeal = new NewDeal("title");
-                var customFields = new Dictionary<string, ICustomField>() { { "5913c8efdcf5c641a516d1fbd498235544b1b195", new IntCustomField(123) } };
+                var customFields = new Dictionary<string, ICustomField>() { { "5913c8efdcf5c641a516d1fbd498235544b1b195", new LongCustomField(123) } };
                 newDeal.CustomFields = customFields;
                 client.Create(newDeal);
 
@@ -218,7 +218,7 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new DealsClient(connection);
 
-                var customFields = new Dictionary<string, ICustomField>() { { "5913c8efdcf5c641a516d1fbd498235544b1b195", new IntCustomField(123) } };
+                var customFields = new Dictionary<string, ICustomField>() { { "5913c8efdcf5c641a516d1fbd498235544b1b195", new LongCustomField(123) } };
                 var editDeal = new DealUpdate { Title = "title", CustomFields = customFields };
                 client.Edit(123, editDeal);
 

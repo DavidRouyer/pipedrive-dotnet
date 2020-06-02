@@ -213,7 +213,7 @@ namespace Pipedrive.Tests.Clients
                 var client = new ProductsClient(connection);
 
                 var newProduct = new NewProduct("name");
-                var customFields = new Dictionary<string, ICustomField>() { { "5913c8efdcf5c641a516d1fbd498235544b1b195", new IntCustomField(123) } };
+                var customFields = new Dictionary<string, ICustomField>() { { "5913c8efdcf5c641a516d1fbd498235544b1b195", new LongCustomField(123) } };
                 newProduct.CustomFields = customFields;
                 await client.Create(newProduct);
 
@@ -241,7 +241,7 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new ProductsClient(connection);
 
-                var customFields = new Dictionary<string, ICustomField>() { { "5913c8efdcf5c641a516d1fbd498235544b1b195", new IntCustomField(123) } };
+                var customFields = new Dictionary<string, ICustomField>() { { "5913c8efdcf5c641a516d1fbd498235544b1b195", new LongCustomField(123) } };
                 var editProduct = new ProductUpdate { Name = "new product name", CustomFields = customFields };
                 await client.Edit(123, editProduct);
 

@@ -50,7 +50,7 @@ namespace Pipedrive
             return ApiConnection.GetAll<Activity>(ApiUrls.Activities(), parameters, options);
         }
 
-        public Task<IReadOnlyList<Activity>> GetAllForUserId(int userId, ActivityFilters filters)
+        public Task<IReadOnlyList<Activity>> GetAllForUserId(long userId, ActivityFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));
 

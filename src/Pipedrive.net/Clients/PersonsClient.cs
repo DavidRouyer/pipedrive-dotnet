@@ -34,7 +34,7 @@ namespace Pipedrive
             return ApiConnection.GetAll<Person>(ApiUrls.Persons(), parameters, options);
         }
 
-        public Task<IReadOnlyList<Person>> GetAllForUserId(int userId, PersonFilters filters)
+        public Task<IReadOnlyList<Person>> GetAllForUserId(long userId, PersonFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));
 

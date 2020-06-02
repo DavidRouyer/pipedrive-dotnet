@@ -14,7 +14,7 @@ namespace Pipedrive
 
         Task<IReadOnlyList<Activity>> GetAllForCurrent(ActivityFilters filters);
 
-        Task<IReadOnlyList<Activity>> GetAllForUserId(int userId, ActivityFilters filters);
+        Task<IReadOnlyList<Activity>> GetAllForUserId(long userId, ActivityFilters filters);
 
         Task<Activity> Get(long id);
 

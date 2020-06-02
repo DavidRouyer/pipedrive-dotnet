@@ -12,7 +12,7 @@ namespace Pipedrive.Models.Request
 
         public int? PageSize { get; set; }
 
-        public int? UserId { get; set; }
+        public long? UserId { get; set; }
 
         public long? FilterId { get; set; }
 

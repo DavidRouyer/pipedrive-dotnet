@@ -13,7 +13,7 @@ namespace Pipedrive
         public string Name { get; set; }
 
         [JsonProperty("order_nr")]
-        public int OrderNr { get; set; }
+        public long OrderNr { get; set; }
 
         [JsonProperty("field_type")]
         public string FieldType { get; set; }

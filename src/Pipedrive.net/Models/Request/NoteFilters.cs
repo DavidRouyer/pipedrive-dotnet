@@ -30,11 +30,11 @@ namespace Pipedrive
 
         public DateTime? EndDate { get; set; }
 
-        public int? PinnedToDealFlag { get; set; }
+        public long? PinnedToDealFlag { get; set; }
 
-        public int? PinnedToOrganizationFlag { get; set; }
+        public long? PinnedToOrganizationFlag { get; set; }
 
-        public int? PinnedToPersonFlag { get; set; }
+        public long? PinnedToPersonFlag { get; set; }
 
         /// <summary>
         /// Get the query parameters that will be appending onto the search

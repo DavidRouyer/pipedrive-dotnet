@@ -63,6 +63,6 @@ namespace Pipedrive.Models.Response
         public string Name { get; set; }
 
         [JsonProperty("quantity")]
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
     }
 }

@@ -16,7 +16,7 @@ namespace Pipedrive
 
         Task<IReadOnlyList<Deal>> GetAllForCurrent(DealFilters filters);
 
-        Task<IReadOnlyList<Deal>> GetAllForUserId(int userId, DealFilters filters);
+        Task<IReadOnlyList<Deal>> GetAllForUserId(long userId, DealFilters filters);
 
         Task<IReadOnlyList<SimpleDeal>> GetByName(string name);
 

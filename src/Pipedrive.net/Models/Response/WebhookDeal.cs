@@ -92,34 +92,34 @@ namespace Pipedrive
         public DateTime? LostTime { get; set; }
 
         [JsonProperty("products_count")]
-        public int ProductsCount { get; set; }
+        public long ProductsCount { get; set; }
 
         [JsonProperty("files_count")]
-        public int FilesCount { get; set; }
+        public long FilesCount { get; set; }
 
         [JsonProperty("notes_count")]
-        public int NotesCount { get; set; }
+        public long NotesCount { get; set; }
 
         [JsonProperty("followers_count")]
-        public int FollowersCount { get; set; }
+        public long FollowersCount { get; set; }
 
         [JsonProperty("email_messages_count")]
-        public int EmailMessagesCount { get; set; }
+        public long EmailMessagesCount { get; set; }
 
         [JsonProperty("activities_count")]
-        public int ActivitiesCount { get; set; }
+        public long ActivitiesCount { get; set; }
 
         [JsonProperty("done_activities_count")]
-        public int DoneActivitiesCount { get; set; }
+        public long DoneActivitiesCount { get; set; }
 
         [JsonProperty("undone_activities_count")]
-        public int UndoneActivitiesCount { get; set; }
+        public long UndoneActivitiesCount { get; set; }
 
         [JsonProperty("reference_activities_count")]
-        public int ReferenceActivitiesCount { get; set; }
+        public long ReferenceActivitiesCount { get; set; }
 
         [JsonProperty("participants_count")]
-        public int ParticipantsCount { get; set; }
+        public long ParticipantsCount { get; set; }
 
         [JsonProperty("expected_close_date")]
         public DateTime? ExpectedCloseDate { get; set; }
@@ -131,7 +131,7 @@ namespace Pipedrive
         public DateTime? LastOutgoingMailTime { get; set; }
 
         [JsonProperty("stage_order_nr")]
-        public int StageOrderNr { get; set; }
+        public long StageOrderNr { get; set; }
 
         [JsonProperty("person_name")]
         public string PersonName { get; set; }
@@ -158,7 +158,7 @@ namespace Pipedrive
         public string RottenTime { get; set; }
 
         [JsonProperty("weighted_value")]
-        public int WeightedValue { get; set; }
+        public long WeightedValue { get; set; }
 
         [JsonProperty("formatted_weighted_value")]
         public string FormattedWeightedValue { get; set; }

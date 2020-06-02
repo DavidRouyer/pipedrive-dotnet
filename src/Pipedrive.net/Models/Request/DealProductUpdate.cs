@@ -8,7 +8,7 @@ namespace Pipedrive.Models.Request
         public decimal ItemPrice { get; set; }
 
         [JsonProperty("quantity")]
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
 
         [JsonProperty("discount_percentage")]
         public decimal DiscountPercentage { get; set; }

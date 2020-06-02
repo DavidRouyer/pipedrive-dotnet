@@ -135,7 +135,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 editDeal.CustomFields["33f60aa418da91210968773dda914742dd69d9c8"] = new StringCustomField("my string");
                 editDeal.CustomFields["429ced4a0dcd16b9be5048453c1ff6748a8c4646"] = new StringCustomField("my autocomplete string");
                 editDeal.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"] = new StringCustomField("my large text string");
-                editDeal.CustomFields["110dee8ec4d2f63bb4a739ceb537d59bdec70841"] = new IntCustomField(123);
+                editDeal.CustomFields["110dee8ec4d2f63bb4a739ceb537d59bdec70841"] = new LongCustomField(123);
                 editDeal.CustomFields["aeb53a8dfadae3725183f9ef1deeeaf416c43b3b"] = new MonetaryCustomField(123.45m, "EUR");
                 editDeal.CustomFields["29ea3aec79d40dc23717c8dc2ae733b80d4d106d"] = new DateCustomField(new DateTime(2018, 12, 31));
                 editDeal.CustomFields["fafd71954fc387aad08186ab7aead0697fba4229"] = new DateRangeCustomField(new DateTime(2018, 12, 30), new DateTime(2018, 12, 31));
@@ -156,7 +156,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.Equal("my string", ((StringCustomField)updatedDeal.CustomFields["33f60aa418da91210968773dda914742dd69d9c8"]).Value);
                 Assert.Equal("my autocomplete string", ((StringCustomField)updatedDeal.CustomFields["429ced4a0dcd16b9be5048453c1ff6748a8c4646"]).Value);
                 Assert.Equal("my large text string", ((StringCustomField)updatedDeal.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"]).Value);
-                Assert.Equal(123, ((IntCustomField)updatedDeal.CustomFields["110dee8ec4d2f63bb4a739ceb537d59bdec70841"]).Value);
+                Assert.Equal(123, ((LongCustomField)updatedDeal.CustomFields["110dee8ec4d2f63bb4a739ceb537d59bdec70841"]).Value);
                 Assert.Equal(123.45m, ((MonetaryCustomField)updatedDeal.CustomFields["aeb53a8dfadae3725183f9ef1deeeaf416c43b3b"]).Value);
                 Assert.Equal("EUR", ((MonetaryCustomField)updatedDeal.CustomFields["aeb53a8dfadae3725183f9ef1deeeaf416c43b3b"]).Currency);
                 Assert.Equal(new DateTime(2018, 12, 31), ((DateCustomField)updatedDeal.CustomFields["29ea3aec79d40dc23717c8dc2ae733b80d4d106d"]).Value);

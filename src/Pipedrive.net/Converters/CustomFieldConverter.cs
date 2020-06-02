@@ -128,7 +128,7 @@ namespace Pipedrive.Internal
 
                             break;
                         case JTokenType.Integer:
-                            customFields.Add(property.Name, new IntCustomField((int)property.Value));
+                            customFields.Add(property.Name, new LongCustomField((long)property.Value));
                             break;
                         case JTokenType.Object:
                             // User
@@ -208,7 +208,7 @@ namespace Pipedrive.Internal
                             writer.WritePropertyName(field.Key);
                             writer.WriteValue(s.Value);
                             break;
-                        case IntCustomField i:
+                        case LongCustomField i:
                             writer.WritePropertyName(field.Key);
                             writer.WriteValue(i.Value);
                             break;

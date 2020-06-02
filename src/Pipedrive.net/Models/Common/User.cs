@@ -16,7 +16,7 @@ namespace Pipedrive
         public string Locale { get; set; }
 
         [JsonProperty("lang")]
-        public int Lang { get; set; }
+        public long Lang { get; set; }
 
         [JsonProperty("email")]
         public string Email { get; set; }
@@ -44,7 +44,7 @@ namespace Pipedrive
         public bool HasCreatedCompany { get; set; }
 
         [JsonProperty("is_admin")]
-        public int IsAdmin { get; set; }
+        public long IsAdmin { get; set; }
 
         [JsonProperty("timezone_name")]
         public string TimezoneName { get; set; }
@@ -56,7 +56,7 @@ namespace Pipedrive
         public bool ActiveFlag { get; set; }
 
         [JsonProperty("role_id")]
-        public int RoleId { get; set; }
+        public long RoleId { get; set; }
 
         [JsonProperty("icon_url")]
         public string IconUrl { get; set; }

@@ -12,7 +12,7 @@ namespace Pipedrive
     {
         Task<IReadOnlyList<Person>> GetAll(PersonFilters filters);
 
-        Task<IReadOnlyList<Person>> GetAllForUserId(int userId, PersonFilters filters);
+        Task<IReadOnlyList<Person>> GetAllForUserId(long userId, PersonFilters filters);
 
         Task<IReadOnlyList<SimplePerson>> GetByName(string name);
 

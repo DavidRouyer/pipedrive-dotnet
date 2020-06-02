@@ -53,7 +53,7 @@ namespace Pipedrive
             return ApiConnection.GetAll<Deal>(ApiUrls.Deals(), parameters, options);
         }
 
-        public Task<IReadOnlyList<Deal>> GetAllForUserId(int userId, DealFilters filters)
+        public Task<IReadOnlyList<Deal>> GetAllForUserId(long userId, DealFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));
 

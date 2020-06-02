@@ -11,7 +11,7 @@ namespace Pipedrive
         public decimal ItemPrice { get; set; }
 
         [JsonProperty("quantity")]
-        public int Quantity { get; set; }
+        public long Quantity { get; set; }
 
         [JsonProperty("discount_percentage")]
         public decimal DiscountPercentage { get; set; }
@@ -28,7 +28,7 @@ namespace Pipedrive
         [JsonProperty("enabled_flag")]
         public bool EnabledFlag { get; set; } = true;
 
-        public NewDealProduct(long productId, decimal itemPrice, int quantity)
+        public NewDealProduct(long productId, decimal itemPrice, long quantity)
         {
             ProductId = productId;
             ItemPrice = itemPrice;

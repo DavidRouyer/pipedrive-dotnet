@@ -8,7 +8,7 @@ namespace Pipedrive
         public long Id { get; set; }
 
         [JsonProperty("order_nr")]
-        public int OrderNr { get; set; }
+        public long OrderNr { get; set; }
 
         public string Name { get; set; }
 

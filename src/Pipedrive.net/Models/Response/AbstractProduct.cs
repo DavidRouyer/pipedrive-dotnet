@@ -34,10 +34,10 @@ namespace Pipedrive.Models.Response
         public AssociatedUser Owner { get; set; }
 
         [JsonProperty("files_count")]
-        public int? FilesCount { get; set; }
+        public long? FilesCount { get; set; }
 
         [JsonProperty("followers_count")]
-        public int FollowersCount { get; set; }
+        public long FollowersCount { get; set; }
 
         [JsonProperty("add_time")]
         public DateTime AddTime { get; set; }

@@ -30,58 +30,58 @@ namespace Pipedrive
         public string LastName { get; set; }
 
         [JsonProperty("open_deals_count")]
-        public int OpenDealsCount { get; set; }
+        public long OpenDealsCount { get; set; }
 
         [JsonProperty("related_open_deals_count")]
-        public int RelatedOpenDealsCount { get; set; }
+        public long RelatedOpenDealsCount { get; set; }
 
         [JsonProperty("closed_deals_count")]
-        public int ClosedDealsCount { get; set; }
+        public long ClosedDealsCount { get; set; }
 
         [JsonProperty("related_closed_deals_count")]
-        public int RelatedClosedDealsCount { get; set; }
+        public long RelatedClosedDealsCount { get; set; }
 
         [JsonProperty("participant_open_deals_count")]
-        public int ParticipantOpenDealsCount { get; set; }
+        public long ParticipantOpenDealsCount { get; set; }
 
         [JsonProperty("participant_closed_deals_count")]
-        public int ParticipantClosedDealsCount { get; set; }
+        public long ParticipantClosedDealsCount { get; set; }
 
         [JsonProperty("email_messages_count")]
-        public int EmailMessagesCount { get; set; }
+        public long EmailMessagesCount { get; set; }
 
         [JsonProperty("activities_count")]
-        public int ActivitiesCount { get; set; }
+        public long ActivitiesCount { get; set; }
 
         [JsonProperty("done_activities_count")]
-        public int DoneActivitiesCount { get; set; }
+        public long DoneActivitiesCount { get; set; }
 
         [JsonProperty("undone_activities_count")]
-        public int UndoneActivitiesCount { get; set; }
+        public long UndoneActivitiesCount { get; set; }
 
         [JsonProperty("reference_activities_count")]
-        public int ReferenceActivitiesCount { get; set; }
+        public long ReferenceActivitiesCount { get; set; }
 
         [JsonProperty("files_count")]
-        public int FilesCount { get; set; }
+        public long FilesCount { get; set; }
 
         [JsonProperty("notes_count")]
-        public int NotesCount { get; set; }
+        public long NotesCount { get; set; }
 
         [JsonProperty("followers_count")]
-        public int FollowersCount { get; set; }
+        public long FollowersCount { get; set; }
 
         [JsonProperty("won_deals_count")]
-        public int WonDealsCount { get; set; }
+        public long WonDealsCount { get; set; }
 
         [JsonProperty("related_won_deals_count")]
-        public int RelatedWonDealsCount { get; set; }
+        public long RelatedWonDealsCount { get; set; }
 
         [JsonProperty("lost_deals_count")]
-        public int LostDealsCount { get; set; }
+        public long LostDealsCount { get; set; }
 
         [JsonProperty("related_lost_deals_count")]
-        public int RelatedLostDealsCount { get; set; }
+        public long RelatedLostDealsCount { get; set; }
 
         [JsonProperty("active_flag")]
         public bool ActiveFlag { get; set; }

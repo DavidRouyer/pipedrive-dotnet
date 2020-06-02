@@ -8,7 +8,7 @@ namespace Pipedrive
         public string Name { get; set; }
 
         [JsonProperty("order_nr")]
-        public int OrderNr { get; set; }
+        public long OrderNr { get; set; }
 
         [JsonProperty("active")]
         public bool Active { get; set; }

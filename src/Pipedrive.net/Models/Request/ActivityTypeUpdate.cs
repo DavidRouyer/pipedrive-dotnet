@@ -14,6 +14,6 @@ namespace Pipedrive
         public string Color { get; set; }
 
         [JsonProperty("order_nr")]
-        public int OrderNr { get; set; }
+        public long OrderNr { get; set; }
     }
 }
