@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Pipedrive.Helpers;
 using Pipedrive.Internal;
-using Pipedrive.Models.Response;
 
 namespace Pipedrive
 {

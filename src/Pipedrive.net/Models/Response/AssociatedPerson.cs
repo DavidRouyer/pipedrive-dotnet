@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Pipedrive.Models.Response
+namespace Pipedrive
 {
     public class AssociatedPerson
     {

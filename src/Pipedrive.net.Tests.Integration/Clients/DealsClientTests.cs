@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Pipedrive.CustomFields;
-using Pipedrive.Models.Request;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients

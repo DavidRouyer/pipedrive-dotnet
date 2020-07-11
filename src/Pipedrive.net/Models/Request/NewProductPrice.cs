@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Pipedrive.Models.Request
+namespace Pipedrive
 {
     public class NewProductPrice
     {

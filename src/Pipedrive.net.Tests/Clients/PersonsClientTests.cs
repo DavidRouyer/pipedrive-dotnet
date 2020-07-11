@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using NSubstitute;
-using Pipedrive.Models.Request;
-using Pipedrive.Models.Response;
 using Xunit;
 
 namespace Pipedrive.Tests.Clients

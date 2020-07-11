@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Pipedrive.Models.Request
+namespace Pipedrive
 {
     public class DealProductFilters
     {

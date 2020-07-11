@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using NSubstitute;
 using Pipedrive.Clients;
 using Pipedrive.CustomFields;
-using Pipedrive.Models.Request;
-using Pipedrive.Models.Response;
 using Xunit;
 
 namespace Pipedrive.Tests.Clients
