@@ -69,12 +69,18 @@ namespace Pipedrive
             return ApiConnection.GetAll<Deal>(ApiUrls.Deals(), parameters, options);
         }
 
-        public Task<IReadOnlyList<SimpleDeal>> GetByName(string name)
+        public Task<IReadOnlyList<SearchResult<SimpleDeal>>> Search(string name, DealSearchFilters filters)
         {
-            var parameters = new Dictionary<string, string>();
+            var parameters = filters.Parameters;
             parameters.Add("term", name);
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
 
-            return ApiConnection.GetAll<SimpleDeal>(ApiUrls.DealsFind(), parameters);
+            return ApiConnection.SearchAll<SearchResult<SimpleDeal>>(ApiUrls.DealsSearch(), parameters, options);
         }
 
         public Task<Deal> Get(long id)

@@ -140,7 +140,7 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
-        public class TheGetByNameMethod
+        public class TheSearchMethod
         {
             [Fact]
             public async Task RequestsCorrectUrl()
@@ -148,13 +148,25 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new DealsClient(connection);
 
-                await client.GetByName("name");
+                var filters = new DealSearchFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 0,
+                    Status = DealStatus.lost,
+                };
+
+                await client.Search("name", filters);
 
                 Received.InOrder(async () =>
                 {
-                    await connection.GetAll<SimpleDeal>(Arg.Is<Uri>(u => u.ToString() == "deals/find"),
-                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
-                            && d["term"] == "name"));
+                    await connection.SearchAll<SearchResult<SimpleDeal>>(Arg.Is<Uri>(u => u.ToString() == "deals/search"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                            && d["term"] == "name"
+                            && d["status"] == "lost"),
+                        Arg.Is<ApiOptions>(o => o.PageSize == 1
+                                && o.PageCount == 1
+                                && o.StartPage == 0));
                 });
             }
         }

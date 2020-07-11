@@ -108,9 +108,9 @@ namespace Pipedrive
         /// return the <see cref="Uri"/> that return all the finded deals.
         /// </summary>
         /// <returns></returns>
-        public static Uri DealsFind()
+        public static Uri DealsSearch()
         {
-            return new Uri("deals/find", UriKind.Relative);
+            return new Uri("deals/search", UriKind.Relative);
         }
 
         /// <summary>
