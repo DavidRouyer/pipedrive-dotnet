@@ -71,8 +71,8 @@ namespace Pipedrive.Tests.Clients
             {
                 var client = new ProductsClient(Substitute.For<IApiConnection>());
 
-                var exception = await Assert.ThrowsAsync<ArgumentException>(() => client.Search("p", null));
-                Assert.Equal("The search term must have a minimum of 2 characters (Parameter 'searchTerm')", exception.Message);
+                var exception = await Assert.ThrowsAsync<ArgumentException>(() => client.Search("p", ProductSearchFilters.None));
+                Assert.Equal("The search term must have at least 2 characters (Parameter 'term')", exception.Message);
             }
 
             [Fact]

@@ -33,13 +33,21 @@ namespace Pipedrive.Clients
             return ApiConnection.GetAll<Product>(ApiUrls.Products(), filters.Parameters, options);
         }
 
-        public Task<IReadOnlyList<SearchResult<SimpleProduct>>> Search(string searchTerm, ProductSearchFilters filters)
+        public Task<IReadOnlyList<SearchResult<SimpleProduct>>> Search(string term, ProductSearchFilters filters)
         {
-            Ensure.ArgumentNotNullOrEmptyString(searchTerm, nameof(searchTerm));
-            if (searchTerm.Length < 2) throw new ArgumentException("The search term must have a minimum of 2 characters", nameof(searchTerm));
+            Ensure.ArgumentNotNull(term, nameof(term));
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+            if (filters.ExactMatch.HasValue && filters.ExactMatch.Value == true)
+            {
+                if (term.Length < 1) throw new ArgumentException("The search term must have at least 1 character", nameof(term));
+            }
+            else
+            {
+                if (term.Length < 2) throw new ArgumentException("The search term must have at least 2 characters", nameof(term));
+            }
 
             var parameters = filters.Parameters;
-            parameters.Add("term", searchTerm);
+            parameters.Add("term", term);
             var options = new ApiOptions
             {
                 StartPage = filters.StartPage,

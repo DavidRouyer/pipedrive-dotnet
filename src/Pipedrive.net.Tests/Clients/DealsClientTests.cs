@@ -141,6 +141,23 @@ namespace Pipedrive.Tests.Clients
         public class TheSearchMethod
         {
             [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new DealsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.Search(null, null));
+            }
+
+            [Fact]
+            public async Task EnsuresSearchTermIsMoreThan2Characters()
+            {
+                var client = new DealsClient(Substitute.For<IApiConnection>());
+
+                var exception = await Assert.ThrowsAsync<ArgumentException>(() => client.Search("p", DealSearchFilters.None));
+                Assert.Equal("The search term must have at least 2 characters (Parameter 'term')", exception.Message);
+            }
+
+            [Fact]
             public async Task RequestsCorrectUrl()
             {
                 var connection = Substitute.For<IApiConnection>();

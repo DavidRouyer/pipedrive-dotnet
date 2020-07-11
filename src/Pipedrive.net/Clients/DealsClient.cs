@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pipedrive.Helpers;
 
@@ -67,10 +68,21 @@ namespace Pipedrive
             return ApiConnection.GetAll<Deal>(ApiUrls.Deals(), parameters, options);
         }
 
-        public Task<IReadOnlyList<SearchResult<SimpleDeal>>> Search(string name, DealSearchFilters filters)
+        public Task<IReadOnlyList<SearchResult<SimpleDeal>>> Search(string term, DealSearchFilters filters)
         {
+            Ensure.ArgumentNotNull(term, nameof(term));
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+            if (filters.ExactMatch.HasValue && filters.ExactMatch.Value == true)
+            {
+                if (term.Length < 1) throw new ArgumentException("The search term must have at least 1 character", nameof(term));
+            }
+            else
+            {
+                if (term.Length < 2) throw new ArgumentException("The search term must have at least 2 characters", nameof(term));
+            }
+
             var parameters = filters.Parameters;
-            parameters.Add("term", name);
+            parameters.Add("term", term);
             var options = new ApiOptions
             {
                 StartPage = filters.StartPage,
