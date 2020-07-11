@@ -77,17 +77,16 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
-        public class TheGetByNameMethod
+        public class TheSearchMethod
         {
             [IntegrationTest]
             public async Task CanRetrieveOrganizations()
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var organizations = await pipedrive.Organization.GetByName("david rouyer");
+                var organizations = await pipedrive.Organization.Search("david rouyer", OrganizationSearchFilters.None);
 
                 Assert.True(organizations.Count == 1);
-                Assert.Equal("david rouyer", organizations[0].Name);
             }
         }
 

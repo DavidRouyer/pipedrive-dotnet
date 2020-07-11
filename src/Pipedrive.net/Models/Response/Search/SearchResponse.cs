@@ -1,4 +1,4 @@
-﻿namespace Pipedrive.Models.Response
+﻿namespace Pipedrive
 {
     public class SearchResponse<T>
     {

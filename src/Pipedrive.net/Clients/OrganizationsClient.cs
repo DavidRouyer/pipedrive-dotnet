@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pipedrive.Helpers;
+using Pipedrive.Models.Response;
 
 namespace Pipedrive
 {
@@ -50,12 +51,18 @@ namespace Pipedrive
             return ApiConnection.GetAll<Organization>(ApiUrls.Organizations(), parameters, options);
         }
 
-        public Task<IReadOnlyList<SimpleOrganization>> GetByName(string name)
+        public Task<IReadOnlyList<SearchResult<SimpleOrganization>>> Search(string name, OrganizationSearchFilters filters)
         {
-            var parameters = new Dictionary<string, string>();
+            var parameters = filters.Parameters;
             parameters.Add("term", name);
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
 
-            return ApiConnection.GetAll<SimpleOrganization>(ApiUrls.OrganizationsFind(), parameters);
+            return ApiConnection.SearchAll<SearchResult<SimpleOrganization>>(ApiUrls.OrganizationsSearch(), parameters, options);
         }
 
         public Task<Organization> Get(long id)

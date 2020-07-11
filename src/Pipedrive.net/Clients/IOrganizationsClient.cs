@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pipedrive.Models.Response;
 
 namespace Pipedrive
 {
@@ -14,7 +15,7 @@ namespace Pipedrive
 
         Task<IReadOnlyList<Organization>> GetAllForUserId(long userId, OrganizationFilters filters);
 
-        Task<IReadOnlyList<SimpleOrganization>> GetByName(string name);
+        Task<IReadOnlyList<SearchResult<SimpleOrganization>>> Search(string name, OrganizationSearchFilters filters);
 
         Task<Organization> Get(long id);
 
