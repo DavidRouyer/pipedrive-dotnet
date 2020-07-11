@@ -35,15 +35,21 @@ namespace Pipedrive.Clients
             return ApiConnection.GetAll<Product>(ApiUrls.Products(), filters.Parameters, options);
         }
 
-        public Task<IReadOnlyList<SimpleProduct>> GetByName(string searchTerm, string currencyCode = null)
+        public Task<IReadOnlyList<SearchResult<SimpleProduct>>> Search(string searchTerm, ProductSearchFilters filters)
         {
             Ensure.ArgumentNotNullOrEmptyString(searchTerm, nameof(searchTerm));
-            if (searchTerm.Length < 3) throw new Exception("searchTerm must be a minimum of 3 characters in length");
+            if (searchTerm.Length < 2) throw new ArgumentException("The search term must have a minimum of 2 characters", nameof(searchTerm));
 
-            var parameters = new Dictionary<string, string> { { "term", searchTerm } };
-            if (string.IsNullOrWhiteSpace(currencyCode) == false) parameters.Add("currency", currencyCode);
+            var parameters = filters.Parameters;
+            parameters.Add("term", searchTerm);
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
 
-            return ApiConnection.GetAll<SimpleProduct>(ApiUrls.ProductsFind(), parameters);
+            return ApiConnection.SearchAll<SearchResult<SimpleProduct>>(ApiUrls.ProductsSearch(), parameters, options);
         }
 
         public Task<Product> Get(long id)

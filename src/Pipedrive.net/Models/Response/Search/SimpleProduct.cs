@@ -6,19 +6,16 @@ namespace Pipedrive
     {
         public long Id { get; set; }
 
-        [JsonProperty("variation_id")]
-        public long VariationId { get; set; }
+        [JsonProperty("type")]
+        public string Type { get; set; }
 
+        [JsonProperty("name")]
         public string Name { get; set; }
 
-        public string Title { get; set; }
+        [JsonProperty("code")]
+        public string Code { get; set; }
 
-        [JsonProperty("variation_name")]
-        public string VariationName { get; set; }
-
-        public decimal Price { get; set; }
-
-        [JsonProperty("price_formatted")]
-        public string PriceFormatted { get; set; }
+        [JsonProperty("visible_to")]
+        public string VisibleTo { get; set; }
     }
 }
