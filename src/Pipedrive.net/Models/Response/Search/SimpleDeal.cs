@@ -42,32 +42,4 @@ namespace Pipedrive
         [JsonProperty("cc_email")]
         public string CcEmail { get; set; }
     }
-
-    public class SearchOwner
-    {
-        public long Id { get; set; }
-    }
-
-    public class SearchStage
-    {
-        public long Id { get; set; }
-
-        public string Name { get; set; }
-    }
-
-    public class SearchPerson
-    {
-        public long Id { get; set; }
-
-        public string Name { get; set; }
-    }
-
-    public class SearchOrganization
-    {
-        public long Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Address { get; set; }
-    }
 }
