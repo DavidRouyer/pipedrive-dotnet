@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pipedrive.Helpers;
 
@@ -50,22 +51,29 @@ namespace Pipedrive
             return ApiConnection.GetAll<Person>(ApiUrls.Persons(), parameters, options);
         }
 
-        public Task<IReadOnlyList<SimplePerson>> GetByName(string name)
+        public Task<IReadOnlyList<SearchResult<SimplePerson>>> Search(string term, PersonSearchFilters filters)
         {
-            var parameters = new Dictionary<string, string>();
-            parameters.Add("term", name);
-            parameters.Add("search_by_email", "0");
+            Ensure.ArgumentNotNull(term, nameof(term));
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+            if (filters.ExactMatch.HasValue && filters.ExactMatch.Value == true)
+            {
+                if (term.Length < 1) throw new ArgumentException("The search term must have at least 1 character", nameof(term));
+            }
+            else
+            {
+                if (term.Length < 2) throw new ArgumentException("The search term must have at least 2 characters", nameof(term));
+            }
 
-            return ApiConnection.GetAll<SimplePerson>(ApiUrls.PersonsFind(), parameters);
-        }
+            var parameters = filters.Parameters;
+            parameters.Add("term", term);
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
 
-        public Task<IReadOnlyList<SimplePerson>> GetByEmail(string email)
-        {
-            var parameters = new Dictionary<string, string>();
-            parameters.Add("term", email);
-            parameters.Add("search_by_email", "1");
-
-            return ApiConnection.GetAll<SimplePerson>(ApiUrls.PersonsFind(), parameters);
+            return ApiConnection.SearchAll<SearchResult<SimplePerson>>(ApiUrls.PersonsSearch(), parameters, options);
         }
 
         public Task<Person> Get(long id)

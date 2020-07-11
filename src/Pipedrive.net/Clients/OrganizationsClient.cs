@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pipedrive.Helpers;
 
@@ -50,12 +51,29 @@ namespace Pipedrive
             return ApiConnection.GetAll<Organization>(ApiUrls.Organizations(), parameters, options);
         }
 
-        public Task<IReadOnlyList<SimpleOrganization>> GetByName(string name)
+        public Task<IReadOnlyList<SearchResult<SimpleOrganization>>> Search(string term, OrganizationSearchFilters filters)
         {
-            var parameters = new Dictionary<string, string>();
-            parameters.Add("term", name);
+            Ensure.ArgumentNotNull(term, nameof(term));
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+            if (filters.ExactMatch.HasValue && filters.ExactMatch.Value == true)
+            {
+                if (term.Length < 1) throw new ArgumentException("The search term must have at least 1 character", nameof(term));
+            }
+            else
+            {
+                if (term.Length < 2) throw new ArgumentException("The search term must have at least 2 characters", nameof(term));
+            }
 
-            return ApiConnection.GetAll<SimpleOrganization>(ApiUrls.OrganizationsFind(), parameters);
+            var parameters = filters.Parameters;
+            parameters.Add("term", term);
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.SearchAll<SearchResult<SimpleOrganization>>(ApiUrls.OrganizationsSearch(), parameters, options);
         }
 
         public Task<Organization> Get(long id)

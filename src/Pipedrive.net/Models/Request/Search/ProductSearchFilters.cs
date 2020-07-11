@@ -1,20 +1,21 @@
 ﻿using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace Pipedrive
 {
-    public class DealProductFilters
+    public class ProductSearchFilters
     {
-        public static DealProductFilters None => new DealProductFilters();
+        public static ProductSearchFilters None
+        {
+            get { return new ProductSearchFilters(); }
+        }
+
+        public bool? ExactMatch { get; set; }
 
         public int? StartPage { get; set; }
 
         public int? PageCount { get; set; }
 
         public int? PageSize { get; set; }
-
-        [JsonProperty("include_product_data")]
-        public string IncludeProductData { get; set; }
 
         /// <summary>
         /// Get the query parameters that will be appending onto the search
@@ -24,9 +25,9 @@ namespace Pipedrive
             get
             {
                 var d = new Dictionary<string, string>();
-                if (!string.IsNullOrWhiteSpace(IncludeProductData))
+                if (ExactMatch.HasValue)
                 {
-                    d.Add("include_product_data", IncludeProductData);
+                    d.Add("exact_match", ExactMatch.Value.ToString());
                 }
 
                 return d;

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Pipedrive.Models.Response
+namespace Pipedrive
 {
     public class UpdatedProduct : AbstractProduct
     {

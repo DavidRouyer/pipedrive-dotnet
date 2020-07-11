@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Pipedrive.Internal;
 
-namespace Pipedrive.Models.Request
+namespace Pipedrive
 {
     [JsonConverter(typeof(CustomFieldConverter))]
     public class ProductUpdate : IEntityWithCustomFields

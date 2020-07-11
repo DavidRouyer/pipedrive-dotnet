@@ -2,9 +2,8 @@
 using System.Linq;
 using Newtonsoft.Json;
 using Pipedrive.Internal;
-using Pipedrive.Models.Request;
 
-namespace Pipedrive.Models.Response
+namespace Pipedrive
 {
     [JsonConverter(typeof(CustomFieldConverter))]
     public class Product : AbstractProduct, IEntityWithCustomFields

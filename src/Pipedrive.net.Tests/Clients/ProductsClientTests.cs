@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using NSubstitute;
 using Pipedrive.Clients;
 using Pipedrive.CustomFields;
-using Pipedrive.Models.Request;
-using Pipedrive.Models.Response;
 using Xunit;
 
 namespace Pipedrive.Tests.Clients
@@ -58,55 +56,51 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
-        public class TheGetByNameMethod
+        public class TheSearchMethod
         {
             [Fact]
             public async Task EnsuresNonNullArguments()
             {
                 var client = new ProductsClient(Substitute.For<IApiConnection>());
 
-                await Assert.ThrowsAsync<ArgumentNullException>(() => client.GetByName(null, null));
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.Search(null, null));
             }
 
             [Fact]
-            public async Task EnsuresSearchTermIsMoreThan3Characters()
+            public async Task EnsuresSearchTermIsMoreThan2Characters()
             {
                 var client = new ProductsClient(Substitute.For<IApiConnection>());
 
-                var exception = await Assert.ThrowsAsync<Exception>(() => client.GetByName("pr", null));
-                Assert.Equal("searchTerm must be a minimum of 3 characters in length", exception.Message);
+                var exception = await Assert.ThrowsAsync<ArgumentException>(() => client.Search("p", ProductSearchFilters.None));
+                Assert.Equal("The search term must have at least 2 characters (Parameter 'term')", exception.Message);
             }
 
             [Fact]
-            public async Task RequestsCorrectUrlWithOneParameter()
+            public async Task RequestsCorrectUrl()
             {
                 var connection = Substitute.For<IApiConnection>();
                 var client = new ProductsClient(connection);
 
-                await client.GetByName("product");
+                var filters = new ProductSearchFilters
+                {
+                    ExactMatch = true,
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 0,
+                };
+
+                await client.Search("product", filters);
 
                 Received.InOrder(async () =>
                 {
-                    await connection.GetAll<SimpleProduct>(Arg.Is<Uri>(u => u.ToString() == "products/find"),
-                                                           Arg.Is<Dictionary<string, string>>(d => d.Count == 1
-                                                                                                && d["term"] == "product"));
-                });
-            }
-
-            [Fact]
-            public async Task RequestsCorrectUrlWithTwoParameters()
-            {
-                var connection = Substitute.For<IApiConnection>();
-                var client = new ProductsClient(connection);
-
-                await client.GetByName("product", "EUR");
-
-                Received.InOrder(async () =>
-                {
-                    await connection.GetAll<SimpleProduct>(Arg.Is<Uri>(u => u.ToString() == "products/find"),
-                                                           Arg.Is<Dictionary<string, string>>(d => d.Count == 2
-                                                                                                && d["term"] == "product"
-                                                                                                && d["currency"] == "EUR"));
+                    await connection.SearchAll<SearchResult<SimpleProduct>>(
+                        Arg.Is<Uri>(u => u.ToString() == "products/search"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                            && d["term"] == "product"
+                            && d["exact_match"] == "True"),
+                        Arg.Is<ApiOptions>(o => o.PageSize == 1
+                            && o.PageCount == 1
+                            && o.StartPage == 0));
                 });
             }
         }

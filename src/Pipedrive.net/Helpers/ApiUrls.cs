@@ -105,12 +105,12 @@ namespace Pipedrive
         }
 
         /// <summary>
-        /// return the <see cref="Uri"/> that return all the finded deals.
+        /// return the <see cref="Uri"/> that return all the found deals.
         /// </summary>
-        /// <returns></returns>
-        public static Uri DealsFind()
+        /// <returns>A Uri.</returns>
+        public static Uri DealsSearch()
         {
-            return new Uri("deals/find", UriKind.Relative);
+            return new Uri("deals/search", UriKind.Relative);
         }
 
         /// <summary>
@@ -280,12 +280,12 @@ namespace Pipedrive
         }
 
         /// <summary>
-        /// return the <see cref="Uri"/> that return all the finded organizations.
+        /// return the <see cref="Uri"/> that return all the found organizations.
         /// </summary>
-        /// <returns></returns>
-        public static Uri OrganizationsFind()
+        /// <returns>A Uri.</returns>
+        public static Uri OrganizationsSearch()
         {
-            return new Uri("organizations/find", UriKind.Relative);
+            return new Uri("organizations/search", UriKind.Relative);
         }
 
         /// <summary>
@@ -362,12 +362,12 @@ namespace Pipedrive
         }
 
         /// <summary>
-        /// return the <see cref="Uri"/> that return all the finded persons.
+        /// return the <see cref="Uri"/> that return all the found persons.
         /// </summary>
-        /// <returns></returns>
-        public static Uri PersonsFind()
+        /// <returns>A Uri.</returns>
+        public static Uri PersonsSearch()
         {
-            return new Uri("persons/find", UriKind.Relative);
+            return new Uri("persons/search", UriKind.Relative);
         }
 
         /// <summary>
@@ -464,10 +464,10 @@ namespace Pipedrive
         /// <summary>
         /// return the <see cref="Uri"/> that returns all the found products.
         /// </summary>
-        /// <returns></returns>
-        public static Uri ProductsFind()
+        /// <returns>A Uri.</returns>
+        public static Uri ProductsSearch()
         {
-            return new Uri("products/find", UriKind.Relative);
+            return new Uri("products/search", UriKind.Relative);
         }
 
         /// <summary>

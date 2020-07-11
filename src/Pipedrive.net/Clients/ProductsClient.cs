@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pipedrive.Helpers;
-using Pipedrive.Models.Request;
-using Pipedrive.Models.Response;
 
 namespace Pipedrive.Clients
 {
@@ -35,15 +33,29 @@ namespace Pipedrive.Clients
             return ApiConnection.GetAll<Product>(ApiUrls.Products(), filters.Parameters, options);
         }
 
-        public Task<IReadOnlyList<SimpleProduct>> GetByName(string searchTerm, string currencyCode = null)
+        public Task<IReadOnlyList<SearchResult<SimpleProduct>>> Search(string term, ProductSearchFilters filters)
         {
-            Ensure.ArgumentNotNullOrEmptyString(searchTerm, nameof(searchTerm));
-            if (searchTerm.Length < 3) throw new Exception("searchTerm must be a minimum of 3 characters in length");
+            Ensure.ArgumentNotNull(term, nameof(term));
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+            if (filters.ExactMatch.HasValue && filters.ExactMatch.Value == true)
+            {
+                if (term.Length < 1) throw new ArgumentException("The search term must have at least 1 character", nameof(term));
+            }
+            else
+            {
+                if (term.Length < 2) throw new ArgumentException("The search term must have at least 2 characters", nameof(term));
+            }
 
-            var parameters = new Dictionary<string, string> { { "term", searchTerm } };
-            if (string.IsNullOrWhiteSpace(currencyCode) == false) parameters.Add("currency", currencyCode);
+            var parameters = filters.Parameters;
+            parameters.Add("term", term);
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
 
-            return ApiConnection.GetAll<SimpleProduct>(ApiUrls.ProductsFind(), parameters);
+            return ApiConnection.SearchAll<SearchResult<SimpleProduct>>(ApiUrls.ProductsSearch(), parameters, options);
         }
 
         public Task<Product> Get(long id)

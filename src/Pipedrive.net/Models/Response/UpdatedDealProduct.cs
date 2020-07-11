@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Pipedrive.Models.Response
+namespace Pipedrive
 {
     public class UpdatedDealProduct : AbstractDealProduct
     {

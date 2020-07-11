@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Pipedrive.Models.Request;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -67,17 +66,16 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
-        public class TheGetByNameMethod
+        public class TheSearchMethod
         {
             [IntegrationTest]
-            public async Task CanRetrieveProductsByName()
+            public async Task CanRetrieveProducts()
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var products = await pipedrive.Product.GetByName("productname", "GBP");
+                var products = await pipedrive.Product.Search("productname", ProductSearchFilters.None);
 
                 Assert.True(products.Count == 1);
-                Assert.Equal(12.32M, products[0].Price);
             }
         }
 

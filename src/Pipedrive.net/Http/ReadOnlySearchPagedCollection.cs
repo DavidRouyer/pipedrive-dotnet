@@ -1,0 +1,43 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+using Pipedrive.Helpers;
+
+namespace Pipedrive.Internal
+{
+    public class ReadOnlySearchPagedCollection<T> : ReadOnlyCollection<T>, IReadOnlyPagedCollection<T>
+    {
+        readonly ApiInfo _info;
+        readonly Func<Uri, Task<IApiResponse<JsonResponse<SearchResponse<List<T>>>>>> _nextPageFunc;
+
+        public ReadOnlySearchPagedCollection(IApiResponse<JsonResponse<SearchResponse<List<T>>>> response, Func<Uri, Task<IApiResponse<JsonResponse<SearchResponse<List<T>>>>>> nextPageFunc)
+            : base(response != null ? response.Body?.Data?.Items ?? new List<T>() : new List<T>())
+        {
+            Ensure.ArgumentNotNull(response, nameof(response));
+            Ensure.ArgumentNotNull(nextPageFunc, nameof(nextPageFunc));
+
+            _nextPageFunc = nextPageFunc;
+            if (response != null)
+            {
+                _info = response.HttpResponse.ApiInfo;
+            }
+        }
+
+        public async Task<IReadOnlyPagedCollection<T>> GetNextPage()
+        {
+            var nextPageUrl = _info.GetNextPageUrl();
+            if (nextPageUrl == null) return null;
+
+            var maybeTask = _nextPageFunc(nextPageUrl);
+
+            if (maybeTask == null)
+            {
+                return null;
+            }
+
+            var response = await maybeTask.ConfigureAwait(false);
+            return new ReadOnlySearchPagedCollection<T>(response, _nextPageFunc);
+        }
+    }
+}

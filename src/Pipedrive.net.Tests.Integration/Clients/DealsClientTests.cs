@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Pipedrive.CustomFields;
-using Pipedrive.Models.Request;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -68,14 +67,14 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
-        public class TheGetByNameMethod
+        public class TheSearchMethod
         {
             [IntegrationTest]
             public async Task CanRetrieveDeals()
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var deals = await pipedrive.Deal.GetByName("mon deal");
+                var deals = await pipedrive.Deal.Search("mon deal", DealSearchFilters.None);
 
                 Assert.Equal(1, deals.Count);
             }

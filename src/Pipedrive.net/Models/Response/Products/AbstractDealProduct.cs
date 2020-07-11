@@ -1,7 +1,7 @@
 ﻿using System;
 using Newtonsoft.Json;
 
-namespace Pipedrive.Models.Response
+namespace Pipedrive
 {
     public abstract class AbstractDealProduct
     {

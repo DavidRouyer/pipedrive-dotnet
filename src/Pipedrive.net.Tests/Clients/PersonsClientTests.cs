@@ -92,42 +92,50 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
-        public class TheGetByNameMethod
+        public class TheSearchMethod
         {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new PersonsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.Search(null, null));
+            }
+
+            [Fact]
+            public async Task EnsuresSearchTermIsMoreThan2Characters()
+            {
+                var client = new PersonsClient(Substitute.For<IApiConnection>());
+
+                var exception = await Assert.ThrowsAsync<ArgumentException>(() => client.Search("p", PersonSearchFilters.None));
+                Assert.Equal("The search term must have at least 2 characters (Parameter 'term')", exception.Message);
+            }
+
             [Fact]
             public async Task RequestsCorrectUrl()
             {
                 var connection = Substitute.For<IApiConnection>();
                 var client = new PersonsClient(connection);
 
-                await client.GetByName("name");
+                var filters = new PersonSearchFilters
+                {
+                    ExactMatch = true,
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 0,
+                };
+
+                await client.Search("name", filters);
 
                 Received.InOrder(async () =>
                 {
-                    await connection.GetAll<SimplePerson>(Arg.Is<Uri>(u => u.ToString() == "persons/find"),
+                    await connection.SearchAll<SearchResult<SimplePerson>>(Arg.Is<Uri>(u => u.ToString() == "persons/search"),
                         Arg.Is<Dictionary<string, string>>(d => d.Count == 2
                             && d["term"] == "name"
-                            && d["search_by_email"] == "0"));
-                });
-            }
-        }
-
-        public class TheGetByEmailMethod
-        {
-            [Fact]
-            public async Task RequestsCorrectUrl()
-            {
-                var connection = Substitute.For<IApiConnection>();
-                var client = new PersonsClient(connection);
-
-                await client.GetByEmail("email");
-
-                Received.InOrder(async () =>
-                {
-                    await connection.GetAll<SimplePerson>(Arg.Is<Uri>(u => u.ToString() == "persons/find"),
-                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
-                            && d["term"] == "email"
-                            && d["search_by_email"] == "1"));
+                            && d["exact_match"] == "True"),
+                        Arg.Is<ApiOptions>(o => o.PageSize == 1
+                                && o.PageCount == 1
+                                && o.StartPage == 0));
                 });
             }
         }
