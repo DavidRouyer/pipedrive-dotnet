@@ -4,9 +4,6 @@ namespace Pipedrive
 {
     public class SimplePicture
     {
-        [JsonProperty("id")]
-        public long Id { get; set; }
-
         [JsonProperty("url")]
         public string Url { get; set; }
 

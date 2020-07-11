@@ -150,10 +150,11 @@ namespace Pipedrive.Tests.Clients
 
                 var filters = new DealSearchFilters
                 {
+                    ExactMatch = true,
+                    Status = DealStatus.lost,
                     PageSize = 1,
                     PageCount = 1,
                     StartPage = 0,
-                    Status = DealStatus.lost,
                 };
 
                 await client.Search("name", filters);
@@ -161,8 +162,9 @@ namespace Pipedrive.Tests.Clients
                 Received.InOrder(async () =>
                 {
                     await connection.SearchAll<SearchResult<SimpleDeal>>(Arg.Is<Uri>(u => u.ToString() == "deals/search"),
-                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 3
                             && d["term"] == "name"
+                            && d["exact_match"] == "True"
                             && d["status"] == "lost"),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1

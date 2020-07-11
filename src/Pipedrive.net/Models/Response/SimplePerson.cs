@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Pipedrive
 {
@@ -6,25 +7,28 @@ namespace Pipedrive
     {
         public long Id { get; set; }
 
+        [JsonProperty("type")]
+        public string Type { get; set; }
+
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [JsonProperty("email")]
-        public string Email { get; set; }
+        [JsonProperty("phones")]
+        public string[] Phones { get; set; }
 
-        [JsonProperty("phone")]
-        public string Phone { get; set; }
-
-        [JsonProperty("org_id")]
-        public long? OrgId { get; set; }
-
-        [JsonProperty("org_name")]
-        public string OrgName { get; set; }
+        [JsonProperty("emails")]
+        public string[] Emails { get; set; }
 
         [JsonProperty("visible_to")]
         public string VisibleTo { get; set; }
 
-        [JsonProperty("picture")]
-        public SimplePicture Picture { get; set; }
+        [JsonProperty("owner")]
+        public SearchOwner Owner { get; set; }
+
+        [JsonProperty("organization")]
+        public SearchOrganization Organization { get; set; }
+
+        [JsonProperty("pictures")]
+        public List<SimplePicture> Pictures { get; set; }
     }
 }

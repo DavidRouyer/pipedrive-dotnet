@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pipedrive.Helpers;
+using Pipedrive.Models.Request;
+using Pipedrive.Models.Response;
 
 namespace Pipedrive
 {
@@ -50,22 +52,18 @@ namespace Pipedrive
             return ApiConnection.GetAll<Person>(ApiUrls.Persons(), parameters, options);
         }
 
-        public Task<IReadOnlyList<SimplePerson>> GetByName(string name)
+        public Task<IReadOnlyList<SearchResult<SimplePerson>>> Search(string name, PersonSearchFilters filters)
         {
-            var parameters = new Dictionary<string, string>();
+            var parameters = filters.Parameters;
             parameters.Add("term", name);
-            parameters.Add("search_by_email", "0");
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
 
-            return ApiConnection.GetAll<SimplePerson>(ApiUrls.PersonsFind(), parameters);
-        }
-
-        public Task<IReadOnlyList<SimplePerson>> GetByEmail(string email)
-        {
-            var parameters = new Dictionary<string, string>();
-            parameters.Add("term", email);
-            parameters.Add("search_by_email", "1");
-
-            return ApiConnection.GetAll<SimplePerson>(ApiUrls.PersonsFind(), parameters);
+            return ApiConnection.SearchAll<SearchResult<SimplePerson>>(ApiUrls.PersonsSearch(), parameters, options);
         }
 
         public Task<Person> Get(long id)
