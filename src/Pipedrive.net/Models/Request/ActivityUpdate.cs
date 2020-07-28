@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Pipedrive.Converters;
 
 namespace Pipedrive
 {
@@ -16,6 +17,7 @@ namespace Pipedrive
         public string Type { get; set; }
 
         [JsonProperty("due_date")]
+        [JsonConverter(typeof(DateWithoutTimeConverter))]
         public DateTime? DueDate { get; set; }
 
         [JsonProperty("due_time")]
