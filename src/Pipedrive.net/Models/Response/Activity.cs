@@ -27,7 +27,7 @@ namespace Pipedrive
         public string ReferenceId { get; set; }
 
         [JsonProperty("due_date")]
-        public DateTime? DueDate { get; set; }
+        public string DueDate { get; set; }
 
         [JsonProperty("due_time")]
         public string DueTime { get; set; }
@@ -52,6 +52,9 @@ namespace Pipedrive
 
         [JsonProperty("subject")]
         public string Subject { get; set; }
+
+        [JsonProperty("public_description")]
+        public string PublicDescription { get; set; }
 
         [JsonProperty("org_id")]
         public long? OrgId { get; set; }
@@ -110,6 +113,9 @@ namespace Pipedrive
         [JsonProperty("assigned_to_user_id")]
         public long? AssignedToUserId { get; set; }
 
+        [JsonProperty("conference_meeting_client")]
+        public string ConferenceMeetingClient { get; set; }
+
         public ActivityUpdate ToUpdate()
         {
             return new ActivityUpdate
@@ -125,7 +131,8 @@ namespace Pipedrive
                 PersonId = PersonId,
                 Participants = Participants,
                 OrgId = OrgId,
-                Note = Note
+                Note = Note,
+                ConferenceMeetingClient = ConferenceMeetingClient
             };
         }
     }

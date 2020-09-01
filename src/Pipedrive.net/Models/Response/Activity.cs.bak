@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Pipedrive
 {
-    public class DealActivity
+    public class Activity : IDealUpdateEntity
     {
         public long Id { get; set; }
 
@@ -27,7 +27,7 @@ namespace Pipedrive
         public string ReferenceId { get; set; }
 
         [JsonProperty("due_date")]
-        public string DueDate { get; set; }
+        public DateTime? DueDate { get; set; }
 
         [JsonProperty("due_time")]
         public string DueTime { get; set; }
@@ -52,9 +52,6 @@ namespace Pipedrive
 
         [JsonProperty("subject")]
         public string Subject { get; set; }
-
-        [JsonProperty("public_description")]
-        public string PublicDescription { get; set; }
 
         [JsonProperty("org_id")]
         public long? OrgId { get; set; }
@@ -92,9 +89,6 @@ namespace Pipedrive
         [JsonProperty("participants")]
         public List<Participant> Participants { get; set; }
 
-        [JsonProperty("note_clean")]
-        public string NoteClean { get; set; }
-
         [JsonProperty("org_name")]
         public string OrgName { get; set; }
 
@@ -116,12 +110,12 @@ namespace Pipedrive
         [JsonProperty("assigned_to_user_id")]
         public long? AssignedToUserId { get; set; }
 
-        public Activity ToActivity()
+        public ActivityUpdate ToUpdate()
         {
-            return new Activity
+            return new ActivityUpdate
             {
                 Subject = Subject,
-                Done = Done,
+                Done = Done ? ActivityDone.Done : ActivityDone.Undone,
                 Type = Type,
                 DueDate = DueDate,
                 DueTime = DueTime,

@@ -128,7 +128,7 @@ namespace Pipedrive.Internal
 
                             break;
                         case JTokenType.Integer:
-                            customFields.Add(property.Name, new IntCustomField((int)property.Value));
+                            customFields.Add(property.Name, new LongCustomField((long)property.Value));
                             break;
                         case JTokenType.Object:
                             // User
@@ -193,98 +193,95 @@ namespace Pipedrive.Internal
             }
 
             IDictionary<string, ICustomField> customFields = ((IEntityWithCustomFields)value).CustomFields;
-            if (customFields != null)
+            foreach (var field in customFields)
             {
-                foreach (var field in customFields)
+                if (field.Value == null)
                 {
-                    if (field.Value == null)
+                    writer.WritePropertyName(field.Key);
+                    writer.WriteNull();
+                }
+                else
+                {
+                    switch (field.Value)
                     {
-                        writer.WritePropertyName(field.Key);
-                        writer.WriteNull();
-                    }
-                    else
-                    {
-                        switch (field.Value)
-                        {
-                            case StringCustomField s:
-                                writer.WritePropertyName(field.Key);
-                                writer.WriteValue(s.Value);
-                                break;
-                            case IntCustomField i:
-                                writer.WritePropertyName(field.Key);
-                                writer.WriteValue(i.Value);
-                                break;
-                            case DecimalCustomField d:
-                                writer.WritePropertyName(field.Key);
-                                writer.WriteValue(d.Value);
-                                break;
-                            case DateCustomField d:
-                                writer.WritePropertyName(field.Key);
-                                writer.WriteValue(d.Value);
-                                break;
-                            case TimeCustomField t:
-                                writer.WritePropertyName(field.Key);
-                                writer.WriteValue(t.Value);
-                                writer.WritePropertyName($"{field.Key}_timezone_id");
-                                writer.WriteValue(t.TimezoneId);
-                                break;
-                            case MonetaryCustomField m:
-                                writer.WritePropertyName(field.Key);
-                                writer.WriteValue(m.Value);
-                                writer.WritePropertyName($"{field.Key}_currency");
-                                writer.WriteValue(m.Currency);
-                                break;
-                            case TimeRangeCustomField tr:
-                                writer.WritePropertyName(field.Key);
-                                writer.WriteValue(tr.StartTime);
-                                writer.WritePropertyName($"{field.Key}_until");
-                                writer.WriteValue(tr.EndTime);
-                                writer.WritePropertyName($"{field.Key}_timezone_id");
-                                writer.WriteValue(tr.TimezoneId);
-                                break;
-                            case DateRangeCustomField dr:
-                                writer.WritePropertyName(field.Key);
-                                writer.WriteValue(dr.StartDate);
-                                writer.WritePropertyName($"{field.Key}_until");
-                                writer.WriteValue(dr.EndDate);
-                                break;
-                            case AddressCustomField a:
-                                writer.WritePropertyName(field.Key);
-                                writer.WriteValue(a.Value);
-                                writer.WritePropertyName($"{field.Key}_subpremise");
-                                writer.WriteValue(a.Subpremise);
-                                writer.WritePropertyName($"{field.Key}_street_number");
-                                writer.WriteValue(a.StreetNumber);
-                                writer.WritePropertyName($"{field.Key}_route");
-                                writer.WriteValue(a.Route);
-                                writer.WritePropertyName($"{field.Key}_sublocality");
-                                writer.WriteValue(a.Sublocality);
-                                writer.WritePropertyName($"{field.Key}_locality");
-                                writer.WriteValue(a.Locality);
-                                writer.WritePropertyName($"{field.Key}_admin_area_level_1");
-                                writer.WriteValue(a.AdminAreaLevel1);
-                                writer.WritePropertyName($"{field.Key}_admin_area_level_2");
-                                writer.WriteValue(a.AdminAreaLevel2);
-                                writer.WritePropertyName($"{field.Key}_country");
-                                writer.WriteValue(a.Country);
-                                writer.WritePropertyName($"{field.Key}_postal_code");
-                                writer.WriteValue(a.PostalCode);
-                                writer.WritePropertyName($"{field.Key}_formatted_address");
-                                writer.WriteValue(a.FormattedAddress);
-                                break;
-                            case OrganizationCustomField org:
-                                writer.WritePropertyName(field.Key);
-                                writer.WriteValue(org.Value);
-                                break;
-                            case PersonCustomField p:
-                                writer.WritePropertyName(field.Key);
-                                writer.WriteValue(p.Value);
-                                break;
-                            case UserCustomField u:
-                                writer.WritePropertyName(field.Key);
-                                writer.WriteValue(u.Value);
-                                break;
-                        }
+                        case StringCustomField s:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(s.Value);
+                            break;
+                        case LongCustomField i:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(i.Value);
+                            break;
+                        case DecimalCustomField d:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(d.Value);
+                            break;
+                        case DateCustomField d:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(d.Value);
+                            break;
+                        case TimeCustomField t:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(t.Value);
+                            writer.WritePropertyName($"{field.Key}_timezone_id");
+                            writer.WriteValue(t.TimezoneId);
+                            break;
+                        case MonetaryCustomField m:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(m.Value);
+                            writer.WritePropertyName($"{field.Key}_currency");
+                            writer.WriteValue(m.Currency);
+                            break;
+                        case TimeRangeCustomField tr:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(tr.StartTime);
+                            writer.WritePropertyName($"{field.Key}_until");
+                            writer.WriteValue(tr.EndTime);
+                            writer.WritePropertyName($"{field.Key}_timezone_id");
+                            writer.WriteValue(tr.TimezoneId);
+                            break;
+                        case DateRangeCustomField dr:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(dr.StartDate);
+                            writer.WritePropertyName($"{field.Key}_until");
+                            writer.WriteValue(dr.EndDate);
+                            break;
+                        case AddressCustomField a:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(a.Value);
+                            writer.WritePropertyName($"{field.Key}_subpremise");
+                            writer.WriteValue(a.Subpremise);
+                            writer.WritePropertyName($"{field.Key}_street_number");
+                            writer.WriteValue(a.StreetNumber);
+                            writer.WritePropertyName($"{field.Key}_route");
+                            writer.WriteValue(a.Route);
+                            writer.WritePropertyName($"{field.Key}_sublocality");
+                            writer.WriteValue(a.Sublocality);
+                            writer.WritePropertyName($"{field.Key}_locality");
+                            writer.WriteValue(a.Locality);
+                            writer.WritePropertyName($"{field.Key}_admin_area_level_1");
+                            writer.WriteValue(a.AdminAreaLevel1);
+                            writer.WritePropertyName($"{field.Key}_admin_area_level_2");
+                            writer.WriteValue(a.AdminAreaLevel2);
+                            writer.WritePropertyName($"{field.Key}_country");
+                            writer.WriteValue(a.Country);
+                            writer.WritePropertyName($"{field.Key}_postal_code");
+                            writer.WriteValue(a.PostalCode);
+                            writer.WritePropertyName($"{field.Key}_formatted_address");
+                            writer.WriteValue(a.FormattedAddress);
+                            break;
+                        case OrganizationCustomField org:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(org.Value);
+                            break;
+                        case PersonCustomField p:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(p.Value);
+                            break;
+                        case UserCustomField u:
+                            writer.WritePropertyName(field.Key);
+                            writer.WriteValue(u.Value);
+                            break;
                     }
                 }
             }
