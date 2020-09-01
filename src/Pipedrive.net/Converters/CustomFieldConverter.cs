@@ -128,7 +128,7 @@ namespace Pipedrive.Internal
 
                             break;
                         case JTokenType.Integer:
-                            customFields.Add(property.Name, new IntCustomField((int)property.Value));
+                             customFields.Add(property.Name, new LongCustomField((long)property.Value));
                             break;
                         case JTokenType.Object:
                             // User
