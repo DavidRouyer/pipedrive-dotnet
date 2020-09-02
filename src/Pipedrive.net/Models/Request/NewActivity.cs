@@ -44,6 +44,15 @@ namespace Pipedrive
         [JsonProperty("note")]
         public string Note { get; set; }
 
+        [JsonProperty("location")]
+        public string Location { get; set; }
+
+        [JsonProperty("public_description")]
+        public string PublicDescription { get; set; }
+
+        [JsonProperty("busy_flag")]
+        public bool BusyFlag { get; set; }
+
         public NewActivity(string subject, string type)
         {
             this.Subject = subject;

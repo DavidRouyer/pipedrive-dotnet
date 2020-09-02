@@ -53,9 +53,6 @@ namespace Pipedrive
         [JsonProperty("subject")]
         public string Subject { get; set; }
 
-        [JsonProperty("public_description")]
-        public string PublicDescription { get; set; }
-
         [JsonProperty("org_id")]
         public long? OrgId { get; set; }
 
@@ -85,6 +82,15 @@ namespace Pipedrive
 
         [JsonProperty("note")]
         public string Note { get; set; }
+
+        [JsonProperty("location")]
+        public string Location { get; set; }
+
+        [JsonProperty("public_description")]
+        public string PublicDescription { get; set; }
+
+        [JsonProperty("busy_flag")]
+        public bool BusyFlag { get; set; }
 
         [JsonProperty("created_by_user_id")]
         public long CreatedByUserId { get; set; }
