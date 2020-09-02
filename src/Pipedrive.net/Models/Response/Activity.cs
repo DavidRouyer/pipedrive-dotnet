@@ -119,9 +119,6 @@ namespace Pipedrive
         [JsonProperty("assigned_to_user_id")]
         public long? AssignedToUserId { get; set; }
 
-        [JsonProperty("conference_meeting_client")]
-        public string ConferenceMeetingClient { get; set; }
-
         public ActivityUpdate ToUpdate()
         {
             return new ActivityUpdate
@@ -138,7 +135,6 @@ namespace Pipedrive
                 Participants = Participants,
                 OrgId = OrgId,
                 Note = Note,
-                ConferenceMeetingClient = ConferenceMeetingClient
             };
         }
     }

@@ -53,8 +53,5 @@ namespace Pipedrive
 
         [JsonProperty("busy_flag")]
         public bool BusyFlag { get; set; }
-
-        [JsonProperty("conference_meeting_client")]
-        public string ConferenceMeetingClient { get; set; }
     }
 }
