@@ -102,6 +102,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 var fixture = pipedrive.Deal;
 
                 var newDeal = new NewDeal("title");
+                newDeal.ExpectedCloseDate = DateTime.UtcNow.AddDays(3);
                 newDeal.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"] = new StringCustomField("my custom string field");
 
                 var deal = await fixture.Create(newDeal);
@@ -110,6 +111,7 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var retrieved = await fixture.Get(deal.Id);
                 Assert.NotNull(retrieved);
+                Assert.Equal(DateTime.UtcNow.AddDays(3).Date, newDeal.ExpectedCloseDate.Value.Date);
                 Assert.Equal("my custom string field", ((StringCustomField)retrieved.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"]).Value);
 
                 // Cleanup
@@ -131,6 +133,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 var editDeal = deal.ToUpdate();
                 editDeal.Title = "updated-title";
                 editDeal.Status = DealStatus.lost;
+                editDeal.ExpectedCloseDate = DateTime.UtcNow.AddDays(6);
                 editDeal.CustomFields["33f60aa418da91210968773dda914742dd69d9c8"] = new StringCustomField("my string");
                 editDeal.CustomFields["429ced4a0dcd16b9be5048453c1ff6748a8c4646"] = new StringCustomField("my autocomplete string");
                 editDeal.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"] = new StringCustomField("my large text string");
@@ -152,6 +155,7 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 Assert.Equal("updated-title", updatedDeal.Title);
                 Assert.Equal(DealStatus.lost, updatedDeal.Status);
+                Assert.Equal(DateTime.UtcNow.Date.AddDays(6), updatedDeal.ExpectedCloseDate.Value.Date);
                 Assert.Equal("my string", ((StringCustomField)updatedDeal.CustomFields["33f60aa418da91210968773dda914742dd69d9c8"]).Value);
                 Assert.Equal("my autocomplete string", ((StringCustomField)updatedDeal.CustomFields["429ced4a0dcd16b9be5048453c1ff6748a8c4646"]).Value);
                 Assert.Equal("my large text string", ((StringCustomField)updatedDeal.CustomFields["8bbb7cf46a85a3a42538d500a29ecc8ac244eacd"]).Value);
