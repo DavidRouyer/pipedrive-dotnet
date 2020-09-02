@@ -17,6 +17,7 @@ namespace Pipedrive
         public string Type { get; set; }
 
         [JsonProperty("due_date")]
+        [JsonConverter(typeof(DateWithoutTimeConverter))]
         public DateTime? DueDate { get; set; }
 
         [JsonProperty("due_time")]
