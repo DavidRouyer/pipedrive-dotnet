@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -73,12 +74,14 @@ namespace Pipedrive.Tests.Integration.Clients
                 var fixture = pipedrive.Activity;
 
                 var newActivity = new NewActivity("new-subject", "call");
+                newActivity.DueDate = DateTime.UtcNow.AddDays(2);
 
                 var activity = await fixture.Create(newActivity);
                 Assert.NotNull(activity);
 
                 var retrieved = await fixture.Get(activity.Id);
                 Assert.NotNull(retrieved);
+                Assert.Equal(DateTime.UtcNow.Date.AddDays(2), retrieved.DueDate.Value.Date);
 
                 // Cleanup
                 await fixture.Delete(activity.Id);
@@ -99,11 +102,13 @@ namespace Pipedrive.Tests.Integration.Clients
                 var editActivity = activity.ToUpdate();
                 editActivity.Subject = "updated-subject";
                 editActivity.Type = "lunch";
+                editActivity.DueDate = DateTime.UtcNow.AddDays(5);
 
                 var updatedActivity = await fixture.Edit(activity.Id, editActivity);
 
                 Assert.Equal("updated-subject", updatedActivity.Subject);
                 Assert.Equal("lunch", updatedActivity.Type);
+                Assert.Equal(DateTime.UtcNow.Date.AddDays(5), updatedActivity.DueDate.Value.Date);
 
                 // Cleanup
                 await fixture.Delete(updatedActivity.Id);
