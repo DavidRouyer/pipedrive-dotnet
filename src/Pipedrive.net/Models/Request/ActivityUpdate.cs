@@ -10,6 +10,9 @@ namespace Pipedrive
         [JsonProperty("subject")]
         public string Subject { get; set; }
 
+        [JsonProperty("public_description")]
+        public string PublicDescription { get; set; }
+
         [JsonProperty("done")]
         public ActivityDone Done { get; set; }
 
@@ -43,5 +46,8 @@ namespace Pipedrive
 
         [JsonProperty("note")]
         public string Note { get; set; }
+
+        [JsonProperty("conference_meeting_client")]
+        public string ConferenceMeetingClient { get; set; }
     }
 }

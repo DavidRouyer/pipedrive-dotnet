@@ -56,6 +56,9 @@ namespace Pipedrive
         [JsonProperty("won_time")]
         public DateTime? WonTime { get; set; }
 
+		[JsonProperty("expected_close_date")]
+        public DateTime? ExpectedCloseDate { get; set; }
+
         [JsonIgnore]
         public IDictionary<string, ICustomField> CustomFields { get; set; } = new Dictionary<string, ICustomField>();
 

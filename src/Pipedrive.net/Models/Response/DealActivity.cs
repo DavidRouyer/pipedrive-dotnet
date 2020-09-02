@@ -53,6 +53,9 @@ namespace Pipedrive
         [JsonProperty("subject")]
         public string Subject { get; set; }
 
+        [JsonProperty("public_description")]
+        public string PublicDescription { get; set; }
+
         [JsonProperty("org_id")]
         public long? OrgId { get; set; }
 
