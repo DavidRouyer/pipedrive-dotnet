@@ -20,7 +20,11 @@ namespace Pipedrive
         public string Type { get; set; }
 
         [JsonProperty("due_date")]
-        public string DueDate { get; set; }
+        [JsonConverter(typeof(DateWithoutTimeConverter))]
+        public DateTime? DueDate { get; set; }
+        /*
+         * public string DueDate { get; set; }      See https://github.com/DavidRouyer/pipedrive-dotnet/issues/64.
+        */
 
         [JsonProperty("due_time")]
         public string DueTime { get; set; }
@@ -45,7 +49,7 @@ namespace Pipedrive
 
         [JsonProperty("note")]
         public string Note { get; set; }
-        
+
         [JsonProperty("conference_meeting_client")]
         public string ConferenceMeetingClient { get; set; }
     }
