@@ -28,9 +28,6 @@ namespace Pipedrive
 
         [JsonProperty("due_date")]
         public DateTime? DueDate { get; set; }
-        /*
-         * public string DueDate { get; set; }       See https://github.com/DavidRouyer/pipedrive-dotnet/issues/64.
-        */
 
         [JsonProperty("due_time")]
         public string DueTime { get; set; }
