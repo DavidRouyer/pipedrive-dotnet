@@ -90,7 +90,7 @@ namespace Pipedrive
         public string PublicDescription { get; set; }
 
         [JsonProperty("busy_flag")]
-        public bool BusyFlag { get; set; }
+        public bool? BusyFlag { get; set; }
 
         [JsonProperty("created_by_user_id")]
         public long CreatedByUserId { get; set; }

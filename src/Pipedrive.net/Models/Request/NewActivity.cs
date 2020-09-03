@@ -51,7 +51,7 @@ namespace Pipedrive
         public string PublicDescription { get; set; }
 
         [JsonProperty("busy_flag")]
-        public bool BusyFlag { get; set; }
+        public bool? BusyFlag { get; set; }
 
         public NewActivity(string subject, string type)
         {
