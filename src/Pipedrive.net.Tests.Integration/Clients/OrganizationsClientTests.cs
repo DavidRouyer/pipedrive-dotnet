@@ -431,5 +431,64 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.NotEqual(firstPage[0].Data.Id, secondPage[0].Data.Id);
             }
         }
+
+        public class TheGetFilesMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new OrganizationFileFilters
+                {
+                    PageSize = 3,
+                    PageCount = 1
+                };
+
+                var organizationFiles = await pipedrive.Organization.GetFiles(5, options);
+                Assert.Equal(3, organizationFiles.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new OrganizationFileFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var files = await pipedrive.Organization.GetFiles(5, options);
+                Assert.Equal(2, files.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new OrganizationFileFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1
+                };
+
+                var firstPage = await pipedrive.Organization.GetFiles(5, startOptions);
+
+                var skipStartOptions = new OrganizationFileFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Organization.GetFiles(5, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].Id, secondPage[0].Id);
+            }
+        }
     }
 }

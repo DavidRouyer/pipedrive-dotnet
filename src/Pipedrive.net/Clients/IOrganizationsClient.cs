@@ -37,5 +37,7 @@ namespace Pipedrive
         Task<IReadOnlyList<DealActivity>> GetActivities(long id, OrganizationActivityFilters filters);
 
         Task<IReadOnlyList<DealUpdateFlow>> GetUpdates(long dealId, OrganizationUpdateFilters filters);
+
+        Task<IReadOnlyList<File>> GetFiles(long id, OrganizationFileFilters filters);
     }
 }

@@ -344,6 +344,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for all the files of the specified organization.
+        /// </summary>
+        /// <param name="id">The id of the organization</param>
+        public static Uri OrganizationFiles(long id)
+        {
+            return new Uri($"organizations/{id}/files", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all of the organization fields in response to a GET request.
         /// </summary>
         /// <returns></returns>
