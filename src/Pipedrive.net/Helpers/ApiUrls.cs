@@ -326,6 +326,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for all the activities of the specified organization.
+        /// </summary>
+        /// <param name="id">The id of the organization</param>
+        public static Uri OrganizationActivities(long id)
+        {
+            return new Uri($"organizations/{id}/activities", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all of the organization fields in response to a GET request.
         /// </summary>
         /// <returns></returns>

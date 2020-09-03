@@ -153,5 +153,21 @@ namespace Pipedrive
         {
             return ApiConnection.Delete(ApiUrls.DeleteOrganizationFollower(dealId, followerId));
         }
+
+        public Task<IReadOnlyList<DealActivity>> GetActivities(long id, OrganizationActivityFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+            parameters.Add("id", id.ToString());
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.GetAll<DealActivity>(ApiUrls.OrganizationActivities(id), parameters, options);
+        }
     }
 }

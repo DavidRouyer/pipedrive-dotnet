@@ -343,5 +343,45 @@ namespace Pipedrive.Tests.Clients
                 connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "organizations/1/followers/461"));
             }
         }
+
+        public class TheGetActivitiesMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new OrganizationsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.GetActivities(1, null));
+            }
+
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new OrganizationsClient(connection);
+
+                var filters = new OrganizationActivityFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 0,
+                    Done = ActivityDone.Done,
+                };
+
+                await client.GetActivities(123, filters);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<DealActivity>(
+                        Arg.Is<Uri>(u => u.ToString() == "organizations/123/activities"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                            && d["id"] == "123"
+                            && d["done"] == "1"),
+                        Arg.Is<ApiOptions>(o => o.PageSize == 1
+                                && o.PageCount == 1
+                                && o.StartPage == 0));
+                });
+            }
+        }
     }
 }
