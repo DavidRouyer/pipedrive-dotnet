@@ -309,14 +309,14 @@ namespace Pipedrive.Tests.Integration.Clients
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var options = new DealUpdateFilters
+                var options = new DealActivityFilters
                 {
                     PageSize = 3,
                     PageCount = 1
                 };
 
-                var dealUpdates = await pipedrive.Deal.GetUpdates(1, options);
-                Assert.Equal(3, dealUpdates.Count);
+                var dealActivities = await pipedrive.Deal.GetActivities(1, options);
+                Assert.Equal(3, dealActivities.Count);
             }
 
             [IntegrationTest]
