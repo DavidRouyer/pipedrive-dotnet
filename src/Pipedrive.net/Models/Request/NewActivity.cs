@@ -59,10 +59,4 @@ namespace Pipedrive
             this.Type = type;
         }
     }
-
-    public enum ActivityDone
-    {
-        Undone = 0,
-        Done = 1
-    }
 }
