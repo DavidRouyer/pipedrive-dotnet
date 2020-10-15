@@ -10,7 +10,6 @@ namespace Pipedrive
         [JsonProperty("subject")]
         public string Subject { get; set; }
 
-
         [JsonProperty("done")]
         public ActivityDone Done { get; set; }
 

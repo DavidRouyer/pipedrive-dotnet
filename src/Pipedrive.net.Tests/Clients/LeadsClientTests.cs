@@ -64,11 +64,11 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new LeadsClient(connection);
 
-                await client.Get(123);
+                await client.Get(new Guid("42b9e030-0e5c-11eb-8c38-a7dff179fdd2"));
 
                 Received.InOrder(async () =>
                 {
-                    await connection.Get<Lead>(Arg.Is<Uri>(u => u.ToString() == "leads/123"));
+                    await connection.Get<Lead>(Arg.Is<Uri>(u => u.ToString() == "leads/42b9e030-0e5c-11eb-8c38-a7dff179fdd2"));
                 });
             }
         }
