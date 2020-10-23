@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Pipedrive.CustomFields;
 using Pipedrive.Internal;
@@ -7,7 +6,7 @@ using Pipedrive.Internal;
 namespace Pipedrive
 {
     [JsonConverter(typeof(CustomFieldConverter))]
-    public class Organization : AbstractOrganization<UserCustomField>, IEntityWithCustomFields
+    public class Organization : AbstractOrganization<UserCustomField, Picture>, IEntityWithCustomFields
     {
         [JsonIgnore]
         public IDictionary<string, ICustomField> CustomFields { get; set; }

@@ -5,7 +5,7 @@ using Pipedrive.Internal;
 namespace Pipedrive
 {
     [JsonConverter(typeof(CustomFieldConverter))]
-    public class WebhookPerson : AbstractPerson<long?, long?>, IEntityWithCustomFields
+    public class WebhookPerson : AbstractPerson<long?, long?, long?>, IEntityWithCustomFields
     {
         [JsonIgnore]
         public IDictionary<string, ICustomField> CustomFields { get; set; }

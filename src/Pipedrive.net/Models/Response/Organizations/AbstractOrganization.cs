@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Pipedrive
 {
-    public abstract class AbstractOrganization<TUser>
+    public abstract class AbstractOrganization<TUser, TPicture>
     {
         public long Id { get; set; }
 
@@ -74,7 +74,7 @@ namespace Pipedrive
         public long? CategoryId { get; set; }
 
         [JsonProperty("picture_id")]
-        public Picture PictureId { get; set; }
+        public TPicture PictureId { get; set; }
 
         [JsonProperty("country_code")]
         public string CountryCode { get; set; }

@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace Pipedrive
 {
-    public abstract class AbstractPerson<TUser, TOrganization>
+    public abstract class AbstractPerson<TUser, TOrganization, TPicture>
     {
         public long Id { get; set; }
 
@@ -102,7 +102,7 @@ namespace Pipedrive
         public Visibility VisibleTo { get; set; }
 
         [JsonProperty("picture_id")]
-        public Picture PictureId { get; set; }
+        public TPicture PictureId { get; set; }
 
         [JsonProperty("next_activity_date")]
         public string NextActivityDate { get; set; }
