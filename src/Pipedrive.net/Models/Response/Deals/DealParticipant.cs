@@ -11,7 +11,7 @@ namespace Pipedrive
         public AssociatedPerson PersonId { get; set; }
 
         [JsonProperty("add_time")]
-        public DateTime AddTime { get; set; }
+        public DateTime? AddTime { get; set; }
 
         [JsonProperty("active_flag")]
         public bool ActiveFlag { get; set; }

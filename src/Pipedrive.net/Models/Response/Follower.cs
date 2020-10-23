@@ -12,6 +12,6 @@ namespace Pipedrive
         public long Id { get; set; }
 
         [JsonProperty("add_time")]
-        public DateTime AddTime { get; set; }
+        public DateTime? AddTime { get; set; }
     }
 }

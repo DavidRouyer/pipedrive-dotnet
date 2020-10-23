@@ -32,7 +32,7 @@ namespace Pipedrive
         public bool IsActive { get; set; }
 
         [JsonProperty("add_time")]
-        public DateTime AddTime { get; set; }
+        public DateTime? AddTime { get; set; }
 
         [JsonProperty("remove_time")]
         public DateTime? RemoveTime { get; set; }
