@@ -31,6 +31,7 @@ namespace Pipedrive
                 LostTime = LostTime,
                 FirstWonTime = FirstWonTime,
                 WonTime = WonTime,
+                ExpectedCloseDate = ExpectedCloseDate,
                 CustomFields = CustomFields
             };
         }
