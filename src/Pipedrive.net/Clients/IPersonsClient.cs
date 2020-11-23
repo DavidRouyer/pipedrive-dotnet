@@ -26,6 +26,8 @@ namespace Pipedrive
 
         Task<IReadOnlyList<Deal>> GetDeals(long personId, PersonDealFilters filters);
 
+        Task<IReadOnlyList<Activity>> GetActivities(long personId, PersonActivityFilters filters);
+
         Task<IReadOnlyList<PersonFollower>> GetFollowers(long dealId);
 
         Task<PersonFollower> AddFollower(long dealId, long userId);
