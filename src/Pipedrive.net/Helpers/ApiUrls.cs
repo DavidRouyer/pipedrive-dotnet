@@ -446,6 +446,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for all the files of the specified person.
+        /// </summary>
+        /// <param name="id">The id of the person</param>
+        public static Uri PersonFile(long id)
+        {
+            return new Uri($"persons/{id}/files", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for all the followers of the specified person.
         /// </summary>
         /// <param name="id">The id of the person</param>

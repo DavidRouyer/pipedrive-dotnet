@@ -278,6 +278,61 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetFilesMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new PersonFileFilters
+                {
+                    PageSize = 3,
+                };
+
+                var personFiles = await pipedrive.Person.GetFiles(6, options);
+                Assert.Equal(3, personFiles.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new PersonFileFilters
+                {
+                    PageSize = 2,
+                    StartPage = 1
+                };
+
+                var files = await pipedrive.Person.GetFiles(6, options);
+                Assert.Equal(2, files.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new PersonFileFilters
+                {
+                    PageSize = 1,
+                };
+
+                var firstPage = await pipedrive.Person.GetFiles(6, startOptions);
+
+                var skipStartOptions = new PersonFileFilters
+                {
+                    PageSize = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Person.GetFiles(6, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].Id, secondPage[0].Id);
+            }
+        }
+
         public class TheGetFollowersMethod
         {
             [IntegrationTest]

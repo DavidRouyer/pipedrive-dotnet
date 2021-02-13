@@ -293,6 +293,42 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
+        public class TheGetFilesMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new PersonsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.GetFiles(1, null));
+            }
+
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new PersonsClient(connection);
+
+                var filters = new PersonFileFilters
+                {
+                    PageSize = 1,
+                    StartPage = 0,
+                };
+
+                await client.GetFiles(123, filters);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<File>(
+                        Arg.Is<Uri>(u => u.ToString() == "persons/123/files"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
+                            && d["id"] == "123"),
+                        Arg.Is<ApiOptions>(o => o.PageSize == 1
+                                && o.StartPage == 0));
+                });
+            }
+        }
+
         public class TheGetFollowersMethod
         {
             [Fact]
