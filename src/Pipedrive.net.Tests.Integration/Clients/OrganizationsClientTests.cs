@@ -373,65 +373,6 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
-        public class TheGetUpdatesMethod
-        {
-            [IntegrationTest]
-            public async Task ReturnsCorrectCountWithoutStart()
-            {
-                var pipedrive = Helper.GetAuthenticatedClient();
-
-                var options = new OrganizationUpdateFilters
-                {
-                    PageSize = 3,
-                    PageCount = 1
-                };
-
-                var organizationUpdates = await pipedrive.Organization.GetUpdates(5, options);
-                Assert.Equal(3, organizationUpdates.Count);
-            }
-
-            [IntegrationTest]
-            public async Task ReturnsCorrectCountWithStart()
-            {
-                var pipedrive = Helper.GetAuthenticatedClient();
-
-                var options = new OrganizationUpdateFilters
-                {
-                    PageSize = 2,
-                    PageCount = 1,
-                    StartPage = 1
-                };
-
-                var updates = await pipedrive.Organization.GetUpdates(5, options);
-                Assert.Equal(2, updates.Count);
-            }
-
-            [IntegrationTest]
-            public async Task ReturnsDistinctInfosBasedOnStartPage()
-            {
-                var pipedrive = Helper.GetAuthenticatedClient();
-
-                var startOptions = new OrganizationUpdateFilters
-                {
-                    PageSize = 1,
-                    PageCount = 1
-                };
-
-                var firstPage = await pipedrive.Organization.GetUpdates(5, startOptions);
-
-                var skipStartOptions = new OrganizationUpdateFilters
-                {
-                    PageSize = 1,
-                    PageCount = 1,
-                    StartPage = 1
-                };
-
-                var secondPage = await pipedrive.Organization.GetUpdates(5, skipStartOptions);
-
-                Assert.NotEqual(firstPage[0].Data.Id, secondPage[0].Data.Id);
-            }
-        }
-
         public class TheGetFilesMethod
         {
             [IntegrationTest]
@@ -488,6 +429,65 @@ namespace Pipedrive.Tests.Integration.Clients
                 var secondPage = await pipedrive.Organization.GetFiles(5, skipStartOptions);
 
                 Assert.NotEqual(firstPage[0].Id, secondPage[0].Id);
+            }
+        }
+
+        public class TheGetUpdatesMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new OrganizationUpdateFilters
+                {
+                    PageSize = 3,
+                    PageCount = 1
+                };
+
+                var organizationUpdates = await pipedrive.Organization.GetUpdates(5, options);
+                Assert.Equal(3, organizationUpdates.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new OrganizationUpdateFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var updates = await pipedrive.Organization.GetUpdates(5, options);
+                Assert.Equal(2, updates.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new OrganizationUpdateFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1
+                };
+
+                var firstPage = await pipedrive.Organization.GetUpdates(5, startOptions);
+
+                var skipStartOptions = new OrganizationUpdateFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Organization.GetUpdates(5, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].Data.Id, secondPage[0].Data.Id);
             }
         }
     }

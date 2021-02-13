@@ -177,8 +177,8 @@ namespace Pipedrive.Tests.Integration.Clients
                     PageCount = 1
                 };
 
-                var stageDeals = await pipedrive.Person.GetDeals(6, options);
-                Assert.Equal(3, stageDeals.Count);
+                var personDeals = await pipedrive.Person.GetDeals(6, options);
+                Assert.Equal(3, personDeals.Count);
             }
 
             [IntegrationTest]
@@ -235,8 +235,8 @@ namespace Pipedrive.Tests.Integration.Clients
                     PageSize = 3,
                 };
 
-                var stageActivities = await pipedrive.Person.GetActivities(6, options);
-                Assert.Equal(3, stageActivities.Count);
+                var personActivities = await pipedrive.Person.GetActivities(6, options);
+                Assert.Equal(3, personActivities.Count);
             }
 
             [IntegrationTest]
