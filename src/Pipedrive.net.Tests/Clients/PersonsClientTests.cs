@@ -329,6 +329,44 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
+        public class TheGetUpdatesMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new PersonsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.GetUpdates(1, null));
+            }
+
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new PersonsClient(connection);
+
+                var filters = new PersonUpdateFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 0,
+                };
+
+                await client.GetUpdates(123, filters);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<EntityUpdateFlow>(
+                        Arg.Is<Uri>(u => u.ToString() == "persons/123/flow"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
+                            && d["id"] == "123"),
+                        Arg.Is<ApiOptions>(o => o.PageSize == 1
+                                && o.PageCount == 1
+                                && o.StartPage == 0));
+                });
+            }
+        }
+
         public class TheGetFollowersMethod
         {
             [Fact]

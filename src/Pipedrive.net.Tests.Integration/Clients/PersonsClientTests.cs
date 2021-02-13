@@ -333,6 +333,65 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetUpdatesMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new PersonUpdateFilters
+                {
+                    PageSize = 3,
+                    PageCount = 1
+                };
+
+                var personUpdates = await pipedrive.Person.GetUpdates(6, options);
+                Assert.Equal(3, personUpdates.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new PersonUpdateFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var updates = await pipedrive.Person.GetUpdates(6, options);
+                Assert.Equal(2, updates.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new PersonUpdateFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1
+                };
+
+                var firstPage = await pipedrive.Person.GetUpdates(6, startOptions);
+
+                var skipStartOptions = new PersonUpdateFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Person.GetUpdates(6, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].Data.Id, secondPage[0].Data.Id);
+            }
+        }
+
         public class TheGetFollowersMethod
         {
             [IntegrationTest]

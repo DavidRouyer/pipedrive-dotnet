@@ -26,9 +26,11 @@ namespace Pipedrive
 
         Task<IReadOnlyList<Deal>> GetDeals(long personId, PersonDealFilters filters);
 
+        Task<IReadOnlyList<Activity>> GetActivities(long personId, PersonActivityFilters filters);
+
         Task<IReadOnlyList<File>> GetFiles(long personId, PersonFileFilters filters);
 
-        Task<IReadOnlyList<Activity>> GetActivities(long personId, PersonActivityFilters filters);
+        Task<IReadOnlyList<EntityUpdateFlow>> GetUpdates(long id, PersonUpdateFilters filters);
 
         Task<IReadOnlyList<PersonFollower>> GetFollowers(long dealId);
 

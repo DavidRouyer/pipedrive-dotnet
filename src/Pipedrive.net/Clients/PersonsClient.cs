@@ -146,6 +146,22 @@ namespace Pipedrive
             return ApiConnection.GetAll<File>(ApiUrls.PersonFile(personId), parameters, options);
         }
 
+        public Task<IReadOnlyList<EntityUpdateFlow>> GetUpdates(long id, PersonUpdateFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+            parameters.Add("id", id.ToString());
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.GetAll<EntityUpdateFlow>(ApiUrls.PersonUpdates(id), parameters, options);
+        }
+
         public Task<IReadOnlyList<PersonFollower>> GetFollowers(long personId)
         {
             var parameters = new Dictionary<string, string>()

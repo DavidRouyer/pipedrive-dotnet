@@ -455,6 +455,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for all the updates of the specified person.
+        /// </summary>
+        /// <param name="id">The id of the person</param>
+        public static Uri PersonUpdates(long id)
+        {
+            return new Uri($"persons/{id}/flow", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for all the followers of the specified person.
         /// </summary>
         /// <param name="id">The id of the person</param>
