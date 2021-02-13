@@ -449,7 +449,7 @@ namespace Pipedrive.Tests.Clients
 
                 Received.InOrder(async () =>
                 {
-                    await connection.GetAll<DealUpdateFlow>(
+                    await connection.GetAll<EntityUpdateFlow>(
                         Arg.Is<Uri>(u => u.ToString() == "organizations/123/flow"),
                         Arg.Is<Dictionary<string, string>>(d => d.Count == 1
                             && d["id"] == "123"),

@@ -38,6 +38,6 @@ namespace Pipedrive
 
         Task<IReadOnlyList<File>> GetFiles(long id, OrganizationFileFilters filters);
 
-        Task<IReadOnlyList<DealUpdateFlow>> GetUpdates(long dealId, OrganizationUpdateFilters filters);
+        Task<IReadOnlyList<EntityUpdateFlow>> GetUpdates(long dealId, OrganizationUpdateFilters filters);
     }
 }

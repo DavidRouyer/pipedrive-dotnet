@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Pipedrive.Internal
 {
-    public class DealUpdateConverter : JsonConverter
+    public class EntityUpdateConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
@@ -47,7 +47,7 @@ namespace Pipedrive.Internal
                 }
             }
 
-            DealUpdateFlow model = (DealUpdateFlow)Activator.CreateInstance(objectType);
+            EntityUpdateFlow model = (EntityUpdateFlow)Activator.CreateInstance(objectType);
             serializer.Populate(jObject.CreateReader(), model);
             model.Data = dealUpdateEntity;
 

@@ -186,7 +186,7 @@ namespace Pipedrive
             return ApiConnection.GetAll<File>(ApiUrls.OrganizationFiles(id), parameters, options);
         }
 
-        public Task<IReadOnlyList<DealUpdateFlow>> GetUpdates(long id, OrganizationUpdateFilters filters)
+        public Task<IReadOnlyList<EntityUpdateFlow>> GetUpdates(long id, OrganizationUpdateFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));
 
@@ -199,7 +199,7 @@ namespace Pipedrive
                 PageSize = filters.PageSize
             };
 
-            return ApiConnection.GetAll<DealUpdateFlow>(ApiUrls.OrganizationUpdates(id), parameters, options);
+            return ApiConnection.GetAll<EntityUpdateFlow>(ApiUrls.OrganizationUpdates(id), parameters, options);
         }
     }
 }

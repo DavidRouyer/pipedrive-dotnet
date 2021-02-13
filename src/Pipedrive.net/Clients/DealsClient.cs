@@ -117,7 +117,7 @@ namespace Pipedrive
             return ApiConnection.Delete(ApiUrls.Deal(id));
         }
 
-        public Task<IReadOnlyList<DealUpdateFlow>> GetUpdates(long dealId, DealUpdateFilters filters)
+        public Task<IReadOnlyList<EntityUpdateFlow>> GetUpdates(long dealId, DealUpdateFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));
 
@@ -130,7 +130,7 @@ namespace Pipedrive
                 PageSize = filters.PageSize
             };
 
-            return ApiConnection.GetAll<DealUpdateFlow>(ApiUrls.DealUpdates(dealId), parameters, options);
+            return ApiConnection.GetAll<EntityUpdateFlow>(ApiUrls.DealUpdates(dealId), parameters, options);
         }
 
         public Task<IReadOnlyList<DealFollower>> GetFollowers(long dealId)

@@ -4,8 +4,8 @@ using Pipedrive.Internal;
 
 namespace Pipedrive
 {
-    [JsonConverter(typeof(DealUpdateConverter))]
-    public class DealUpdateFlow
+    [JsonConverter(typeof(EntityUpdateConverter))]
+    public class EntityUpdateFlow
     {
         [JsonProperty("object")]
         public string Object { get; set; }

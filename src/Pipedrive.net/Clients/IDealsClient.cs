@@ -26,7 +26,7 @@ namespace Pipedrive
 
         Task Delete(long id);
 
-        Task<IReadOnlyList<DealUpdateFlow>> GetUpdates(long dealId, DealUpdateFilters filters);
+        Task<IReadOnlyList<EntityUpdateFlow>> GetUpdates(long dealId, DealUpdateFilters filters);
 
         Task<IReadOnlyList<DealFollower>> GetFollowers(long dealId);
 
