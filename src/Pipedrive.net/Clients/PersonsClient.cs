@@ -116,7 +116,6 @@ namespace Pipedrive
             return ApiConnection.GetAll<Deal>(ApiUrls.PersonDeal(personId), parameters, options);
         }
 
-
         public Task<IReadOnlyList<Activity>> GetActivities(long personId, PersonActivityFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));
