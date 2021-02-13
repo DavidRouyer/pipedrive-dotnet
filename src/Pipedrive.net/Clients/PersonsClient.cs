@@ -113,7 +113,7 @@ namespace Pipedrive
                 PageSize = filters.PageSize
             };
 
-            return ApiConnection.GetAll<Deal>(ApiUrls.PersonDeal(personId), parameters, options);
+            return ApiConnection.GetAll<Deal>(ApiUrls.PersonDeals(personId), parameters, options);
         }
 
         public Task<IReadOnlyList<Activity>> GetActivities(long personId, PersonActivityFilters filters)
@@ -128,7 +128,7 @@ namespace Pipedrive
                 PageSize = filters.PageSize
             };
 
-            return ApiConnection.GetAll<Activity>(ApiUrls.PersonActivity(personId), parameters, options);
+            return ApiConnection.GetAll<Activity>(ApiUrls.PersonActivities(personId), parameters, options);
         }
 
         public Task<IReadOnlyList<File>> GetFiles(long personId, PersonFileFilters filters)
@@ -143,7 +143,7 @@ namespace Pipedrive
                 PageSize = filters.PageSize
             };
 
-            return ApiConnection.GetAll<File>(ApiUrls.PersonFile(personId), parameters, options);
+            return ApiConnection.GetAll<File>(ApiUrls.PersonFiles(personId), parameters, options);
         }
 
         public Task<IReadOnlyList<EntityUpdateFlow>> GetUpdates(long id, PersonUpdateFilters filters)

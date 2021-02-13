@@ -113,7 +113,7 @@ namespace Pipedrive
                 PageSize = filters.PageSize
             };
 
-            return ApiConnection.GetAll<Deal>(ApiUrls.OrganizationDeal(id), parameters, options);
+            return ApiConnection.GetAll<Deal>(ApiUrls.OrganizationDeals(id), parameters, options);
         }
 
         public Task<IReadOnlyList<Person>> GetPersons(long id, OrganizationFilters filters)

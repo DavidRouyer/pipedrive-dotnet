@@ -322,7 +322,7 @@ namespace Pipedrive
         /// Returns the <see cref="Uri"/> for all the deals of the specified organization.
         /// </summary>
         /// <param name="id">The id of the organization</param>
-        public static Uri OrganizationDeal(long id)
+        public static Uri OrganizationDeals(long id)
         {
             return new Uri($"organizations/{id}/deals", UriKind.Relative);
         }
@@ -356,21 +356,21 @@ namespace Pipedrive
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> for all the updates of the specified organization.
-        /// </summary>
-        /// <param name="id">The id of the organization</param>
-        public static Uri OrganizationUpdates(long id)
-        {
-            return new Uri($"organizations/{id}/flow", UriKind.Relative);
-        }
-
-        /// <summary>
         /// Returns the <see cref="Uri"/> for all the files of the specified organization.
         /// </summary>
         /// <param name="id">The id of the organization</param>
         public static Uri OrganizationFiles(long id)
         {
             return new Uri($"organizations/{id}/files", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for all the updates of the specified organization.
+        /// </summary>
+        /// <param name="id">The id of the organization</param>
+        public static Uri OrganizationUpdates(long id)
+        {
+            return new Uri($"organizations/{id}/flow", UriKind.Relative);
         }
 
         /// <summary>
@@ -431,7 +431,7 @@ namespace Pipedrive
         /// Returns the <see cref="Uri"/> for all the deals of the specified person.
         /// </summary>
         /// <param name="id">The id of the person</param>
-        public static Uri PersonDeal(long id)
+        public static Uri PersonDeals(long id)
         {
             return new Uri($"persons/{id}/deals", UriKind.Relative);
         }
@@ -440,7 +440,7 @@ namespace Pipedrive
         /// Returns the <see cref="Uri"/> for all the activities of the specified person.
         /// </summary>
         /// <param name="id">The id of the person</param>
-        public static Uri PersonActivity(long id)
+        public static Uri PersonActivities(long id)
         {
             return new Uri($"persons/{id}/activities", UriKind.Relative);
         }
@@ -449,7 +449,7 @@ namespace Pipedrive
         /// Returns the <see cref="Uri"/> for all the files of the specified person.
         /// </summary>
         /// <param name="id">The id of the person</param>
-        public static Uri PersonFile(long id)
+        public static Uri PersonFiles(long id)
         {
             return new Uri($"persons/{id}/files", UriKind.Relative);
         }
