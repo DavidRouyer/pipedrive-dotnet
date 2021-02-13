@@ -170,22 +170,6 @@ namespace Pipedrive
             return ApiConnection.GetAll<DealActivity>(ApiUrls.OrganizationActivities(id), parameters, options);
         }
 
-        public Task<IReadOnlyList<DealUpdateFlow>> GetUpdates(long id, OrganizationUpdateFilters filters)
-        {
-            Ensure.ArgumentNotNull(filters, nameof(filters));
-
-            var parameters = filters.Parameters;
-            parameters.Add("id", id.ToString());
-            var options = new ApiOptions
-            {
-                StartPage = filters.StartPage,
-                PageCount = filters.PageCount,
-                PageSize = filters.PageSize
-            };
-
-            return ApiConnection.GetAll<DealUpdateFlow>(ApiUrls.OrganizationUpdates(id), parameters, options);
-        }
-
         public Task<IReadOnlyList<File>> GetFiles(long id, OrganizationFileFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));
@@ -200,6 +184,22 @@ namespace Pipedrive
             };
 
             return ApiConnection.GetAll<File>(ApiUrls.OrganizationFiles(id), parameters, options);
+        }
+
+        public Task<IReadOnlyList<DealUpdateFlow>> GetUpdates(long id, OrganizationUpdateFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+            parameters.Add("id", id.ToString());
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.GetAll<DealUpdateFlow>(ApiUrls.OrganizationUpdates(id), parameters, options);
         }
     }
 }
