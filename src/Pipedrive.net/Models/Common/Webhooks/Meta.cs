@@ -22,10 +22,10 @@ namespace Pipedrive.Webhooks
         public long Id { get; set; }
 
         [JsonProperty("company_id")]
-        public long CompanyId { get; set; }
+        public long? CompanyId { get; set; }
 
         [JsonProperty("user_id")]
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
 
         [JsonProperty("host")]
         public string Host { get; set; }
