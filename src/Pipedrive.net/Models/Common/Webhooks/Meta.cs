@@ -41,7 +41,7 @@ namespace Pipedrive.Webhooks
         public string[] PermittedUserIds { get; set; }
 
         [JsonProperty("trans_pending")]
-        public bool TransPending { get; set; }
+        public bool? TransPending { get; set; }
 
         [JsonProperty("is_bulk_update")]
         public bool IsBulkUpdate { get; set; }
