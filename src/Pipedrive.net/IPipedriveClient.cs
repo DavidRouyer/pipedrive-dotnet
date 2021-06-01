@@ -43,6 +43,8 @@ namespace Pipedrive
 
         IStagesClient Stage { get; }
 
+        ISubscriptionsClient Subscription { get; }
+
         IUsersClient User { get; }
 
         IWebhooksClient Webhook { get; }
