@@ -19,14 +19,19 @@ namespace Pipedrive
         {
         }
 
-        public Task<IReadOnlyList<Subscription>> GetAllForDealId(long dealId)
+        public Task<Subscription> GetByDealId(long dealId)
         {
-            return ApiConnection.GetAll<Subscription>(ApiUrls.SubscriptionsByDealId(dealId));
+            return ApiConnection.Get<Subscription>(ApiUrls.SubscriptionsByDealId(dealId));
         }
 
         public Task<Subscription> Get(long id)
         {
             return ApiConnection.Get<Subscription>(ApiUrls.Subscription(id));
+        }
+
+        public Task<IReadOnlyList<Payment>> GetPayments(long id)
+        {
+            return ApiConnection.GetAll<Payment>(ApiUrls.SubscriptionPayments(id));
         }
 
         public Task<Subscription> CreateRecurring(NewRecurringSubscription data)

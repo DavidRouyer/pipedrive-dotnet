@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -6,25 +7,24 @@ namespace Pipedrive.Tests.Integration.Clients
 {
     public class SubscriptionsClientTests
     {
-        public class TheGetAllByDealIdMethod
+        public class TheGetByDealIdMethod
         {
             [IntegrationTest]
-            public async Task CanRetrieveSubscriptions()
+            public async Task CanRetrieveSubscription()
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var subscriptions = await pipedrive.Subscription.GetAllForDealId(540);
+                var subscription = await pipedrive.Subscription.GetByDealId(540);
 
-                Assert.True(subscriptions.Count == 1);
-                Assert.True(subscriptions[0].Infinite);
-                Assert.True(subscriptions[0].IsActive);
+                Assert.False(subscription.Infinite);
+                Assert.True(subscription.IsActive);
             }
         }
 
         public class TheGetMethod
         {
             [IntegrationTest]
-            public async Task CanRetrieveStages()
+            public async Task CanRetrieveSubscription()
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
@@ -34,10 +34,23 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetPaymentsMethod
+        {
+            [IntegrationTest]
+            public async Task CanRetrievePayments()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var payments = await pipedrive.Subscription.GetPayments(1);
+
+                Assert.Equal(3, payments.Count);
+            }
+        }
+
         public class TheCreateRecurringMethod
         {
             [IntegrationTest]
-            public async Task CanCreate()
+            public async Task CanCreateInfinite()
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
                 var fixture = pipedrive.Subscription;
@@ -45,21 +58,62 @@ namespace Pipedrive.Tests.Integration.Clients
                 var newRecurringSubscription = new NewRecurringSubscription()
                 {
                     DealId = 1,
+                    Description = "a subscription",
                     Currency = "EUR",
                     CadenceType = "monthly",
-                    CycleAmount = 100,
+                    CycleAmount = 200,
+                    Infinite = true,
                     StartDate = DateTime.UtcNow.AddDays(3).Date,
+                    Payments = new List<NewPayment>()
+                    {
+                        new NewPayment() { Amount = 200, Description = "my payment", DueAt = DateTime.Now }
+                    }
                 };
 
-                var deal = await fixture.CreateRecurring(newRecurringSubscription);
-                Assert.NotNull(deal);
+                var subscription = await fixture.CreateRecurring(newRecurringSubscription);
+                Assert.NotNull(subscription);
 
-                var retrieved = await fixture.Get(deal.Id);
+                var retrieved = await fixture.Get(subscription.Id);
                 Assert.NotNull(retrieved);
-                Assert.Equal(DateTime.UtcNow.AddDays(3).Date, newRecurringSubscription.StartDate.Date);
+                Assert.True(newRecurringSubscription.Infinite);
+                Assert.Equal(DateTime.UtcNow.AddDays(3).Date, subscription.StartDate);
 
                 // Cleanup
-                await fixture.Delete(deal.Id);
+                await fixture.Delete(subscription.Id);
+            }
+
+            [IntegrationTest]
+            public async Task CanCreateLimited()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Subscription;
+
+                var newRecurringSubscription = new NewRecurringSubscription()
+                {
+                    DealId = 1,
+                    Description = "a subscription",
+                    Currency = "EUR",
+                    CadenceType = "monthly",
+                    CycleAmount = 200,
+                    CyclesCount = 12,
+                    StartDate = DateTime.UtcNow.AddDays(3).Date,
+                    Payments = new List<NewPayment>()
+                    {
+                        new NewPayment() { Amount = 400, Description = "my payment", DueAt = DateTime.Now }
+                    }
+                };
+
+                var subscription = await fixture.CreateRecurring(newRecurringSubscription);
+                Assert.NotNull(subscription);
+
+                var retrieved = await fixture.Get(subscription.Id);
+                Assert.NotNull(retrieved);
+                Assert.False(subscription.Infinite);
+                Assert.Equal(12, subscription.CyclesCount);
+                Assert.Equal(DateTime.UtcNow.AddDays(3).Date, subscription.StartDate);
+
+                // Cleanup
+                await fixture.Delete(subscription.Id);
             }
         }
 
@@ -75,17 +129,21 @@ namespace Pipedrive.Tests.Integration.Clients
                 {
                     DealId = 1,
                     Currency = "EUR",
+                    Payments = new List<NewPayment>()
+                    {
+                        new NewPayment() { Amount = 200, Description = "my payment", DueAt = DateTime.Now }
+                    }
                 };
 
-                var deal = await fixture.CreateInstallment(newInstallmentSubscription);
-                Assert.NotNull(deal);
+                var subscription = await fixture.CreateInstallment(newInstallmentSubscription);
+                Assert.NotNull(subscription);
 
-                var retrieved = await fixture.Get(deal.Id);
+                var retrieved = await fixture.Get(subscription.Id);
                 Assert.NotNull(retrieved);
                 Assert.Equal(1, newInstallmentSubscription.DealId);
 
                 // Cleanup
-                await fixture.Delete(deal.Id);
+                await fixture.Delete(subscription.Id);
             }
         }
 
@@ -97,10 +155,18 @@ namespace Pipedrive.Tests.Integration.Clients
                 var pipedrive = Helper.GetAuthenticatedClient();
                 var fixture = pipedrive.Subscription;
 
-                var newDeal = new NewInstallmentSubscription() { DealId = 1 };
-                var deal = await fixture.CreateInstallment(newDeal);
+                var newSubscription = new NewInstallmentSubscription()
+                {
+                    DealId = 1,
+                    Currency = "EUR",
+                    Payments = new List<NewPayment>()
+                    {
+                        new NewPayment() { Amount = 200, Description = "my payment", DueAt = DateTime.Now }
+                    }
+                };
+                var subscription = await fixture.CreateInstallment(newSubscription);
 
-                var createdSubscription = await fixture.Get(deal.Id);
+                var createdSubscription = await fixture.Get(subscription.Id);
 
                 Assert.NotNull(createdSubscription);
 

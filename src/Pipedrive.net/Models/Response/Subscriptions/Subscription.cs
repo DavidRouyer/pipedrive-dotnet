@@ -19,8 +19,8 @@ namespace Pipedrive
         [JsonProperty("cycle_amount")]
         public decimal CycleAmount { get; set; }
 
-        [JsonProperty("cycle_count")]
-        public long CycleCount { get; set; }
+        [JsonProperty("cycles_count")]
+        public long CyclesCount { get; set; }
 
         [JsonProperty("infinite")]
         public bool Infinite { get; set; }
@@ -34,6 +34,7 @@ namespace Pipedrive
         [JsonProperty("end_date")]
         public DateTime? EndDate { get; set; }
 
+        [JsonProperty("description")]
         public string Description { get; set; }
 
         [JsonProperty("add_time")]

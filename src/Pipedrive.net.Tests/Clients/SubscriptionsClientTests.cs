@@ -16,7 +16,7 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
-        public class TheGetForDealIdMethod
+        public class TheGetByDealIdMethod
         {
             [Fact]
             public async Task RequestsCorrectUrl()
@@ -24,11 +24,11 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new SubscriptionsClient(connection);
 
-                await client.GetAllForDealId(123);
+                await client.GetByDealId(123);
 
                 Received.InOrder(async () =>
                 {
-                    await connection.GetAll<Subscription>(
+                    await connection.Get<Subscription>(
                         Arg.Is<Uri>(u => u.ToString() == "subscriptions/find/123"));
                 });
             }
@@ -47,6 +47,23 @@ namespace Pipedrive.Tests.Clients
                 Received.InOrder(async () =>
                 {
                     await connection.Get<Subscription>(Arg.Is<Uri>(u => u.ToString() == "subscriptions/123"));
+                });
+            }
+        }
+
+        public class TheGetPaymentsMethod
+        {
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new SubscriptionsClient(connection);
+
+                await client.GetPayments(123);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<Payment>(Arg.Is<Uri>(u => u.ToString() == "subscriptions/123/payments"));
                 });
             }
         }

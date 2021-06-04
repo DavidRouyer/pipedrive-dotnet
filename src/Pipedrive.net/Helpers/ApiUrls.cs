@@ -656,12 +656,21 @@ namespace Pipedrive
         }
 
         /// <summary>
-        /// Returns the <see cref="Uri"/> that retuens all of the subscriptions for a specific deal.
+        /// Returns the <see cref="Uri"/> that returns all of the subscriptions for a specific deal.
         /// </summary>
         /// <param name="dealId">The id of the deal</param>
         public static Uri SubscriptionsByDealId(long dealId)
         {
             return new Uri($"subscriptions/find/{dealId}", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the payments for a specific subscription.
+        /// </summary>
+        /// <param name="id">The id of the subscription</param>
+        public static Uri SubscriptionPayments(long id)
+        {
+            return new Uri($"subscriptions/{id}/payments", UriKind.Relative);
         }
 
         /// <summary>

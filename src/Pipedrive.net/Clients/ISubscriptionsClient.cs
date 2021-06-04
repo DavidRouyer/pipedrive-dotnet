@@ -10,9 +10,11 @@ namespace Pipedrive
     /// See the <a href="https://developers.pipedrive.com/docs/api/v1/Subscriptions">Subscription API documentation</a> for more information.
     public interface ISubscriptionsClient
     {
-        Task<IReadOnlyList<Subscription>> GetAllForDealId(long dealId);
+        Task<Subscription> GetByDealId(long dealId);
 
         Task<Subscription> Get(long id);
+
+        Task<IReadOnlyList<Payment>> GetPayments(long id);
 
         Task<Subscription> CreateRecurring(NewRecurringSubscription data);
 
