@@ -39,6 +39,8 @@ namespace Pipedrive
 
         static readonly Uri _stagesUrl = new Uri("stages", UriKind.Relative);
 
+        static readonly Uri _subscriptionsUrl = new Uri("subscriptions", UriKind.Relative);
+
         static readonly Uri _usersUrl = new Uri("users", UriKind.Relative);
 
         static readonly Uri _webhooksUrl = new Uri("webhooks", UriKind.Relative);
@@ -624,6 +626,69 @@ namespace Pipedrive
         public static Uri StageDeal(long id)
         {
             return new Uri($"stages/{id}/deals", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the subscriptions in response to a GET request.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri Subscriptions()
+        {
+            return _subscriptionsUrl;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that creates a recurring subscription.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri SubscriptionRecurring()
+        {
+            return new Uri($"subscriptions/recurring", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that creates a installment subscription.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri SubscriptionInstallment()
+        {
+            return new Uri($"subscriptions/installment", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the subscriptions for a specific deal.
+        /// </summary>
+        /// <param name="dealId">The id of the deal</param>
+        public static Uri SubscriptionsByDealId(long dealId)
+        {
+            return new Uri($"subscriptions/find/{dealId}", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the payments for a specific subscription.
+        /// </summary>
+        /// <param name="id">The id of the subscription</param>
+        public static Uri SubscriptionPayments(long id)
+        {
+            return new Uri($"subscriptions/{id}/payments", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for the specified subscription.
+        /// </summary>
+        /// <param name="id">The id of the subscription</param>
+        public static Uri SubscriptionRecurringCancellation(long id)
+        {
+            return new Uri($"subscriptions/recurring/{id}/cancel", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for the specified subscription.
+        /// </summary>
+        /// <param name="id">The id of the subscription</param>
+        public static Uri Subscription(long id)
+        {
+            return new Uri($"subscriptions/{id}", UriKind.Relative);
         }
 
         /// <summary>

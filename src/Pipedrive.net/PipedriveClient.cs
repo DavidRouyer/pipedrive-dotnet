@@ -67,6 +67,7 @@ namespace Pipedrive
             Pipeline = new PipelinesClient(apiConnection);
             Product = new ProductsClient(apiConnection);
             Stage = new StagesClient(apiConnection);
+            Subscription = new SubscriptionsClient(apiConnection);
             User = new UsersClient(apiConnection);
             Webhook = new WebhooksClient(apiConnection);
         }
@@ -264,6 +265,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Stages
         /// </remarks>
         public IStagesClient Stage { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's Subscription API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/Subscriptions
+        /// </remarks>
+        public ISubscriptionsClient Subscription { get; private set; }
 
         /// <summary>
         /// Access Pipedrive's User API.
