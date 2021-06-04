@@ -22,6 +22,8 @@ namespace Pipedrive
 
         Task Delete(long id);
 
+        Task Delete(List<long> ids);
+
         Task<IReadOnlyList<PipelineDeal>> GetDeals(long stageId, StageDealFilters filters);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -99,6 +100,30 @@ namespace Pipedrive.Tests.Integration.Clients
                 await fixture.Delete(createdOrganizationField.Id.Value);
 
                 await Assert.ThrowsAsync<NotFoundException>(() => fixture.Get(createdOrganizationField.Id.Value));
+            }
+        }
+
+        public class TheDeleteMultipleMethod
+        {
+            [IntegrationTest]
+            public async Task CanDelete()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.OrganizationField;
+
+                var organizationField1 = await fixture.Create(new NewOrganizationField("new-subject1", FieldType.text));
+                var organizationField2 = await fixture.Create(new NewOrganizationField("new-subject2", FieldType.text));
+
+                var createdOrganizationField1 = await fixture.Get(organizationField1.Id.Value);
+                var createdOrganizationField2 = await fixture.Get(organizationField2.Id.Value);
+
+                Assert.NotNull(createdOrganizationField1);
+                Assert.NotNull(createdOrganizationField2);
+
+                await fixture.Delete(new List<long>() { createdOrganizationField1.Id.Value, createdOrganizationField2.Id.Value });
+
+                await Assert.ThrowsAsync<NotFoundException>(() => fixture.Get(createdOrganizationField1.Id.Value));
+                await Assert.ThrowsAsync<NotFoundException>(() => fixture.Get(createdOrganizationField2.Id.Value));
             }
         }
     }

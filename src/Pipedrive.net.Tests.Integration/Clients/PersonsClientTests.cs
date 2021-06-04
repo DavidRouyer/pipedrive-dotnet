@@ -164,6 +164,33 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheDeleteMultipleMethod
+        {
+            [IntegrationTest]
+            public async Task CanDelete()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Person;
+
+                var person1 = await fixture.Create(new NewPerson("new-subject1"));
+                var person2 = await fixture.Create(new NewPerson("new-subject2"));
+
+                var createdPerson1 = await fixture.Get(person1.Id);
+                var createdPerson2 = await fixture.Get(person2.Id);
+
+                Assert.NotNull(createdPerson1);
+                Assert.NotNull(createdPerson2);
+
+                await fixture.Delete(new List<long>() { createdPerson1.Id, createdPerson2.Id });
+
+                var deletedPerson1 = await fixture.Get(createdPerson1.Id);
+                var deletedPerson2 = await fixture.Get(createdPerson2.Id);
+
+                Assert.False(deletedPerson1.ActiveFlag);
+                Assert.False(deletedPerson2.ActiveFlag);
+            }
+        }
+
         public class TheGetDealsMethod
         {
             [IntegrationTest]

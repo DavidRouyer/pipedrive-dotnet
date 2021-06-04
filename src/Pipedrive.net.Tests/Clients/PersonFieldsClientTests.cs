@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using NSubstitute;
 using Xunit;
@@ -97,6 +98,50 @@ namespace Pipedrive.Tests.Clients
                 connection.Received().Put<PersonField>(Arg.Is<Uri>(u => u.ToString() == "personFields/123"),
                     Arg.Is<PersonFieldUpdate>(df => df.Name == "name"
                         && (string)df.Options == "{}"));
+            }
+        }
+
+        public class TheDeleteMethod
+        {
+            [Fact]
+            public void DeletesCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new PersonFieldsClient(connection);
+
+                client.Delete(123);
+
+                connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "personFields/123"));
+            }
+        }
+
+        public class TheDeleteMultipleMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new PersonFieldsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.Delete(null));
+            }
+
+            [Fact]
+            public async Task EnsuresNonEmptyArguments()
+            {
+                var client = new PersonFieldsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentException>(() => client.Delete(new List<long>()));
+            }
+
+            [Fact]
+            public void DeletesCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new PersonFieldsClient(connection);
+
+                client.Delete(new List<long>() { 123, 456 });
+
+                connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "personFields?ids=123,456"));
             }
         }
     }

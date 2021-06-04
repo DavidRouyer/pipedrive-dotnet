@@ -21,22 +21,22 @@ You can debug this library right from your application by configuring the [NuGet
 
 ## Supported endpoints
 
-- [ ] Activities
+- [x] Activities
   - [x] getActivities
   - [x] getActivity
   - [x] addActivity
   - [x] updateActivity
-  - [ ] deleteActivities
+  - [x] deleteActivities
   - [x] deleteActivity
 
 - [x] ActivityFields
   - [x] getActivityFields
 
-- [ ] ActivityTypes
+- [x] ActivityTypes
   - [x] getActivityTypes
   - [x] addActivityType
   - [x] updateActivityType
-  - [ ] deleteActivityTypes
+  - [x] deleteActivityTypes
   - [x] deleteActivityType
 
 - [ ] CallLogs
@@ -72,18 +72,18 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] updateDeal
   - [ ] mergeDeals
   - [x] updateDealProduct
-  - [ ] deleteDeals
+  - [x] deleteDeals
   - [x] deleteDeal
   - [x] deleteDealFollower
   - [x] deleteDealParticipant
   - [x] deleteDealProduct
 
-- [ ] DealFields
+- [x] DealFields
   - [x] getDealFields
   - [x] getDealField
   - [x] addDealField
   - [x] updateDealField
-  - [ ] deleteDealFields
+  - [x] deleteDealFields
   - [x] deleteDealField
 
 - [ ] Files
@@ -144,7 +144,7 @@ You can debug this library right from your application by configuring the [NuGet
   - [ ] updateMailThreadDetails
   - [ ] deleteMailThread
 
-- [ ] Notes
+- [x] Notes
   - [x] getNotes
   - [x] getNote
   - [x] addNote
@@ -170,7 +170,7 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] addOrganizationFollower
   - [x] updateOrganization
   - [ ] mergeOrganizations
-  - [ ] deleteOrganizations
+  - [x] deleteOrganizations
   - [x] deleteOrganization
   - [x] deleteOrganizationFollower
 
@@ -179,7 +179,7 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] getOrganizationField
   - [x] addOrganizationField
   - [x] updateOrganizationField
-  - [ ] deleteOrganizationFields
+  - [x] deleteOrganizationFields
   - [x] deleteOrganizationField
 
 - [ ] OrganizationRelationships
@@ -211,17 +211,17 @@ You can debug this library right from your application by configuring the [NuGet
   - [ ] addPersonPicture
   - [x] updatePerson
   - [ ] mergePersons
-  - [ ] deletePersons
+  - [x] deletePersons
   - [x] deletePerson
   - [x] deletePersonFollower
   - [ ] deletePersonPicture
 
-- [ ] PersonFields
+- [x] PersonFields
   - [x] getPersonFields
   - [x] getPersonField
   - [x] addPersonField
   - [x] updatePersonField
-  - [ ] deletePersonFields
+  - [x] deletePersonFields
   - [x] deletePersonField
 
 - [ ] Pipelines
@@ -272,13 +272,13 @@ You can debug this library right from your application by configuring the [NuGet
   - [ ] deleteRole
   - [ ] deleteRoleAssignment
 
-- [ ] Stages
+- [x] Stages
   - [x] getStages
   - [x] getStage
   - [x] getStageDeals
   - [x] addStage
   - [x] updateStage
-  - [ ] deleteStages
+  - [x] deleteStages
   - [x] deleteStage
 
 - [ ] Subscriptions

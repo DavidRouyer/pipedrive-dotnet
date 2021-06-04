@@ -19,5 +19,7 @@ namespace Pipedrive
         Task<PersonField> Edit(long id, PersonFieldUpdate data);
 
         Task Delete(long id);
+
+        Task Delete(List<long> ids);
     }
 }

@@ -117,6 +117,14 @@ namespace Pipedrive
             return ApiConnection.Delete(ApiUrls.Deal(id));
         }
 
+        public Task Delete(List<long> ids)
+        {
+            Ensure.ArgumentNotNull(ids, nameof(ids));
+            Ensure.GreaterThanZero(ids.Count, nameof(ids));
+
+            return ApiConnection.Delete(new Uri($"{ApiUrls.Deals()}?ids={string.Join(",", ids)}", UriKind.Relative));
+        }
+
         public Task<IReadOnlyList<EntityUpdateFlow>> GetUpdates(long dealId, DealUpdateFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));

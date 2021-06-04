@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -99,6 +100,30 @@ namespace Pipedrive.Tests.Integration.Clients
                 await fixture.Delete(createdPersonField.Id.Value);
 
                 await Assert.ThrowsAsync<NotFoundException>(() => fixture.Get(createdPersonField.Id.Value));
+            }
+        }
+
+        public class TheDeleteMultipleMethod
+        {
+            [IntegrationTest]
+            public async Task CanDelete()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.PersonField;
+
+                var personField1 = await fixture.Create(new NewPersonField("new-subject1", FieldType.text));
+                var personField2 = await fixture.Create(new NewPersonField("new-subject2", FieldType.text));
+
+                var createdPersonField1 = await fixture.Get(personField1.Id.Value);
+                var createdPersonField2 = await fixture.Get(personField2.Id.Value);
+
+                Assert.NotNull(createdPersonField1);
+                Assert.NotNull(createdPersonField2);
+
+                await fixture.Delete(new List<long>() { createdPersonField1.Id.Value, createdPersonField2.Id.Value });
+
+                await Assert.ThrowsAsync<NotFoundException>(() => fixture.Get(createdPersonField1.Id.Value));
+                await Assert.ThrowsAsync<NotFoundException>(() => fixture.Get(createdPersonField2.Id.Value));
             }
         }
     }

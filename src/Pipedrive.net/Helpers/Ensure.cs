@@ -45,6 +45,15 @@ namespace Pipedrive.Helpers
 
             throw new ArgumentException("Timespan must be greater than zero", name);
         }
+
+        public static void GreaterThanZero([ValidatedNotNull] int value, string name)
+        {
+            ArgumentNotNull(value, name);
+
+            if (value > 0) return;
+
+            throw new ArgumentException("Int must be greater than zero", name);
+        }
     }
 
     [AttributeUsage(AttributeTargets.Parameter)]

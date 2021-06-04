@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pipedrive.Helpers;
 
@@ -88,6 +89,14 @@ namespace Pipedrive
         public Task Delete(long id)
         {
             return ApiConnection.Delete(ApiUrls.Activity(id));
+        }
+
+        public Task Delete(List<long> ids)
+        {
+            Ensure.ArgumentNotNull(ids, nameof(ids));
+            Ensure.GreaterThanZero(ids.Count, nameof(ids));
+
+            return ApiConnection.Delete(new Uri($"{ApiUrls.Activities()}?ids={string.Join(",", ids)}", UriKind.Relative));
         }
     }
 }

@@ -19,5 +19,7 @@ namespace Pipedrive
         Task<DealField> Edit(long id, DealFieldUpdate data);
 
         Task Delete(long id);
+
+        Task Delete(List<long> ids);
     }
 }

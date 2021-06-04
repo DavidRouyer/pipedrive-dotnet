@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -135,6 +136,33 @@ namespace Pipedrive.Tests.Integration.Clients
                 var deletedActivity = await fixture.Get(createdActivity.Id);
 
                 Assert.False(deletedActivity.ActiveFlag);
+            }
+        }
+
+        public class TheDeleteMultipleMethod
+        {
+            [IntegrationTest]
+            public async Task CanDelete()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Activity;
+
+                var activity1 = await fixture.Create(new NewActivity("new-subject1", "email"));
+                var activity2 = await fixture.Create(new NewActivity("new-subject2", "email"));
+
+                var createdActivity1 = await fixture.Get(activity1.Id);
+                var createdActivity2 = await fixture.Get(activity2.Id);
+
+                Assert.NotNull(createdActivity1);
+                Assert.NotNull(createdActivity2);
+
+                await fixture.Delete(new List<long>() { createdActivity1.Id, createdActivity2.Id });
+
+                var deletedActivity1 = await fixture.Get(createdActivity1.Id);
+                var deletedActivity2 = await fixture.Get(createdActivity2.Id);
+
+                Assert.False(deletedActivity1.ActiveFlag);
+                Assert.False(deletedActivity2.ActiveFlag);
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -102,6 +103,30 @@ namespace Pipedrive.Tests.Integration.Clients
                 await fixture.Delete(createdStage.Id);
 
                 await Assert.ThrowsAsync<NotFoundException>(() => fixture.Get(stage.Id));
+            }
+        }
+
+        public class TheDeleteMultipleMethod
+        {
+            [IntegrationTest]
+            public async Task CanDelete()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Stage;
+
+                var stage1 = await fixture.Create(new NewStage("new-subject1", 1));
+                var stage2 = await fixture.Create(new NewStage("new-subject2", 1));
+
+                var createdStage1 = await fixture.Get(stage1.Id);
+                var createdStage2 = await fixture.Get(stage2.Id);
+
+                Assert.NotNull(createdStage1);
+                Assert.NotNull(createdStage2);
+
+                await fixture.Delete(new List<long>() { createdStage1.Id, createdStage2.Id });
+
+                await Assert.ThrowsAsync<NotFoundException>(() => fixture.Get(createdStage1.Id));
+                await Assert.ThrowsAsync<NotFoundException>(() => fixture.Get(createdStage2.Id));
             }
         }
 

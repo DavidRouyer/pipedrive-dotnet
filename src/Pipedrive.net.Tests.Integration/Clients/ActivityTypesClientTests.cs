@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -92,6 +93,35 @@ namespace Pipedrive.Tests.Integration.Clients
                 var deletedActivityType = deletedActivityTypes.Where(ac => ac.Name == "new-name").FirstOrDefault();
 
                 Assert.False(deletedActivityType.ActiveFlag);
+            }
+        }
+
+        public class TheDeleteMultipleMethod
+        {
+            [IntegrationTest]
+            public async Task CanDelete()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.ActivityType;
+
+                var activityType1 = await fixture.Create(new NewActivityType("new-activityType-1", ActivityTypeIcon.Addressbook));
+                var activityType2 = await fixture.Create(new NewActivityType("new-activityType-2", ActivityTypeIcon.Addressbook));
+
+                var createdActivityTypes = await fixture.GetAll();
+                var createdActivityType1 = createdActivityTypes.Where(at => at.Name == "new-activityType-1").FirstOrDefault();
+                var createdActivityType2 = createdActivityTypes.Where(at => at.Name == "new-activityType-2").FirstOrDefault();
+
+                Assert.NotNull(createdActivityType1);
+                Assert.NotNull(createdActivityType2);
+
+                await fixture.Delete(new List<long>() { createdActivityType1.Id, createdActivityType2.Id });
+
+                var deletedActivityTypes = await fixture.GetAll();
+                var deletedActivityType1 = deletedActivityTypes.Where(at => at.Name == "new-activityType-1").FirstOrDefault();
+                var deletedActivityType2 = deletedActivityTypes.Where(at => at.Name == "new-activityType-2").FirstOrDefault();
+
+                Assert.False(deletedActivityType1.ActiveFlag);
+                Assert.False(deletedActivityType2.ActiveFlag);
             }
         }
     }

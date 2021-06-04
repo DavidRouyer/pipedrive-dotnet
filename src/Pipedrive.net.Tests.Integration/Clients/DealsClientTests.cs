@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Pipedrive.CustomFields;
@@ -203,6 +204,33 @@ namespace Pipedrive.Tests.Integration.Clients
                 var deletedDeal = await fixture.Get(createdDeal.Id);
 
                 Assert.Equal(DealStatus.deleted, deletedDeal.Status);
+            }
+        }
+
+        public class TheDeleteMultipleMethod
+        {
+            [IntegrationTest]
+            public async Task CanDelete()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Deal;
+
+                var deal1 = await fixture.Create(new NewDeal("new-subject1"));
+                var deal2 = await fixture.Create(new NewDeal("new-subject2"));
+
+                var createdDeal1 = await fixture.Get(deal1.Id);
+                var createdDeal2 = await fixture.Get(deal2.Id);
+
+                Assert.NotNull(createdDeal1);
+                Assert.NotNull(createdDeal2);
+
+                await fixture.Delete(new List<long>() { createdDeal1.Id, createdDeal2.Id });
+
+                var deletedDeal1 = await fixture.Get(createdDeal1.Id);
+                var deletedDeal2 = await fixture.Get(createdDeal2.Id);
+
+                Assert.Equal(DealStatus.deleted, deletedDeal1.Status);
+                Assert.Equal(DealStatus.deleted, deletedDeal2.Status);
             }
         }
 

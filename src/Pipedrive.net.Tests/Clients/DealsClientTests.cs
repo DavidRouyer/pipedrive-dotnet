@@ -270,6 +270,36 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
+        public class TheDeleteMultipleMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new DealsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.Delete(null));
+            }
+
+            [Fact]
+            public async Task EnsuresNonEmptyArguments()
+            {
+                var client = new DealsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentException>(() => client.Delete(new List<long>()));
+            }
+
+            [Fact]
+            public void DeletesCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                client.Delete(new List<long>() { 123, 456 });
+
+                connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "deals?ids=123,456"));
+            }
+        }
+
         public class TheGetUpdatesMethod
         {
             [Fact]
