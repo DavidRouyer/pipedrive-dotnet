@@ -12,7 +12,7 @@ namespace Pipedrive
     public class CurrenciesClient : ApiClient, ICurrenciesClient
     {
         /// <summary>
-        /// Initializes a new Currency API client.
+        /// Initializes a new instance of the <see cref="CurrenciesClient"/> class.
         /// </summary>
         /// <param name="apiConnection">An API connection</param>
         public CurrenciesClient(IApiConnection apiConnection) : base(apiConnection)

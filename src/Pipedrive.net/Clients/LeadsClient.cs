@@ -13,7 +13,7 @@ namespace Pipedrive
     public class LeadsClient : ApiClient, ILeadsClient
     {
         /// <summary>
-        /// Initializes a new Lead API client.
+        /// Initializes a new instance of the <see cref="LeadsClient"/> class.
         /// </summary>
         /// <param name="apiConnection">An API connection</param>
         public LeadsClient(IApiConnection apiConnection) : base(apiConnection)

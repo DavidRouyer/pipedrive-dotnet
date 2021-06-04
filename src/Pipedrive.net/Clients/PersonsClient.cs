@@ -13,7 +13,7 @@ namespace Pipedrive
     public class PersonsClient : ApiClient, IPersonsClient
     {
         /// <summary>
-        /// Initializes a new Person API client.
+        /// Initializes a new instance of the <see cref="PersonsClient"/> class.
         /// </summary>
         /// <param name="apiConnection">An API connection</param>
         public PersonsClient(IApiConnection apiConnection) : base(apiConnection)

@@ -12,7 +12,7 @@ namespace Pipedrive
     public class SubscriptionsClient : ApiClient, ISubscriptionsClient
     {
         /// <summary>
-        /// Initializes a new Subscription API client.
+        /// Initializes a new instance of the <see cref="SubscriptionsClient"/> class.
         /// </summary>
         /// <param name="apiConnection">An API connection</param>
         public SubscriptionsClient(IApiConnection apiConnection) : base(apiConnection)

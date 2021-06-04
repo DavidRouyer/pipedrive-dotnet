@@ -11,7 +11,7 @@ namespace Pipedrive.Clients
         readonly Uri hostAddress;
 
         /// <summary>
-        /// Create an instance of the OAuthClient
+        /// Initializes a new instance of the <see cref="OAuthClient"/> class.
         /// </summary>
         /// <param name="connection">The underlying connection to use</param>
         public OAuthClient(IConnection connection)
@@ -27,7 +27,7 @@ namespace Pipedrive.Clients
         /// Gets the URL used in the first step of the web flow. The Web application should redirect to this URL.
         /// </summary>
         /// <param name="request">Parameters to the Oauth web flow login url</param>
-        /// <returns></returns>
+        /// <returns>A uri.</returns>
         public Uri GetPipedriveLoginUrl(OAuthLoginRequest request)
         {
             Ensure.ArgumentNotNull(request, nameof(request));
@@ -46,8 +46,8 @@ namespace Pipedrive.Clients
         /// match, the request has been created by a third party and the process should be aborted. Exchange this for
         /// an access token using this method.
         /// </remarks>
-        /// <param name="request"></param>
-        /// <returns></returns>
+        /// <param name="request">The OAuth access token request.</param>
+        /// <returns>The OAuth token.</returns>
         public async Task<OAuthToken> CreateAccessToken(OAuthAccessTokenRequest request)
         {
             Ensure.ArgumentNotNull(request, nameof(request));

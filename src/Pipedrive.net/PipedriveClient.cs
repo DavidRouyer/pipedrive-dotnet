@@ -10,7 +10,7 @@ namespace Pipedrive
     public class PipedriveClient : IPipedriveClient
     {
         /// <summary>
-        /// Create a new instance of the Pipedrive API v1 client pointing to the specified baseAddress.
+        /// Initializes a new instance of the <see cref="PipedriveClient"/> class pointing to the specified baseAddress.
         /// </summary>
         /// <param name="productInformation">
         /// The name (and optionally version) of the product using this library, the name of your Pipedrive organization. This is sent to the server as part of
@@ -25,7 +25,7 @@ namespace Pipedrive
         }
 
         /// <summary>
-        /// Create a new instance of the Pipedrive API v1 client pointing to the specified baseAddress.
+        /// Initializes a new instance of the <see cref="PipedriveClient"/> class pointing to the specified baseAddress.
         /// </summary>
         /// <param name="productInformation">
         /// The name (and optionally version) of the product using this library, the name of your Pipedrive organization. This is sent to the server as part of
@@ -41,7 +41,7 @@ namespace Pipedrive
         }
 
         /// <summary>
-        /// Create a new instance of the Pipedrive API v1 client using the specified connection.
+        /// Initializes a new instance of the <see cref="PipedriveClient"/> class using the specified connection.
         /// </summary>
         /// <param name="connection">The underlying <seealso cref="IConnection"/> used to make requests</param>
         public PipedriveClient(IConnection connection)

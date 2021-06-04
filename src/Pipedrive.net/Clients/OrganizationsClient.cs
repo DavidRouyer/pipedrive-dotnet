@@ -13,7 +13,7 @@ namespace Pipedrive
     public class OrganizationsClient : ApiClient, IOrganizationsClient
     {
         /// <summary>
-        /// Initializes a new Organization API client.
+        /// Initializes a new instance of the <see cref="OrganizationsClient"/> class.
         /// </summary>
         /// <param name="apiConnection">An API connection</param>
         public OrganizationsClient(IApiConnection apiConnection) : base(apiConnection)

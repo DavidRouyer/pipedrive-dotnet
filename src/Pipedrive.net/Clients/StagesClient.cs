@@ -12,7 +12,7 @@ namespace Pipedrive
     public class StagesClient : ApiClient, IStagesClient
     {
         /// <summary>
-        /// Initializes a new Stage API client.
+        /// Initializes a new instance of the <see cref="StagesClient"/> class.
         /// </summary>
         /// <param name="apiConnection">An API connection</param>
         public StagesClient(IApiConnection apiConnection) : base(apiConnection)

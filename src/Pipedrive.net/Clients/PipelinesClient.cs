@@ -12,7 +12,7 @@ namespace Pipedrive
     public class PipelinesClient : ApiClient, IPipelinesClient
     {
         /// <summary>
-        /// Initializes a new Pipeline API client.
+        /// Initializes a new instance of the <see cref="PipelinesClient"/> class.
         /// </summary>
         /// <param name="apiConnection">An API connection</param>
         public PipelinesClient(IApiConnection apiConnection) : base(apiConnection)

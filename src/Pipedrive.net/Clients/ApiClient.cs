@@ -8,7 +8,7 @@ namespace Pipedrive
     public abstract class ApiClient
     {
         /// <summary>
-        /// Initializes a new API client.
+        /// Initializes a new instance of the <see cref="ApiClient"/> class.
         /// </summary>
         /// <param name="apiConnection">The client's connection</param>
         protected ApiClient(IApiConnection apiConnection)

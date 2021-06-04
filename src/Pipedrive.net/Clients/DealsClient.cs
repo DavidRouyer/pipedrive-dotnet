@@ -13,7 +13,7 @@ namespace Pipedrive
     public class DealsClient : ApiClient, IDealsClient
     {
         /// <summary>
-        /// Initializes a new Deal API client.
+        /// Initializes a new instance of the <see cref="DealsClient"/> class.
         /// </summary>
         /// <param name="apiConnection">An API connection</param>
         public DealsClient(IApiConnection apiConnection) : base(apiConnection)

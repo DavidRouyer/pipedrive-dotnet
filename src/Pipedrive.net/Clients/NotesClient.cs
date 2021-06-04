@@ -12,7 +12,7 @@ namespace Pipedrive
     public class NotesClient : ApiClient, INotesClient
     {
         /// <summary>
-        /// Initializes a new Note API client.
+        /// Initializes a new instance of the <see cref="NotesClient"/> class.
         /// </summary>
         /// <param name="apiConnection">An API connection</param>
         public NotesClient(IApiConnection apiConnection) : base(apiConnection)

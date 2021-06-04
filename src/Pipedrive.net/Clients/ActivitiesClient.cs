@@ -12,7 +12,7 @@ namespace Pipedrive
     public class ActivitiesClient : ApiClient, IActivitiesClient
     {
         /// <summary>
-        /// Initializes a new Activity API client.
+        /// Initializes a new instance of the <see cref="ActivitiesClient"/> class.
         /// </summary>
         /// <param name="apiConnection">An API connection</param>
         public ActivitiesClient(IApiConnection apiConnection) : base(apiConnection)

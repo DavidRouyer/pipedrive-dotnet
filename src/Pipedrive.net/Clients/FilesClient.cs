@@ -13,7 +13,7 @@ namespace Pipedrive
     public class FilesClient : ApiClient, IFilesClient
     {
         /// <summary>
-        /// Initializes a new File API client.
+        /// Initializes a new instance of the <see cref="FilesClient"/> class.
         /// </summary>
         /// <param name="apiConnection">An API connection</param>
         public FilesClient(IApiConnection apiConnection) : base(apiConnection)
