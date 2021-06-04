@@ -20,6 +20,8 @@ namespace Pipedrive
 
         Task<Subscription> CreateInstallment(NewInstallmentSubscription data);
 
+        Task<Subscription> CancelRecurring(long id, CancelRecurringSubscription data);
+
         Task Delete(long id);
     }
 }

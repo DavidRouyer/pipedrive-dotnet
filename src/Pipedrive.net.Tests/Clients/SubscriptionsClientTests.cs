@@ -116,6 +116,21 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
+        public class TheCancelRecurringMethod
+        {
+            [Fact]
+            public void CancelsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new SubscriptionsClient(connection);
+
+                client.CancelRecurring(123, new CancelRecurringSubscription() { EndDate = DateTime.UtcNow.AddDays(4).Date });
+
+                connection.Received().Put<Subscription>(Arg.Is<Uri>(u => u.ToString() == "subscriptions/recurring/123/cancel"),
+                    Arg.Is<CancelRecurringSubscription>(d => d.EndDate == DateTime.UtcNow.AddDays(4).Date));
+            }
+        }
+
         public class TheDeleteMethod
         {
             [Fact]

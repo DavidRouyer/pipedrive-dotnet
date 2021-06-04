@@ -677,6 +677,15 @@ namespace Pipedrive
         /// Returns the <see cref="Uri"/> for the specified subscription.
         /// </summary>
         /// <param name="id">The id of the subscription</param>
+        public static Uri SubscriptionRecurringCancellation(long id)
+        {
+            return new Uri($"subscriptions/recurring/{id}/cancel", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for the specified subscription.
+        /// </summary>
+        /// <param name="id">The id of the subscription</param>
         public static Uri Subscription(long id)
         {
             return new Uri($"subscriptions/{id}", UriKind.Relative);

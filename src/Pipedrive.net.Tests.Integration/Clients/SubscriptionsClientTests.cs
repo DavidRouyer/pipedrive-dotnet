@@ -147,6 +147,43 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheCancelRecurringMethod
+        {
+            [IntegrationTest]
+            public async Task CanCancel()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Subscription;
+
+                var newSubscription = new NewRecurringSubscription()
+                {
+                    DealId = 1,
+                    Description = "a subscription",
+                    Currency = "EUR",
+                    CadenceType = "monthly",
+                    CycleAmount = 200,
+                    Infinite = true,
+                    StartDate = DateTime.UtcNow.AddDays(3).Date,
+                    Payments = new List<NewPayment>()
+                    {
+                        new NewPayment() { Amount = 200, Description = "my payment", DueAt = DateTime.Now }
+                    }
+                };
+
+                var subscription = await fixture.CreateRecurring(newSubscription);
+
+                var createdSubscription = await fixture.Get(subscription.Id);
+
+                Assert.NotNull(createdSubscription);
+
+                await fixture.CancelRecurring(createdSubscription.Id, new CancelRecurringSubscription() { EndDate = DateTime.UtcNow.AddDays(6).Date });
+
+                var cancelledSubscription = await fixture.Get(createdSubscription.Id);
+
+                Assert.Equal("canceled", cancelledSubscription.FinalStatus);
+            }
+        }
+
         public class TheDeleteMethod
         {
             [IntegrationTest]
