@@ -174,7 +174,7 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] deleteOrganization
   - [x] deleteOrganizationFollower
 
-- [ ] OrganizationFields
+- [x] OrganizationFields
   - [x] getOrganizationFields
   - [x] getOrganizationField
   - [x] addOrganizationField
