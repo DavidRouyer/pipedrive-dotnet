@@ -151,8 +151,8 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] updateNote
   - [x] deleteNote
 
-- [ ] NoteFields
-  - [ ] getNoteFields
+- [x] NoteFields
+  - [x] getNoteFields
 
 - [ ] Organizations
   - [x] getOrganizations

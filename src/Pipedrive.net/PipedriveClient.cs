@@ -59,6 +59,7 @@ namespace Pipedrive
             File = new FilesClient(apiConnection);
             Lead = new LeadsClient(apiConnection);
             Note = new NotesClient(apiConnection);
+            NoteField = new NoteFieldsClient(apiConnection);
             OAuth = new OAuthClient(connection);
             Organization = new OrganizationsClient(apiConnection);
             OrganizationField = new OrganizationFieldsClient(apiConnection);
@@ -201,6 +202,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Notes
         /// </remarks>
         public INotesClient Note { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's Note Field API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/NoteFields
+        /// </remarks>
+        public INoteFieldsClient NoteField { get; private set; }
 
         /// <summary>
         /// Access Pipedrive's OAuth API.

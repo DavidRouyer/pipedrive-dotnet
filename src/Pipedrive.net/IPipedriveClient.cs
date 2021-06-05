@@ -29,6 +29,8 @@ namespace Pipedrive
 
         INotesClient Note { get; }
 
+        INoteFieldsClient NoteField { get; }
+
         IOrganizationsClient Organization { get; }
 
         IOrganizationFieldsClient OrganizationField { get; }
