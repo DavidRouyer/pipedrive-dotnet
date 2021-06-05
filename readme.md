@@ -248,13 +248,13 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] deleteProduct
   - [x] deleteProductFollower
 
-- [ ] ProductFields
-  - [ ] getProductFields
-  - [ ] getProductField
-  - [ ] addProductField
-  - [ ] updateProductField
-  - [ ] deleteProductFields
-  - [ ] deleteProductField
+- [x] ProductFields
+  - [x] getProductFields
+  - [x] getProductField
+  - [x] addProductField
+  - [x] updateProductField
+  - [x] deleteProductFields
+  - [x] deleteProductField
 
 - [ ] Recents
   - [ ] getRecents

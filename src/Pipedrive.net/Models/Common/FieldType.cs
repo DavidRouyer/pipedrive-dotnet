@@ -23,6 +23,7 @@
         varchar_options,
         visible_to,
         picture, // Person field
-        address // Organization field
+        address, // Organization field
+        price_list // Product field
     }
 }

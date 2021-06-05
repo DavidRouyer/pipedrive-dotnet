@@ -43,6 +43,8 @@ namespace Pipedrive
 
         IProductsClient Product { get; }
 
+        IProductFieldsClient ProductField { get; }
+
         IStagesClient Stage { get; }
 
         ISubscriptionsClient Subscription { get; }

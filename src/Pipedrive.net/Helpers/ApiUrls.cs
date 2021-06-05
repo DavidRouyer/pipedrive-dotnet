@@ -39,6 +39,8 @@ namespace Pipedrive
 
         static readonly Uri _productsUrl = new Uri("products", UriKind.Relative);
 
+        static readonly Uri _productFieldsUrl = new Uri("productFields", UriKind.Relative);
+
         static readonly Uri _stagesUrl = new Uri("stages", UriKind.Relative);
 
         static readonly Uri _subscriptionsUrl = new Uri("subscriptions", UriKind.Relative);
@@ -610,6 +612,24 @@ namespace Pipedrive
         public static Uri ProductPermittedUsers(long id)
         {
             return new Uri($"products/{id}/permittedUsers", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the product fields in response to a GET request.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri ProductFields()
+        {
+            return _productFieldsUrl;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> for the specified product field.
+        /// </summary>
+        /// <param name="id">The id of the product field</param>
+        public static Uri ProductField(long id)
+        {
+            return new Uri($"productFields/{id}", UriKind.Relative);
         }
 
         /// <summary>
