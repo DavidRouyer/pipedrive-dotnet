@@ -204,39 +204,39 @@ namespace Pipedrive
             });
         }
 
-        public Task DeleteParticipant(long dealId, long dealParticipantId)
+        public Task DeleteParticipant(long dealId, long participantId)
         {
-            return ApiConnection.Delete(ApiUrls.DeleteDealParticipant(dealId, dealParticipantId));
+            return ApiConnection.Delete(ApiUrls.DeleteDealParticipant(dealId, participantId));
         }
 
-        public Task<IReadOnlyList<DealProduct>> GetProductsForDeal(long dealId, DealProductFilters dealProductFilters)
+        public Task<IReadOnlyList<DealProduct>> GetProducts(long dealId, DealProductFilters filters)
         {
-            Ensure.ArgumentNotNull(dealProductFilters, nameof(dealProductFilters));
+            Ensure.ArgumentNotNull(filters, nameof(filters));
 
             var options = new ApiOptions
             {
-                StartPage = dealProductFilters.StartPage,
-                PageCount = dealProductFilters.PageCount,
-                PageSize = dealProductFilters.PageSize
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
             };
 
-            return ApiConnection.GetAll<DealProduct>(ApiUrls.DealProducts(dealId), dealProductFilters.Parameters, options);
+            return ApiConnection.GetAll<DealProduct>(ApiUrls.DealProducts(dealId), filters.Parameters, options);
         }
 
-        public Task<CreatedDealProduct> AddProductToDeal(long dealId, NewDealProduct newDealProduct)
+        public Task<CreatedDealProduct> AddProduct(long dealId, NewDealProduct newDealProduct)
         {
             Ensure.ArgumentNotNull(newDealProduct, nameof(newDealProduct));
 
             return ApiConnection.Post<CreatedDealProduct>(ApiUrls.AddProductToDeal(dealId), newDealProduct);
         }
 
-        public Task<UpdatedDealProduct> UpdateDealProduct(long dealId, long dealProductId, DealProductUpdate dealProductUpdate)
+        public Task<UpdatedDealProduct> UpdateProduct(long dealId, long dealProductId, DealProductUpdate dealProductUpdate)
         {
             Ensure.ArgumentNotNull(dealProductUpdate, nameof(dealProductUpdate));
             return ApiConnection.Put<UpdatedDealProduct>(ApiUrls.UpdateDealProduct(dealId, dealProductId), dealProductUpdate);
         }
 
-        public Task DeleteDealProduct(long dealId, long dealProductId)
+        public Task DeleteProduct(long dealId, long dealProductId)
         {
             return ApiConnection.Delete(ApiUrls.DeleteDealProduct(dealId, dealProductId));
         }

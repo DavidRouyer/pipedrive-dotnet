@@ -511,7 +511,7 @@ namespace Pipedrive.Tests.Clients
                     IncludeProductData = "1"
                 };
 
-                client.GetProductsForDeal(1, dealProductFilters);
+                client.GetProducts(1, dealProductFilters);
 
                 Received.InOrder(async () =>
                 {
@@ -535,7 +535,7 @@ namespace Pipedrive.Tests.Clients
                 var client = new DealsClient(connection);
 
                 var newDealProduct = new NewDealProduct(2, 10, 44);
-                client.AddProductToDeal(1, newDealProduct);
+                client.AddProduct(1, newDealProduct);
 
                 connection.Received().Post<CreatedDealProduct>(Arg.Is<Uri>(u => u.ToString() == "deals/1/products"),
                     Arg.Is(newDealProduct));
@@ -551,7 +551,7 @@ namespace Pipedrive.Tests.Clients
                 var client = new DealsClient(connection);
 
                 var dealProductUpdate = new DealProductUpdate();
-                client.UpdateDealProduct(1, 2, dealProductUpdate);
+                client.UpdateProduct(1, 2, dealProductUpdate);
 
                 connection.Received().Put<UpdatedDealProduct>(Arg.Is<Uri>(u => u.ToString() == "deals/1/products/2"),
                     Arg.Is(dealProductUpdate));
@@ -566,7 +566,7 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new DealsClient(connection);
 
-                client.DeleteDealProduct(1, 22);
+                client.DeleteProduct(1, 22);
 
                 connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "deals/1/products/22"));
             }

@@ -44,12 +44,12 @@ namespace Pipedrive
 
         Task DeleteParticipant(long dealId, long dealParticipantId);
 
-        Task<IReadOnlyList<DealProduct>> GetProductsForDeal(long dealId, DealProductFilters dealProductFilters);
+        Task<IReadOnlyList<DealProduct>> GetProducts(long dealId, DealProductFilters dealProductFilters);
 
-        Task<CreatedDealProduct> AddProductToDeal(long dealId, NewDealProduct newDealProduct);
+        Task<CreatedDealProduct> AddProduct(long dealId, NewDealProduct newDealProduct);
 
-        Task<UpdatedDealProduct> UpdateDealProduct(long dealId, long dealProductId, DealProductUpdate dealProductUpdate);
+        Task<UpdatedDealProduct> UpdateProduct(long dealId, long dealProductId, DealProductUpdate dealProductUpdate);
 
-        Task DeleteDealProduct(long dealId, long dealProductId);
+        Task DeleteProduct(long dealId, long dealProductId);
     }
 }

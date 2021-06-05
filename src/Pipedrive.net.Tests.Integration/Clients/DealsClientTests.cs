@@ -489,7 +489,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 var pipedrive = Helper.GetAuthenticatedClient();
                 var fixture = pipedrive.Deal;
 
-                var dealProducts = await fixture.GetProductsForDeal(1, dealProductFilters);
+                var dealProducts = await fixture.GetProducts(1, dealProductFilters);
 
                 Assert.Equal(2, dealProducts.Count);
                 Assert.True(dealProducts.All(x => x.DealId == 1));
@@ -510,7 +510,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 var pipedrive = Helper.GetAuthenticatedClient();
                 var fixture = pipedrive.Deal;
 
-                var dealProduct = await fixture.AddProductToDeal(1, newDealProduct);
+                var dealProduct = await fixture.AddProduct(1, newDealProduct);
 
                 Assert.Equal(1, dealProduct.DealId);
                 Assert.Equal(1, dealProduct.ProductId);
@@ -520,7 +520,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.Equal(55, dealProduct.DiscountPercentage);
 
                 // Cleanup
-                await fixture.DeleteDealProduct(1, dealProduct.ProductAttachmentId.Value);
+                await fixture.DeleteProduct(1, dealProduct.ProductAttachmentId.Value);
             }
         }
 
@@ -532,7 +532,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 var pipedrive = Helper.GetAuthenticatedClient();
                 var fixture = pipedrive.Deal;
 
-                var createdDealProduct = await fixture.AddProductToDeal(1, new NewDealProduct(1, 10, 30));
+                var createdDealProduct = await fixture.AddProduct(1, new NewDealProduct(1, 10, 30));
 
                 var dealProductUpdate = new DealProductUpdate
                 {
@@ -542,7 +542,7 @@ namespace Pipedrive.Tests.Integration.Clients
                     DiscountPercentage = 11
                 };
 
-                var updatedDealProduct = await fixture.UpdateDealProduct(1, createdDealProduct.ProductAttachmentId.Value, dealProductUpdate);
+                var updatedDealProduct = await fixture.UpdateProduct(1, createdDealProduct.ProductAttachmentId.Value, dealProductUpdate);
 
                 Assert.Equal(1, updatedDealProduct.DealId);
                 Assert.Equal(1, updatedDealProduct.ProductId);
@@ -551,7 +551,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.Equal(39.16m, updatedDealProduct.Sum);
 
                 // Cleanup
-                await fixture.DeleteDealProduct(1, createdDealProduct.ProductAttachmentId.Value);
+                await fixture.DeleteProduct(1, createdDealProduct.ProductAttachmentId.Value);
             }
         }
 
@@ -563,9 +563,9 @@ namespace Pipedrive.Tests.Integration.Clients
                 var pipedrive = Helper.GetAuthenticatedClient();
                 var fixture = pipedrive.Deal;
 
-                var dealProduct = await fixture.AddProductToDeal(1, new NewDealProduct(1, 10, 30));
+                var dealProduct = await fixture.AddProduct(1, new NewDealProduct(1, 10, 30));
 
-                await fixture.DeleteDealProduct(1, dealProduct.ProductAttachmentId.Value);
+                await fixture.DeleteProduct(1, dealProduct.ProductAttachmentId.Value);
             }
         }
     }
