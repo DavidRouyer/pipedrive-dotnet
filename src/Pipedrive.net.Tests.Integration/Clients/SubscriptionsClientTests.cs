@@ -50,6 +50,35 @@ namespace Pipedrive.Tests.Integration.Clients
         public class TheCreateRecurringMethod
         {
             [IntegrationTest]
+            public async Task CanCreateWithoutPayment()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+                var fixture = pipedrive.Subscription;
+
+                var newRecurringSubscription = new NewRecurringSubscription()
+                {
+                    DealId = 1,
+                    Description = "a subscription",
+                    Currency = "EUR",
+                    CadenceType = "monthly",
+                    CycleAmount = 200,
+                    Infinite = true,
+                    StartDate = DateTime.UtcNow.AddDays(3).Date,
+                };
+
+                var subscription = await fixture.CreateRecurring(newRecurringSubscription);
+                Assert.NotNull(subscription);
+
+                var retrieved = await fixture.Get(subscription.Id);
+                Assert.NotNull(retrieved);
+                Assert.True(newRecurringSubscription.Infinite);
+                Assert.Equal(DateTime.UtcNow.AddDays(3).Date, subscription.StartDate);
+
+                // Cleanup
+                await fixture.Delete(subscription.Id);
+            }
+
+            [IntegrationTest]
             public async Task CanCreateInfinite()
             {
                 var pipedrive = Helper.GetAuthenticatedClient();

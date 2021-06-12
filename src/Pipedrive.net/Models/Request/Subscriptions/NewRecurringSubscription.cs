@@ -32,7 +32,7 @@ namespace Pipedrive
         [JsonProperty("infinite", NullValueHandling = NullValueHandling.Ignore)]
         public bool? Infinite { get; set; }
 
-        [JsonProperty("payments")]
+        [JsonProperty("payments", NullValueHandling = NullValueHandling.Ignore)]
         public List<NewPayment> Payments { get; set; }
 
         [JsonProperty("update_deal_value")]
