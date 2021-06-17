@@ -234,14 +234,14 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
-        public class TheSummaryMethod
+        public class TheGetSummaryMethod
         {
             [IntegrationTest]
             public async Task ReturnsCorrectSummaryWithoutFilters()
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var summary = await pipedrive.Deal.Summary(DealsSummaryFilters.None);
+                var summary = await pipedrive.Deal.GetSummary(DealsSummaryFilters.None);
 
                 Assert.Equal(3, summary.TotalCount);
                 Assert.Contains("USD", summary.ValuesTotal);
@@ -252,7 +252,7 @@ namespace Pipedrive.Tests.Integration.Clients
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var summary = await pipedrive.Deal.Summary(new DealsSummaryFilters()
+                var summary = await pipedrive.Deal.GetSummary(new DealsSummaryFilters()
                 {
                     StageId = 1,
                 });

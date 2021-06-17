@@ -300,14 +300,14 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
-        public class TheSummaryMethod
+        public class TheGetSummaryMethod
         {
             [Fact]
             public async Task EnsuresNonNullArguments()
             {
                 var client = new DealsClient(Substitute.For<IApiConnection>());
 
-                await Assert.ThrowsAsync<ArgumentNullException>(() => client.Summary(null));
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.GetSummary(null));
             }
 
             [Fact]
@@ -322,7 +322,7 @@ namespace Pipedrive.Tests.Clients
                     Status = DealStatus.open,
                 };
 
-                await client.Summary(filters);
+                await client.GetSummary(filters);
 
                 Received.InOrder(async () =>
                 {
