@@ -300,6 +300,41 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
+        public class TheSummaryMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new DealsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.Summary(null));
+            }
+
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                var filters = new DealsSummaryFilters
+                {
+                    FilterId = 1,
+                    Status = DealStatus.open,
+                };
+
+                await client.Summary(filters);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.Get<DealSummary>(
+                        Arg.Is<Uri>(u => u.ToString() == "deals/summary"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                            && d["filter_id"] == "1"
+                            && d["status"] == "open"));
+                });
+            }
+        }
+
         public class TheGetUpdatesMethod
         {
             [Fact]

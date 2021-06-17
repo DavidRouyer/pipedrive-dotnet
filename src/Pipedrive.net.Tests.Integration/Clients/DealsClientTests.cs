@@ -234,6 +234,34 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheSummaryMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectSummaryWithoutFilters()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var summary = await pipedrive.Deal.Summary(DealsSummaryFilters.None);
+
+                Assert.Equal(3, summary.TotalCount);
+                Assert.Contains("USD", summary.ValuesTotal);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectSummaryWithFilters()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var summary = await pipedrive.Deal.Summary(new DealsSummaryFilters()
+                {
+                    StageId = 1,
+                });
+
+                Assert.Equal(1, summary.TotalCount);
+                Assert.Contains("USD", summary.ValuesTotal);
+            }
+        }
+
         public class TheGetUpdatesMethod
         {
             [IntegrationTest]

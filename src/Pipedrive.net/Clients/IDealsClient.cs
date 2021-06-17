@@ -28,6 +28,8 @@ namespace Pipedrive
 
         Task Delete(List<long> ids);
 
+        Task<DealSummary> Summary(DealsSummaryFilters filters);
+
         Task<IReadOnlyList<EntityUpdateFlow>> GetUpdates(long dealId, DealUpdateFilters filters);
 
         Task<IReadOnlyList<DealFollower>> GetFollowers(long dealId);
