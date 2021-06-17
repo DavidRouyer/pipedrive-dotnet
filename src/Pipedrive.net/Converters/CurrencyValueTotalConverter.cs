@@ -5,21 +5,21 @@ using Newtonsoft.Json.Linq;
 
 namespace Pipedrive.Internal
 {
-    public class ValueTotalConverter : JsonConverter
+    public class CurrencyValueTotalConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
-            return objectType == typeof(Dictionary<string, ValueTotal>);
+            return objectType == typeof(Dictionary<string, CurrencyValueTotal>);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            var values = new Dictionary<string, ValueTotal>();
+            var values = new Dictionary<string, CurrencyValueTotal>();
 
             var jObject = JObject.Load(reader);
             foreach (var property in jObject.Properties())
             {
-                values.Add(property.Name, property.Value.ToObject<ValueTotal>());
+                values.Add(property.Name, property.Value.ToObject<CurrencyValueTotal>());
             }
 
             return values;

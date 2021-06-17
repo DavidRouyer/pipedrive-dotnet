@@ -126,6 +126,11 @@ namespace Pipedrive
             return new Uri("deals/summary", UriKind.Relative);
         }
 
+        public static Uri DealsTimeline()
+        {
+            return new Uri("deals/timeline", UriKind.Relative);
+        }
+
         /// <summary>
         /// Returns the <see cref="Uri"/> for the specified deal.
         /// </summary>

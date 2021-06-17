@@ -53,7 +53,7 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] getDeals
   - [x] searchDeals
   - [x] getDealsSummary
-  - [ ] getDealsTimeline
+  - [x] getDealsTimeline
   - [x] getDeal
   - [x] getDealActivities
   - [ ] getDealFiles

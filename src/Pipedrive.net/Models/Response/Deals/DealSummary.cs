@@ -7,12 +7,12 @@ namespace Pipedrive
     public class DealSummary
     {
         [JsonProperty("values_total")]
-        [JsonConverter(typeof(ValueTotalConverter))]
-        public IReadOnlyDictionary<string, ValueTotal> ValuesTotal { get; set; }
+        [JsonConverter(typeof(CurrencyValueTotalConverter))]
+        public IReadOnlyDictionary<string, CurrencyValueTotal> ValuesTotal { get; set; }
 
         [JsonProperty("weighted_values_total")]
-        [JsonConverter(typeof(ValueTotalConverter))]
-        public IReadOnlyDictionary<string, ValueTotal> WeightedValuesTotal { get; set; }
+        [JsonConverter(typeof(CurrencyValueTotalConverter))]
+        public IReadOnlyDictionary<string, CurrencyValueTotal> WeightedValuesTotal { get; set; }
 
         [JsonProperty("total_count")]
         public long TotalCount { get; set; }

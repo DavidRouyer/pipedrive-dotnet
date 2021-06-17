@@ -30,6 +30,8 @@ namespace Pipedrive
 
         Task<DealSummary> GetSummary(DealsSummaryFilters filters);
 
+        Task<IReadOnlyList<DealTimeline>> GetTimeline(DealsTimelineFilters filters);
+
         Task<IReadOnlyList<EntityUpdateFlow>> GetUpdates(long dealId, DealUpdateFilters filters);
 
         Task<IReadOnlyList<DealFollower>> GetFollowers(long dealId);

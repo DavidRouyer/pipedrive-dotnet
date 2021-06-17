@@ -134,6 +134,15 @@ namespace Pipedrive
             return ApiConnection.Get<DealSummary>(ApiUrls.DealsSummary(), parameters);
         }
 
+        public Task<IReadOnlyList<DealTimeline>> GetTimeline(DealsTimelineFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+
+            return ApiConnection.Get<IReadOnlyList<DealTimeline>>(ApiUrls.DealsTimeline(), parameters);
+        }
+
         public Task<IReadOnlyList<EntityUpdateFlow>> GetUpdates(long dealId, DealUpdateFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));

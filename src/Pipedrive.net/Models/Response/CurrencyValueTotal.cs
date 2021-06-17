@@ -2,7 +2,7 @@
 
 namespace Pipedrive
 {
-    public class ValueTotal
+    public class CurrencyValueTotal
     {
         public long Value { get; set; }
 

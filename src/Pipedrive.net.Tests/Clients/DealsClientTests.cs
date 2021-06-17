@@ -335,6 +335,46 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
+        public class TheGetTimelineMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new DealsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.GetTimeline(null));
+            }
+
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                var filters = new DealsTimelineFilters
+                {
+                    StartDate = new DateTime(2021, 01, 01),
+                    Interval = DateInterval.Month,
+                    Amount = 1,
+                    FieldKey = "close_time"
+                };
+
+                await client.GetTimeline(filters);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.Get<IReadOnlyList<DealTimeline>>(
+                        Arg.Is<Uri>(u => u.ToString() == "deals/timeline"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 5
+                            && d["start_date"] == "2021-01-01"
+                            && d["interval"] == "month"
+                            && d["amount"] == "1"
+                            && d["field_key"] == "close_time"
+                            && d["exclude_deals"] == "0"));
+                });
+            }
+        }
+
         public class TheGetUpdatesMethod
         {
             [Fact]

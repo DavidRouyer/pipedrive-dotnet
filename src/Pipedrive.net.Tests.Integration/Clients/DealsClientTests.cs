@@ -262,6 +262,25 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetTimelineMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectTimeline()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var timeline = await pipedrive.Deal.GetTimeline(new DealsTimelineFilters()
+                {
+                    StartDate = new DateTime(2019, 01, 01),
+                    Interval = DateInterval.Month,
+                    Amount = 12,
+                    FieldKey = "close_time",
+                });
+
+                Assert.Equal(12, timeline.Count);
+            }
+        }
+
         public class TheGetUpdatesMethod
         {
             [IntegrationTest]
