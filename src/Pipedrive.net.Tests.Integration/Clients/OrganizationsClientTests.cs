@@ -342,6 +342,65 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetMailMessagesMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new OrganizationMailMessageFilters
+                {
+                    PageSize = 3,
+                    PageCount = 1
+                };
+
+                var organizationMailMessages = await pipedrive.Organization.GetMailMessages(1, options);
+                Assert.Equal(3, organizationMailMessages.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new OrganizationMailMessageFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var organizationMailMessages = await pipedrive.Organization.GetMailMessages(1, options);
+                Assert.Equal(2, organizationMailMessages.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new OrganizationMailMessageFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1
+                };
+
+                var firstPage = await pipedrive.Organization.GetMailMessages(1, startOptions);
+
+                var skipStartOptions = new OrganizationMailMessageFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Organization.GetMailMessages(1, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].Data.Id, secondPage[0].Data.Id);
+            }
+        }
+
         public class TheGetActivitiesMethod
         {
             [IntegrationTest]

@@ -399,6 +399,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for all the mail messages of the specified organization.
+        /// </summary>
+        /// <param name="id">The id of the organization</param>
+        public static Uri OrganizationMailMessages(long id)
+        {
+            return new Uri($"organizations/{id}/mailMessages", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for all the activities of the specified organization.
         /// </summary>
         /// <param name="id">The id of the organization</param>

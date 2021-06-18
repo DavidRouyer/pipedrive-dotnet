@@ -139,14 +139,14 @@ namespace Pipedrive
             return ApiConnection.GetAll<Person>(ApiUrls.OrganizationPersons(id), parameters, options);
         }
 
-        public Task<IReadOnlyList<OrganizationFollower>> GetFollowers(long personId)
+        public Task<IReadOnlyList<OrganizationFollower>> GetFollowers(long organizationId)
         {
             var parameters = new Dictionary<string, string>()
             {
-                { "id", personId.ToString() }
+                { "id", organizationId.ToString() }
             };
 
-            return ApiConnection.GetAll<OrganizationFollower>(ApiUrls.OrganizationFollowers(personId), parameters);
+            return ApiConnection.GetAll<OrganizationFollower>(ApiUrls.OrganizationFollowers(organizationId), parameters);
         }
 
         public Task<OrganizationFollower> AddFollower(long personId, long userId)
@@ -160,6 +160,21 @@ namespace Pipedrive
         public Task DeleteFollower(long dealId, long followerId)
         {
             return ApiConnection.Delete(ApiUrls.DeleteOrganizationFollower(dealId, followerId));
+        }
+
+        public Task<IReadOnlyList<EntityUpdateFlow>> GetMailMessages(long organizationId, OrganizationMailMessageFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.GetAll<EntityUpdateFlow>(ApiUrls.OrganizationMailMessages(organizationId), parameters, options);
         }
 
         public Task<IReadOnlyList<DealActivity>> GetActivities(long id, OrganizationActivityFilters filters)
