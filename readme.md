@@ -163,7 +163,7 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] getOrganizationFiles
   - [x] getOrganizationUpdates
   - [x] getOrganizationFollowers
-  - [ ] getOrganizationMailMessages
+  - [x] getOrganizationMailMessages
   - [ ] getOrganizationUsers
   - [x] getOrganizationPersons
   - [x] addOrganization
