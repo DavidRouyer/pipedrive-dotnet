@@ -554,6 +554,65 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetPersonsMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new DealPersonFilters
+                {
+                    PageSize = 3,
+                    PageCount = 1
+                };
+
+                var dealPersons = await pipedrive.Deal.GetPersons(4, options);
+                Assert.Equal(3, dealPersons.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new DealPersonFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var dealPersons = await pipedrive.Deal.GetPersons(4, options);
+                Assert.Equal(2, dealPersons.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new DealPersonFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1
+                };
+
+                var firstPage = await pipedrive.Deal.GetPersons(4, startOptions);
+
+                var skipStartOptions = new DealPersonFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Deal.GetPersons(4, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].Id, secondPage[0].Id);
+            }
+        }
+
         public class TheGetParticipantsMethod
         {
             [IntegrationTest]

@@ -46,6 +46,8 @@ namespace Pipedrive
 
         Task<IReadOnlyList<DealActivity>> GetActivities(long dealId, DealActivityFilters filters);
 
+        Task<IReadOnlyList<Person>> GetPersons(long dealId, DealPersonFilters filters);
+
         Task<IReadOnlyList<DealParticipant>> GetParticipants(long dealId, DealParticipantFilters filters);
 
         Task<DealParticipant> AddParticipant(long dealId, long personId);

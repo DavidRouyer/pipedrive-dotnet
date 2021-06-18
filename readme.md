@@ -62,7 +62,7 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] getDealMailMessages
   - [x] getDealParticipants
   - [ ] getDealUsers
-  - [ ] getDealPersons
+  - [x] getDealPersons
   - [x] getDealProducts
   - [x] addDeal
   - [ ] duplicateDeal

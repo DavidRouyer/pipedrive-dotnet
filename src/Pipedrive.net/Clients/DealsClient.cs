@@ -227,12 +227,26 @@ namespace Pipedrive
             return ApiConnection.GetAll<DealActivity>(ApiUrls.DealActivities(dealId), parameters, options);
         }
 
+        public Task<IReadOnlyList<Person>> GetPersons(long dealId, DealPersonFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.GetAll<Person>(ApiUrls.DealPersons(dealId), parameters, options);
+        }
+
         public Task<IReadOnlyList<DealParticipant>> GetParticipants(long dealId, DealParticipantFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));
 
             var parameters = filters.Parameters;
-            parameters.Add("id", dealId.ToString());
             var options = new ApiOptions
             {
                 StartPage = filters.StartPage,

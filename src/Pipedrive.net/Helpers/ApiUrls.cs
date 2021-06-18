@@ -196,6 +196,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for all the persons of the specified deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        public static Uri DealPersons(long id)
+        {
+            return new Uri($"deals/{id}/persons", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for all the participants of the specified deal.
         /// </summary>
         /// <param name="id">The id of the deal</param>
