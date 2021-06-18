@@ -141,6 +141,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for all the files of the specified deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        public static Uri DealFiles(long id)
+        {
+            return new Uri($"deals/{id}/files", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for all the updates of the specified deal.
         /// </summary>
         /// <param name="id">The id of the deal</param>

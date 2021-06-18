@@ -281,6 +281,65 @@ namespace Pipedrive.Tests.Integration.Clients
             }
         }
 
+        public class TheGetFilesMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new DealFileFilters
+                {
+                    PageSize = 3,
+                    PageCount = 1
+                };
+
+                var dealFiles = await pipedrive.Deal.GetFiles(1, options);
+                Assert.Equal(3, dealFiles.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new DealFileFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var deals = await pipedrive.Deal.GetFiles(1, options);
+                Assert.Equal(2, deals.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new DealFileFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1
+                };
+
+                var firstPage = await pipedrive.Deal.GetFiles(1, startOptions);
+
+                var skipStartOptions = new DealFileFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Deal.GetFiles(1, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].Id, secondPage[0].Id);
+            }
+        }
+
         public class TheGetUpdatesMethod
         {
             [IntegrationTest]

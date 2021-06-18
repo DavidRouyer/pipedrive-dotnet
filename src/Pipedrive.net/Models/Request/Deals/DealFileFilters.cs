@@ -2,11 +2,11 @@
 
 namespace Pipedrive
 {
-    public class OrganizationFileFilters
+    public class DealFileFilters
     {
-        public static OrganizationFileFilters None
+        public static DealFileFilters None
         {
-            get { return new OrganizationFileFilters(); }
+            get { return new DealFileFilters(); }
         }
 
         public int? StartPage { get; set; }

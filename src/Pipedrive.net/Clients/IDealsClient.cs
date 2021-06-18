@@ -32,6 +32,8 @@ namespace Pipedrive
 
         Task<IReadOnlyList<DealTimeline>> GetTimeline(DealsTimelineFilters filters);
 
+        Task<IReadOnlyList<File>> GetFiles(long dealId, DealFileFilters filters);
+
         Task<IReadOnlyList<EntityUpdateFlow>> GetUpdates(long dealId, DealUpdateFilters filters);
 
         Task<IReadOnlyList<DealFollower>> GetFollowers(long dealId);

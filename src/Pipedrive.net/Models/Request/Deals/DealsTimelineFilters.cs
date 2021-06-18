@@ -26,7 +26,7 @@ namespace Pipedrive
         public long? FilterId { get; set; }
 
         [JsonProperty("exclude_deals")]
-        public ExcludeDeals ExcludeDeals { get; set; }
+        public bool? ExcludeDeals { get; set; }
 
         [JsonProperty("totals_convert_currency")]
         public string TotalsConvertCurrency { get; set; }
@@ -60,7 +60,10 @@ namespace Pipedrive
                     d.Add("user_id", UserId.Value.ToString());
                 }
 
-                d.Add("exclude_deals", ((long)ExcludeDeals).ToString());
+                if (ExcludeDeals.HasValue)
+                {
+                    d.Add("exclude_deals", ExcludeDeals.Value == true ? 1.ToString() : 0.ToString());
+                }
 
                 if (!string.IsNullOrWhiteSpace(TotalsConvertCurrency))
                 {

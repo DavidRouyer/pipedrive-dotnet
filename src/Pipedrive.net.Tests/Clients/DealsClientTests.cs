@@ -365,12 +365,50 @@ namespace Pipedrive.Tests.Clients
                 {
                     await connection.Get<IReadOnlyList<DealTimeline>>(
                         Arg.Is<Uri>(u => u.ToString() == "deals/timeline"),
-                        Arg.Is<Dictionary<string, string>>(d => d.Count == 5
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 4
                             && d["start_date"] == "2021-01-01"
                             && d["interval"] == "month"
                             && d["amount"] == "1"
-                            && d["field_key"] == "close_time"
-                            && d["exclude_deals"] == "0"));
+                            && d["field_key"] == "close_time"));
+                });
+            }
+        }
+
+        public class TheGetFilesMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new DealsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.GetFiles(1, null));
+            }
+
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new DealsClient(connection);
+
+                var filters = new DealFileFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 0,
+                    IncludeDeletedFiles = true,
+                };
+
+                await client.GetFiles(123, filters);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<File>(
+                        Arg.Is<Uri>(u => u.ToString() == "deals/123/files"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
+                            && d["include_deleted_files"] == "1"),
+                        Arg.Is<ApiOptions>(o => o.PageSize == 1
+                                && o.PageCount == 1
+                                && o.StartPage == 0));
                 });
             }
         }
@@ -404,8 +442,7 @@ namespace Pipedrive.Tests.Clients
                 {
                     await connection.GetAll<EntityUpdateFlow>(
                         Arg.Is<Uri>(u => u.ToString() == "deals/123/flow"),
-                        Arg.Is<Dictionary<string, string>>(d => d.Count == 1
-                            && d["id"] == "123"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 0),
                         Arg.Is<ApiOptions>(o => o.PageSize == 1
                                 && o.PageCount == 1
                                 && o.StartPage == 0));

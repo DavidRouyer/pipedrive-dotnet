@@ -56,7 +56,7 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] getDealsTimeline
   - [x] getDeal
   - [x] getDealActivities
-  - [ ] getDealFiles
+  - [x] getDealFiles
   - [x] getDealUpdates
   - [x] getDealFollowers
   - [ ] getDealMailMessages
