@@ -42,6 +42,8 @@ namespace Pipedrive
 
         Task DeleteFollower(long dealId, long followerId);
 
+        Task<IReadOnlyList<EntityUpdateFlow>> GetMailMessages(long dealId, DealMailMessageFilters filters);
+
         Task<IReadOnlyList<DealActivity>> GetActivities(long dealId, DealActivityFilters filters);
 
         Task<IReadOnlyList<DealParticipant>> GetParticipants(long dealId, DealParticipantFilters filters);

@@ -196,6 +196,21 @@ namespace Pipedrive
             return ApiConnection.Delete(ApiUrls.DeleteDealFollower(dealId, followerId));
         }
 
+        public Task<IReadOnlyList<EntityUpdateFlow>> GetMailMessages(long dealId, DealMailMessageFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.GetAll<EntityUpdateFlow>(ApiUrls.DealMailMessages(dealId), parameters, options);
+        }
+
         public Task<IReadOnlyList<DealActivity>> GetActivities(long dealId, DealActivityFilters filters)
         {
             Ensure.ArgumentNotNull(filters, nameof(filters));

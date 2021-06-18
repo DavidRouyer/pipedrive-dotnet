@@ -159,6 +159,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for all the mail messages of the specified deal.
+        /// </summary>
+        /// <param name="id">The id of the deal</param>
+        public static Uri DealMailMessages(long id)
+        {
+            return new Uri($"deals/{id}/mailMessages", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> for all the followers of the specified deal.
         /// </summary>
         /// <param name="id">The id of the deal</param>
