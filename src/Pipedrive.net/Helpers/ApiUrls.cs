@@ -544,6 +544,15 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> for all the mail messages of the specified person.
+        /// </summary>
+        /// <param name="id">The id of the organization</param>
+        public static Uri PersonMailMessages(long id)
+        {
+            return new Uri($"persons/{id}/mailMessages", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all of the person fields in response to a GET request.
         /// </summary>
         /// <returns></returns>

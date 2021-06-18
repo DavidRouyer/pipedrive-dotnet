@@ -203,7 +203,7 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] getPersonFiles
   - [x] getPersonUpdates
   - [x] getPersonFollowers
-  - [ ] getPersonMailMessages
+  - [x] getPersonMailMessages
   - [ ] getPersonUsers
   - [ ] getPersonProducts
   - [x] addPerson

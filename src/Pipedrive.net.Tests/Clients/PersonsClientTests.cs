@@ -445,5 +445,42 @@ namespace Pipedrive.Tests.Clients
                 connection.Received().Delete(Arg.Is<Uri>(u => u.ToString() == "persons/1/followers/461"));
             }
         }
+
+        public class TheGetMailMessagesMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new PersonsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.GetMailMessages(1, null));
+            }
+
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new PersonsClient(connection);
+
+                var filters = new PersonMailMessageFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 0,
+                };
+
+                await client.GetMailMessages(123, filters);
+
+                Received.InOrder(async () =>
+                {
+                    await connection.GetAll<EntityUpdateFlow>(
+                        Arg.Is<Uri>(u => u.ToString() == "persons/123/mailMessages"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 0),
+                        Arg.Is<ApiOptions>(o => o.PageSize == 1
+                                && o.PageCount == 1
+                                && o.StartPage == 0));
+                });
+            }
+        }
     }
 }

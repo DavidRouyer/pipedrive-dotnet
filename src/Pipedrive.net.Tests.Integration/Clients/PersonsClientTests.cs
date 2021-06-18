@@ -455,5 +455,64 @@ namespace Pipedrive.Tests.Integration.Clients
                 await fixture.DeleteFollower(1, 461);
             }
         }
+
+        public class TheGetMailMessagesMethod
+        {
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithoutStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new PersonMailMessageFilters
+                {
+                    PageSize = 3,
+                    PageCount = 1
+                };
+
+                var personMailMessages = await pipedrive.Person.GetMailMessages(141, options);
+                Assert.Equal(3, personMailMessages.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsCorrectCountWithStart()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var options = new PersonMailMessageFilters
+                {
+                    PageSize = 2,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var personMailMessages = await pipedrive.Person.GetMailMessages(141, options);
+                Assert.Equal(2, personMailMessages.Count);
+            }
+
+            [IntegrationTest]
+            public async Task ReturnsDistinctInfosBasedOnStartPage()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var startOptions = new PersonMailMessageFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1
+                };
+
+                var firstPage = await pipedrive.Person.GetMailMessages(141, startOptions);
+
+                var skipStartOptions = new PersonMailMessageFilters
+                {
+                    PageSize = 1,
+                    PageCount = 1,
+                    StartPage = 1
+                };
+
+                var secondPage = await pipedrive.Person.GetMailMessages(141, skipStartOptions);
+
+                Assert.NotEqual(firstPage[0].Data.Id, secondPage[0].Data.Id);
+            }
+        }
     }
 }
