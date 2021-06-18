@@ -199,7 +199,7 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] searchPersons
   - [x] getPerson
   - [x] getPersonActivities
-  - [ ] getPersonDeals
+  - [x] getPersonDeals
   - [x] getPersonFiles
   - [x] getPersonUpdates
   - [x] getPersonFollowers
