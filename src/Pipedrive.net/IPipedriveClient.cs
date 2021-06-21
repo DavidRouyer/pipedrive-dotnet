@@ -27,6 +27,8 @@ namespace Pipedrive
 
         ILeadsClient Lead { get; }
 
+        ILeadLabelsClient LeadLabels { get; }
+
         INotesClient Note { get; }
 
         INoteFieldsClient NoteField { get; }

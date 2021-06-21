@@ -58,6 +58,7 @@ namespace Pipedrive
             DealField = new DealFieldsClient(apiConnection);
             File = new FilesClient(apiConnection);
             Lead = new LeadsClient(apiConnection);
+            LeadLabels = new LeadLabelClient(apiConnection);
             Note = new NotesClient(apiConnection);
             NoteField = new NoteFieldsClient(apiConnection);
             OAuth = new OAuthClient(connection);
@@ -195,6 +196,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Leads
         /// </remarks>
         public ILeadsClient Lead { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's Lead API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/LeadLabels
+        /// </remarks>
+        public ILeadLabelsClient LeadLabels { get; private set; }
 
         /// <summary>
         /// Access Pipedrive's Note API.

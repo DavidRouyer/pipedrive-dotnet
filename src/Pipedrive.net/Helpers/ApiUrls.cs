@@ -23,6 +23,8 @@ namespace Pipedrive
 
         static readonly Uri _leadsUrl = new Uri("leads", UriKind.Relative);
 
+        static readonly Uri _leadLabelsUrl = new Uri("leadLabels", UriKind.Relative);
+
         static readonly Uri _notesUrl = new Uri("notes", UriKind.Relative);
 
         static readonly Uri _noteFieldsUrl = new Uri("noteFields", UriKind.Relative);
@@ -314,6 +316,26 @@ namespace Pipedrive
         public static Uri Lead(Guid id)
         {
             return new Uri($"leads/{id}", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the lead labels in response to a GET request.
+        /// </summary>
+        /// <returns></returns>
+        public static Uri LeadLabels()
+        {
+            return _leadLabelsUrl;
+        }
+
+        /// <summary>
+        ///
+        /// Returns the <see cref="Uri"/> that returns all of the lead labels in response to a GET request.
+        /// </summary>
+        /// <param name="id">The id of the lead label</param>
+        /// <returns></returns>
+        public static Uri LeadLabel(Guid id)
+        {
+            return new Uri($"{_leadLabelsUrl}/{id}", UriKind.Relative);
         }
 
         /// <summary>
