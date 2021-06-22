@@ -26,7 +26,8 @@ namespace Pipedrive
                 LostReason = LostReason,
                 AddTime = AddTime,
                 VisibleTo = VisibleTo,
-                CustomFields = CustomFields
+                CustomFields = CustomFields,
+                Label = Label
             };
         }
     }
