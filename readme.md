@@ -281,7 +281,7 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] deleteStages
   - [x] deleteStage
 
-- [ ] Subscriptions
+- [x] Subscriptions
   - [x] getSubscription
   - [x] findSubscriptionByDeal
   - [x] getSubscriptionPayments
