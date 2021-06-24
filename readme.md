@@ -287,8 +287,8 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] getSubscriptionPayments
   - [x] addRecurringSubscription
   - [x] addSubscriptionInstallment
-  - [ ] updateRecurringSubscription
-  - [ ] updateSubscriptionInstallment
+  - [x] updateRecurringSubscription
+  - [x] updateSubscriptionInstallment
   - [x] cancelRecurringSubscription
   - [x] deleteSubscription
 
