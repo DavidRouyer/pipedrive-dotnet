@@ -147,11 +147,11 @@ namespace Pipedrive.Tests.Clients
                 var connection = Substitute.For<IApiConnection>();
                 var client = new SubscriptionsClient(connection);
 
-                var updatedSubscription = new RecurringSubscriptionUpdate() { Currency = "EUR", CadenceType = "monthly", CycleAmount = 100, StartDate = DateTime.UtcNow };
+                var updatedSubscription = new RecurringSubscriptionUpdate() { CycleAmount = 100, EffectiveDate = DateTime.UtcNow.Date };
                 client.EditRecurring(1, updatedSubscription);
 
                 connection.Received().Put<Subscription>(Arg.Is<Uri>(u => u.ToString() == "subscriptions/recurring/1"),
-                    Arg.Is<RecurringSubscriptionUpdate>(d => d.Currency == "EUR" && d.CadenceType == "monthly" && d.CycleAmount == 100));
+                    Arg.Is<RecurringSubscriptionUpdate>(d => d.CycleAmount == 100 && d.EffectiveDate == DateTime.UtcNow.Date));
             }
         }
 
