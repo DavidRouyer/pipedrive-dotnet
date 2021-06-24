@@ -48,6 +48,20 @@ namespace Pipedrive
             return ApiConnection.Post<Subscription>(ApiUrls.SubscriptionInstallment(), data);
         }
 
+        public Task<Subscription> EditRecurring(long id, RecurringSubscriptionUpdate data)
+        {
+            Ensure.ArgumentNotNull(data, nameof(data));
+
+            return ApiConnection.Put<Subscription>(ApiUrls.SubscriptionRecurring(id), data);
+        }
+
+        public Task<Subscription> EditInstallment(long id, InstallmentSubscriptionUpdate data)
+        {
+            Ensure.ArgumentNotNull(data, nameof(data));
+
+            return ApiConnection.Put<Subscription>(ApiUrls.SubscriptionInstallment(id), data);
+        }
+
         public Task<Subscription> CancelRecurring(long id, CancelRecurringSubscription data)
         {
             return ApiConnection.Put<Subscription>(ApiUrls.SubscriptionRecurringCancellation(id), data);

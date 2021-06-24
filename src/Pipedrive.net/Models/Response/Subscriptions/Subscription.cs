@@ -51,5 +51,22 @@ namespace Pipedrive
 
         [JsonProperty("final_status")]
         public string FinalStatus { get; set; }
+
+        public RecurringSubscriptionUpdate ToRecurringUpdate()
+        {
+            return new RecurringSubscriptionUpdate
+            {
+                Description = Description,
+                CycleAmount = CycleAmount,
+            };
+        }
+
+        public InstallmentSubscriptionUpdate ToInstallmentUpdate()
+        {
+            return new InstallmentSubscriptionUpdate
+            {
+                Currency = Currency,
+            };
+        }
     }
 }

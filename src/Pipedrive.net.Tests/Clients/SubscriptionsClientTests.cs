@@ -131,6 +131,54 @@ namespace Pipedrive.Tests.Clients
             }
         }
 
+        public class TheUpdateRecurringMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new SubscriptionsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.EditRecurring(1, null));
+            }
+
+            [Fact]
+            public void PutsToTheCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new SubscriptionsClient(connection);
+
+                var updatedSubscription = new RecurringSubscriptionUpdate() { Currency = "EUR", CadenceType = "monthly", CycleAmount = 100, StartDate = DateTime.UtcNow };
+                client.EditRecurring(1, updatedSubscription);
+
+                connection.Received().Put<Subscription>(Arg.Is<Uri>(u => u.ToString() == "subscriptions/recurring/1"),
+                    Arg.Is<RecurringSubscriptionUpdate>(d => d.Currency == "EUR" && d.CadenceType == "monthly" && d.CycleAmount == 100));
+            }
+        }
+
+        public class TheUpdateInstallmentMethod
+        {
+            [Fact]
+            public async Task EnsuresNonNullArguments()
+            {
+                var client = new SubscriptionsClient(Substitute.For<IApiConnection>());
+
+                await Assert.ThrowsAsync<ArgumentNullException>(() => client.EditInstallment(1, null));
+            }
+
+            [Fact]
+            public void PutsToTheCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new SubscriptionsClient(connection);
+
+                var updatedSubscription = new InstallmentSubscriptionUpdate() { Currency = "EUR" };
+                client.EditInstallment(1, updatedSubscription);
+
+                connection.Received().Put<Subscription>(Arg.Is<Uri>(u => u.ToString() == "subscriptions/installment/1"),
+                    Arg.Is<InstallmentSubscriptionUpdate>(d => d.Currency == "EUR"));
+            }
+        }
+
         public class TheDeleteMethod
         {
             [Fact]

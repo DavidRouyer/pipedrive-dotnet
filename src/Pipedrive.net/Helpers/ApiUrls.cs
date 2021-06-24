@@ -713,11 +713,29 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> that updates a specific recurring subscription.
+        /// </summary>
+        /// <param name="id">The id of the subscription</param>
+        public static Uri SubscriptionRecurring(long id)
+        {
+            return new Uri($"{_subscriptionsUrl}/recurring/{id}", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that creates a installment subscription.
         /// </summary>
         public static Uri SubscriptionInstallment()
         {
             return new Uri($"{_subscriptionsUrl}/installment", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that updates a specific installment subscription.
+        /// </summary>
+        /// <param name="id">The id of the subscription</param>
+        public static Uri SubscriptionInstallment(long id)
+        {
+            return new Uri($"{_subscriptionsUrl}/installment/{id}", UriKind.Relative);
         }
 
         /// <summary>
