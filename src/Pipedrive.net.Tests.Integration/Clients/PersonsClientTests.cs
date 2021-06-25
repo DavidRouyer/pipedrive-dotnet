@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pipedrive.CustomFields;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -75,6 +76,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 var person = await pipedrive.Person.Get(141);
 
                 Assert.Equal("david@hopfab.com", person.Email[0].Value);
+                Assert.Equal("New subject", ((StringCustomField)person.CustomFields["c7ea2c051b56d9b9b213f2cfccbcb07ae608cdad"])?.Value);
             }
         }
 

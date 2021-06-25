@@ -90,7 +90,8 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var deal = await pipedrive.Deal.Get(135);
 
-                Assert.True(deal.Active);
+                Assert.False(deal.Active);
+                Assert.Equal("Une description", ((StringCustomField)deal.CustomFields["d9998d00032f4c08633de19cab1a44a15169f847"])?.Value);
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pipedrive.CustomFields;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -72,9 +73,10 @@ namespace Pipedrive.Tests.Integration.Clients
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 
-                var person = await pipedrive.Organization.Get(217);
+                var organization = await pipedrive.Organization.Get(217);
 
-                Assert.Equal("david rouyer", person.Name);
+                Assert.Equal("david rouyer", organization.Name);
+                Assert.Equal("https://github.com", ((StringCustomField)organization.CustomFields["1a1df806affd20f50488800280b18041b8c4b9c8"])?.Value);
             }
         }
 
