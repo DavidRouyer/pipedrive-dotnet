@@ -128,7 +128,7 @@ You can debug this library right from your application by configuring the [NuGet
   - [ ] updateLead
 
 - [ ] LeadLabels
-  - [ ] getLeadLabels
+  - [x] getLeadLabels
   - [ ] addLeadLabel
   - [ ] deleteLeadLabel
   - [ ] updateLeadLabel
