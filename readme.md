@@ -97,9 +97,9 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] deleteFile
 
 - [ ] Filters
-  - [ ] getFilters
+  - [x] getFilters
   - [ ] getFilterHelpers
-  - [ ] getFilter
+  - [x] getFilter
   - [ ] addFilter
   - [ ] updateFilter
   - [ ] deleteFilters

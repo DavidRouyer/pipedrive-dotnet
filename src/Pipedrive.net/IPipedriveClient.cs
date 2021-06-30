@@ -25,6 +25,8 @@ namespace Pipedrive
 
         IFilesClient File { get; }
 
+        IFiltersClient Filter { get; }
+
         ILeadsClient Lead { get; }
 
         ILeadLabelsClient LeadLabel { get; }

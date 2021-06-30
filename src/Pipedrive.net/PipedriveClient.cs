@@ -57,6 +57,7 @@ namespace Pipedrive
             Deal = new DealsClient(apiConnection);
             DealField = new DealFieldsClient(apiConnection);
             File = new FilesClient(apiConnection);
+            Filter = new FiltersClient(apiConnection);
             Lead = new LeadsClient(apiConnection);
             LeadLabel = new LeadLabelsClient(apiConnection);
             LeadSource = new LeadSourcesClient(apiConnection);
@@ -189,6 +190,14 @@ namespace Pipedrive
         /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/#!/Files
         /// </remarks>
         public IFilesClient File { get; private set; }
+
+        /// <summary>
+        /// Access Pipedrive's Filter API.
+        /// </summary>
+        /// <remarks>
+        /// Refer to the API documentation for more information: https://developers.pipedrive.com/docs/api/v1/Filters
+        /// </remarks>
+        public IFiltersClient Filter { get; private set; }
 
         /// <summary>
         /// Access Pipedrive's Lead API.
