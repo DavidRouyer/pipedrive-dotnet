@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Pipedrive.Tests.Integration.Clients
@@ -146,6 +147,45 @@ namespace Pipedrive.Tests.Integration.Clients
                 var secondPage = await pipedrive.Pipeline.GetDeals(1, skipStartOptions);
 
                 Assert.NotEqual(firstPage[0].Id, secondPage[0].Id);
+            }
+        }
+
+        public class TheGetConversionStatisticsMethod
+        {
+            [IntegrationTest]
+            public async Task CanRetrieveConversionStatistics()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var pipelineConversionStatistics = await pipedrive.Pipeline.GetConversionStatistics(1, new PipelineConversionStatisticFilters()
+                {
+                    StartDate = new DateTime(2021, 01, 01),
+                    EndDate = new DateTime(2021, 06, 01)
+                });
+
+                Assert.Equal(100, pipelineConversionStatistics.WonConversion);
+                Assert.Equal(0, pipelineConversionStatistics.LostConversion);
+                Assert.True(pipelineConversionStatistics.StageConversions.Count > 1);
+                Assert.Equal(100, pipelineConversionStatistics.StageConversions[0].ConversionRate);
+            }
+        }
+
+        public class TheGetMovementStatisticsMethod
+        {
+            [IntegrationTest]
+            public async Task CanRetrieveMovementStatistics()
+            {
+                var pipedrive = Helper.GetAuthenticatedClient();
+
+                var pipelineMovementStatistics = await pipedrive.Pipeline.GetMovementStatistics(1, new PipelineMovementStatisticFilters()
+                {
+                    StartDate = new DateTime(2021, 01, 01),
+                    EndDate = new DateTime(2021, 06, 01)
+                });
+
+                Assert.True(pipelineMovementStatistics.MovementsBetweenStages.Count > 100);
+                Assert.True(pipelineMovementStatistics.WonDeals.Count > 1);
+                Assert.True(pipelineMovementStatistics.AverageAgeInDays.AcrossAllStages > 1000);
             }
         }
     }

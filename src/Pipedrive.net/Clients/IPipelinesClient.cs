@@ -21,5 +21,9 @@ namespace Pipedrive
         Task Delete(long id);
 
         Task<IReadOnlyList<PipelineDeal>> GetDeals(long pipelineId, PipelineDealFilters filters);
+
+        Task<PipelineConversionStatistic> GetConversionStatistics(long pipelineId, PipelineConversionStatisticFilters filters);
+
+        Task<PipelineMovementStatistic> GetMovementStatistics(long pipelineId, PipelineMovementStatisticFilters filters);
     }
 }

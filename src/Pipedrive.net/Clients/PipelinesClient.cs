@@ -63,5 +63,23 @@ namespace Pipedrive
 
             return ApiConnection.GetAll<PipelineDeal>(ApiUrls.PipelineDeal(pipelineId), parameters, options);
         }
+
+        public Task<PipelineConversionStatistic> GetConversionStatistics(long pipelineId, PipelineConversionStatisticFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+
+            return ApiConnection.Get<PipelineConversionStatistic>(ApiUrls.PipelineConversionStatistic(pipelineId), parameters);
+        }
+
+        public Task<PipelineMovementStatistic> GetMovementStatistics(long pipelineId, PipelineMovementStatisticFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+
+            var parameters = filters.Parameters;
+
+            return ApiConnection.Get<PipelineMovementStatistic>(ApiUrls.PipelineMovementStatistic(pipelineId), parameters);
+        }
     }
 }

@@ -224,12 +224,12 @@ You can debug this library right from your application by configuring the [NuGet
   - [x] deletePersonFields
   - [x] deletePersonField
 
-- [ ] Pipelines
+- [x] Pipelines
   - [x] getPipelines
   - [x] getPipeline
-  - [ ] getPipelineConversionStatistics
+  - [x] getPipelineConversionStatistics
   - [x] getPipelineDeals
-  - [ ] getPipelineMovementStatistics
+  - [x] getPipelineMovementStatistics
   - [x] addPipeline
   - [x] updatePipeline
   - [x] deletePipeline

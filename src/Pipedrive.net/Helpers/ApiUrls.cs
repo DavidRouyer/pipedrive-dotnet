@@ -602,6 +602,24 @@ namespace Pipedrive
         }
 
         /// <summary>
+        /// Returns the <see cref="Uri"/> from all the deal conversion rates of the specified pipeline.
+        /// </summary>
+        /// <param name="id">The id of the pipeline</param>
+        public static Uri PipelineConversionStatistic(long id)
+        {
+            return new Uri($"{_pipelinesUrl}/{id}/conversion_statistics", UriKind.Relative);
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> from all the deal movements of the specified pipeline.
+        /// </summary>
+        /// <param name="id">The id of the pipeline</param>
+        public static Uri PipelineMovementStatistic(long id)
+        {
+            return new Uri($"{_pipelinesUrl}/{id}/movement_statistics", UriKind.Relative);
+        }
+
+        /// <summary>
         /// Returns the <see cref="Uri"/> that returns all of the products in response to a GET request.
         /// </summary>
         public static Uri Products()

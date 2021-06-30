@@ -151,5 +151,55 @@ namespace Pipedrive.Tests.Clients
                 });
             }
         }
+
+        public class TheGetConversionStatisticsMethod
+        {
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new PipelinesClient(connection);
+
+                await client.GetConversionStatistics(1, new PipelineConversionStatisticFilters()
+                {
+                    StartDate = new DateTime(2021, 01, 01),
+                    EndDate = new DateTime(2021, 06, 01),
+                });
+
+                Received.InOrder(async () =>
+                {
+                    await connection.Get<PipelineConversionStatistic>(Arg.Is<Uri>(
+                        u => u.ToString() == "pipelines/1/conversion_statistics"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                            && d["start_date"] == "2021-01-01"
+                            && d["end_date"] == "2021-06-01"));
+                });
+            }
+        }
+
+        public class TheGetMovementStatisticsMethod
+        {
+            [Fact]
+            public async Task RequestsCorrectUrl()
+            {
+                var connection = Substitute.For<IApiConnection>();
+                var client = new PipelinesClient(connection);
+
+                await client.GetMovementStatistics(1, new PipelineMovementStatisticFilters()
+                {
+                    StartDate = new DateTime(2021, 01, 01),
+                    EndDate = new DateTime(2021, 06, 01),
+                });
+
+                Received.InOrder(async () =>
+                {
+                    await connection.Get<PipelineMovementStatistic>(Arg.Is<Uri>(
+                        u => u.ToString() == "pipelines/1/movement_statistics"),
+                        Arg.Is<Dictionary<string, string>>(d => d.Count == 2
+                            && d["start_date"] == "2021-01-01"
+                            && d["end_date"] == "2021-06-01"));
+                });
+            }
+        }
     }
 }
