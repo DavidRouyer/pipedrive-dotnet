@@ -8,7 +8,7 @@ namespace Pipedrive.Tests.Integration.Clients
         public class TheGetAllMethod
         {
             [IntegrationTest]
-            public async Task CanRetrieveDealFields()
+            public async Task CanRetrieveLabelLabels()
             {
                 var pipedrive = Helper.GetAuthenticatedClient();
 

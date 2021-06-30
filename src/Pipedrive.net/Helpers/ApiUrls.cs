@@ -25,6 +25,8 @@ namespace Pipedrive
 
         static readonly Uri _leadLabelsUrl = new Uri("leadLabels", UriKind.Relative);
 
+        static readonly Uri _leadSourcesUrl = new Uri("leadSources", UriKind.Relative);
+
         static readonly Uri _notesUrl = new Uri("notes", UriKind.Relative);
 
         static readonly Uri _noteFieldsUrl = new Uri("noteFields", UriKind.Relative);
@@ -315,6 +317,14 @@ namespace Pipedrive
         public static Uri LeadLabels()
         {
             return _leadLabelsUrl;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Uri"/> that returns all of the lead sources in response to a GET request.
+        /// </summary>
+        public static Uri LeadSources()
+        {
+            return _leadSourcesUrl;
         }
 
         /// <summary>

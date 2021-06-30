@@ -133,8 +133,8 @@ You can debug this library right from your application by configuring the [NuGet
   - [ ] deleteLeadLabel
   - [ ] updateLeadLabel
 
-- [ ] LeadSources
-  - [ ] getLeadSources
+- [x] LeadSources
+  - [x] getLeadSources
 
 - [ ] Mailbox
   - [ ] getMailMessage
