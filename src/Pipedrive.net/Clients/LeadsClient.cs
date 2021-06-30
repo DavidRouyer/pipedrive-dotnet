@@ -9,7 +9,7 @@ namespace Pipedrive
     /// A client for Pipedrive's Lead API.
     /// </summary>
     /// <remarks>
-    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/#!/Leads">Lead API documentation</a> for more information.
+    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/Leads">Lead API documentation</a> for more information.
     public class LeadsClient : ApiClient, ILeadsClient
     {
         /// <summary>

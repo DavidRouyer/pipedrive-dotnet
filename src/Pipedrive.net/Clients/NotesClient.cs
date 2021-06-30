@@ -8,7 +8,7 @@ namespace Pipedrive
     /// A client for Pipedrive's Note API.
     /// </summary>
     /// <remarks>
-    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/#!/Notes">Note API documentation</a> for more information.
+    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/Notes">Note API documentation</a> for more information.
     public class NotesClient : ApiClient, INotesClient
     {
         /// <summary>

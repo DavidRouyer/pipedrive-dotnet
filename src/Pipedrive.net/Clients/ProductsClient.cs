@@ -8,7 +8,7 @@ namespace Pipedrive.Clients
     /// <summary>
     /// A client for Pipedrive's Products API
     /// </summary>
-    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/#!/Products">Products API documentation</a> for more information
+    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/Products">Products API documentation</a> for more information
     public class ProductsClient : ApiClient, IProductsClient
     {
         /// <summary>

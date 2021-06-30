@@ -7,7 +7,7 @@ namespace Pipedrive
     /// A client for Pipedrive's Pipeline API.
     /// </summary>
     /// <remarks>
-    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/#!/Pipelines">Pipeline API documentation</a> for more information.
+    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/Pipelines">Pipeline API documentation</a> for more information.
     public interface IPipelinesClient
     {
         Task<IReadOnlyList<Pipeline>> GetAll();

@@ -7,7 +7,7 @@ namespace Pipedrive
     /// A client for Pipedrive's Activity API.
     /// </summary>
     /// <remarks>
-    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/#!/Activities">Activity API documentation</a> for more information.
+    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/Activities">Activity API documentation</a> for more information.
     public interface IActivitiesClient
     {
         Task<IReadOnlyList<Activity>> GetAll(ActivityFilters filters);

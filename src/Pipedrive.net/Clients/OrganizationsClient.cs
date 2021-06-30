@@ -9,7 +9,7 @@ namespace Pipedrive
     /// A client for Pipedrive's Organization API.
     /// </summary>
     /// <remarks>
-    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/#!/Organizations">Organization API documentation</a> for more information.
+    /// See the <a href="https://developers.pipedrive.com/docs/api/v1/Organizations">Organization API documentation</a> for more information.
     public class OrganizationsClient : ApiClient, IOrganizationsClient
     {
         /// <summary>
