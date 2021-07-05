@@ -9,6 +9,8 @@ namespace Pipedrive
             get { return new DealSearchFilters(); }
         }
 
+        public DealSearchField? Fields { get; set; }
+
         public bool? ExactMatch { get; set; }
 
         public long? PersonId { get; set; }
@@ -31,6 +33,11 @@ namespace Pipedrive
             get
             {
                 var d = new Dictionary<string, string>();
+                if (Fields.HasValue)
+                {
+                    d.Add("fields", Fields.Value.ToString());
+                }
+
                 if (ExactMatch.HasValue)
                 {
                     d.Add("exact_match", ExactMatch.Value.ToString());

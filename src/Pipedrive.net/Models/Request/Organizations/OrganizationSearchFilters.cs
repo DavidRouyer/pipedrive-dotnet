@@ -2,16 +2,16 @@
 
 namespace Pipedrive
 {
-    public class PersonSearchFilters
+    public class OrganizationSearchFilters
     {
-        public static PersonSearchFilters None
+        public static OrganizationSearchFilters None
         {
-            get { return new PersonSearchFilters(); }
+            get { return new OrganizationSearchFilters(); }
         }
 
-        public bool? ExactMatch { get; set; }
+        public OrganizationSearchField? Fields { get; set; }
 
-        public long? OrganizationId { get; set; }
+        public bool? ExactMatch { get; set; }
 
         public int? StartPage { get; set; }
 
@@ -27,14 +27,14 @@ namespace Pipedrive
             get
             {
                 var d = new Dictionary<string, string>();
+                if (Fields.HasValue)
+                {
+                    d.Add("fields", Fields.Value.ToString());
+                }
+
                 if (ExactMatch.HasValue)
                 {
                     d.Add("exact_match", ExactMatch.Value.ToString());
-                }
-
-                if (OrganizationId.HasValue)
-                {
-                    d.Add("organization_id", OrganizationId.Value.ToString());
                 }
 
                 return d;

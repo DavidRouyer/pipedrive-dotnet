@@ -2,12 +2,14 @@
 
 namespace Pipedrive
 {
-    public class OrganizationSearchFilters
+    public class ProductSearchFilters
     {
-        public static OrganizationSearchFilters None
+        public static ProductSearchFilters None
         {
-            get { return new OrganizationSearchFilters(); }
+            get { return new ProductSearchFilters(); }
         }
+
+        public ProductSearchField? Fields { get; set; }
 
         public bool? ExactMatch { get; set; }
 
@@ -25,6 +27,11 @@ namespace Pipedrive
             get
             {
                 var d = new Dictionary<string, string>();
+                if (Fields.HasValue)
+                {
+                    d.Add("fields", Fields.Value.ToString());
+                }
+
                 if (ExactMatch.HasValue)
                 {
                     d.Add("exact_match", ExactMatch.Value.ToString());
