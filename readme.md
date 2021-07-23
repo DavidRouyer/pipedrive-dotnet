@@ -13,7 +13,7 @@ PipedriveClient client = new PipedriveClient(new ProductHeaderValue("PipedriveEx
 };
 ```
 
-You can obtain your secret API key from the API Settings `https://[your organization].pipedrive.com/settings#api` in Pipedrive.
+You can obtain your secret API key from the API Settings `https://[your organization].pipedrive.com/settings/api` in Pipedrive.
 
 ## Debugging
 
