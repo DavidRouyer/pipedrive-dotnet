@@ -35,5 +35,10 @@ namespace Pipedrive
                 CustomFields = CustomFields
             };
         }
+        [JsonProperty("stay_in_pipeline_stages")]
+        public DealStayInPipelineStage StayInPipelineStages { get; set; }
+
+        [JsonProperty("age")]
+        public DealAge Age { get; set; }
     }
 }
