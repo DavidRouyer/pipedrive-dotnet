@@ -5,7 +5,7 @@ namespace Pipedrive.Models.Response.Deals
     public class DealAge
     {
         [JsonProperty("y")]
-        public byte Y { get; set; }
+        public int Y { get; set; }
 
         [JsonProperty("m")]
         public byte M { get; set; }
@@ -23,6 +23,6 @@ namespace Pipedrive.Models.Response.Deals
         public byte S { get; set; }
 
         [JsonProperty("total_seconds")]
-        public ulong TotalSeconds { get; set; }
+        public long TotalSeconds { get; set; }
     }
 }

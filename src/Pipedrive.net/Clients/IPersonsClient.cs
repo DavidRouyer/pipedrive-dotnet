@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pipedrive.Models.Request.Recents;
+using Pipedrive.Models.Response.Recents;
 
 namespace Pipedrive
 {
@@ -41,5 +43,7 @@ namespace Pipedrive
         Task DeleteFollower(long dealId, long followerId);
 
         Task<IReadOnlyList<EntityUpdateFlow>> GetMailMessages(long personId, PersonMailMessageFilters filters);
+
+        Task<IReadOnlyList<Recents<WebhookPerson>>> GetRecent(RecentFilters filters);
     }
 }

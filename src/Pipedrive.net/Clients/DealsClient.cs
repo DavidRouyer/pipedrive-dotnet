@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pipedrive.Helpers;
+using Pipedrive.Models.Request.Recents;
+using Pipedrive.Models.Response.Recents;
 
 namespace Pipedrive
 {
@@ -300,6 +302,21 @@ namespace Pipedrive
         public Task DeleteProduct(long dealId, long dealProductId)
         {
             return ApiConnection.Delete(ApiUrls.DeleteDealProduct(dealId, dealProductId));
+        }
+
+        public Task<IReadOnlyList<Recents<WebhookDeal>>> GetRecent(RecentFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+            filters.RecentItems = new List<RecentItem> { RecentItem.deal };
+            var parameters = filters.Parameters; 
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.GetAll<Recents<WebhookDeal>>(ApiUrls.Recents(), parameters, options);
         }
     }
 }

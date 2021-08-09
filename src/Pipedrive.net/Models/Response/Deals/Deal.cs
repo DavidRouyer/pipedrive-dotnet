@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using Pipedrive.Converters;
 using Pipedrive.CustomFields;
 using Pipedrive.Internal;
+using Pipedrive.Models.Response.Deals;
 
 namespace Pipedrive
 {
@@ -35,6 +37,7 @@ namespace Pipedrive
                 CustomFields = CustomFields
             };
         }
+        
         [JsonProperty("stay_in_pipeline_stages")]
         public DealStayInPipelineStage StayInPipelineStages { get; set; }
 
