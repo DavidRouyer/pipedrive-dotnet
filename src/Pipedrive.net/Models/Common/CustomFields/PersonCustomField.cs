@@ -9,10 +9,10 @@ namespace Pipedrive.CustomFields
         public string Name { get; set; }
 
         [JsonProperty("email")]
-        List<Email> Email { get; set; }
+        public List<Email> Email { get; set; }
 
         [JsonProperty("phone")]
-        List<Phone> Phone { get; set; }
+        public List<Phone> Phone { get; set; }
 
         [JsonProperty("value")]
         public long Value { get; set; }
