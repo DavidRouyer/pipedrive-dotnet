@@ -51,15 +51,23 @@ namespace Pipedrive
         [JsonProperty("refresh_token")]
         public string RefreshToken { get; protected set; }
 
+        /// <summary>
+        /// The base URL path, including the company_domain, where the requests can be sent to.
+        /// </summary>
+        [JsonProperty("api_domain")]
+        public string ApiDomain { get; protected set; }
+
         internal string DebuggerDisplay
         {
             get
             {
-                return string.Format(CultureInfo.InvariantCulture, "TokenType: {0}, AccessToken: {1}, Scopes: {2}, RefreshToken: {3}",
+                return string.Format(CultureInfo.InvariantCulture,
+                    "TokenType: {0}, AccessToken: {1}, Scopes: {2}, RefreshToken: {3}, ApiDomain: {4}",
                     TokenType,
                     AccessToken,
                     Scope,
-                    RefreshToken);
+                    RefreshToken,
+                    ApiDomain);
             }
         }
     }
