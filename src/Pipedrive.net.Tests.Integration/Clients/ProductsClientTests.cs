@@ -191,7 +191,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 var updatedProduct = await fixture.Edit(product.Id, editedProduct);
 
                 Assert.Equal("updated-name", updatedProduct.Name);
-                Assert.Equal(20.50M, updatedProduct.Prices["GBP"].Price);
+                Assert.Equal(20.50M, updatedProduct.Prices.First(x => x.Currency == "GBP").Price);
 
                 // Cleanup
                 await fixture.Delete(updatedProduct.Id);

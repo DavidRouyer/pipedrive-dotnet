@@ -4,6 +4,6 @@ namespace Pipedrive
 {
     public class UpdatedProduct : AbstractProduct
     {
-        public Dictionary<string, ProductPrice> Prices { get; set; }
+        public List<ProductPrice> Prices { get; set; }
     }
 }
