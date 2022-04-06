@@ -171,5 +171,8 @@ namespace Pipedrive
 
         [JsonProperty("person_hidden")]
         public bool PersonHidden { get; set; }
+
+        [JsonProperty("label")]
+        public long? Label { get; set; }
     }
 }
