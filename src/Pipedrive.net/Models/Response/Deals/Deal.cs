@@ -21,6 +21,7 @@ namespace Pipedrive
                 UserId = UserId?.Value,
                 PersonId = PersonId?.Value,
                 OrgId = OrgId?.Value,
+                PipelineId = PipelineId,
                 StageId = StageId,
                 Status = Status,
                 Probability = Probability,

@@ -25,6 +25,9 @@ namespace Pipedrive
         [JsonProperty("org_id")]
         public long? OrgId { get; set; }
 
+        [JsonProperty("pipeline_id")]
+        public long? PipelineId { get; set; }
+
         [JsonProperty("stage_id")]
         public long? StageId { get; set; }
 
