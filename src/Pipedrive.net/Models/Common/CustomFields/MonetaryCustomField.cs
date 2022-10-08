@@ -11,5 +11,10 @@
             Value = value;
             Currency = currency;
         }
+
+        public override string ToString()
+        {
+            return $"{Currency} {Value}";
+        }
     }
 }
