@@ -455,7 +455,8 @@ namespace Pipedrive
                 { (HttpStatusCode)422, response => new ApiValidationException(response) },
                 { (HttpStatusCode)429, response => new TooManyRequestsException(response) },
                 { HttpStatusCode.InternalServerError, response => new InternalServerErrorException(response) },
-                { HttpStatusCode.NotImplemented, response => new NotImplementedException(response) }
+                { HttpStatusCode.NotImplemented, response => new NotImplementedException(response) },
+                { HttpStatusCode.NoContent, response => new NoContentException(response) }
             };
 
         static void HandleErrors(IResponse response)
