@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
-        dotnet: [ '5.0.x' ]
+        dotnet: [ '6.0.x' ]
     
     steps:
     - name: Checkout
