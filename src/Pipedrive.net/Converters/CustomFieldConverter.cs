@@ -44,7 +44,7 @@ namespace Pipedrive.Internal
                                     customFields.Add(property.Name, new TimeRangeCustomField(
                                         TimeSpan.Parse((string)property.Value),
                                         TimeSpan.Parse((string)linkedProperties[$"{property.Name}_until"]),
-                                        (int)linkedProperties[$"{property.Name}_timezone_id"]));
+                                        TimeSpan.Parse((string)linkedProperties[$"{property.Name}_timezone_id"])));
                                 }
 
                                 // Time

@@ -144,7 +144,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 editDeal.CustomFields["29ea3aec79d40dc23717c8dc2ae733b80d4d106d"] = new DateCustomField(new DateTime(2018, 12, 31));
                 editDeal.CustomFields["fafd71954fc387aad08186ab7aead0697fba4229"] = new DateRangeCustomField(new DateTime(2018, 12, 30), new DateTime(2018, 12, 31));
                 editDeal.CustomFields["bde564bd45f0381b54eea85d5c70a904d17458d9"] = new TimeCustomField(new TimeSpan(23, 59, 59), 0);
-                editDeal.CustomFields["9ef10a2bcd8d149ddd0a64988762dc5a080a9230"] = new TimeRangeCustomField(new TimeSpan(23, 59, 58), new TimeSpan(23, 59, 59), 0);
+                editDeal.CustomFields["9ef10a2bcd8d149ddd0a64988762dc5a080a9230"] = new TimeRangeCustomField(new TimeSpan(23, 59, 58), new TimeSpan(23, 59, 59), new TimeSpan(0, 0, 0));
                 editDeal.CustomFields["2008db4fe093862089023b01ad80feabac24d7d0"] = new AddressCustomField("value", "subpremise", "streetNumber", "route", "sublocality", "locality", "adminAreaLevel1", "adminAreaLevel2", "country", "postalCode", "formattedAddress");
                 editDeal.CustomFields["8a1cf3eacd582191a48730b5d953daa877c0ebe7"] = new StringCustomField("0606060606"); // Phone
                 editDeal.CustomFields["796428c82dfc3595032a4330238aa06d354db5da"] = new StringCustomField("4"); // Single option
@@ -171,7 +171,7 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.Equal(0, ((TimeCustomField)updatedDeal.CustomFields["bde564bd45f0381b54eea85d5c70a904d17458d9"]).TimezoneId);
                 Assert.Equal(new TimeSpan(23, 59, 58), ((TimeRangeCustomField)updatedDeal.CustomFields["9ef10a2bcd8d149ddd0a64988762dc5a080a9230"]).StartTime);
                 Assert.Equal(new TimeSpan(23, 59, 59), ((TimeRangeCustomField)updatedDeal.CustomFields["9ef10a2bcd8d149ddd0a64988762dc5a080a9230"]).EndTime);
-                Assert.Equal(0, ((TimeRangeCustomField)updatedDeal.CustomFields["9ef10a2bcd8d149ddd0a64988762dc5a080a9230"]).TimezoneId);
+                Assert.Equal(new TimeSpan(0, 0, 0), ((TimeRangeCustomField)updatedDeal.CustomFields["9ef10a2bcd8d149ddd0a64988762dc5a080a9230"]).TimezoneId);
                 Assert.Equal("value", ((AddressCustomField)updatedDeal.CustomFields["2008db4fe093862089023b01ad80feabac24d7d0"]).Value);
                 Assert.Equal("0606060606", ((StringCustomField)updatedDeal.CustomFields["8a1cf3eacd582191a48730b5d953daa877c0ebe7"]).Value);
                 Assert.Equal("4", ((StringCustomField)updatedDeal.CustomFields["796428c82dfc3595032a4330238aa06d354db5da"]).Value);
