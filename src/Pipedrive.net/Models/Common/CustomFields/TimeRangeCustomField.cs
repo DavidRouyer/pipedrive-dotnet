@@ -8,9 +8,9 @@ namespace Pipedrive.CustomFields
 
         public TimeSpan EndTime { get; set; }
 
-        public int TimezoneId { get; set; }
+        public TimeSpan TimezoneId { get; set; }
 
-        public TimeRangeCustomField(TimeSpan startTime, TimeSpan endTime, int timezoneId)
+        public TimeRangeCustomField(TimeSpan startTime, TimeSpan endTime, TimeSpan timezoneId)
         {
             StartTime = startTime;
             EndTime = endTime;
