@@ -101,6 +101,9 @@ namespace Pipedrive
         [JsonProperty("visible_to")]
         public Visibility VisibleTo { get; set; }
 
+        [JsonProperty("marketing_status")]
+        public MarketingStatus? MarketingStatus { get; set; }
+
         [JsonProperty("picture_id")]
         public TPicture PictureId { get; set; }
 
