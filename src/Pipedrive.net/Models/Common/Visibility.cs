@@ -3,7 +3,8 @@
     public enum Visibility
     {
         @private = 1,
-        shared = 3,
+        ownerVisibilityGroup = 3,
+        ownerVisibilityGroupAndSubgroups = 5,
         entireCompany = 7
     }
 }
