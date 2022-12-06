@@ -127,12 +127,12 @@ namespace Pipedrive.Tests.Integration.Clients
 
                 var editOrganization = organization.ToUpdate();
                 editOrganization.Name = "updated-name";
-                editOrganization.VisibleTo = Visibility.shared;
+                editOrganization.VisibleTo = Visibility.ownerVisibilityGroup;
 
                 var updatedOrganization = await fixture.Edit(organization.Id, editOrganization);
 
                 Assert.Equal("updated-name", updatedOrganization.Name);
-                Assert.Equal(Visibility.shared, updatedOrganization.VisibleTo);
+                Assert.Equal(Visibility.ownerVisibilityGroup, updatedOrganization.VisibleTo);
 
                 // Cleanup
                 await fixture.Delete(updatedOrganization.Id);

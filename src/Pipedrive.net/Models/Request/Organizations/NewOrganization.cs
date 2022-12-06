@@ -13,7 +13,7 @@ namespace Pipedrive
         public long OwnerId { get; set; }
 
         [JsonProperty("visible_to")]
-        public Visibility VisibleTo { get; set; } = Visibility.shared;
+        public Visibility VisibleTo { get; set; } = Visibility.ownerVisibilityGroup;
 
         [JsonProperty("add_time")]
         public DateTime? AddTime { get; set; }
