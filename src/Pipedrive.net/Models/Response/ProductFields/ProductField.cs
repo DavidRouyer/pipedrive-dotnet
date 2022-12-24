@@ -12,7 +12,7 @@ namespace Pipedrive
 
         public string Name { get; set; }
 
-        public long OrderNr { get; set; }
+        public long? OrderNr { get; set; }
 
         [JsonProperty("field_type")]
         public FieldType FieldType { get; set; }
@@ -24,40 +24,40 @@ namespace Pipedrive
         public DateTime? UpdateTime { get; set; }
 
         [JsonProperty("active_flag")]
-        public bool ActiveFlag { get; set; }
+        public bool? ActiveFlag { get; set; }
 
         [JsonProperty("edit_flag")]
-        public bool EditFlag { get; set; }
+        public bool? EditFlag { get; set; }
 
         [JsonProperty("index_visible_flag")]
-        public bool IndexVisibleFlag { get; set; }
+        public bool? IndexVisibleFlag { get; set; }
 
         [JsonProperty("details_visible_flag")]
-        public bool DetailsVisibleFlag { get; set; }
+        public bool? DetailsVisibleFlag { get; set; }
 
         [JsonProperty("add_visible_flag")]
-        public bool AddVisibleFlag { get; set; }
+        public bool? AddVisibleFlag { get; set; }
 
         [JsonProperty("important_flag")]
-        public bool ImportantFlag { get; set; }
+        public bool? ImportantFlag { get; set; }
 
         [JsonProperty("bulk_edit_allowed")]
-        public bool BulkEditAllowed { get; set; }
+        public bool? BulkEditAllowed { get; set; }
 
         [JsonProperty("searchable_flag")]
-        public bool SearchableFlag { get; set; }
+        public bool? SearchableFlag { get; set; }
 
         [JsonProperty("filtering_allowed")]
-        public bool FilteringAllowed { get; set; }
+        public bool? FilteringAllowed { get; set; }
 
         [JsonProperty("sortable_flag")]
-        public bool SortableFlag { get; set; }
+        public bool? SortableFlag { get; set; }
 
         [JsonProperty("options")]
         public IReadOnlyList<Option> Options { get; set; }
 
         [JsonProperty("mandatory_flag")]
-        public bool MandatoryFlag { get; set; }
+        public bool? MandatoryFlag { get; set; }
 
         public ProductFieldUpdate ToUpdate()
         {
