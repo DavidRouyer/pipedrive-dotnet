@@ -6,7 +6,7 @@ using Pipedrive.Internal;
 
 namespace Pipedrive
 {
-    [JsonConverter(typeof(CustomFieldConverter))]
+    [JsonConverter(typeof(CustomFieldConverter), NullValueHandling.Ignore)]
     public class DealUpdate : IEntityWithCustomFields
     {
         [JsonProperty("title")]
@@ -41,7 +41,7 @@ namespace Pipedrive
         public string LostReason { get; set; }
 
         [JsonProperty("visible_to")]
-        public Visibility VisibleTo { get; set; }
+        public Visibility? VisibleTo { get; set; }
 
         [JsonProperty("add_time")]
         public DateTime? AddTime { get; set; }

@@ -11,6 +11,17 @@ namespace Pipedrive.Internal
 {
     public class CustomFieldConverter : JsonConverter
     {
+        private readonly NullValueHandling? _nullValueHandling;
+
+        public CustomFieldConverter()
+        {
+        }
+
+        public CustomFieldConverter(NullValueHandling nullValueHandling)
+        {
+            _nullValueHandling = nullValueHandling;
+        }
+
         public override bool CanConvert(Type objectType)
         {
             return typeof(IEntityWithCustomFields).IsAssignableFrom(objectType);
@@ -178,8 +189,12 @@ namespace Pipedrive.Internal
                 if (property.Ignored) continue;
                 if (!ShouldSerialize(property, value)) continue;
 
-                var property_name = property.PropertyName;
                 var property_value = property.ValueProvider.GetValue(value);
+
+                if (property.NullValueHandling == NullValueHandling.Ignore && property_value == null) continue;
+                if (_nullValueHandling == NullValueHandling.Ignore && property_value == null) continue;
+
+                var property_name = property.PropertyName;
 
                 writer.WritePropertyName(property_name);
                 if (property.Converter != null && property.Converter.CanWrite)
