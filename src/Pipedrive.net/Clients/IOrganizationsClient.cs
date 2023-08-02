@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pipedrive.Models.Request.Recents;
+using Pipedrive.Models.Response.Recents;
 
 namespace Pipedrive
 {
@@ -43,5 +45,6 @@ namespace Pipedrive
         Task<IReadOnlyList<File>> GetFiles(long id, OrganizationFileFilters filters);
 
         Task<IReadOnlyList<EntityUpdateFlow>> GetUpdates(long dealId, OrganizationUpdateFilters filters);
+        Task<IReadOnlyList<Recents<WebhookOrganization>>> GetRecent(RecentFilters filters);
     }
 }
