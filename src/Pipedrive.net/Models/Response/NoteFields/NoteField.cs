@@ -14,15 +14,15 @@ namespace Pipedrive
         public string FieldType { get; set; }
 
         [JsonProperty("active_flag")]
-        public bool ActiveFlag { get; set; }
+        public bool? ActiveFlag { get; set; }
 
         [JsonProperty("edit_flag")]
-        public bool EditFlag { get; set; }
+        public bool? EditFlag { get; set; }
 
         [JsonProperty("bulk_edit_allowed")]
-        public bool BulkEditAllowed { get; set; }
+        public bool? BulkEditAllowed { get; set; }
 
         [JsonProperty("mandatory_flag")]
-        public bool MantatoryFlag { get; set; }
+        public bool? MantatoryFlag { get; set; }
     }
 }
