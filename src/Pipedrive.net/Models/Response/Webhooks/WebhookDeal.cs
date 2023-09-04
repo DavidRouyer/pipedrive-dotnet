@@ -20,6 +20,7 @@ namespace Pipedrive
                 UserId = UserId,
                 PersonId = PersonId,
                 OrgId = OrgId,
+                PipelineId = PipelineId,
                 StageId = StageId,
                 Status = Status,
                 Probability = Probability,
