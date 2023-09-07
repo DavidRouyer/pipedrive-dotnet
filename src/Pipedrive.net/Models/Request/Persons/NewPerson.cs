@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
@@ -26,6 +26,9 @@ namespace Pipedrive
 
         [JsonProperty("add_time")]
         public DateTime? AddTime { get; set; }
+
+	[JsonProperty("label")]
+        public long? Label { get; set; }	
 
         [JsonIgnore]
         public IDictionary<string, ICustomField> CustomFields { get; set; } = new Dictionary<string, ICustomField>();
