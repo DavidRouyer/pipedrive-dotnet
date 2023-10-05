@@ -728,7 +728,8 @@ namespace Pipedrive.Tests.Integration.Clients
             {
                 var newDealProduct = new NewDealProduct(1, 10, 30)
                 {
-                    DiscountPercentage = 55,
+                    Discount = 55,
+                    DiscountType = "percentage",
                     EnabledFlag = true
                 };
 
@@ -742,7 +743,8 @@ namespace Pipedrive.Tests.Integration.Clients
                 Assert.Equal(10, dealProduct.ItemPrice);
                 Assert.Equal(30, dealProduct.Quantity);
                 Assert.Equal(135, dealProduct.Sum);
-                Assert.Equal(55, dealProduct.DiscountPercentage);
+                Assert.Equal(55, dealProduct.Discount);
+                Assert.Equal("percentage", dealProduct.DiscountType);
 
                 // Cleanup
                 await fixture.DeleteProduct(1, dealProduct.ProductAttachmentId.Value);
@@ -764,7 +766,8 @@ namespace Pipedrive.Tests.Integration.Clients
                     ItemPrice = 44,
                     Quantity = 1,
                     Duration = 1,
-                    DiscountPercentage = 11
+                    Discount = 11,
+                    DiscountType = "percentage"
                 };
 
                 var updatedDealProduct = await fixture.UpdateProduct(1, createdDealProduct.ProductAttachmentId.Value, dealProductUpdate);
