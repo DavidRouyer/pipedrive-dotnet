@@ -23,8 +23,11 @@ namespace Pipedrive
         [JsonProperty("item_price")]
         public decimal ItemPrice { get; set; }
 
-        [JsonProperty("discount_percentage")]
-        public decimal DiscountPercentage { get; set; }
+        [JsonProperty("discount")]
+        public decimal Discount { get; set; }
+
+        [JsonProperty("discount_type")]
+        public string DiscountType { get; set; }
 
         [JsonProperty("duration")]
         public long Duration { get; set; }
