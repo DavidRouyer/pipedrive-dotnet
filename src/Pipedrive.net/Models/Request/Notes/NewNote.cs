@@ -25,6 +25,9 @@ namespace Pipedrive
         [JsonProperty("pinned_to_person_flag")]
         public bool PinnedToPersonFlag { get; set; }
 
+        [JsonProperty("lead_id")]
+        public string LeadId { get; set; }
+
         public NewNote(string content)
         {
             Content = content;

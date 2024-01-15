@@ -25,6 +25,9 @@ namespace Pipedrive
         [JsonProperty("note_id")]
         public long? NoteId { get; set; }
 
+        [JsonProperty("lead_id")]
+        public string LeadId { get; set; }
+
         public NewFile(RawFile file)
         {
             this.File = file;
