@@ -25,6 +25,9 @@ namespace Pipedrive
         [JsonProperty("visible_to")]
         public Visibility VisibleTo { get; set; }
 
+        [JsonProperty("marketing_status")]
+        public string MarketingStatus { get; set; }
+
         [JsonIgnore]
         public IDictionary<string, ICustomField> CustomFields { get; set; }
     }

@@ -13,5 +13,10 @@ namespace Pipedrive.CustomFields
             Value = value;
             TimezoneId = timezoneId;
         }
+
+        public override string ToString()
+        {
+            return Value.ToString();
+        }
     }
 }

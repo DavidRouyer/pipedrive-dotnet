@@ -21,7 +21,8 @@ namespace Pipedrive
                 OrgId = OrgId?.Value,
                 OwnerId = OwnerId?.Value,
                 VisibleTo = VisibleTo,
-                CustomFields = CustomFields
+                CustomFields = CustomFields,
+                MarketingStatus = MarketingStatus
             };
         }
     }
