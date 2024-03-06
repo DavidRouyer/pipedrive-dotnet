@@ -10,28 +10,29 @@ namespace Pipedrive
         [JsonProperty("title")]
         public string Title { get; set; }
 
-        [JsonProperty("owner_id")]
-        public long OwnerId { get; set; }
+        [JsonProperty("owner_id", NullValueHandling = NullValueHandling.Ignore)]
+        public long? OwnerId { get; set; }
 
-        [JsonProperty("label_ids")]
+        [JsonProperty("label_ids", NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<Guid> LabelIds { get; set; }
 
-        [JsonProperty("person_id")]
-        public long PersonId { get; set; }
+        [JsonProperty("person_id", NullValueHandling = NullValueHandling.Ignore)]
+        public long? PersonId { get; set; }
 
-        [JsonProperty("person_id")]
-        public long OrganizationId { get; set; }
+        [JsonProperty("organization_id", NullValueHandling = NullValueHandling.Ignore)]
+        public long? OrganizationId { get; set; }
 
+        [JsonProperty("value", NullValueHandling = NullValueHandling.Ignore)]
         public CurrencyAmount Value { get; set; }
 
-        [JsonProperty("expected_close_date")]
+        [JsonProperty("expected_close_date", NullValueHandling = NullValueHandling.Ignore)]
         public DateTime? ExpectedCloseDate { get; set; }
 
-        [JsonProperty("visible_to")]
-        public Visibility VisibleTo { get; set; } = Visibility.ownerVisibilityGroup;
+        [JsonProperty("visible_to", NullValueHandling = NullValueHandling.Ignore)]
+        public Visibility? VisibleTo { get; set; }
 
-        [JsonProperty("was_seen")]
-        public bool WasSeen { get; set; }
+        [JsonProperty("was_seen", NullValueHandling = NullValueHandling.Ignore)]
+        public bool? WasSeen { get; set; }
 
         [JsonIgnore]
         public IDictionary<string, ICustomField> CustomFields { get; set; } = new Dictionary<string, ICustomField>();

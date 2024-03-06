@@ -21,7 +21,7 @@ namespace Pipedrive
         public List<Guid> LabelIds { get; set; }
 
         [JsonProperty("person_id")]
-        public long PersonId { get; set; }
+        public long? PersonId { get; set; }
 
         [JsonProperty("organization_id")]
         public long? OrganizationId { get; set; }

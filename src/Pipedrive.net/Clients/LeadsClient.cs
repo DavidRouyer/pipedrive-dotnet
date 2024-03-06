@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Pipedrive.Helpers;
 
 namespace Pipedrive
@@ -44,7 +45,7 @@ namespace Pipedrive
         {
             Ensure.ArgumentNotNull(data, nameof(data));
 
-            return ApiConnection.Post<LeadCreated>(ApiUrls.Leads(), data);
+            return ApiConnection.Post<LeadCreated>(ApiUrls.Leads(), JObject.FromObject(data));
         }
     }
 }
