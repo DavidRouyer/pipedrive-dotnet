@@ -123,7 +123,7 @@ You can debug this library right from your application by configuring the [NuGet
 - [ ] Leads
   - [x] getLeads
   - [x] getLead
-  - [ ] addLead
+  - [x] addLead
   - [ ] deleteLead
   - [ ] updateLead
 
