@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using Pipedrive.Helpers;
 
 namespace Pipedrive
@@ -38,6 +39,13 @@ namespace Pipedrive
         public Task<Lead> Get(Guid id)
         {
             return ApiConnection.Get<Lead>(ApiUrls.Lead(id));
+        }
+
+        public Task<LeadCreated> Create(NewLead data)
+        {
+            Ensure.ArgumentNotNull(data, nameof(data));
+
+            return ApiConnection.Post<LeadCreated>(ApiUrls.Leads(), JObject.FromObject(data));
         }
     }
 }

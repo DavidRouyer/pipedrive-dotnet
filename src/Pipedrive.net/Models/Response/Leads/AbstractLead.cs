@@ -20,27 +20,25 @@ namespace Pipedrive
         [JsonProperty("label_ids")]
         public List<Guid> LabelIds { get; set; }
 
-        public CurrencyAmount Value { get; set; }
-
-        [JsonProperty("expected_close_date")]
-        public DateTime? ExpectedCloseDate { get; set; }
-
-        public string Note { get; set; }
-
         [JsonProperty("person_id")]
-        public long PersonId { get; set; }
+        public long? PersonId { get; set; }
 
         [JsonProperty("organization_id")]
         public long? OrganizationId { get; set; }
 
-        [JsonProperty("is_archived")]
-        public bool IsArchived { get; set; }
-
         [JsonProperty("source_name")]
         public string SourceName { get; set; }
 
+        [JsonProperty("is_archived")]
+        public bool IsArchived { get; set; }
+
         [JsonProperty("was_seen")]
         public bool WasSeen { get; set; }
+
+        public CurrencyAmount Value { get; set; }
+
+        [JsonProperty("expected_close_date")]
+        public DateTime? ExpectedCloseDate { get; set; }
 
         [JsonProperty("next_activity_id")]
         public long? NextActivityId { get; set; }
@@ -50,5 +48,11 @@ namespace Pipedrive
 
         [JsonProperty("update_time")]
         public DateTime? UpdateTime { get; set; }
+
+        [JsonProperty("visible_to")]
+        public string VisibleTo { get; set; }
+
+        [JsonProperty("cc_email")]
+        public string CcEmail { get; set; }
     }
 }
