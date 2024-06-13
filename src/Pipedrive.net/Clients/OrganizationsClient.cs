@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pipedrive.Helpers;
+using Pipedrive.Models.Request.Recents;
+using Pipedrive.Models.Response.Recents;
 
 namespace Pipedrive
 {
@@ -223,6 +225,21 @@ namespace Pipedrive
             };
 
             return ApiConnection.GetAll<EntityUpdateFlow>(ApiUrls.OrganizationUpdates(id), parameters, options);
+        }
+
+        public Task<IReadOnlyList<Recents<WebhookOrganization>>> GetRecent(RecentFilters filters)
+        {
+            Ensure.ArgumentNotNull(filters, nameof(filters));
+            filters.RecentItems = new List<RecentItem> { RecentItem.organization };
+            var parameters = filters.Parameters; 
+            var options = new ApiOptions
+            {
+                StartPage = filters.StartPage,
+                PageCount = filters.PageCount,
+                PageSize = filters.PageSize
+            };
+
+            return ApiConnection.GetAll<Recents<WebhookOrganization>>(ApiUrls.Recents(), parameters, options);
         }
     }
 }
