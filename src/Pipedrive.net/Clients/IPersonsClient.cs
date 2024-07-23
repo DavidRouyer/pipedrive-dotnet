@@ -14,7 +14,7 @@ namespace Pipedrive
 
         Task<IReadOnlyList<Person>> GetAllForUserId(long userId, PersonFilters filters);
 
-        Task<IReadOnlyList<SearchResult<SimplePerson>>> Search(string name, PersonSearchFilters filters);
+        Task<IReadOnlyList<SearchResult<SimplePerson>>> Search(string term, PersonSearchFilters filters);
 
         Task<Person> Get(long id);
 
