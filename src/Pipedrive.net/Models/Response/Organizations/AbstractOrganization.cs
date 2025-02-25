@@ -8,7 +8,7 @@ namespace Pipedrive
         public long Id { get; set; }
 
         [JsonProperty("company_id")]
-        public long CompanyId { get; set; }
+        public long? CompanyId { get; set; }
 
         [JsonProperty("owner_id")]
         public TUser OwnerId { get; set; }
