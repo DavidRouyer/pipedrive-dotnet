@@ -81,6 +81,11 @@ namespace Pipedrive
                 content.Add(new StringContent(data.NoteId.ToString()), "note_id");
             }
 
+            if (!string.IsNullOrEmpty(data.LeadId))
+            {
+                content.Add(new StringContent(data.LeadId), "lead_id");
+            }
+
             return await ApiConnection.Post<File>(ApiUrls.Files(), content, "application/json", "multipart/form-data");
         }
 

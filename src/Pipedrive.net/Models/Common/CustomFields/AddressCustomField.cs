@@ -49,5 +49,10 @@
             PostalCode = postalCode;
             FormattedAddress = formattedAddress;
         }
+
+        public override string ToString()
+        {
+            return FormattedAddress;
+        }
     }
 }

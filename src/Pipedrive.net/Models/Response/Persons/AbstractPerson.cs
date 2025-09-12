@@ -142,5 +142,8 @@ namespace Pipedrive
 
         [JsonProperty("cc_email")]
         public string CcEmail { get; set; }
+
+        [JsonProperty("marketing_status")]
+        public string MarketingStatus { get; set; }
     }
 }

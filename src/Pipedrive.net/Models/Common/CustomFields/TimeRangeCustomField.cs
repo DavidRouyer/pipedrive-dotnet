@@ -16,5 +16,10 @@ namespace Pipedrive.CustomFields
             EndTime = endTime;
             TimezoneId = timezoneId;
         }
+
+        public override string ToString()
+        {
+            return $"{StartTime} to {EndTime}";
+        }
     }
 }

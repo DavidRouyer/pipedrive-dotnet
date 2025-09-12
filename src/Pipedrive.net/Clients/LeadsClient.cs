@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Pipedrive.Helpers;
+using Pipedrive.Models.Response.Leads;
 
 namespace Pipedrive
 {
@@ -38,6 +39,11 @@ namespace Pipedrive
         public Task<Lead> Get(Guid id)
         {
             return ApiConnection.Get<Lead>(ApiUrls.Lead(id));
+        }
+
+        public Task<Lead> Create(NewLead newLead)
+        {
+            return ApiConnection.Post<Lead>(ApiUrls.Leads(), newLead);
         }
     }
 }

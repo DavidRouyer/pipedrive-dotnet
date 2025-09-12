@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Pipedrive.Models.Response.Leads;
 
 namespace Pipedrive
 {
@@ -14,5 +15,7 @@ namespace Pipedrive
         Task<IReadOnlyList<Lead>> GetAll(LeadFilters filters);
 
         Task<Lead> Get(Guid id);
+
+        Task<Lead> Create(NewLead newLead);
     }
 }

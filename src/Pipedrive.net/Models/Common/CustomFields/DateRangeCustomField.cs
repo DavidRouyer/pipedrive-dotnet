@@ -13,5 +13,12 @@ namespace Pipedrive.CustomFields
             StartDate = startDate;
             EndDate = endDate;
         }
+
+        public override string ToString()
+        {
+            string startDateString = StartDate.HasValue ? StartDate.Value.ToString() : "-";
+            string endDateString = EndDate.HasValue ? EndDate.Value.ToString() : "-";
+            return $"{startDateString} to {endDateString}";
+        }
     }
 }
