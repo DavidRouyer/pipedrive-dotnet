@@ -83,5 +83,11 @@ namespace Pipedrive.Models.Response.Leads
         [JsonIgnore]
         [JsonProperty("update_time")]
         public DateTime? UpdateTime { get; set; }
+
+        [JsonProperty("channel")]
+        public int channel { get; set; }
+
+        [JsonProperty("channel_id")]
+        public string channel_id { get; set; }
     }
 }
